@@ -1,0 +1,136 @@
+﻿
+body {
+    font-family: "Roboto",Arial, helvetica neue, Helvetica, sans-serif;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.user-profile .hovercard .cardheader {
+    background-size: cover;
+    background-position: 10%;
+    height: 100px;
+    background-color: #084f8d
+}
+
+.user-designation {
+    margin-bottom: 15px;
+    padding: 10px 0px;
+}
+
+.user-profile .hovercard .user-image .avatar {
+    margin-bottom: -80px;
+}
+
+.user-profile .hovercard .info .title {
+    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 1;
+    color: #2c323f;
+    vertical-align: middle;
+    margin-top: 15px;
+}
+
+.user-profile .hovercard .user-image {
+    position: relative;
+    height: 0;
+    margin-right: 5px;
+}
+
+    .user-profile .hovercard .user-image .icon-wrapper {
+        position: absolute;
+        bottom: -20px;
+        left: 51%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        background-color: #fff;
+        cursor: pointer;
+        overflow: hidden;
+        margin: 0 auto;
+        font-size: 17px;
+        -webkit-box-shadow: 0 0 6px 3px rgba(68, 102, 242, 0.1);
+        box-shadow: 0 0 6px 3px rgba(68, 102, 242, 0.1);
+    }
+
+    .user-profile .hovercard .user-image .avatar img {
+        width: 100px;
+        height: 100px;
+        max-width: 155px;
+        max-height: 155px;
+        border-radius: 50%;
+        border: 7px solid #fff;
+    }
+
+.camera {
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.box-info {
+    border-bottom: 1px solid #f4f4f4;
+    width: 100%;
+}
+
+.fa-pencil {
+    color: #4483c5;
+}
+
+.desc {
+    color: #4483c5;
+}
+/*.description {
+    max-height: calc(1.2em * 3); 
+    overflow: hidden;
+    display: -webkit-box; 
+    display: -webkit-flex; 
+    display: flex;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    color: #000;
+    margin-top: 5px; 
+    font-size: 14px; 
+    padding: 3px; 
+    align-items: center;
+    justify-content: center;
+    text-align: center; 
+}*/
+  /*  .description h5 {
+        margin-left: 8px;
+        margin-right: 8px;
+    }*/
+.description {
+    overflow-y: auto;
+    max-height: 150px;
+    text-align: left;
+}
+.description p {
+    font-size: 11px;
+}
+h5 span{
+    font-size: 13px;
+}
+h5 small {
+    font-size: 11px;
+}
+textarea {
+    width: 100%;
+    border: none;
+}
+.text-custom {
+    white-space: pre-line;
+}

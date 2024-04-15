@@ -1,0 +1,25 @@
+﻿@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/" + NavigationUrlConsts.ThongTinDuHoc)]
+<Virtualize @ref="ArticlesContainer" Context="articles" ItemsProvider="@LoadArticles" ItemSize="100">
+    <a href="javascript:;" @onclick="(() => ViewArticle(articles))">
+        <div class="card article">
+            <div class="d-flex">
+                <div>
+                    <img class="card-img-top" src="@articles.PrimaryImageUrl" />
+                </div>
+                <div class="ms-3">
+                    <div class="title">
+                        <h4>@articles.Title</h4>
+                    </div>
+                    <div class="author">
+                        <span>@articles.Author</span>
+                    </div>
+                    <div class="short-desc">
+                        <span>@articles.ShortDesc</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</Virtualize>

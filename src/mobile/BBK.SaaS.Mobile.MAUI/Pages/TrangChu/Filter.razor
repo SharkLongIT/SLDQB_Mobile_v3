@@ -1,0 +1,94 @@
+﻿@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/" + NavigationUrlConsts.Filter)]
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+@* <div class="header">
+    <a href="/TrangChu">
+        <span class="material-icons left-icon">
+            arrow_back
+        </span>
+    </a>
+    <div class="search-container ml-3">
+        <span class="material-icons search-icon">
+            search
+        </span>
+        <input style="border-color:green" type="search" @oninput="selectedValue" placeholder="Vị trí tuyển dụng" />
+    </div>
+    <span class=" search-text" @onclick="RefeshList">Tìm kiếm</span>
+</div>
+<div class="d-select d-flex mt-3">
+
+    <div class="search-select">
+        <Virtualize @ref="GeoUnitContainer" Context="geounit" ItemsProvider="@LoadGeoUnit" ItemSize="1">
+            <select class="cus-select" @bind="_filtered.WorkSiteId">
+                <option value="0" selected>Tất cả địa điểm</option>
+
+                @foreach (var item in WorkSite)
+                {
+                    <option value="@item.Id">@item.DisplayName</option>
+                }
+
+            </select>
+        </Virtualize>
+    </div>
+    <div class="search-select ml-2">
+        <Virtualize @ref="CatFilterListContainer" Context="cat" ItemsProvider="@LoadFilter" ItemSize="100">
+            <select class="cus-select2" @bind="_filtered.Job">
+                <option value="0" selected>Tất cả ngành nghề</option>
+                @foreach (var item in Career)
+                {
+                    <option value="@item.Id">
+                        @item.DisplayName
+                    </option>
+
+                }
+            </select>
+        </Virtualize>
+    </div>
+</div>
+<div class="container mt-3 ">
+    <h5>Từ khoá gợi ý</h5>
+        <Virtualize @ref="RecruitmentContainer"  Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
+            <div class="mt-3 " @onclick="() => LoadFilterTitle(recruitment)">
+            <span style="text-transform: lowercase;">@recruitment.Title</span>
+            </div>
+            <hr />
+        </Virtualize>
+</div> *@
+<div class="search-page">
+
+    <div class="search-box search-header bg-theme card-style me-3 ms-3">
+        <i class="fa fa-search" @onclick="RefeshList"></i>
+        <input type="search" class="border-0" placeholder="Nhập vị trí tuyển dụng? " @oninput="selectedValue" data-search>
+        @* <a href="#" class="clear-search disabled mt-0"><i class="fa fa-times color-red-dark"></i></a> *@
+    </div>
+    <div class="search-trending card card-style">
+        <div class="content mb-2">
+            <h3>Tìm kiếm thịnh hành</h3>
+            <p class="font-11 mt-n2">Top từ khoá được tìm kiếm.</p>
+        </div>
+        <div class="list-group list-custom-small me-3 ms-3">
+            <Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
+                <div class="mt-3 " @onclick="() => LoadFilterTitle(recruitment)">
+                    <span class="font-400 color-blue-dark">@recruitment.Title</span>
+                    <i class="float-end color-gray-dark fa fa-angle-right"></i>
+                </div>
+                <hr />
+            </Virtualize>
+        </div>
+    </div>
+</div>

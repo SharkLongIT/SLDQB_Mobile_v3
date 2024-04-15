@@ -1,0 +1,215 @@
+﻿@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/" + NavigationUrlConsts.InforNTD)]
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+@if (Model != null && Model.Recruiter != null && Model.User != null)
+{
+    <body>
+        <div class="user-profile">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card hovercard text-center">
+                        <div class="cardheader"></div>
+                        <div class="user-image">
+                            <div class="avatar" style="margin-top:-80px;"><img src="@_userImage" width="70px" height="70px" style="border-radius: 50%"></div>
+
+                            <div class="icon-wrapper"><i class="icofont icofont-pencil-alt-5"></i></div>
+                            <div class="icon-wrapper"> <i class="fa fa-camera camera" aria-hidden="true" @onclick="ChangeAvatar"></i></div>
+                        </div>
+                        <div class="info">
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-4 order-sm-0 order-xl-1">
+                                    <div class="user-designation">
+                                        <div class="title">@Model.User.Name</div>
+                                        <div class="desc"><a @onclick="EditRecruiter"><i class="fa fa-pencil me-1" aria-hidden="true"></i>Cập nhật thông tin</a></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-4 order-sm-2 order-xl-2">
+                                    <div>
+                                        <div class="d-flex">
+                                            <div class="mr-auto p-2 ms-2"><h5>THÔNG TIN</h5></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="d-flex me-2 mb-3 box-info">
+                                            <div class="p-2 ms-4">
+                                                <h5><span class="fw-600"><i class="fa fa-envelope" aria-hidden="true"></i></span></h5>
+                                            </div>
+                                            <div class="p-2">
+                                                <h5><span class="fw-600">Email</span></h5>
+                                            </div>
+                                            <div class="ml-auto p-2 me-4"><h5><small>@Model.User.EmailAddress</small></h5></div>
+                                        </div>
+                                        <div class="d-flex me-2  mb-3 box-info">
+                                            <div class="p-2 ms-4">
+                                                <h5><span class="fw-600"><i class="fa fa-phone" aria-hidden="true"></i></span></h5>
+                                            </div>
+                                            <div class="p-2">
+                                                <h5><span class="fw-600">Số điện thoại</span></h5>
+                                            </div>
+                                            <div class="ml-auto p-2 me-4"><h5><small>@Model.Recruiter.ContactPhone</small></h5></div>
+                                        </div>
+                                        <div class="d-flex me-2  mb-3 box-info">
+                                            <div class="p-2 ms-4">
+                                                <h5><span class="fw-600"><i class="fa fa-address-card" aria-hidden="true"></i></span></h5>
+                                            </div>
+                                            <div class="p-2">
+                                                <h5><span class="fw-600">Tên công ty</span></h5>
+                                            </div>
+                                            <div class="ml-auto p-2 me-4"><h5><small>@Model.Recruiter.CompanyName</small></h5></div>
+                                        </div>
+                                        <div class="d-flex me-2  mb-3 box-info">
+                                            <div class="p-2 ms-4">
+                                                <h5><span class="fw-600"><i class="fa fa-suitcase" aria-hidden="true"></i></span></h5>
+                                            </div>
+                                            <div class="p-2">
+                                                <h5><span class="fw-600">Lĩnh vực hoạt động</span></h5>
+                                            </div>
+                                            <div class="ml-auto p-2 me-4"><h5><small>@Model.SphereOfActivityName</small></h5></div>
+                                        </div>
+                                        <div class="d-flex me-2  mb-3 box-info">
+                                            <div class="p-2 ms-4">
+                                                <h5><span class="fw-600"><i class="fa fa-users" aria-hidden="true"></i></span></h5>
+                                            </div>
+                                            <div class="p-2">
+                                                <h5><span class="fw-600">Quy mô nhân sự</span></h5>
+                                            </div>
+                                            <div class="ml-auto p-2 me-4"><h5><small>@Model.HumanResSizeCatName</small></h5></div>
+                                        </div>
+                                        <div class="me-2  mb-3 box-info">
+                                            <div class="d-flex">
+                                                <div class="p-2 ms-4">
+                                                    <h5><span class="fw-600"><i class="fa fa-map-marker" aria-hidden="true"></i></span></h5>
+                                                </div>
+                                                <div class="p-2">
+                                                    <h5><span class="fw-600">Địa chỉ</span></h5>
+                                                </div>
+                                            </div>
+                                            <div class="ml-auto p-2 me-4"><h5><small>@Model.Recruiter.Address, @Model.Village, @Model.District, @Model.Province</small></h5></div>
+                                        </div>
+                                        <div>
+                                            <div class="d-flex">
+                                                <div class="mr-auto p-2 ms-2"><h5>LIÊN HỆ</h5></div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex me-2 mb-3 box-info">
+                                            <div class="p-2 ms-4">
+                                                <h5><span class="fw-600"><i class="fa fa-envelope" aria-hidden="true"></i></span></h5>
+                                            </div>
+                                            <div class="p-2">
+                                                <h5><span class="fw-400">Email người liên hệ</span></h5>
+                                            </div>
+                                            <div class="ml-auto p-2 me-4"><h5><small>@Model.Recruiter.ContactEmail</small></h5></div>
+                                        </div>
+                                        <div class="d-flex me-2 mb-3 box-info">
+                                            <div class="p-2 ms-4">
+                                                <h5><span class="fw-600"><i class="fa fa-user" aria-hidden="true"></i></span></h5>
+                                            </div>
+                                            <div class="p-2">
+                                                <h5><span class="fw-600">Tên người liên hệ</span></h5>
+                                            </div>
+                                            <div class="ml-auto p-2 me-4"><h5><small>@Model.Recruiter.ContactName</small></h5></div>
+                                        </div>
+                                        <div>
+                                            <div class="d-flex">
+                                                <div class="mr-auto p-2 ms-2"><h5>KHÁC</h5></div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex me-2 mb-3 box-info">
+                                            <div class="p-2 ms-4">
+                                                <h5><span class="fw-600"><i class="fa fa-link" aria-hidden="true"></i></span></h5>
+                                            </div>
+                                            <div class="p-2">
+                                                <h5><span class="fw-600">Website</span></h5>
+                                            </div>
+                                            <div class="ml-auto p-2 me-4"><h5><small>@Model.Recruiter.WebSite</small></h5></div>
+                                        </div>
+                                        <div class="d-flex me-2 mb-3 box-info">
+                                            <div class="p-2 ms-4">
+                                                <h5><span class="fw-600"><i class="fa fa-credit-card-alt" aria-hidden="true"></i></span></h5>
+                                            </div>
+                                            <div class="p-2">
+                                                <h5><span class="fw-600">Mã số thuế</span></h5>
+                                            </div>
+                                            <div class="ml-auto p-2 me-4"><h5><small>@Model.Recruiter.TaxCode</small></h5></div>
+                                        </div>
+                                        <div class="d-flex me-2 mb-3 box-info">
+                                            <div class="p-2 ms-4">
+                                                <h5><span class="fw-600"><i class="fa fa-calendar" aria-hidden="true"></i></span></h5>
+                                            </div>
+                                            <div class="p-2">
+                                                <h5><span class="fw-600">Ngày thành lập</span></h5>
+                                            </div>
+                                            <div class="ml-auto p-2 me-4"><h5><small>@date.ToShortDateString()</small></h5></div>
+                                        </div>
+                                        <div class=" me-2 mb-3 box-info" >
+                                            <div class="d-flex" @onclick='ChangeDes'>
+                                                <div class="p-2 ms-4">
+                                                    <h5><span class="fw-600"><i class="fa fa-list-alt" aria-hidden="true"></i></span></h5>
+                                                </div>
+                                                <div class="p-2">
+                                                    <h5><span class="fw-600">Mô tả</span></h5>
+                                                </div>
+                                                @if(IsShowDes == false)
+                                                {
+                                                    <div class="ml-auto p-2 me-4"><h5><small>@Description <i class="fa fa-angle-down" aria-hidden="true"></i></small></h5> </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="ml-auto p-2 me-4"><h5><small><i class="fa fa-angle-up" aria-hidden="true"></i></small></h5> </div>
+                                                }
+                                            </div>
+                                            @if(IsShowDes == true)
+                                            {
+                                                <div class="text-custom ms-4  p-2 me-4 text-left"><h5><small>@Model.Recruiter.Description</small></h5></div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+}
+else
+{
+    <div>
+        <p>Đang tải...</p>
+    </div>
+
+}
+<UpdateInforNTDModal OnSave="RefreshList" @ref="UpdateInforNTDModal"></UpdateInforNTDModal>
+@code {
+    private bool IsCardBodyVisible1 = true;
+    private bool IsCardBodyVisible2 = true;
+
+    private void ToggleCardBody1()
+    {
+        IsCardBodyVisible1 = !IsCardBodyVisible1;
+        StateHasChanged();
+    }
+    private void ToggleCardBody2()
+    {
+        IsCardBodyVisible2 = !IsCardBodyVisible2;
+        StateHasChanged();
+    }
+}
+

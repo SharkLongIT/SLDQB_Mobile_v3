@@ -1,0 +1,42 @@
+﻿@inherits ModalBase
+<div class="modal fade" id="@ModalId" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded">
+            <div class="modal-body scroll-y pt-10 pb-10">
+                <div class="btn btn-sm btn-icon btn-active-color-primary position-absolute" style="top:20px;right:20px" data-bs-dismiss="modal">
+                    <span class="svg-icon svg-icon-1">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
+                        </svg>
+                    </span>
+                </div>
+                <div class="mb-13">
+                    <h5 class="mb-3">@L("Chọn ngành nghề")</h5>
+                </div>
+                <div class="card shadow-sm p-0 m-0">
+                    <Virtualize @ref="CatFilterListContainer" Context="cat" ItemsProvider="@LoadFilter" ItemSize="100">
+                        <select required="required" class="form-control" @onchange="selectedValue">
+                            <option value="0" selected>Tất cả</option>
+                            @foreach (var item in Career)
+                            {
+
+                                <option value="@item.Id">
+                                    @item.DisplayName
+                                </option>
+
+                            }
+                        </select>
+                    </Virtualize>
+                </div>
+                @*  <div class="text-center mt-8">
+                <button type="reset" data-dismiss="modal" class="btn btn-light me-3" @onclick="Hide">@L("Đóng")</button>
+                <button type="button" class="btn btn-primary" @onclick="SaveBookJob">
+                <span class="indicator-label">@L("Save")</span>
+                </button>
+                </div> *@
+
+            </div>
+        </div>
+    </div>
+</div>

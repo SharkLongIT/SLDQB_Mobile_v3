@@ -1,0 +1,208 @@
+﻿@inherits ModalBase
+<div class="modal fade" id="@ModalId" tabindex="-1" aria-hidden="true" IsScrollable="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded">
+            <div class="modal-body scroll-y pt-10 pb-10">
+                <div class="mb-13 text-center">
+                    <h1 class="mb-3">@L("Cập nhật thông tin")</h1>
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Tên công ty")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" @bind="recruiterEditDto.CompanyName" />
+                </div>
+
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Tên người liên hệ")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" @bind="recruiterEditDto.ContactName" />
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Email người liên hệ")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" @bind="recruiterEditDto.ContactEmail" />
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Số điện thoại")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <input type="number" class="form-control form-control-solid" @bind="recruiterEditDto.ContactPhone" />
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Quy mô nhân sự")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <select required="required" class="form-control" @bind="@recruiterEditDto.HumanResSizeCatId">
+                        @if (catFilterLists != null)
+                        {
+                            @foreach (var item in catFilterLists.StaffSize)
+                            {
+                                <option value="@item.Id">
+                                    @item.DisplayName
+                                </option>
+                            }
+
+                        }
+                    </select>
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Lĩnh vực hoạt động")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <select required="required" class="form-control" @bind="@SphereOfActivityId">
+                        @if (catFilterLists != null)
+                        {
+                            @foreach (var item in catFilterLists.Career)
+                            {
+                                <option value="@item.Id">
+                                    @item.DisplayName
+                                </option>
+                            }
+
+                        }
+                    </select>
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span>
+                            @L("Website")
+                        </span>
+
+                    </label>
+                    <input type="text" class="form-control form-control-solid" @bind="recruiterEditDto.WebSite" />
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span>
+                            @L("Mã số thuế")
+                        </span>
+
+                    </label>
+                    <input type="text" class="form-control form-control-solid" @bind="recruiterEditDto.TaxCode" />
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span>
+                            @L("Ngày thành lập công ty")
+                        </span>
+                    </label>
+                    <input type="date" class="form-control form-control-solid" @bind="@DateOfEstablishment" />
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Tỉnh/Thành phố")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <select required="required" class="form-control" @onchange="selectedValue">
+                        @if (ListProvince != null && ListProvince.Count > 0)
+                        {
+                            @foreach (var item in ListProvince)
+                            {
+                                <option value="@item.Id">
+                                    @item.DisplayName
+                                </option>
+                            }
+
+                        }
+
+                    </select>
+
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Quận/huyện")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <select required="required" class="form-control" @onchange="changeDistrict">
+
+                        @if (ListDistrict != null && ListDistrict.Count > 0)
+                        {
+                            @foreach (var item in ListDistrict)
+                            {
+                                <option value="@item.Id">
+                                    @item.DisplayName
+                                </option>
+                            }
+                        }
+
+                    </select>
+
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Phường/Xã")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <select required="required" class="form-control" @bind="recruiterEditDto.VillageId">
+
+                        @if (ListVillage != null && ListVillage.Count > 0)
+                        {
+                            @foreach (var item in ListVillage)
+                            {
+                                <option value="@item.Id">
+                                    @item.DisplayName
+                                </option>
+                            }
+                        }
+
+                    </select>
+
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Địa chỉ")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" @bind="recruiterEditDto.Address" />
+                </div>
+
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span>
+                            @L("Mô tả")
+                        </span>
+
+                    </label>
+                    <textarea class="form-control" style="height:100px;" type="text" @bind="recruiterEditDto.Description"></textarea>
+                </div>
+
+            </div>
+            <div class="text-center mt-3 mb-3">
+                <button type="reset" data-dismiss="modal" class="btn btn-light me-3" @onclick="Hide">@L("Đóng")</button>
+                <button type="button" class="btn " style="background-color:#00b14f" @onclick="Save">
+                    <span class="indicator-label" style="color:white">@L("Lưu")</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

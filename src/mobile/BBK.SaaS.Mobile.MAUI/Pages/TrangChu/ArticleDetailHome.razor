@@ -1,0 +1,105 @@
+﻿@using Abp.UI;
+@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/ArticleDetailHome")]
+
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/test1.css">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+
+<div class="header d-flex">
+    <a class="nav-link" href="/TrangChu">
+        <p>
+            <strong>
+                Trang chủ
+            </strong>
+        </p>
+    </a>
+    <i class="fas fa-caret-right icon-right" aria-hidden="true"></i>
+    <p>
+        <i>
+            Chi tiết bài viết
+        </i>
+    </p>
+</div>
+<div class="body mt-5">
+    <div class="container">
+        <div class="row">
+            <!--Chi tiết bài viết-->
+            <img class="mb-3" src="@Model.PrimaryImageUrl" width="100%" height="250px" />
+            <div class="post-detail">
+                <h1>@Model.Title</h1>
+                <div class="user-img">
+                    <div>
+                        <div class="d-flex">
+                            <div>
+                                <span class="tacgia">
+                                    @Model.Author
+                                </span>
+                            </div>
+                            <div>
+
+                                <div class="d-flex">
+                                    <span class="ml-4 mt-1" style="font-size: 0.8rem">@Model.ViewedCount lượt xem</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <span style="font-size: 0.8rem"> @Model.LastModificationTime.ToString("dd/MM/yyyy HH:mm") </span>
+                        </div>
+                    </div>
+
+                </div>
+                <a class="view-detail btn btn-danger" href="javascript:;" @onclick="Introduce">
+                    Giới thiệu
+                </a>
+                <h2 class="mt-4">@Model.MetaDescription</h2>
+                <div class="body-sumernote mt-3">
+                    @htmlContent1
+                </div>
+            </div>
+
+            <!--Bài viết cùng chuyên mục-->
+            <div class="post-category mt-3">
+                <h1>BÀI VIẾT CÙNG CHUYÊN MỤC</h1>
+                <Virtualize @ref="ArticlesContainer" Context="articles" ItemsProvider="@LoadOtherArticles" ItemSize="92">
+                        <div class="row">
+                            <div class="post-item">
+                            @* <a href="javascript:;" @onclick="(()=>ViewArticle(articles))"> *@
+                                <div class="row">
+                                    <div class="col-4">
+                                        <img src="@articles.PrimaryImageUrl" width="100%" height="90px" />
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="title">
+                                            <h4>@articles.Title</h4>
+                                        </div>
+                                        <div class="body short-desc">
+                                            <span>@articles.ShortDesc</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @* </a> *@
+                                <br />
+                            </div>
+                        </div>
+                </Virtualize>
+            </div>
+        </div>
+    </div>
+</div>
+<BBK.SaaS.Mobile.MAUI.Pages.TinTuc.IntroduceModal OnSave="RefeshList" @ref="introduceModal"></BBK.SaaS.Mobile.MAUI.Pages.TinTuc.IntroduceModal>

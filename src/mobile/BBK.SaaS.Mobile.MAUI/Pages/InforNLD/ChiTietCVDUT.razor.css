@@ -1,0 +1,43 @@
+﻿.header {
+    display: flex;
+    align-items: center;
+}
+
+
+.icon-right {
+    margin-bottom: 11px;
+    margin-right: 4px;
+    margin-left: -8px;
+}
+.icon-right1 {
+    margin-bottom: 11px;
+    margin-right: 4px;
+   
+}
+span {
+    font-size: 14px;
+    font-weight: 600;
+}
+a {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #000;
+}
+.message {
+  
+}
+.title-message{
+    border-bottom: 1px dashed
+}
+.icon {
+    font-size: 18px;
+    margin-right: 7px;
+    /* color: #fff;
+    text-align: center;*/
+}
+h1 {
+    font-size: 18px;
+}

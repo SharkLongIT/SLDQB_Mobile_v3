@@ -1,0 +1,179 @@
+﻿@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/" + NavigationUrlConsts.DanhSachLichHen)]
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<div class="row align-items-center mt-1 m-0 ">
+    <div class="col-xl-12">
+        <div class="align-items-center">
+            <div class="input-group">
+                <input type="search" id="searchInput" @bind="_filter.Search" class="form-control input-filter" placeholder="@L("Nhập từ khoá cần tìm kiếm")">
+                <button @onclick="RefeshList" class="btn btn-filter" type="button">
+                    <i class="fa fa-search" style="color: white" aria-label="Search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+@if (isError)
+{
+    <div class="text-error">
+        <i class='fas fa-search search-icon'></i>
+        <h3>Không tìm thấy kết quả!!!</h3>
+        <span class="mt-2">Thử tìm kiếm với từ khoá khác.</span>
+    </div>
+}
+else
+{
+    <Virtualize @ref="makeAnAppointmentContainer" Context="appointment" ItemsProvider="@LoadListMakeAnAppointment" ItemSize="100">
+        <div class="row align-items-center mt-1 m-0">
+            <div class="col-xl-12">
+                <div class="align-items-center mt-2">
+                    <div class="card appoitment">
+                        <div class="row vieclam p-3">
+                            <div class="col-10">
+                                <a href="javascript:;" @onclick="(() => ViewAppointment(appointment))">
+                                    <h5 class="mt-3 name-job">
+                                        Tên ứng viên:  @appointment.Candidate.Account.Name
+                                    </h5>
+                                    <div class="mb-2">
+                                        <span class="name">
+                                            Vị trí :
+                                        </span>
+                                        <span>
+                                            @appointment.Ranks.DisplayName
+                                        </span>
+                                    </div>
+                                     <div class="mb-2">
+                                        <span class="name">
+                                            Ngày hẹn:
+                                        </span>
+                                        <span>
+                                            @appointment.InterviewTime.ToString("dd/MM/yyyy")
+                                        </span>
+                                    </div>
+                                     <div class="mb-2">
+                                        <span class="name">
+                                            Giờ hẹn:
+                                        </span>
+                                        <span>
+                                            @appointment.InterviewTime.ToString("hh:MM")
+                                        </span>
+                                    </div>
+                                    <div class="mb-2">
+                                        <span class="name">
+                                            Hình thức:
+                                        </span>
+                                        <span>
+                                            @appointment.TypeInterview
+                                        </span>
+                                    </div>
+                                    @if (appointment.StatusOfCandidate == 1)
+                                    {
+                                        <div class="mb-2">
+                                            <span class="name">
+                                                Trạng thái ứng viên:
+                                            </span>
+                                            <span class="wait">
+                                                Chờ phỏng vấn
+                                            </span>
+                                        </div>
+                                    }
+                                    else if (appointment.StatusOfCandidate == 2)
+                                    {
+                                        <div class="mb-2">
+                                            <span class="name">
+                                                Trạng thái ứng viên:
+                                            </span>
+                                            <span class="accept">
+                                                Xác nhận phỏng vấn
+                                            </span>
+                                        </div>
+
+                                    }
+                                    else if (appointment.StatusOfCandidate == 3)
+                                    {
+                                        <div class="mb-2">
+                                            <span class="name">
+                                                Trạng thái ứng viên:
+                                            </span>
+                                            <span class="refuse">
+                                                Từ chối phỏng vấn
+                                            </span>
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="mb-2">
+                                            <span class="name">
+                                                Trạng thái ứng viên:
+                                            </span>
+                                            <span class="interviewed">
+                                                Đã phỏng vấn
+                                            </span>
+                                        </div>
+                                    }
+
+
+                                    @if (appointment.InterviewResultLetter == 1)
+                                    {
+                                        <div class="mb-2">
+                                            <span class="name">
+                                                Kết quả:
+                                            </span>
+                                            <span class="pass">
+                                                Đỗ
+                                            </span>
+                                        </div>
+                                    }
+                                    else if (appointment.InterviewResultLetter == 2)
+                                    {
+                                        <div class="mb-2">
+                                            <span class="name">
+                                                Kết quả:
+                                            </span>
+                                            <span class="fail">
+                                                Trượt
+                                            </span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="mb-2">
+                                            <span class="name">
+                                                Kết quả:
+                                            </span>
+                                            <span class="no-point">
+                                                Chưa có kết quả
+                                            </span>
+                                        </div>
+                                    
+                                    }
+
+                                </a>
+                            </div>
+                            <div class="col-2">
+                                <span>
+                                    <i class="material-icons" @onclick="(() => DisPlayAction(appointment))">more_vert</i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </Virtualize>
+}
+<UpdateAppointmentModal OnSave="RefeshList" @ref="updateAppointmentModal"></UpdateAppointmentModal>
+<ChiTietLichHen OnSave="RefeshList" @ref="chiTietLichHen"></ChiTietLichHen>

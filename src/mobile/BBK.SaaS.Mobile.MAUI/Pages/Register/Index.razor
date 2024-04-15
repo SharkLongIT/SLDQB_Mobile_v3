@@ -1,0 +1,106 @@
+﻿@using BBK.SaaS.Services.Navigation
+@layout LoginLayout
+@inherits SaaSComponentBase
+@attribute [Route("/" + NavigationUrlConsts.Register)]
+<div class="d-flex justify-content-center">
+    <h1 class="fs-3x">Chào mừng bạn đến với Sàn lao động Quảng Bình</h1>
+</div>
+
+<div class="d-flex justify-content-between flex-column-fluid flex-column w-100 mw-450px">
+    @*  <div class="d-flex flex-stack py-2">
+    <div class="me-2"></div> *@
+    @*  <div class="m-0">
+    <a href="javascript:;" @onclick="SwitchTenantButton" class="link-primary fw-bold fs-5 float-end" data-kt-translate="sign-in-head-link">@L("Thay đổi thuê bao")</a>
+    </div> *@
+    @* </div> *@
+    <div class="py-20">
+        <div class="card-body">
+            <div class="text-start mb-10">
+                <h1 class="text-dark mb-3 fs-3x d-flex justify-content-center" data-kt-translate="sign-in-title">@L("Đăng ký tài khoản")</h1>
+                @*  <span>
+                Nhập thông tin cá nhân của bạn để tạo tài khoản
+                </span> *@
+                @*  <div class="text-gray-400 fw-semibold fs-6" data-kt-translate="general-desc">
+                @L("Thuê bao hiện tại"):
+                <span class="text-dark">
+                @CurrentTenancyNameOrDefault
+                </span>
+                </div> *@
+            </div>
+            <div class="fv-row mb-8">
+
+                <div>
+                    <input type="text" placeholder="@L("Tên đầy đủ")" name="username" autocomplete="off" class="form-control form-control-solid" />
+                </div>
+            </div>
+            <div class="fv-row mb-8 ">
+                <input type="text" placeholder="@L("Địa chỉ Email")" name="username" autocomplete="off" class="form-control form-control-solid" />
+            </div>
+            <div class="fv-row mb-7">
+                <input type="password" placeholder="@L("Mật khẩu")" name="password" autocomplete="off" data-kt-translate="sign-in-input-password" class="form-control form-control-solid" />
+            </div>
+            <div class="row g-2">
+                <div class="col-sm-12">
+                    <p class="mega-title">Bạn là:</p>
+                </div>
+                <div class="d-flex">
+                    <div class="col-sm-6">
+                        <div class="card mb-0">
+                            <div class="d-flex p-10">
+                                <div class="form-check radio radio-warning m-0 w-100">
+                                    <input class="form-check-input" id="radio26" type="radio" name="UserType" value="2" checked="">
+                                    <label class="form-check-label mb-0 w-100" for="radio26"><span class="flex-grow-1"><span class="mt-0 mega-title-badge no-wrap">Người lao động</span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card mb-0">
+                            <div class="d-flex p-10">
+                                <div class="form-check radio radio-danger m-0 w-100">
+                                    <input class="form-check-input" id="radio27" type="radio" name="UserType" value="1">
+                                    <label class="form-check-label mb-0 w-100" for="radio27"><span class="flex-grow-1"><span class="mt-0 mega-title-badge no-wrap">Nhà tuyển dụng</span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-0">
+                <div class="checkbox p-0 d-flex">
+                    <input id="checkbox1" type="checkbox">
+                    <label class="text-muted" for="checkbox1">Tôi đã đọc và đồng ý với<a class="ms-2" href="#">Điều khoản dịch vụ </a>  và<a class="ms-2" href="#">Chính sách bảo mật </a>của Sàn lao động</label>
+                </div>
+                <button style="background-color: #00b14f" class="btn  btn-block w-100 mt-2" type="submit" id="register-submit-btn">
+                    <span style="color:white">
+                        Đăng ký
+                    </span>
+                </button>
+            </div>
+            <div class="or-login">
+                <div class="line"></div>
+                <div class="text">Hoặc đăng ký bằng</div>
+                <div class="line"></div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <a class="btn btn-light logo-facebook" href="https://www.facebook.com/" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook txt-fb">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z">
+                        </path>
+                    </svg>facebook
+                </a>
+                <a href="javascript:;" data-provider="Google" class="btn btn-outline-primary-2x fw-bolder py-2 social-login-icon mb-2 logo-google">
+                    <i class="fab fa-google"></i>
+                    <span class="text-google" style="margin-top: 4px"> Google</span>
+                </a>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <span>Bạn đã có tài khoản?</span>
+            <a href="/Login" style="color:#00b14f; margin-left:2px;">Đăng nhập ngay</a>
+        </div>
+        <div class="d-flex justify-content-center">
+            <a style="color: #00b14f" href="/TrangChu">Trải nghiệm không cần đăng nhập</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,329 @@
+﻿@using Abp.UI;
+@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/ThongTinVTN")]
+
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/test1.css">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+    <div class="card content-job">
+        <div class="card-body">
+            <div class="container">
+                <div class="d-flex justify-content-center">
+                    <img class="img-recruitment" src="@Model.AvatarUrl" width="60px" height="60px" style="border-radius:3px" />
+                </div>
+                <div class="mt-3 d-flex justify-content-center  ">
+                    <h5 class="title">@Model.Title </h5>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href="javascript:;" @onclick="(() => ViewCompany(Model))">
+                        <span class="company-name">@Model.CompanyName</span>
+                    </a>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-4 introduce-job  with-divider">
+                        <span class="material-icons" style="color:#00b14f;font-size: 23px;">
+                            monetization_on
+                        </span>
+                        <div class="centered-info ">
+                            <p class="mt-1">
+                                Mức lương
+                            </p>
+                            <p class="introduce-infor">
+                                @{
+                                    var minSalaryInMillion = Math.Truncate(Model.MinSalary / 1000000);
+                                    var maxSalaryInMillion = Math.Truncate(Model.MaxSalary / 1000000);
+                                }
+                                @minSalaryInMillion - @maxSalaryInMillion triệu
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-4 introduce-job  with-divider">
+                        <span class="material-icons" style="color:#00b14f; font-size: 23px;">
+                            location_on
+                        </span>
+                        <div class="centered-info ">
+                            <p class="mt-1">Địa điểm</p>
+                            <p class="introduce-infor">@Model.AddressForWork</p>
+                        </div>
+                    </div>
+                    <div class="col-4 introduce-job">
+                        <span class="material-icons" style="color:#00b14f;font-size: 23px;">
+                            star
+                        </span>
+                        <div class="centered-info ">
+                            <p class="mt-1">Kinh nghiệm</p>
+                            <p class="introduce-infor">@Model.Experience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          @*   @if (IsDefault2 == true)
+            { *@
+
+                <div class="container mb-3 mt-2 d-flex">
+                    <button class="join-job d-flex justify-content-center" @onclick="(()=>UngTuyen(Model))">
+                        <i class="fa fa-send "></i>
+                        <p class="ung-tuyen ml-1" style="color: white">Ứng tuyển ngay</p>
+                    </button>
+                    @*  <button class="save-job ml-3">
+                <i class='far fa-heart'></i>
+                </button> *@
+                </div>
+            @* } *@
+        </div>
+    </div>
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Thông tin</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Công ty</button>
+        </li>
+        @*   <li class="nav-item" role="presentation">
+        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+        </li> *@
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class=" mt-3">
+                <div class="row container g-information">
+                    <h4 class="mt-2">Thông tin chung</h4>
+                    <div class="d-flex">
+                        <span class="material-icons">
+                            hourglass_empty
+                        </span>
+                        <div class="m-2">
+                            <span>Kinh nghiệm</span>
+                            <p>@Model.Experience</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <span class="material-icons">
+                            calendar_month
+                        </span>
+                        <div class="m-2">
+                            <span>Hình thức làm việc</span>
+                            <p>@Model.FormOfWorkName</p>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <span class="material-icons">
+                            people
+                        </span>
+                        <div class="m-2">
+                            <span>Số lượng tuyển</span>
+                            <p>@Model.NumberOfRecruits người</p>
+
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <span class="material-icons">
+                            person
+                        </span>
+                        <div class="m-2">
+                            <span>Giới tính</span>
+                            @if (Model.GenderRequired == 0)
+                            {
+                                <p>Không yêu cầu</p>
+
+                            }
+                            else if (Model.GenderRequired == 1)
+                            {
+                                <p>Nam</p>
+                            }
+                            else
+                            {
+                                <p>Nữ</p>
+                            }
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <span class="material-icons">
+                            av_timer
+                        </span>
+                        <div class="m-2">
+                            <span>Hạn nộp hồ sơ</span>
+                            <p>@Model.DeadlineSubmission.ToString("dd/MM/yyyy") </p>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                </div>
+                <div class="row container">
+                    <h4>Mô tả công việc </h4>
+                    <p>Ngành nghề: @Model.JobCatUnitName</p>
+
+                    <p>Vị trí làm việc: @Model.Title</p>
+
+                    <p>Làm việc tại: @Model.AddressName </p>
+                    <div>
+                        <p>
+                            @htmlContent1
+                        </p>
+
+                    </div>
+                </div>
+                <div class="row container">
+                    <h4>Kỹ năng cần thiết: </h4>
+
+                    <div>
+                        <p>
+                            @Model.NecessarySkills
+                        </p>
+
+                    </div>
+                </div>
+                <div class="row container">
+                    <h4>Yêu cầu ứng viên: </h4>
+
+                    <div>
+                        <p>
+                            @htmlContent2
+                        </p>
+
+                    </div>
+                </div>
+                <div class="row container">
+                    <h4>Quyền lợi </h4>
+                    <div>
+                        <p>
+                            @htmlContent3
+                        </p>
+
+                    </div>
+                </div>
+                <div class="row container">
+                    <h4>Thông tin người liên hệ</h4>
+                    <div>
+                        <p>Họ và tên: @Model.FullName</p>
+                        <p>Email: @Model.Email</p>
+                        <p>Số điện thoại: @Model.PhoneNumber</p>
+                        <p>Địa chỉ liên hệ: @Model.Address</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+            <div class="container">
+                <div class="g-information">
+                    <h5>@Model.CompanyName</h5>
+                    <div class="d-flex">
+                        <div>
+                            <span class="material-icons">
+                                business
+                            </span>
+                        </div>
+                        <div class="ml-3">
+                            <div>Địa chỉ công ty</div>
+                            <div>@Model.AddressCompany</div>
+                        </div>
+                    </div>
+                    <div class="d-flex mt-3">
+                        <div>
+                            <span class="material-icons">
+                                language
+                            </span>
+                        </div>
+                        <div class="ml-3">
+                            <div>Website công ty</div>
+                            <div>@Model.Website</div>
+                        </div>
+                    </div>
+                </div>
+                <h5 class="mt-3">Giới thiệu công ty</h5>
+                <span>@Model.CompanyName - hoạt động trong lĩnh vực @Model.SphereOfActivity</span>
+
+
+                <h5 class="mt-3">Việc làm cùng công ty</h5>
+                <Virtualize @ref="RecruitmentContrainer" Context="post" ItemsProvider="@LoadRecruitmentPost" ItemSize="100">
+
+                    <div class="card job-recruitment mt-2">
+                        <div class="align-items-center">
+                            <div class="row vieclam">
+                                <div class="col-3">
+                                    <img class="m-4 img-recruitment" src="@post.Recruiter.AvatarUrl" alt="image" width="50px" height="50px">
+                                </div>
+                                <div class="col-9">
+                                    <a href="javascript:;" @onclick="(() => ViewRecruitment(post))">
+                                        <h5 class="mt-3 name-job">
+                                            @post.Title
+                                        </h5>
+
+                                        <p class="company">@post.Recruiter.CompanyName</p>
+                                        <div class="d-flex">
+                                            <div class="d-flex">
+                                                <p class="ml-1 salary">
+                                                    @{
+                                                        var minSalaryInMillion = Math.Truncate(post.MinSalary / 1000000);
+                                                        var maxSalaryInMillion = Math.Truncate(post.MaxSalary / 1000000);
+                                                    }
+                                                    @minSalaryInMillion - @maxSalaryInMillion triệu
+                                                </p>
+                                            </div>
+                                            <p class="map ml-2">@post.WorkAddress</p>
+                                        </div>
+                                        <div class="d-flex">
+                                            <p class="ml-2 ex">@post.Experiences.DisplayName</p>
+                                        </div>
+
+                                    </a>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="d-flex ml-3">
+                                <span class="material-icons watch">
+                                    watch_later
+                                </span>
+                                <div>
+                                    @{
+                                        DateTime deadline = post.DeadlineSubmission;
+                                        DateTime currentDate = DateTime.Now.Date;
+
+                                        TimeSpan difference = deadline.Date - currentDate;
+                                        int daysRemaining = difference.Days;
+                                    }
+                                    <p class="deadline">
+                                        Còn<span class="time-deadline">@daysRemaining</span> ngày để ứng tuyển
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Virtualize>
+            </div>
+        </div>
+        @*         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+        *@
+    </div>
+
+
+
+
+
+</body>
+
+<UngtuyenModal @ref="ungtuyenModal"></UngtuyenModal>
+

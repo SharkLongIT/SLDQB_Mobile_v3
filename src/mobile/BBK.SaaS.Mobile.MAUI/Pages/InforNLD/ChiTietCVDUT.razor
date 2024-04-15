@@ -1,0 +1,294 @@
+﻿@using Abp.UI;
+@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/ChiTietCVDUT")]
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+@if (Model != null && Model.JobApplication != null)
+{
+@*     <div class="header d-flex">
+        <a class="nav-link" href="/TrangChu">
+            <p>
+                <strong>
+                    Trang chủ
+                </strong>
+            </p>
+        </a>
+        <i class="fas fa-caret-right icon-right" aria-hidden="true"></i>
+        <a href="/DSCVDaUngTuyen">
+            <p>
+                <strong>
+                    Danh sách công việc ...
+                </strong>
+            </p>
+        </a>
+        <i class="fas fa-caret-right icon-right1" aria-hidden="true"></i>
+        <p>
+            <i>
+                Chi tiết bài ứng tuyển
+            </i>
+        </p>
+    </div> *@
+    <div class="card">
+        <div class="container">
+            <div class="card-body">
+                <div class="message">
+                    <h5 class="title-message">Tin nhắn gửi đến nhà tuyển dụng</h5>
+                    <span class="mt-2" style="border-bottom: 1px dashed"></span>
+                    <span class="content-message">@Model.Content</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="container">
+            @*   <div class="card-header">
+        </div> *@
+            <div class="card-body">
+                <div class="form-user mt-3">
+                   @*  <div class="row">
+                        <div class="col-12">
+                            <h5>Tin nhắn gửi đến nhà tuyển dụng: @Model.Content</h5>
+                        </div>
+                    </div> *@
+                    <div class="row">
+                        <div class="col-4">
+                            @* <img src="@Model.Candidate.AvatarUrl" alt="Avatar"> *@
+                            <img width="100%" height="100px" src="@Model.Photo" />
+                        </div>
+                        <div class="col-8">
+                            <h1>@Model.User.Name</h1>
+                            <h5>@Model.Positions</h5>
+                            @if (@Model.JobApplication.LastModificationTime == null)
+                            {
+                                <div>Thời gian cập nhật: @Model.JobApplication.CreationTime.ToString("dd/MM/yyyy")</div>
+                            }
+                            else
+                            {
+                                <div>Thời gian cập nhật: @Model.JobApplication.LastModificationTime.Value.ToString("dd/MM/yyyy")</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="d-flex">
+                    <span class="bg-information"><i class='fas fa-user-tie icon'></i></span>
+                    <h1>Thông tin cá nhân</h1>
+                </div>
+                <div class="row information-user">
+                    <div class="infor1">
+                        <span>Email:</span>
+                      @*   <div class="d-flex">
+                            <i class='fas fa-lock'></i>
+                            <p class="infor-lock">Thông tin đã bị ẩn</p>
+                        </div> *@
+                          <div>@Model.User.EmailAddress</div>
+                    </div>
+                    <div class="infor1">
+                        <span>Số điện thoại:</span>
+                        @* <div class="d-flex">
+                            <i class='fas fa-lock'></i>
+                            <p class="infor-lock">Thông tin đã bị ẩn</p>
+                        </div> *@
+                        <div>@Model.User.PhoneNumber</div>
+                    </div>
+                    <div class="infor">
+                        <span>Ngày sinh: </span>
+                        <div>@Model.Candidate.DateOfBirth?.ToString("dd/MM/yyyy")  </div>
+                    </div>
+                    <div class="infor">
+                        <span>Giới tính:</span>
+                        @if (Model.Candidate.Gender == BBK.SaaS.Mdls.Profile.Candidates.Dto.GenderEnum.Male)
+                        {
+                            <div>Nam</div>
+                        }
+                        else if (Model.Candidate.Gender == BBK.SaaS.Mdls.Profile.Candidates.Dto.GenderEnum.Female)
+                        {
+                            <div>Nữ</div>
+                        }
+                        else
+                        {
+                            <div>Không xác định</div>
+                        }
+                    </div>
+                    <div class="infor">
+                        @if (Model.Candidate.Marital == true)
+                        {
+                            <span>Tình trạng hôn nhân:</span>
+                            <div>Đã kết hôn</div>
+
+                        }
+                        else
+                        {
+                            <span>Tình trạng hôn nhân:</span>
+                            <div>Độc thân </div>
+                        }
+                    </div>
+                    <div class="infor">
+                        <span>Địa chỉ: </span>
+                        <div> @Model.Candidate.Address</div>
+                    </div>
+                </div>
+                <hr>
+                <div class="d-flex mt-3">
+                    <span class="bg-information"> <i class='fas fa-briefcase icon'></i></span>
+
+                    <h1>Mục tiêu nghề nghiệp</h1>
+                </div>
+                <div class="row information-user">
+                    <div class="infor">
+                        <span> Vị trí ứng tuyển: </span>
+                        <div>@Model.Positions</div>
+                    </div>
+                    <div class="infor">
+                        <span> Mục tiêu tương lai: </span>
+                        <div>@Model.JobApplication.Career</div>
+                    </div>
+                    <div class="infor">
+                        <span>Mức lương mong muốn: </span>
+                        @if(Model.JobApplication.DesiredSalary == 0 || Model.JobApplication.DesiredSalary == null)
+                        {
+                            <div>Lương theo thoả thuận</div>
+                        }
+                        else
+                        {
+                            <div>@Model.JobApplication.DesiredSalary @Model.JobApplication.CurrencyUnit</div>
+                        }
+                    </div>
+                    <div class="infor">
+                        <span>Hình thức làm việc: </span>
+                        <div>@Model.FormOfWork</div>
+                    </div>
+
+@*                     <div class="skill">
+                        <span>Kỹ năng:</span>
+                        <div class="skill-container">
+                            <div class="d-flex">
+                                <p>Excel:</p>
+                                <div class="skill-bar" style="margin-left: 35px;">
+                                    <div class="progress" style="width: @(Model.JobApplication.Excel * 10)%; "></div>
+                                </div>
+                                <div class="point">@Model.JobApplication.Excel/10</div>
+                            </div>
+                            <div class="d-flex">
+                                <p>Word:</p>
+                                <div class="skill-bar" style="margin-left: 35px; ">
+                                    <div class="progress" style="width: @(Model.JobApplication.Word * 10)%;"></div>
+                                </div>
+                                <div class="point">@Model.JobApplication.Word/10</div>
+                            </div>
+                            <div class="d-flex">
+                                <p>PowerPoint:</p>
+                                <div class="skill-bar" style="margin-left: 2px">
+                                    <div class="progress" style="width: @(Model.JobApplication.PowerPoint * 10)%;"></div>
+                                </div>
+                                <div class="point">@Model.JobApplication.PowerPoint/10</div>
+                            </div>
+                        </div>
+                    </div>
+ *@                    <div class="infor">
+                        <span>Trình độ học vấn: </span>
+                        <div>@Model.Literacy</div>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="row">
+                    @if (Model.JobApplication.WorkExperiences != null && Model.JobApplication.WorkExperiences.Count > 0)
+                    {
+                        <div class="d-flex mt-3">
+                            <span class="bg-information"> <i class='fas fa-briefcase icon'></i></span>
+                            <h1>Kinh nghiệm làm việc</h1>
+                        </div>
+
+                        @foreach (var workExperience in Model.JobApplication.WorkExperiences)
+                        {
+                            <div class="infor">
+                                <span>Vị trí công việc:</span>
+                                <div> @workExperience.Positions </div>
+                            </div>
+                            <div class="infor">
+                                <span>Thời gian bắt đầu:</span>
+                                <div> @workExperience.StartTime.ToString("dd/MM/yyy") </div>
+                            </div>
+                            <div class="infor">
+                                <span>Thời gian kết thúc:</span>
+                                <div> @workExperience.EndTime.ToString("dd/MM/yyy") </div>
+                            </div>
+                            <div class="infor">
+                                <span>Tên công ty:</span>
+                                <div> @workExperience.CompanyName </div>
+                            </div>
+                            <div class="infor">
+                                <span>Mô tả công việc:</span>
+                                <div> @workExperience.Description </div>
+                            </div>
+                            <hr style="color: black" />
+                        }
+
+                    }
+                    else
+                    {
+                        <p></p>
+                    }
+                </div>
+                <div class="row">
+                    @if (Model.JobApplication.LearningProcess != null && Model.JobApplication.LearningProcess.Count > 0)
+                    {
+                        <div class="d-flex mt-3">
+                            <span class="bg-information"> <i class='fas fa-briefcase icon'></i></span>
+                            <h1>Trình độ học vấn</h1>
+                        </div>
+
+                        @foreach (var learningProcess in Model.JobApplication.LearningProcess)
+                        {
+                            <div class="infor">
+                                <span>Ngành học/Môn học:</span>
+                                <div> @learningProcess.AcademicDiscipline </div>
+                            </div>
+                            <div class="infor">
+                                <span>Thời gian bắt đầu:</span>
+                                <div> @learningProcess.StartTime.ToString("dd/MM/yyy") </div>
+                            </div>
+                            <div class="infor">
+                                <span>Thời gian kết thúc:</span>
+                                <div> @learningProcess.EndTime.ToString("dd/MM/yyy") </div>
+                            </div>
+                            <div class="infor">
+                                <span>Tên trường học:</span>
+                                <div> @learningProcess.SchoolName </div>
+                            </div>
+                            <div class="infor">
+                                <span>Mô tả:</span>
+                                <div> @learningProcess.Description </div>
+                            </div>
+                            <hr style="color: black" />
+                        }
+
+                    }
+                    else
+                    {
+                        <p></p>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>Đang tải...</p>
+}
+

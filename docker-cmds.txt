@@ -1,0 +1,21 @@
+sudo docker-compose -f docker/mmo/docker-compose.yml -f docker/mmo/docker-compose.override.yml build
+sudo docker-compose -f docker/mmo/docker-compose.yml -f docker/mmo/docker-compose.override.yml up
+
+
+build & publish command
+
+yarn build
+gulp buildDev
+gulp build
+dotnet build
+dotnet publish -c Release -o C:\MyWebs\test
+dotnet publish
+dotnet publish -c Release -o D:\WebPublish\BBK.SLDQB
+iisreset /stop
+iisreset /start
+
+
+
+
+#installation
+docker run --name redis-cache -p 6379:6379 -d redis

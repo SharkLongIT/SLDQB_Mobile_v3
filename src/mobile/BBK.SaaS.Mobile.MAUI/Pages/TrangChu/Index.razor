@@ -1,0 +1,408 @@
+﻿@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/" + NavigationUrlConsts.TrangChu)]
+<body class="theme-light" data-highlight="highlight-red" data-gradient="body-default">
+
+	@* <div id="preloader">
+		<div class="spinner-border color-highlight" role="status"></div>
+	</div>
+ *@
+	<div id="page">
+		<!-- Top logo + menu -->
+		
+
+		<!-- Start Page Content -->
+		<div class="page-content header-clear-medium">
+			<!-- Ảnh bìa -->
+			<div class="card card-style mx-0 mb-0 rounded-0" data-card-height="400">
+				<div class="card-bottom mb-4">
+					<!-- Slider  -->
+@* 					<div class="splide single-slider visible-slider slider-no-arrows slider-no-dots"
+						 id="single-slider-1">
+						<div class="splide__track">
+							<div class="splide__list">
+								<div class="splide__slide">
+									<a href="#" class="card me-0 card-style" data-card-height="300"
+									   style="background-image: url(images/QuangBinh/QB_Intro_1.jpg);">
+										<div class="card-bottom m-3">
+											<h1 class="color-white font-20">
+												Trung tâm DVVL thanh niên tỉnh Quảng Bình
+											</h1>
+										</div>
+										<div class="card-overlay bg-gradient opacity-90"></div>
+									</a>
+								</div>
+								<div class="splide__slide">
+									<a href="#" class="card me-0 card-style" data-card-height="300"
+									   style="background-image: url(images/QuangBinh/QB_Intro_16.png);">
+										<div class="card-bottom m-3">
+											<h1 class="color-white font-20">
+												Nhận bằng khen của UBND tỉnh
+											</h1>
+										</div>
+										<div class="card-overlay bg-gradient opacity-90"></div>
+									</a>
+								</div>
+								<div class="splide__slide">
+									<a href="#" class="card me-0 card-style" data-card-height="300"
+									   style="background-image: url(images/QuangBinh/QB_Intro_3.jpg);">
+										<div class="card-bottom m-3">
+											<h1 class="color-white font-20">
+												Cán bộ nhân viên Trung tâm
+											</h1>
+										</div>
+										<div class="card-overlay bg-gradient opacity-90"></div>
+									</a>
+								</div>
+								<div class="splide__slide">
+									<a href="#" class="card me-0 card-style" data-card-height="300"
+									   style="background-image: url(images/QuangBinh/QB_Intro_10.jpg);">
+										<div class="card-bottom m-3">
+											<h1 class="color-white font-20">
+												Ngày hội việc làm thanh niên
+											</h1>
+										</div>
+										<div class="card-overlay bg-gradient opacity-90"></div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+ *@					<!-- Slogan -->
+					<div class="d-flex">
+						<a href="#" data-menu="menu-login-1" class="align-self-center scale-box text-center ps-3">
+							<i class="fa fa-user color-green-dark fa-2x"></i>
+							<p class="color-white text-center text-uppercase mb-3">Ứng viên</p>
+						</a>
+						<div class="align-self-center text-center ms-auto">
+							<h1 class="color-white text-center mb-0 font-28">Bạn muốn tìm việc</h1>
+							<p class="color-white text-center mb-3 ">Hãy để chúng tôi giúp đỡ bạn</p>
+						</div>
+						<a href="#" data-menu="menu-login-2"
+						   class="align-self-center scale-box text-center ms-auto pe-3">
+							<i class="fa fa-handshake color-green-dark fa-2x"></i>
+							<p class="color-white text-center text-uppercase mb-3">Nhà tuyển dụng</p>
+						</a>
+					</div>
+				</div>
+				<div class="card-overlay bg-gradient rounded-0"></div>
+			</div>
+
+			<!-- Tìm kiếm thông tin -->
+			<div class="content mt-n4 search-box search-header bg-theme card-style me-3 ms-3 mb-2">
+				<i class="fa fa-search" @onclick="RefeshList"></i>
+				<input type="text" class="border-0" placeholder="Tìm kiếm thông tin" data-search @bind="_filtered.Filtered">
+				<a href="#" class="clear-search disabled mt-0"><i class="fa fa-times color-red-dark"></i></a>
+			</div>
+
+			<!-- Kết quả tìm kiếm -->
+			<div class="search-results disabled-search-list card card-style shadow-l">
+				<div class="content my-0 list-group list-custom-small">
+					<a href="#" data-filter-item data-filter-name="all pediatrics" class="search-result-list">
+						<i class="fa font-14 fa-child color-blue-dark"></i>
+						<span>Pediatrics</span>
+						<i class="fa fa-angle-right"></i>
+					</a>
+					<a href="#" data-filter-item data-filter-name="all neurology" class="search-result-list">
+						<i class="fa font-14 fa-brain color-dark-light"></i>
+						<span>Neurology</span>
+						<i class="fa fa-angle-right"></i>
+					</a>
+					<a href="#" data-filter-item data-filter-name="all pulmonary" class="search-result-list">
+						<i class="fa font-14 fa-lungs color-brown-dark"></i>
+						<span>Pulmonary</span>
+						<i class="fa fa-angle-right"></i>
+					</a>
+					<a href="#" data-filter-item data-filter-name="all orthopedy" class="search-result-list">
+						<i class="fa font-14 fa-bone color-gray-dark"></i>
+						<span>Orthopedy</span>
+						<i class="fa fa-angle-right"></i>
+					</a>
+					<a href="#" data-filter-item data-filter-name="all orthodontics" class="search-result-list">
+						<i class="fa font-14 fa-tooth color-gray-dark"></i>
+						<span>Orthodontist</span>
+						<i class="fa fa-angle-right"></i>
+					</a>
+					<a href="#" data-filter-item data-filter-name="all ophtalmology" class="search-result-list">
+						<i class="fa font-14 fa-eye color-green-dark"></i>
+						<span>Ophthalmology</span>
+						<i class="fa fa-angle-right"></i>
+					</a>
+					<a href="#" data-filter-item data-filter-name="all cardiovascular" class="search-result-list">
+						<i class="fa font-14 fa-heart color-red-dark"></i>
+						<span>Cardiovascular</span>
+						<i class="fa fa-angle-right"></i>
+					</a>
+				</div>
+				<div class="search-no-results disabled">
+					<div class="content">
+						<h3>Specialist Needed?</h3>
+						<p class="opacity-70 color-theme">
+							There's nothing matching the description you're looking for,
+							try a different keyword or call our office to book a specialist meeting
+						</p>
+						<a href="#" class="btn btn-m btn-full bg-blue-dark text-uppercase rounded-sm font-700">
+							Call
+							Now
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Thống kê -->
+			<div class="card card-style mx-0">
+				<div class="content mb-0">
+					<div class="row mb-0">
+						<div class="col-6 pe-1">
+							<div class="mx-0 mb-3 text-center">
+								<h6 class="font-12 font-800 text-uppercase opacity-30">Việc đăng tuyển</h6>
+									<h3 class="color-green-dark font-20 mb-0">@RecruitmentCount +</h3>
+							</div>
+						</div>
+						<div class="col-6 ps-1">
+							<div class="mx-0 mb-3 text-center">
+								<h6 class="font-12 font-800 text-uppercase opacity-30">Phiên giao dịch</h6>
+								<h3 class="color-aqua-light font-20 mb-0">25+</h3>
+							</div>
+						</div>
+						<div class="col-6 pe-1">
+							<div class="mx-0 mb-3 text-center">
+								<h6 class="font-12 font-800 text-uppercase opacity-30">Hồ sơ việc làm</h6>
+									<h3 class="color-brown-dark font-20 mb-0">@JobAppCount +</h3>
+							</div>
+						</div>
+						<div class="col-6 ps-1">
+							<div class="mx-0 mb-3 text-center">
+								<h6 class="font-12 font-800 text-uppercase opacity-30">Công ty kết nối</h6>
+								<h3 class="color-blue-dark font-20 mb-0">3,121</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Sự kiện nổi bật -->
+			<div class="card card-style mx-0">
+				<div class="content">
+					<h4 class="pb-1 text-uppercase color-highlight">Sự kiện nổi bật</h4>
+				</div>
+				<div class="row mb-0 mt-n3">
+					<div class="col-6 pe-0">
+						<a href="#" class="card card-style" data-card-height="280"
+						   style="background-image: url(images/QuangBinh/sk_002.jpg);">
+							<div class="card-top text-center">
+								<span class="badge bg-blue-dark px-2 py-1 color-white m-3">
+									<i class="fa fa-fire me-2"></i>Phiên giao dịch
+								</span>
+							</div>
+							<div class="card-bottom py-1 px-2 bg-black">
+								<h5 class="color-white font-500  text-center">
+									Phiên giao dịch đầu xuân 2024
+								</h5>
+							</div>
+							<div class="card-overlay bg-black opacity-20"></div>
+						</a>
+					</div>
+					<div class="col-6 ps-0">
+						<a href="#" class="card ms-0 card-style mb-2" data-card-height="135"
+						   style="background-image: url(images/QuangBinh/002.png);">
+							<div class="card-top text-center">
+								<span class="badge bg-yellow-dark px-2 py-1 color-white m-3">
+									<i class="fa fa-star me-2"></i>Thông báo
+								</span>
+							</div>
+							<div class="card-bottom py-1 px-2 bg-black">
+								<h5 class="color-white font-500 font-14 mb-n1 text-center">
+									Thông báo thi EPS Topik
+								</h5>
+							</div>
+							<div class="card-overlay bg-black opacity-20"></div>
+						</a>
+						<a href="#" class="card ms-0 card-style mb-2" data-card-height="135"
+						   style="background-image: url(images/QuangBinh/004.jpg);">
+							<div class="card-top text-center">
+								<span class="badge bg-green-dark px-2 py-1 color-white m-3">
+									<i class="fa fa-bell me-2"></i>Du học
+								</span>
+							</div>
+							<div class="card-bottom py-1 px-2 bg-black">
+								<h5 class="color-white font-500 font-14 mb-n1 text-center">
+									Thông báo tuyển sinh du học Nhật
+								</h5>
+							</div>
+							<div class="card-overlay bg-black opacity-20"></div>
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- Người tìm việc - Việc tìm người -->
+			<div class="card card-style">
+				<div class="content mb-0">
+					<h4 class="pb-1 text-uppercase color-highlight text-center">
+						<i class="fa-solid fa-magnifying-glass pe-2"></i>Người tìm việc - Việc tìm người<i class="fa-solid fa-magnifying-glass ps-2"></i>
+					</h4>
+				</div>
+				<div class="content m-0" id="tab-group-1">
+					<div class="tab-controls tabs-medium tabs-rounded text-uppercase" data-highlight="bg-highlight">
+						<a href="#" class="font-600" data-active data-bs-toggle="collapse" data-bs-target="#tab-1">
+							<i class="fa fa-user pe-2"></i> Người tìm việc
+						</a>
+						<a href="#" class="font-600" data-bs-toggle="collapse" data-bs-target="#tab-2">
+							<i class="fa fa-building pe-2"></i>Việc tìm
+							người
+						</a>
+					</div>
+					<div class="clearfix mb-3"></div>
+					<!-- Người tìm việc  -->
+					<div data-bs-parent="#tab-group-1" class="collapse show" id="tab-1">
+						<div class="content">
+							<Virtualize @ref="JobApplicationContainer" Context="job" ItemsProvider="@LoadJobApplication" ItemSize="20">
+
+								<a href="javascript:;" @onclick="(() => ViewUser(job))">
+									<div class="d-flex">
+									<div>
+											<img src="@job.Candidate.AvatarUrl" class="me-3 rounded-circle shadow-l"
+											 width="100">
+									</div>
+									<div>
+											<h5 class="font-700 text-uppercase">@job.User.Name</h5>
+											<h1 class="font-700 font-15 line-height-m pb-2">@job.JobApplication.Positions.DisplayName</h1>
+										<span class="badge bg-green-dark text-uppercase font-12">	
+											<i class="fa-solid fa-dollar-sign pe-1"></i>
+												@if (job.JobApplication.DesiredSalary.HasValue)
+												{
+													<span>
+														@{
+															var minSalaryInMillion = Math.Truncate(job.JobApplication.DesiredSalary.Value / 1000000);
+														}
+														@minSalaryInMillion triệu
+													</span>
+												}
+												else
+												{
+													<span>Lương thoả thuận</span>
+												}
+										</span>
+										<span class="badge bg-gray-dark text-uppercase font-12">
+											<i class="fa-solid fa-graduation-cap pe-1"></i>
+												@job.JobApplication.Literacy.DisplayName
+										</span>
+										<span class="badge bg-teal-dark text-uppercase font-12">
+											<i class="fa-solid fa-comment pe-1"></i>
+											@job.JobApplication.Province.DisplayName
+										</span>
+									</div>
+								</div>
+							</a>
+							<div class="divider mt-3 mb-3"></div>
+							</Virtualize>
+							<a href="/NguoiTimViec"
+							   class="btn btn-full border-blue-dark rounded-sm color-blue-dark btn-sm font-700 text-uppercase mt-4">
+								Xem
+								thêm
+							</a>
+						</div>
+					</div>
+					<!-- Việc tìm người -->
+					<div data-bs-parent="#tab-group-1" class="collapse" id="tab-2">
+						<div class="content">
+							                <Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
+
+								<a href="javascript:;" @onclick="(() => ViewRecruitment(recruitment))">
+									<div class="d-flex">
+									<div>
+											<img src="@recruitment.Recruiter.AvatarUrl" class="me-3 rounded-m" width="110">
+									</div>
+									<div>
+											<h5 class="font-700 text-uppercase">  @recruitment.Title</h5>
+										<h1 class="font-500 font-15 line-height-m">
+												@recruitment.Recruiter.CompanyName
+										</h1>
+										<span class="badge bg-green-dark text-uppercase font-12">
+											<i class="fa-solid fa-dollar-sign pe-1"></i>
+												@{
+													var minSalaryInMillion = Math.Truncate(recruitment.MinSalary / 1000000);
+													var maxSalaryInMillion = Math.Truncate(recruitment.MaxSalary / 1000000);
+												}
+												@minSalaryInMillion - @maxSalaryInMillion triệu	
+										</span>
+										<span class="badge bg-blue-dark text-uppercase font-12">
+											<i class="fa-solid fa-city pe-1"></i>
+												@recruitment.WorkAddress
+										</span>
+										<span class="badge bg-gray-dark text-uppercase font-12">
+											<i class="fa-regular fa-star pe-1"></i>
+												@recruitment.Experiences.DisplayName
+										</span>
+									</div>
+								</div>
+							</a>
+							<div class="divider mt-3 mb-3"></div>
+							</Virtualize>
+							<a href="/ViecTimNguoi"
+							   class="btn btn-full border-blue-dark rounded-sm color-blue-dark btn-sm font-700 text-uppercase mt-4">
+								Xem
+								thêm
+							</a>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<!-- Tin tức -->
+			<div class="card card-style">
+				<div class="content">
+					<a href="content.html">
+						<div class="d-flex">
+							<div class="align-self-center">
+								<h1 class="font-22 text-uppercase">Tin tức</h1>
+							</div>
+							<div class="ms-auto align-self-center">
+								<i class="fa fa-newspaper color-aqua-dark fa-2x mb-4 me-1"></i>
+							</div>
+						</div>
+					</a>
+					<div class="divider bg-green-dark mb-2 mt-2"></div>
+				  <Virtualize @ref="ArticlesContainer" Context="articles" ItemsProvider="@LoadArticles" ItemSize="100">
+
+						<a href="javascript:;" @onclick="(() => ViewArticle(articles))" class="pb-3">
+						<div class="d-flex">
+							<div>
+									<img src="@articles.PrimaryImageUrl" class="rounded-sm me-3" width="80">
+							</div>
+							<div class="w-100">
+
+								<p class="mt-n2 mb-2">
+									<strong>
+											@articles.Title
+									</strong>
+								</p>
+								<p>
+										@articles.Author - @articles.LastModificationTime<span class="d-block float-end color-blue-dark font-11">
+										Chi
+										tiết
+									</span>
+								</p>
+							</div>
+						</div>
+					</a>
+					<div class="divider mb-2 mt-2"></div>
+					</Virtualize>
+					<a href="#"
+					   class="btn btn-full border-blue-dark rounded-sm color-blue-dark btn-sm font-700 text-uppercase mt-4">
+						Xem
+						thêm
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+
+
+
+

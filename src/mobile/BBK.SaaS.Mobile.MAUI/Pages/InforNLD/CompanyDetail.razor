@@ -1,0 +1,145 @@
+﻿@using Abp.UI;
+@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/CompanyDetail")]
+
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/test1.css">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+@* <button @onclick="Back">Ql</button>
+ *@@if (Model.Recruiter != null)
+{
+    <div>
+    <div class="card">
+        <img class="card-img-top img-banner-recruitment" src="@Model.Recruiter.ImageCoverUrl" />
+        <div class="d-flex justify-content-center ">
+            <img class="avatar-recruitment" src="@Model.AvatarUrl" />
+        </div>
+        <div class="d-flex justify-content-center">
+
+            <h5>@Model.Recruiter.CompanyName</h5>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <span class="material-icons icon-web">
+                language
+            </span>
+            <span>@Model.Recruiter.WebSite</span>
+        </div>
+        <div class="d-flex justify-content-center mb-3">
+            <span class="material-icons icon-company">
+                business
+            </span>
+            <span>@Model.HumanResSizeCatName</span>
+        </div>
+    </div>
+
+        <nav class="mt-3">
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Giới thiệu công ty</button>
+                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Tin tuyển dụng (@Count)</button>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="card p-2">
+                    <p class="introduce mt-2">Giới thiệu công ty</p>
+                    <span class="sephere">@Model.Recruiter.CompanyName - hoạt động trong lĩnh vực @Model.SphereOfActivityName</span>
+                    <div @onclick='ChangeDes'>
+                        @if (IsShowDes == false)
+                        {
+                            <div>
+                                <span>@Description </span>
+                                <span class="view-all-des">Xem thêm</span>
+                            </div>
+                        }
+                    </div>
+                    <div @onclick="Collaspe">
+                        @if (IsShowDes == true)
+                        {
+                            <span>@Model.Recruiter.Description</span>
+                            <div class="collaspe">Thu gọn</div>
+                        }
+                    </div>
+                    <div class="date">Ngày thành lập: @date.ToShortDateString()</div>
+                    <div class="email">Email: @Model.Recruiter.ContactEmail</div>
+                    <div class="phone">Số điện thoại: @Model.Recruiter.ContactPhone</div>
+                    <hr />
+                    <p class="address">Địa chỉ công ty</p>
+                    <span class="re-address">@Model.Recruiter.Address, @Model.Village, @Model.District, @Model.Province </span>
+                </div>
+
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
+                    <div class="card job-recruitment mt-2">
+                        <div class="align-items-center">
+                            <div class="row vieclam">
+                                <div class="col-3">
+                                    <img class="img-recruitment" src="@recruitment.Recruiter.AvatarUrl" alt="image" width="60px" height="60px">
+                                </div>
+                                <div class="col-9 d-flex">
+                                    <a href="javascript:;" @onclick="(() => ViewRecruitment(recruitment))">
+                                        <h5 class="mt-3 name-job">
+                                            @recruitment.Title
+                                        </h5>
+                                        <p class="company">@recruitment.Recruiter.CompanyName</p>
+                                        <div class="d-flex">
+                                            <div class="d-flex">
+                                                <p class="salary">
+                                                    @{
+                                                        var minSalaryInMillion = Math.Truncate(recruitment.MinSalary / 1000000);
+                                                        var maxSalaryInMillion = Math.Truncate(recruitment.MaxSalary / 1000000);
+                                                    }
+                                                    @minSalaryInMillion - @maxSalaryInMillion triệu
+                                                </p>
+                                            </div>
+                                            <p class="map ml-2">@recruitment.WorkAddress</p>
+                                        </div>
+                                        <div class="d-flex">
+                                            <p class="ex">@recruitment.Experiences.DisplayName</p>
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                            <hr />
+                            <div class="d-flex ml-3">
+                                <span class="material-icons watch">
+                                    watch_later
+                                </span>
+                                <div>
+                                    @{
+                                        DateTime deadline = recruitment.DeadlineSubmission;
+                                        DateTime currentDate = DateTime.Now.Date;
+
+                                        TimeSpan difference = deadline.Date - currentDate;
+                                        int daysRemaining = difference.Days;
+                                    }
+                                    <p class="deadline">
+                                        Còn<span class="time-deadline">@daysRemaining</span> ngày để ứng tuyển
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Virtualize>
+
+            </div>
+        </div>
+    </div>
+}

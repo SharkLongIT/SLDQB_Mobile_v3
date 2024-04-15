@@ -1,0 +1,189 @@
+﻿body {
+    font-family: "Roboto",Arial, helvetica neue, Helvetica, sans-serif;
+}
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.nav{
+    margin-bottom: 11px;
+    margin-left: -8px;
+}
+
+.nav-vtn {
+    color: #000;
+}
+
+.fa-clock-o {
+    margin-top: 2.5px;
+}
+.scale{
+    font-size: 10px;
+}
+.join-job {
+    border: none;
+    background-color: #00b14f;
+    color: #fff;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.fa-send{
+    color: #fff;
+}
+.ung-tuyen {
+    margin-top: 15px;
+}
+.save-new {
+    margin-top: 15px;
+}
+button {
+    border-radius: 5px;
+    height: 45px;
+}
+ul {
+    list-style-type: none;
+}
+.save-job {
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #00bdd6;
+    width: 50px;
+    color: #000;
+}
+.material-icons{
+    font-size: 14px;
+}
+.fas {
+    font-size: 10px;
+    margin-top: 3px;
+}
+.link-infor {
+    font-style: italic;
+    text-decoration: underline;
+}
+.title {
+    text-transform: capitalize;
+}
+.name-job {
+    font-size: 19px;
+    text-transform: capitalize
+}
+
+.company {
+    color: #47464b;
+    font-size: 13px;
+}
+
+.infor-company{
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 4px;
+    margin: 2px;
+}
+.img-recruitment {
+    border-top-color: #375c86;
+    border-right-color: #375c86;
+    border-left-color: #38ba64;
+    border-bottom-color: #38ba64;
+    border-style: solid;
+    border-radius: 4px;
+}
+.name-job {
+    font-size: 14px;
+}
+a{
+    color: #000;
+}
+.map {
+    background-color: #f5f5f7;
+    border: none;
+    padding: 4px;
+    border-radius: 6px;
+    font-size: 10px;
+}
+
+.ex {
+    background-color: #f5f5f7;
+    border: none;
+    padding: 4px;
+    border-radius: 6px;
+    font-size: 10px;
+}
+
+.salary {
+    color: #2da75b;
+    background-color: #edfcf5;
+    border: none;
+    padding: 4px;
+    border-radius: 6px;
+    font-size: 10px;
+}
+.watch {
+    color: #d5d6db;
+    margin-top: 2px;
+    margin-right: 3px;
+}
+.time-deadline {
+    color: #333c45;
+    margin-left: 3px;
+}
+
+.deadline {
+    color: #d5d6db;
+}
+.introduce-job{
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+}
+.centered-info{
+    text-align: center;
+}
+.introduce-infor {
+    color: #00b14f;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.with-divider {
+    border-right: 1px solid #f3f8f4;
+    padding-right: 10px;
+    height: 50px;
+}
+.g-information .material-icons {
+    color: #00b14f;
+    background-color: #effbf1;
+    font-size: 18px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    text-align: center;
+    margin-top: 9px;
+}
+.g-information p{
+    font-weight: 600;
+}
+.company-name {
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 11px
+}
+.content-job {
+    height: 320px;
+
+/*    background-image: url("/media/a2a.jpg");
+*/}
+.card-body{
+    height: 100px;
+}
+#myTab{
+    margin-top: 10px;
+}
+.job-recruitment {
+    border-radius: 10px;
+    border-color: #9bc3a8
+}
+p{
+    color: #000
+}

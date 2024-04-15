@@ -1,0 +1,149 @@
+﻿@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/" + NavigationUrlConsts.FilterNTV)]
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="container body-filter">
+        <div class="d-flex">
+            <a href="/NguoiTimViec">
+                <span class="material-icons close-icon mr-3">
+                    close
+                </span>
+            </a>
+            <span style="font-size: 16px; font-weight: 600">Bộ lọc</span>
+        </div>
+        <div class="card-body">
+            <div>
+                <div class="d-flex">
+                    <span class="material-icons icon-filter">
+                        location_on
+                    </span>
+                    <span class="text">Khu vực</span>
+                    <span class="material-icons ml-auto" @onclick="OpenPlace">
+                        chevron_right
+                    </span>
+                </div>
+                @if (WorkCheck == true)
+                {
+                    <div class="d-flex option-filter">
+                        <span class="work-name">@WorkSiteName</span>
+                        <span class="material-icons delete-filter" @onclick="DeleteWork">
+                            close
+                        </span>
+                    </div>
+                }
+            </div>
+
+            <hr />
+            <div>
+                <div class="d-flex">
+                    <span class="material-icons icon-filter">
+                        business_center
+                    </span>
+                    <span class="text">Kinh nghiệm</span>
+                    <span class="material-icons ml-auto" @onclick="OpenExperience">
+                        chevron_right
+                    </span>
+                </div>
+                @if (ExperienceCheck == true)
+                {
+                    <div class="d-flex option-filter">
+                        <span class="work-name">@ExperienceName</span>
+                        <span class="material-icons delete-filter" @onclick="DeleteExperience">
+                            close
+                        </span>
+                    </div>
+                }
+            </div>
+            <hr />
+            <div>
+                <div class="d-flex">
+                    <span class="material-icons icon-filter">
+                        apps
+                    </span>
+                    <span class="text">Ngành nghề</span>
+                    <span class="material-icons ml-auto" @onclick="OpenCareer">
+                        chevron_right
+                    </span>
+                </div>
+                @if (CareerCheck == true)
+                {
+                    <div class="d-flex option-filter">
+                        <span class="work-name">@CareerName</span>
+                        <span class="material-icons delete-filter" @onclick="DeleteCareer">
+                            close
+                        </span>
+                    </div>
+                }
+            </div>
+            <hr />
+            <div>
+                <div class="d-flex">
+                    <i class="fa fa-mortar-board icon-filter"></i>
+                    <span class="text">Bằng cấp</span>
+                    <span class="material-icons ml-auto" @onclick="OpenDegree">
+                        chevron_right
+                    </span>
+                </div>
+                @if (DegreeCheck == true)
+                {
+                    <div class="d-flex option-filter">
+                        <span class="work-name">@DegreeName</span>
+                        <span class="material-icons delete-filter" @onclick="DeleteDegree">
+                            close
+                        </span>
+                    </div>
+                }
+            </div>
+            <hr />
+
+            <div>
+                <div class="d-flex">
+                    <span class="material-icons icon-filter">
+                        paid
+                    </span>
+                    <span class="text">Mức lương </span>
+                    <span class="material-icons ml-auto" @onclick="OpenSalary">
+                        chevron_right
+                    </span>
+                </div>
+                @if (SalaryCheck == true)
+                {
+                    <div class="d-flex option-filter">
+                        <span class="work-name">@SalaryMin - @SalaryMax</span>
+                        <span class="material-icons delete-filter" @onclick="DeleteSalary">
+                            close
+                        </span>
+                    </div>
+                }
+            </div>
+            <hr />
+        </div>
+    </div>
+    <hr />
+
+</body>
+<footer>
+    <div class="d-flex btn-del-app">
+        <a class="btn btn-delete" href="/NguoiTimViec">Xoá lọc</a>
+        <a class="btn btn-apply " @onclick="UriFilter">Áp dụng</a>
+    </div>
+</footer>
+<BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi.PlaceModal OnChange="RefreshPlace" @ref="PlaceModal"></BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi.PlaceModal>
+<BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi.ExperienceModal OnSave="RefreshExperience" @ref="ExperienceModal"></BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi.ExperienceModal>
+<BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi.CareerModal OnSave="RefreshCareer" @ref="CareerModal"></BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi.CareerModal>
+<DegreeModal OnSave="RefeshDegree" @ref="DegreeModal"></DegreeModal>
+<SalaryModal OnSave="RefeshSalary" @ref="SalaryModal"></SalaryModal>

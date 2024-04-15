@@ -1,0 +1,27 @@
+﻿body {
+    font-family: "Roboto",Arial, helvetica neue, Helvetica, sans-serif;
+}
+.detail{
+    color:aqua;
+}
+ul {
+    list-style-type: none;
+}
+li{
+    margin-top: 3px;
+    display: flex;
+   
+}
+.contact {
+    font-weight: 600;
+    display: flex;
+}
+.icon-right {
+    margin-bottom: 11px;
+    margin-right: 4px;
+    margin-left: -8px;
+}
+.header {
+    display: flex;
+    align-items: center;
+}

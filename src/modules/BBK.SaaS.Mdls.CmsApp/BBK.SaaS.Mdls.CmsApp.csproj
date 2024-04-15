@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>net7.0</TargetFramework>
+	  <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+	  <AssemblyName>BBK.SaaS.Mdls.CmsApp</AssemblyName>
+	  <PackageId>BBK.SaaS.Mdls.CmsApp</PackageId>
+	  <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+	  <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+	  <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+	  <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+	  <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+	  <RootNamespace>BBK.SaaS.Mdls.Cms</RootNamespace>
+	  <GenerateDocumentationFile>False</GenerateDocumentationFile>
+	  <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="Abp.EntityFrameworkCore.EFPlus" Version="8.2.0" />
+		<PackageReference Include="Abp.ZeroCore" Version="8.2.0" />
+		<PackageReference Include="Abp.AutoMapper" Version="8.2.0" />
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.57" />
+		<PackageReference Include="Abp.RedisCache" Version="8.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BBK.SaaS.Mdls.CmsApp.Shared\BBK.SaaS.Mdls.CmsApp.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="BBK.SaaS.Application">
+			<HintPath>..\..\libs\BBK.SaaS.Application.dll</HintPath>
+		</Reference>
+		<Reference Include="BBK.SaaS.Application.Shared">
+			<HintPath>..\..\libs\BBK.SaaS.Application.Shared.dll</HintPath>
+		</Reference>
+		<Reference Include="BBK.SaaS.Core">
+			<HintPath>..\..\libs\BBK.SaaS.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="BBK.SaaS.Core.Shared">
+			<HintPath>..\..\libs\BBK.SaaS.Core.Shared.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="xcopy &quot;$(TargetDir)&quot; &quot;e:\Workspaces\bbk.saas\gits5\BBK.SaaS.SVLQB\src\libs\&quot; /Y" />
+	</Target>-->
+</Project>

@@ -1,0 +1,134 @@
+﻿@inherits ModalBase
+<div class="modal fade" id="@ModalId" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded">
+            <div class="modal-body scroll-y pt-10 pb-10">
+                <div class="mb-13 text-center">
+                    <h1 class="mb-3">@L("Cập nhật thông tin")</h1>
+                </div>
+                @* <img src="@Model.AvatarUrl" width="40px" height="40px" style="border-radius:50%; align-content:center" /> *@
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Họ và tên")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" placeholder="@NameCandidate" disabled />
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Ngày sinh")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <input type="date" class="form-control form-control-solid" @bind="Model.DateOfBirth" />
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Tỉnh/Thành phố")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <select required="required" class="form-control" @onchange="selectedValue">
+                        @if (ListProvince != null && ListProvince.Count > 0)
+                        {
+                            @foreach (var item in ListProvince)
+                            {
+                                @if(@Model.ProvinceId == @item.Id){
+                                    <option value="@item.Id" selected>
+                                        @item.DisplayName
+                                    </option>
+                                }else {
+                                    <option value="@item.Id">
+                                        @item.DisplayName
+                                    </option>
+                                }
+                               
+                            }
+
+                        }
+
+                    </select>
+
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Xã/huyện")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <select required="required" class="form-control" @bind="Model.DistrictId">
+
+                        @if (ListDistrict != null && ListDistrict.Count > 0)
+                        {
+                            @foreach (var item in ListDistrict)
+                            {
+                                <option value="@item.Id">
+                                    @item.DisplayName
+                                </option>
+                            }
+                        }
+
+                    </select>
+
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Địa chỉ")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" @bind="Model.Address" />
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Giới tính")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                @if(Model.Gender == Mdls.Profile.Candidates.Dto.GenderEnum.Female)
+                    {
+                        <select class="form-control" @onchange="ChangeGender">
+                            <option value="1">Nam</option>
+                            <option value="2" selected>Nữ</option>
+                        </select>
+                    }
+                    else
+                    {
+                        <select class="form-control" @onchange="ChangeGender">
+                            <option value="1" selected>Nam</option>
+                            <option value="2" >Nữ</option>
+                        </select>
+                    }
+                   
+
+                </div>
+                <div class="d-flex flex-column mb-4 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Tình trạng hôn nhân")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <div class="d-flex ml-5">
+                         <input type="checkbox" class="form-check-input" style="font-size: 6px" @bind="@Model.Marital" @onclick="ChangeMarital"></input>
+                         <span class="form-check-label fw-semibold text-muted ml-3 mt-2">@NameMarital</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mb-3">
+                <button type="reset" data-dismiss="modal" class="btn btn-light me-3" @onclick="Hide">@L("Huỷ")</button>
+                <button type="button" class="btn" style="background-color: #00b14f" @onclick="Save">
+                    <span style="color: white" class="indicator-label">@L("Lưu")</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

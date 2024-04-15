@@ -1,0 +1,44 @@
+﻿@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/" + NavigationUrlConsts.NguoiTimViec)]
+<div class="content">
+	<Virtualize @ref="JobApplicationContainer" Context="job" ItemsProvider="@LoadJobApplication" ItemSize="20">
+		<a href="javascript:;" @onclick="(() => ViewUser(job))">
+			<div class="d-flex">
+				<div>
+					<img src="@job.Candidate.AvatarUrl" class="me-3 rounded-circle shadow-l"
+						 width="100">
+				</div>
+				<div>
+					<h5 class="font-700 text-uppercase">@job.User.Name</h5>
+					<h1 class="font-700 font-15 line-height-m pb-2">@job.JobApplication.Positions.DisplayName</h1>
+					<span class="badge bg-green-dark text-uppercase font-12">
+						<i class="fa-solid fa-dollar-sign pe-1"></i>
+						@if (job.JobApplication.DesiredSalary.HasValue)
+						{
+							<span>
+								@{
+									var minSalaryInMillion = Math.Truncate(job.JobApplication.DesiredSalary.Value / 1000000);
+								}
+								@minSalaryInMillion triệu
+							</span>
+						}
+						else
+						{
+							<span>Lương thoả thuận</span>
+						}
+					</span>
+					<span class="badge bg-gray-dark text-uppercase font-12">
+						<i class="fa-solid fa-graduation-cap pe-1"></i>
+						@job.JobApplication.Literacy.DisplayName
+					</span>
+					<span class="badge bg-teal-dark text-uppercase font-12">
+						<i class="fa-solid fa-comment pe-1"></i>
+						@job.JobApplication.Province.DisplayName
+					</span>
+				</div>
+			</div>
+		</a>
+		<div class="divider mt-3 mb-3"></div>
+	</Virtualize>
+</div>
