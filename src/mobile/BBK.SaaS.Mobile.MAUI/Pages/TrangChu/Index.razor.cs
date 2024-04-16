@@ -381,6 +381,14 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
         public async Task UriVTN()
         {
             navigationService.NavigateTo(NavigationUrlConsts.ViecTimNguoi);
+        } 
+        public async Task UriNTV()
+        {
+            navigationService.NavigateTo(NavigationUrlConsts.NguoiTimViec);
+        }
+          public async Task UriArticle()
+        {
+            navigationService.NavigateTo(NavigationUrlConsts.TinTuc);
         }
 
         public static string GetTimeSince(DateTime objDateTime)

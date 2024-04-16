@@ -4,6 +4,7 @@ using BBK.SaaS.Core.Threading;
 using BBK.SaaS.Mdls.Cms.Articles;
 using BBK.SaaS.Mdls.Cms.Articles.MDto;
 using BBK.SaaS.Mdls.Cms.Categories;
+using BBK.SaaS.Mdls.Cms.Categories.Dto;
 using BBK.SaaS.Mobile.MAUI.Models.TinTuc;
 using BBK.SaaS.Mobile.MAUI.Services.Article;
 using BBK.SaaS.Mobile.MAUI.Shared;
@@ -24,8 +25,15 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
         private bool isError = false;
 
 
+        private ItemsProviderResult<CmsCatDto> cmsCatDto;
+        private readonly GetCmsCatInput getCmsCatInput = new GetCmsCatInput();
+        private Virtualize<CmsCatDto> CmsContainer { get; set; }
+
         private ItemsProviderResult<ArticleModel> articleDto;
         private readonly GetArticlesByCatInput _filter = new GetArticlesByCatInput();
+
+        private readonly SearchArticlesInput _filterArticle = new SearchArticlesInput();
+
         private Virtualize<ArticleModel> ArticlesContainer { get; set; }
 
 
@@ -44,50 +52,50 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
         }
         private async Task RefeshList()
         {
-            _SearchText = _filter.Filter;
+            _SearchText = _filterArticle.Filter;
             await ArticlesContainer.RefreshDataAsync();
             StateHasChanged();
             await LoadArticles(new ItemsProviderRequest());
         }
 
-        //#region Category
-        //private async ValueTask<ItemsProviderResult<CmsCatDto>> LoadCategories(ItemsProviderRequest request)
-        //{
-        //    _filter.MaxResultCount = Math.Clamp(request.Count, 1, 1000);
-        //    _filter.SkipCount = request.StartIndex;
-        //    //_filter.Take = Math.Clamp(request.Count, 1, 1000);
+        #region Category
+        private async ValueTask<ItemsProviderResult<CmsCatDto>> LoadCategories(ItemsProviderRequest request)
+        {
+            _filter.MaxResultCount = Math.Clamp(request.Count, 1, 1000);
+            _filter.SkipCount = request.StartIndex;
+            //_filter.Take = Math.Clamp(request.Count, 1, 1000);
 
-        //    await UserDialogsService.Block();
+            await UserDialogsService.Block();
 
-        //    await WebRequestExecuter.Execute(
-        //    async () => await cmsCatsAppService.GetCmsCatsByLevel(_filterCmsCat),
-        //    async (result) =>
-        //    {
-        //        var articlesFilter = result.Items.ToList();
-        //        cmsCatDto = new ItemsProviderResult<CmsCatDto>(articlesFilter, articlesFilter.Count);
-        //        await UserDialogsService.UnBlock();
-        //    }
-        //);
+            await WebRequestExecuter.Execute(
+            async () => await cmsCatsAppService.GetCmsCats(),
+            async (result) =>
+            {
+                var articlesFilter = result.Items.ToList();
+                cmsCatDto = new ItemsProviderResult<CmsCatDto>(articlesFilter, articlesFilter.Count);
+                await UserDialogsService.UnBlock();
+            }
+        );
 
-        //    return cmsCatDto;
-        //}
-        //private void NavigateToCategory(int categoryId,string categoryName ,MouseEventArgs e)
+            return cmsCatDto;
+        }
+        //private void NavigateToCategory(int categoryId, string categoryName, MouseEventArgs e)
         //{
         //    navigationService.NavigateTo($"Category?categoryId={categoryId}&categoryName={categoryName}");
         //}
-        //#endregion
+        #endregion
 
 
         #region Article
         private async ValueTask<ItemsProviderResult<ArticleModel>> LoadArticles(ItemsProviderRequest request)
         {
-            _filter.Filter = _SearchText;
-            _filter.CategoryId = 1;
+            _filterArticle.Filter = _SearchText;
+            
 
             await UserDialogsService.Block();
 
                 await WebRequestExecuter.Execute(
-                async () => await articlesFrontendAppService.GetArticlesByCategory(_filter),
+                async () => await articlesFrontendAppService.GetArticles(_filterArticle),
                 async (result) =>
                 {
                     var articlesFilter = ObjectMapper.Map<List<ArticleModel>>(result.Items);
