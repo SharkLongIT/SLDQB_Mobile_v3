@@ -1,23 +1,13 @@
 ﻿@using BBK.SaaS.Services.Navigation
 @inherits SaaSMainLayoutPageComponentBase
 @attribute [Route("/" + NavigationUrlConsts.TrangChu)]
-<body class="theme-light" data-highlight="highlight-red" data-gradient="body-default">
-
-	@* <div id="preloader">
-		<div class="spinner-border color-highlight" role="status"></div>
-	</div>
- *@
-	<div id="page">
-		<!-- Top logo + menu -->
-		
-
 		<!-- Start Page Content -->
 		<div class="page-content header-clear-medium">
 			<!-- Ảnh bìa -->
 			<div class="card card-style mx-0 mb-0 rounded-0" data-card-height="400">
 				<div class="card-bottom mb-4">
 					<!-- Slider  -->
-@* 					<div class="splide single-slider visible-slider slider-no-arrows slider-no-dots"
+					<div class="splide single-slider visible-slider slider-no-arrows slider-no-dots"
 						 id="single-slider-1">
 						<div class="splide__track">
 							<div class="splide__list">
@@ -68,7 +58,7 @@
 							</div>
 						</div>
 					</div>
- *@					<!-- Slogan -->
+					<!-- Slogan -->
 					<div class="d-flex">
 						<a href="#" data-menu="menu-login-1" class="align-self-center scale-box text-center ps-3">
 							<i class="fa fa-user color-green-dark fa-2x"></i>
@@ -307,7 +297,7 @@
 					<!-- Việc tìm người -->
 					<div data-bs-parent="#tab-group-1" class="collapse" id="tab-2">
 						<div class="content">
-							                <Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
+							   <Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
 
 								<a href="javascript:;" @onclick="(() => ViewRecruitment(recruitment))">
 									<div class="d-flex">
@@ -340,8 +330,7 @@
 							</a>
 							<div class="divider mt-3 mb-3"></div>
 							</Virtualize>
-							<a href="/ViecTimNguoi"
-							   class="btn btn-full border-blue-dark rounded-sm color-blue-dark btn-sm font-700 text-uppercase mt-4">
+							<a @onclick="UriVTN" class="btn btn-full border-blue-dark rounded-sm color-blue-dark btn-sm font-700 text-uppercase mt-4">
 								Xem
 								thêm
 							</a>
@@ -399,8 +388,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
-</body>
+
 
 
 

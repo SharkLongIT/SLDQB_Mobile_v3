@@ -145,7 +145,6 @@
 		<None Remove="Pages\NguoiTimViec\FilterModal.razor.css" />
 		<None Remove="Pages\NguoiTimViec\FilterModal.razor.js" />
 		<None Remove="Pages\NguoiTimViec\ThongTinNTV.razor.css" />
-		<None Remove="Pages\ViecTimNguoi\Index.razor.css" />
 		<None Remove="Platforms\Android\Resources\xml\network_security_config.xml" />
 	</ItemGroup>
 
@@ -153,7 +152,6 @@
 	  <Content Include="Pages\GioiThieu\Index.razor.css" />
 	  <Content Include="Pages\InforNTD\InforNTD.razor.css" />
 	  <Content Include="Pages\NguoiTimViec\ThongTinNTV.razor.css" />
-	  <Content Include="Pages\ViecTimNguoi\Index.razor.css" />
 	</ItemGroup>
 
 	<ItemGroup>

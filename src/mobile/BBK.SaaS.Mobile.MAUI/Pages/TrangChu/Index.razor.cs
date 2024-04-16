@@ -377,6 +377,12 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             StateHasChanged();
         }
 
+
+        public async Task UriVTN()
+        {
+            navigationService.NavigateTo(NavigationUrlConsts.ViecTimNguoi);
+        }
+
         public static string GetTimeSince(DateTime objDateTime)
         {
             string result = string.Empty;

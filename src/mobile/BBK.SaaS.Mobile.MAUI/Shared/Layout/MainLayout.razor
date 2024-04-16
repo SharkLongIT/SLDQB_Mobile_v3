@@ -3,145 +3,194 @@
 @if (IsConfigurationsInitialized)
 {
     <!--begin::App-->
-    <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+    <div id="page">
         <!--begin::Page-->
-        <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
-            <!--begin::Header-->
-            @*  <div id="kt_app_header" class="app-header bg-white">
-        <!--begin::Header container-->
-        <div class="app-container container-fluid d-flex align-items-stretch justify-content-between" id="kt_app_header_container">
-        <!--begin::sidebar mobile toggle-->
-        <div class="d-flex align-items-center d-lg-none ms-n2 me-2" title="Show sidebar menu">
-        <div class="btn btn-icon btn-active-color-primary w-35px h-35px" id="kt_app_sidebar_mobile_toggle">
-        <!--begin::Svg Icon | path: icons/duotune/abstract/abs015.svg-->
-        <span class="svg-icon svg-icon-1">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21 7H3C2.4 7 2 6.6 2 6V4C2 3.4 2.4 3 3 3H21C21.6 3 22 3.4 22 4V6C22 6.6 21.6 7 21 7Z" fill="currentColor" />
-        <path opacity="0.3" d="M21 14H3C2.4 14 2 13.6 2 13V11C2 10.4 2.4 10 3 10H21C21.6 10 22 10.4 22 11V13C22 13.6 21.6 14 21 14ZM22 20V18C22 17.4 21.6 17 21 17H3C2.4 17 2 17.4 2 18V20C2 20.6 2.4 21 3 21H21C21.6 21 22 20.6 22 20Z" fill="currentColor" />
-        </svg>
-        </span>
-        <!--end::Svg Icon-->
-        </div>
-        </div>
-        </div>
-        <!--end::Header container-->
-        </div> *@
-            <!--end::Header-->
-            <!--begin::Wrapper-->
-            <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
-                <!--begin::sidebar-->
-                <div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="225px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
-                    <!--begin::Logo-->
-                    @*      <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
-                <!--begin::Logo image-->
-                <a href="/">
-                <img alt="Logo" src="@_logoURL" class="h-25px app-sidebar-logo-default theme-light-show" />
-                </a>
-                <!--end::Logo image-->
-                <!--begin::Sidebar toggle-->
-                <div id="kt_app_sidebar_toggle" class="app-sidebar-toggle btn btn-icon btn-shadow btn-sm btn-color-muted btn-active-color-primary body-bg h-30px w-30px position-absolute top-50 start-100 translate-middle rotate" data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body" data-kt-toggle-name="app-sidebar-minimize">
-                <!--begin::Svg Icon | path: icons/duotune/arrows/arr079.svg-->
-                <span class="svg-icon svg-icon-2 rotate-180">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path opacity="0.5" d="M14.2657 11.4343L18.45 7.25C18.8642 6.83579 18.8642 6.16421 18.45 5.75C18.0358 5.33579 17.3642 5.33579 16.95 5.75L11.4071 11.2929C11.0166 11.6834 11.0166 12.3166 11.4071 12.7071L16.95 18.25C17.3642 18.6642 18.0358 18.6642 18.45 18.25C18.8642 17.8358 18.8642 17.1642 18.45 16.75L14.2657 12.5657C13.9533 12.2533 13.9533 11.7467 14.2657 11.4343Z" fill="currentColor" />
-                <path d="M8.2657 11.4343L12.45 7.25C12.8642 6.83579 12.8642 6.16421 12.45 5.75C12.0358 5.33579 11.3642 5.33579 10.95 5.75L5.40712 11.2929C5.01659 11.6834 5.01659 12.3166 5.40712 12.7071L10.95 18.25C11.3642 18.6642 12.0358 18.6642 12.45 18.25C12.8642 17.8358 12.8642 17.1642 12.45 16.75L8.2657 12.5657C7.95328 12.2533 7.95328 11.7467 8.2657 11.4343Z" fill="currentColor" />
-                </svg>
-                </span>
-                <!--end::Svg Icon-->
+        <!-- Top logo + menu -->
+        <div class="header header-fixed header-logo-center">
+            <div class="d-flex">
+                <div class="align-self-center ms-2">
+                    <img src="images/QuangBinh/Trungtam_40.png">
                 </div>
 
-
-                <!--end::Sidebar toggle-->
-                </div> *@
-                    <!--end::Logo-->
-                    <!--begin::sidebar menu-->
-                    @*                     <div class="app-sidebar-menu overflow-hidden flex-column-fluid">
-                <!--begin::Menu wrapper-->
-                <div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper hover-scroll-overlay-y my-5" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer" data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px" data-kt-scroll-save-state="true">
-                <!--begin::Menu-->
-                <div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
-                <!--begin:Menu item-->
-                <NavMenu />
-                <!--end:Menu item-->
+                <div class="align-self-center ms-auto mt-1">
+                    <a href="#" data-menu="menu-sidebar-left" class="icon icon-xs gradient-yellow rounded-s">
+                        <i class="fa fa-list color-white font-18"></i>
+                    </a>
                 </div>
-                <!--end::Menu-->
+                <div class="align-self-center ms-2 mt-1 pe-2">
+                    <a href="#" data-toggle-theme=""
+                       class="show-on-theme-dark icon icon-xs gradient-yellow rounded-m">
+                        <i class="fa fa-lightbulb font-14 color-white"></i>
+                    </a>
+                    <a href="#" data-toggle-theme=""
+                       class="show-on-theme-light icon icon-xs gradient-brown rounded-m">
+                        <i class="fa fa-moon font-14 color-white"></i>
+                    </a>
                 </div>
-                <!--end::Menu wrapper-->
-                </div>
-                *@                    <!--end::sidebar menu-->
-                    <!--begin::Footer-->
-                    @*   <div class="app-sidebar-footer flex-column-auto pt-2 pb-6 px-6" id="kt_app_sidebar_footer">
-                Trung Tâm Dịch Vụ Việc Làm Quảng Bình
-                </div> *@
-                    <!--end::Footer-->
-                </div>
-                <!--end::sidebar-->
-                <!--begin::Main-->
-                <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
-                    <!--begin::Content wrapper-->
-                    <div class="d-flex flex-column flex-column-fluid">
-                        <!--begin::Content-->
-                        <div id="kt_app_content" class="app-content flex-column-fluid">
-                            <!--begin::Content container-->
-                            <div id="kt_app_content_container" class="app-container container-fluid" style="padding: 5px !important">
-                                <div class="header header-fixed header-logo-center">
-                                    <div class="d-flex">
-                                        <div class="align-self-center ms-2">
-                                            <img src="images/QuangBinh/Trungtam_40.png">
-                                        </div>
-                                        @*
-                                    <div class="align-self-center ms-auto mt-1">
-                                    <a href="#" data-menu="menu-sidebar-left" class="icon icon-xs gradient-yellow rounded-s">
-                                    <i class="fa fa-list color-white font-18"></i>
-                                    </a>
-                                    </div>
-                                    <div class="align-self-center ms-2 mt-1 pe-2">
-                                    <a href="#" data-toggle-theme=""
-                                    class="show-on-theme-dark icon icon-xs gradient-yellow rounded-m">
-                                    <i class="fa fa-lightbulb font-14 color-white"></i>
-                                    </a>
-                                    <a href="#" data-toggle-theme=""
-                                    class="show-on-theme-light icon icon-xs gradient-brown rounded-m">
-                                    <i class="fa fa-moon font-14 color-white"></i>
-                                    </a>
-                                    </div> *@
-                                    </div>
-                                </div>
-                                @Body
-
-                                <div class="footer card mx-0">
-                                    <a href="#" class="footer-title"><span class="color-highlight">Trung tâm DVVL Quảng Bình</span></a>
-                                    <p class="footer-text mb-2">
-                                        <span><i class="fa fa-heart color-highlight font-16 ps-2 pe-2"></i>Hotline: 02323 7979898</span>
-                                        <br><i class="fa-solid fa-envelope color-highlight font-16 ps-2 pe-2"></i>
-                                        vieclamthanhnienquangbinh@gmail.com
-                                        <br><i class="fa-solid fa-location-dot color-highlight font-16 ps-2 pe-2"></i>42 Trần Quang Khải,
-                                        Đồng Phú, Đồng Hới, Quảng Bình
-                                    </p>
-                                    <p class="footer-copyright">
-                                        Copyright &copy; BBK Solution <span id="copyright-year">2024</span>. All
-                                        Rights
-                                        Reserved.
-                                    </p>
-                                    <p class="footer-links">
-                                        <a href="#" class="color-highlight">Chính sách</a> | <a href="#" class="color-highlight">Điều khoản sử dụng</a> | <a href="#"
-                                                                                                                                                             class="back-to-top color-highlight"> Back to Top</a>
-                                    </p>
-                                    <div class="clear"></div>
-                                </div>
-                            </div>
-                            <!--BODY IS HERE-->
-                        </div>
-                        <!--end::Content container-->
-                    </div>
-                    <!--end::Content-->
-                </div>
-                <!--end::Content wrapper-->
             </div>
-            <!--end:::Main-->
         </div>
         <!--end::Wrapper-->
+
+        <div class="page-content header-clear-medium">
+            @Body
+            <div class="footer card mx-0">
+                <a href="#" class="footer-title"><span class="color-highlight">Trung tâm DVVL Quảng Bình</span></a>
+                <p class="footer-text mb-2">
+                    <span><i class="fa fa-heart color-highlight font-16 ps-2 pe-2"></i>Hotline: 02323 7979898</span>
+                    <br><i class="fa-solid fa-envelope color-highlight font-16 ps-2 pe-2"></i>
+                    vieclamthanhnienquangbinh@gmail.com
+                    <br><i class="fa-solid fa-location-dot color-highlight font-16 ps-2 pe-2"></i>42 Trần Quang Khải,
+                    Đồng Phú, Đồng Hới, Quảng Bình
+                </p>
+                <p class="footer-copyright">
+                    Copyright &copy; BBK Solution <span id="copyright-year">2024</span>. All
+                    Rights
+                    Reserved.
+                </p>
+                <p class="footer-links">
+                    <a href="#" class="color-highlight">Chính sách</a> | <a href="#"
+                                                                            class="color-highlight">Điều khoản sử dụng</a> | <a href="#"
+                                                                                                                                class="back-to-top color-highlight"> Back to Top</a>
+                </p>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <!-- End of Page Content-->
+
+        <div id="menu-mood" class="menu menu-box-modal" data-menu-width="320" data-menu-height="375">
+            <div class="content mb-0">
+                <h1 class="text-center fa-5x pt-3 pb-4">😍</h1>
+                <h3 class="text-center">Your Mental Health Matters</h3>
+                <p class="px-4 text-center">
+                    Try a few exercises to keep yourself in a happy and energetic mood!
+                </p>
+
+                <a href="#" data-menu="menu-appointment">
+                    <div class="card card-style shadow-xl mb-3 mx-0">
+                        <div class="d-flex">
+                            <div class="ps-2 ms-2 align-self-center">
+                                <h1 class="font-20 pt-4 mb-0 color-theme">Maintain Happiness</h1>
+                                <p class="font-12 color-theme mt-n2 mb-4 opacity-70">Course - 5 to 30 Minutes</p>
+                            </div>
+                            <div class="ms-auto me-3 align-self-center">
+                                <i class="fab fa-youtube color-red-dark fa-3x mt-4 mb-4"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" data-menu="menu-close"
+                   class="mb-3 color-theme opacity-30 text-center d-block text-uppercase font-12 font-700 py-3 mb-n2">
+                    No
+                    thanks, maybe later!
+                </a>
+            </div>
+        </div>
+
+        <!-- Sidebar-->
+        <div id="menu-sidebar-left" class="bg-white menu menu-box-left" data-menu-width="320"
+             data-menu-effect="menu-parallax">
+            <div class="divider mb-3"></div>
+            <div class="ps-3 pe-3 pt-2 mb-4">
+                <div class="d-flex">
+                    <div class="me-2 align-self-center">
+                        <img src="images/avatars/5s.png" class="gradient-red rounded-sm" width="43">
+                    </div>
+                    <div class="flex-grow-1 align-self-center ps-2">
+                        <h1 class="font-20 font-700 mb-0">Họ và tên</h1>
+                        <p class="mt-n2 mb-0 font-10 font-400">Nhà tuyển dụng / Ứng viên</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider divider-margins mb-0"></div>
+
+            <div class="me-3 ms-3">
+                <div class="list-group list-custom-small">
+                    <a href="#">
+                        <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i>
+                        <span>Trang chủ</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fa font-14 fa-search rounded-s bg-blue-dark"></i>
+                        <span>Người tìm việc</span>
+                        <span class="badge bg-red-dark">NEW</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fa font-14 fa-briefcase rounded-s bg-brown-dark"></i>
+                        <span>Việc tìm người</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fa font-14 fa-camera rounded-s bg-green-dark"></i>
+                        <span>Tin tức</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    <a href="#" class="border-0">
+                        <i class="fa font-14 fa-image rounded-s bg-teal-dark"></i>
+                        <span>Hỏi đáp</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="me-3 ms-3 mt-4">
+                <span class="text-uppercase font-900 font-11 opacity-30">Dịch vụ</span>
+                <div class="list-group list-custom-small">
+                    <a href="#">
+                        <i class="fa font-14 fa-user-graduate rounded-s bg-facebook"></i>
+                        <span>Du học</span>
+                        <i class="fa fa-link"></i>
+                    </a>
+                    <a href="#">
+                        <i class="fa font-14 fa-plane rounded-s bg-twitter"></i>
+                        <span>Xuất khẩu lao động</span>
+                        <i class="fa fa-link"></i>
+                    </a>
+                    <a href="#" class="border-0">
+                        <i class="fab font-14 fa-instagram rounded-s bg-instagram"></i>
+                        <span>Cho thuê phòng họp</span>
+                        <i class="fa fa-link"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="me-3 ms-3 mt-4 pt-2">
+                <span class="text-uppercase font-900 font-11 opacity-30">Account Settings</span>
+                <div class="list-group list-custom-small">
+                    <a href="#" data-toggle-theme data-trigger-switch="switch-dark3-mode">
+                        <i class="fa font-12 fa-moon bg-gray-dark rounded-s"></i>
+                        <span>Dark Mode</span>
+                        <div class="custom-control small-switch ios-switch">
+                            <input data-toggle-theme type="checkbox" class="ios-input" id="switch-dark3-mode">
+                            <label class="custom-control-label" for="switch-dark3-mode"></label>
+                        </div>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    <a data-trigger-switch="sidebar-311-switch-2" href="#">
+                        <i class="fa font-14 fa-circle rounded-s bg-green-dark"></i>
+                        <span>Active Mode</span>
+                        <div class="custom-control small-switch ios-switch">
+                            <input type="checkbox" class="ios-input" id="sidebar-311-switch-2" checked>
+                            <label class="custom-control-label" for="sidebar-311-switch-2"></label>
+                        </div>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    <a data-trigger-switch="sidebar-31-switch-3" href="#" class="border-0">
+                        <i class="fa font-14 fa-bell rounded-s bg-blue-dark"></i>
+                        <span>Notifications</span>
+                        <div class="custom-control small-switch ios-switch">
+                            <input type="checkbox" class="ios-input" id="sidebar-31-switch-3" checked>
+                            <label class="custom-control-label" for="sidebar-31-switch-3"></label>
+                        </div>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <!--end::Page-->
-    <!--end::App-->
+
 }
