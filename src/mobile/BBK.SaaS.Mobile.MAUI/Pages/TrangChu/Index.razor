@@ -1,98 +1,49 @@
 ﻿@using BBK.SaaS.Services.Navigation
 @inherits SaaSMainLayoutPageComponentBase
 @attribute [Route("/" + NavigationUrlConsts.TrangChu)]
-
 <!-- Start Page Content -->
 <!-- Ảnh bìa -->
-<div class="card card-style mx-0 mb-0 rounded-0" data-card-height="400" style="height: 400px;">
+<div class="card card-style mx-0 mb-0 rounded-0" data-card-height="400" style="height: 350px;">
     <div class="card-bottom mb-4">
         <!-- Slider  -->
-        <div class="splide single-slider visible-slider slider-no-arrows slider-no-dots splide--loop splide--ltr splide--draggable is-active" id="single-slider-1" style="visibility: visible;">
-            <div class="splide__arrows"><button class="splide__arrow splide__arrow--prev" type="button" aria-controls="single-slider-1-track" aria-label="Go to last slide"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40"><path d="m15.5 0.932-4.3 4.38 14.5 14.6-14.5 14.5 4.3 4.4 14.6-14.6 4.4-4.3-4.4-4.4-14.6-14.6z"></path></svg></button><button class="splide__arrow splide__arrow--next" type="button" aria-controls="single-slider-1-track" aria-label="Next slide"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40"><path d="m15.5 0.932-4.3 4.38 14.5 14.6-14.5 14.5 4.3 4.4 14.6-14.6 4.4-4.3-4.4-4.4-14.6-14.6z"></path></svg></button></div><div class="splide__track" id="single-slider-1-track">
-                <div class="splide__list" id="single-slider-1-list" style="transform: translateX(-656px);">
-                    <div class="splide__slide splide__slide--clone" aria-hidden="true" tabindex="-1" style="width: 328px;">
-                        <a href="#" class="card me-0 card-style" data-card-height="300" style="background-image: url(&quot;images/QuangBinh/QB_Intro_3.jpg&quot;); height: 300px;">
-                            <div class="card-bottom m-3">
-                                <h1 class="color-white font-20">
-                                    Cán bộ nhân viên Trung tâm
-                                </h1>
-                            </div>
-                            <div class="card-overlay bg-gradient opacity-90"></div>
-                        </a>
-                    </div><div class="splide__slide splide__slide--clone" style="width: 328px;">
-                        <a href="#" class="card me-0 card-style" data-card-height="300" style="background-image: url(&quot;images/QuangBinh/QB_Intro_10.jpg&quot;); height: 300px;">
-                            <div class="card-bottom m-3">
-                                <h1 class="color-white font-20">
-                                    Ngày hội việc làm thanh niên
-                                </h1>
-                            </div>
-                            <div class="card-overlay bg-gradient opacity-90"></div>
-                        </a>
-                    </div><div class="splide__slide is-active is-visible" id="single-slider-1-slide01" aria-hidden="false" tabindex="0" style="width: 328px;">
-                        <a href="#" class="card me-0 card-style" data-card-height="300" style="background-image: url(&quot;images/QuangBinh/QB_Intro_1.jpg&quot;); height: 300px;">
-                            <div class="card-bottom m-3">
-                                <h1 class="color-white font-20">
-                                    Trung tâm DVVL thanh niên tỉnh Quảng Bình
-                                </h1>
-                            </div>
-                            <div class="card-overlay bg-gradient opacity-90"></div>
-                        </a>
+        <div id="carouselExampleIndicators" class="carousel slide mt-0" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/QuangBinh/QB_Intro_1.jpg" class="d-block w-100" height="260px" alt="Slide 1">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Trung tâm DVVL thanh niên tỉnh Quảng Bình</h5>
                     </div>
-                    <div class="splide__slide" id="single-slider-1-slide02" style="width: 328px;" aria-hidden="true" tabindex="-1">
-                        <a href="#" class="card me-0 card-style" data-card-height="300" style="background-image: url(&quot;images/QuangBinh/QB_Intro_16.png&quot;); height: 300px;">
-                            <div class="card-bottom m-3">
-                                <h1 class="color-white font-20">
-                                    Nhận bằng khen của UBND tỉnh
-                                </h1>
-                            </div>
-                            <div class="card-overlay bg-gradient opacity-90"></div>
-                        </a>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/QuangBinh/QB_Intro_3.jpg" class="d-block w-100" height="260px" alt="Slide 2">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Cán bộ nhân viên Trung tâm</h5>
                     </div>
-                    <div class="splide__slide" id="single-slider-1-slide03" style="width: 328px;" aria-hidden="true" tabindex="-1">
-                        <a href="#" class="card me-0 card-style" data-card-height="300" style="background-image: url(&quot;images/QuangBinh/QB_Intro_3.jpg&quot;); height: 300px;">
-                            <div class="card-bottom m-3">
-                                <h1 class="color-white font-20">
-                                    Cán bộ nhân viên Trung tâm
-                                </h1>
-                            </div>
-                            <div class="card-overlay bg-gradient opacity-90"></div>
-                        </a>
-                    </div>
-                    <div class="splide__slide" id="single-slider-1-slide04" style="width: 328px;" aria-hidden="true" tabindex="-1">
-                        <a href="#" class="card me-0 card-style" data-card-height="300" style="background-image: url(&quot;images/QuangBinh/QB_Intro_10.jpg&quot;); height: 300px;">
-                            <div class="card-bottom m-3">
-                                <h1 class="color-white font-20">
-                                    Ngày hội việc làm thanh niên
-                                </h1>
-                            </div>
-                            <div class="card-overlay bg-gradient opacity-90"></div>
-                        </a>
-                    </div>
-                    <div class="splide__slide splide__slide--clone" style="width: 328px;">
-                        <a href="#" class="card me-0 card-style" data-card-height="300" style="background-image: url(&quot;images/QuangBinh/QB_Intro_1.jpg&quot;); height: 300px;">
-                            <div class="card-bottom m-3">
-                                <h1 class="color-white font-20">
-                                    Trung tâm DVVL thanh niên tỉnh Quảng Bình
-                                </h1>
-                            </div>
-                            <div class="card-overlay bg-gradient opacity-90"></div>
-                        </a>
-                    </div><div class="splide__slide splide__slide--clone" style="width: 328px;">
-                        <a href="#" class="card me-0 card-style" data-card-height="300" style="background-image: url(&quot;images/QuangBinh/QB_Intro_16.png&quot;); height: 300px;">
-                            <div class="card-bottom m-3">
-                                <h1 class="color-white font-20">
-                                    Nhận bằng khen của UBND tỉnh
-                                </h1>
-                            </div>
-                            <div class="card-overlay bg-gradient opacity-90"></div>
-                        </a>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/QuangBinh/QB_Intro_10.jpg" class="d-block w-100" height="260px" alt="Slide 3">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Ngày hội việc làm thanh niên</h5>
                     </div>
                 </div>
             </div>
-            <ul class="splide__pagination"><li><button class="splide__pagination__page is-active" type="button" aria-controls="single-slider-1-slide01" aria-label="Go to slide 1" aria-current="true"></button></li><li><button class="splide__pagination__page" type="button" aria-controls="single-slider-1-slide02" aria-label="Go to slide 2"></button></li><li><button class="splide__pagination__page" type="button" aria-controls="single-slider-1-slide03" aria-label="Go to slide 3"></button></li><li><button class="splide__pagination__page" type="button" aria-controls="single-slider-1-slide04" aria-label="Go to slide 4"></button></li></ul>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
+
         <!-- Slogan -->
-        <div class="d-flex">
+        <div class="d-flex mt-3">
             <a href="#" data-menu="menu-login-1" class="align-self-center scale-box text-center ps-3">
                 <i class="fa fa-user color-green-dark fa-2x"></i>
                 <p class="color-white text-center text-uppercase mb-3">Ứng viên</p>
@@ -111,64 +62,111 @@
 </div>
 <!-- Tìm kiếm thông tin -->
 <div class="content mt-n4 search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important">
-    <i class="fa fa-search" @onclick="RefeshList"></i>
-    <input type="text" class="border-0" placeholder="Tìm kiếm thông tin" data-search @bind="_filtered.Filtered">
+    <i class="fa fa-search" @* @onclick="RefeshList" *@></i>
+    <input type="text" class="border-0" placeholder="Tìm kiếm thông tin" data-search @oninput="selectedValue" >
     <a href="#" class="clear-search disabled mt-0"><i class="fa fa-times color-red-dark"></i></a>
 </div>
 
 <!-- Kết quả tìm kiếm -->
-<div class="search-results disabled-search-list card card-style shadow-l">
-    <div class="content my-0 list-group list-custom-small">
-        <a href="#" data-filter-item data-filter-name="all pediatrics" class="search-result-list">
-            <i class="fa font-14 fa-child color-blue-dark"></i>
-            <span>Pediatrics</span>
-            <i class="fa fa-angle-right"></i>
+@if (IsFilter == true)
+{
+    <div class="card card-style p-4">
+        <Virtualize @ref="JobApplicationContainer" Context="job" ItemsProvider="@LoadJobApplication" ItemSize="20">
+            <a href="javascript:;" @onclick="(() => ViewUser(job))">
+                <div class="d-flex">
+                    <div>
+                        <img src="@job.Candidate.AvatarUrl" class="me-3 rounded-circle shadow-l"
+                             width="100">
+                    </div>
+                    <div>
+                        <h5 class="font-700 text-uppercase">@job.User.Name</h5>
+                        <h1 class="font-700 font-15 line-height-m pb-2">@job.JobApplication.Positions.DisplayName</h1>
+                        <span class="badge bg-green-dark text-uppercase font-12">
+                            <i class="fa-solid fa-dollar-sign pe-1"></i>
+                            @if (job.JobApplication.DesiredSalary.HasValue)
+                            {
+                                <span>
+                                    @{
+                                        var minSalaryInMillion = Math.Truncate(job.JobApplication.DesiredSalary.Value / 1000000);
+                                    }
+                                    @minSalaryInMillion triệu
+                                </span>
+                            }
+                            else
+                            {
+                                <span>Lương thoả thuận</span>
+                            }
+                        </span>
+                        <span class="badge bg-gray-dark text-uppercase font-12">
+                            <i class="fa-solid fa-graduation-cap pe-1"></i>
+                            @job.JobApplication.Literacy.DisplayName
+                        </span>
+                        <span class="badge bg-teal-dark text-uppercase font-12">
+                            <i class="fa-solid fa-comment pe-1"></i>
+                            @job.JobApplication.Province.DisplayName
+                        </span>
+                    </div>
+                </div>
+            </a>
+            <div class="divider mt-3 mb-3"></div>
+        </Virtualize>
+
+
+
+
+        @*  <a href="#" data-filter-item data-filter-name="all pediatrics" class="search-result-list">
+        <i class="fa font-14 fa-child color-blue-dark"></i>
+        <span>Pediatrics</span>
+        <i class="fa fa-angle-right"></i>
         </a>
         <a href="#" data-filter-item data-filter-name="all neurology" class="search-result-list">
-            <i class="fa font-14 fa-brain color-dark-light"></i>
-            <span>Neurology</span>
-            <i class="fa fa-angle-right"></i>
+        <i class="fa font-14 fa-brain color-dark-light"></i>
+        <span>Neurology</span>
+        <i class="fa fa-angle-right"></i>
         </a>
         <a href="#" data-filter-item data-filter-name="all pulmonary" class="search-result-list">
-            <i class="fa font-14 fa-lungs color-brown-dark"></i>
-            <span>Pulmonary</span>
-            <i class="fa fa-angle-right"></i>
+        <i class="fa font-14 fa-lungs color-brown-dark"></i>
+        <span>Pulmonary</span>
+        <i class="fa fa-angle-right"></i>
         </a>
         <a href="#" data-filter-item data-filter-name="all orthopedy" class="search-result-list">
-            <i class="fa font-14 fa-bone color-gray-dark"></i>
-            <span>Orthopedy</span>
-            <i class="fa fa-angle-right"></i>
+        <i class="fa font-14 fa-bone color-gray-dark"></i>
+        <span>Orthopedy</span>
+        <i class="fa fa-angle-right"></i>
         </a>
         <a href="#" data-filter-item data-filter-name="all orthodontics" class="search-result-list">
-            <i class="fa font-14 fa-tooth color-gray-dark"></i>
-            <span>Orthodontist</span>
-            <i class="fa fa-angle-right"></i>
+        <i class="fa font-14 fa-tooth color-gray-dark"></i>
+        <span>Orthodontist</span>
+        <i class="fa fa-angle-right"></i>
         </a>
         <a href="#" data-filter-item data-filter-name="all ophtalmology" class="search-result-list">
-            <i class="fa font-14 fa-eye color-green-dark"></i>
-            <span>Ophthalmology</span>
-            <i class="fa fa-angle-right"></i>
+        <i class="fa font-14 fa-eye color-green-dark"></i>
+        <span>Ophthalmology</span>
+        <i class="fa fa-angle-right"></i>
         </a>
         <a href="#" data-filter-item data-filter-name="all cardiovascular" class="search-result-list">
-            <i class="fa font-14 fa-heart color-red-dark"></i>
-            <span>Cardiovascular</span>
-            <i class="fa fa-angle-right"></i>
-        </a>
+        <i class="fa font-14 fa-heart color-red-dark"></i>
+        <span>Cardiovascular</span>
+        <i class="fa fa-angle-right"></i>
+        </a> *@
     </div>
-    <div class="search-no-results disabled">
-        <div class="content">
-            <h3>Specialist Needed?</h3>
-            <p class="opacity-70 color-theme">
-                There's nothing matching the description you're looking for,
-                try a different keyword or call our office to book a specialist meeting
-            </p>
-            <a href="#" class="btn btn-m btn-full bg-blue-dark text-uppercase rounded-sm font-700">
-                Call
-                Now
-            </a>
+    @if (isError1 == true)
+    {
+        <div class="search-no-results disabled">
+            <div class="content">
+                <h3>Specialist Needed?</h3>
+                <p class="opacity-70 color-theme">
+                    There's nothing matching the description you're looking for,
+                    try a different keyword or call our office to book a specialist meeting
+                </p>
+                <a href="#" class="btn btn-m btn-full bg-blue-dark text-uppercase rounded-sm font-700">
+                    Call
+                    Now
+                </a>
+            </div>
         </div>
-    </div>
-</div>
+    }
+}
 
 <!-- Thống kê -->
 <div class="card card-style mx-0">
@@ -263,8 +261,8 @@
         <h4 class="pb-1 text-uppercase color-highlight">Sự kiện nổi bật</h4>
     </div>
     <div class="row">
-        <div class="col-6" style="">
-            <div class="card card-style" style="background-image: url(images/QuangBinh/sk_002.jpg); width: 180px; height: 300px">
+        <div class="col-6 pe-0">
+            <div class="card card-style" style="background-image: url(images/QuangBinh/sk_002.jpg); width: 185px; height: 280px">
                 <div class="card-top text-center">
                     <span class="badge bg-blue-dark px-2 py-1 color-white m-3">
                         <i class="fa fa-fire me-2"></i>Phiên giao dịch
@@ -278,8 +276,8 @@
                 <div class="card-overlay bg-black opacity-20"></div>
             </div>
         </div>
-        <div class="col-6" style="margin-left: -10px">
-            <div class="card card-style" style="background-image: url(images/QuangBinh/002.png); width: 175px; height: 135px">
+        <div class="col-6 ps-0">
+            <div class="card card-style ms-0" style="background-image: url(images/QuangBinh/002.png); width: 195px; height: 135px">
                 <div class="card-top text-center">
                     <span class="badge bg-blue-dark px-2 py-1 color-white m-3">
                         <i class="fa fa-fire me-2"></i>Thông báo
@@ -292,7 +290,7 @@
                 </div>
                 <div class="card-overlay bg-black opacity-20"></div>
             </div>
-            <div class="card card-style" style="background-image: url(images/QuangBinh/004.jpg); width: 175px; height: 135px">
+            <div class="card card-style ms-0" style="background-image: url(images/QuangBinh/004.jpg); width: 195px; height: 135px;margin-top: -20px">
                 <div class="card-top text-center">
                     <span class="badge bg-blue-dark px-2 py-1 color-white m-3">
                         <i class="fa fa-fire me-2"></i>Du học

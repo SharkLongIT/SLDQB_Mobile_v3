@@ -21,6 +21,7 @@ using BBK.SaaS.Mobile.MAUI.Services.Article;
 using BBK.SaaS.Mobile.MAUI.Services.User;
 using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.Services.Navigation;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
@@ -158,19 +159,36 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
         }
 
         bool ListUserNull;
+        bool IsFilter;
+        public async void selectedValue(ChangeEventArgs args)
+        {
+            string select = Convert.ToString(args.Value);
+            _SearchText = select;
+            IsFilter = true;
+            await RecruitmentContainer.RefreshDataAsync();
+            StateHasChanged();
+            //await LoadRecruitment(new ItemsProviderRequest());
+
+        }
         private async Task RefeshList()
         {
+            IsFilter = true;
             _SearchText = _filtered.Filtered;
-            _Job = _filtered.Job.Value;
-            _WorkSite = _filtered.WorkSiteId.Value;
+            //_Job = _filtered.Job.Value;
+            //_WorkSite = _filtered.WorkSiteId.Value;
+            await RecruitmentContainer.RefreshDataAsync();
+            StateHasChanged();
+            await LoadRecruitment(new ItemsProviderRequest());
 
-            await UriFilter();
+            //await UriFilter();
         }
 
         public async Task UriFilter()
         {
-            navigationService.NavigateTo($"ViecTimNguoi?_SearchText={_filtered.Filtered}&Job={_filtered.Job}&WorkSite={_filtered.WorkSiteId}");
+            //navigationService.NavigateTo($"ViecTimNguoi?_SearchText={_filtered.Filtered}&Job={_filtered.Job}&WorkSite={_filtered.WorkSiteId}");
+            navigationService.NavigateTo($"ViecTimNguoi?_SearchText={_filtered.Filtered}");
         }
+
 
         #region filter
         private async ValueTask<ItemsProviderResult<CatFilterList>> LoadFilter(ItemsProviderRequest request)
