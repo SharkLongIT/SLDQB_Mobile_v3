@@ -8,13 +8,9 @@
 
  @if (Model != null && Model.JobApplication != null)
 {
-    <div class="container">
-
-        <div class="page-content header-clear-medium">
-
             <div class="card card-style">
                 <div class="card card-style mt-2 me-2 ms-2">
-                    <img src="image/18w.jpg" alt="img" class="img-fluid">
+                    <img src="images/pictures/_bg-infinite.jpg" alt="img" class="img-fluid">
                 </div>
                 <div class="content position-relative" style="margin-top:-70px; z-index:2;">
                     <div class="d-flex mx-2">
@@ -34,7 +30,7 @@
                         <div class="m-auto">
                             @if (IsDefault1 == true)
                             {
-                                <a href="javascript:;" class="book-job btn mt-1" @onclick="(() => BookUser(Model))">
+                                <a href="javascript:;" class="btn btn-m btn-full bg-highlight rounded-m text-uppercase font-700 under-slider-btn mx-5 mb-4" @onclick="(() => BookUser(Model))">
                                     Đặt lịch
                                 </a>
                             }
@@ -275,9 +271,6 @@
 
 
             }
-        </div>
-
-    </div>
 }
 else
 {

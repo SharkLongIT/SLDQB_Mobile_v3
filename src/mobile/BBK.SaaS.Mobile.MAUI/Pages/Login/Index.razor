@@ -3,76 +3,88 @@
 @layout LoginLayout
 @inherits SaaSComponentBase
 @attribute [Route("/" + NavigationUrlConsts.Login)]
-<div class="d-flex justify-content-between flex-column-fluid flex-column w-100 mw-450px">
-    @* <div class="d-flex flex-stack py-2">
-        <div class="me-2"></div>
-        <div class="m-0">
-            <a href="javascript:;" @onclick="SwitchTenantButton" class="link-primary fw-bold fs-5 float-end" data-kt-translate="sign-in-head-link">@L("Thay đổi thuê bao")</a>
-        </div>
-    </div> *@
-    <div class="py-20">
-        <div class="card-body">
-            <div class="text-start mb-10">
-                <h1 class="text-dark mb-3 fs-3x" data-kt-translate="sign-in-title">@L("Đăng nhập")</h1>
-                @* <div class="text-gray-400 fw-semibold fs-6" data-kt-translate="general-desc">
-                    @L("Thuê bao hiện tại"):
-                    <span class="text-dark">
-                        @CurrentTenancyNameOrDefault
-                    </span>
-                </div> *@
-            </div>
-            <div class="fv-row mb-8">
-                <input type="text" @bind-value="UserName" placeholder="@L("Tên người dùng hoặc Email")" name="username" autocomplete="off" class="form-control form-control-solid" />
-            </div>
-            <div class="fv-row mb-7">
-                <input type="password" @bind-value="Password" placeholder="@L("Mật khẩu")" name="password" autocomplete="off" data-kt-translate="sign-in-input-password" class="form-control form-control-solid" />
-            </div>
-            <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-10">
-                <div></div>
-                <a href="javascript:;" @onclick="ForgotPasswordButton" class="link-primary" data-kt-translate="sign-in-forgot-password">@L("Quên mật khẩu?")</a>
-            </div>
-           @*  <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-10">
-                <div></div>
-                <a href="javascript:;" @onclick="EmailActivationButton" class="link-primary" data-kt-translate="sign-in-forgot-password">@L("Kích hoạt email")</a>
-            </div> *@
-            <div class="d-flex flex-stack justify-content-center">
-                <button id="kt_sign_in_submit" class="btn btn-primary me-2 flex-shrink-0" @onclick="LoginUser">
-                    <span class="indicator-label" data-kt-translate="sign-in-submit">@L("Đăng nhập")</span>
-                </button>
-            </div>
-            <div class="or-login">
-                <div class="line"></div>
-                <div class="text">Hoặc đăng nhập bằng</div>
-                <div class="line"></div>
-            </div>
-            <div class="d-flex justify-content-center">
-                <a class="btn btn-light logo-facebook" href="https://www.facebook.com/" target="_blank">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook txt-fb">
-                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z">
-                        </path>
-                    </svg>facebook
-                </a>
-                <a href="javascript:;" data-provider="Google" class="btn btn-outline-primary-2x fw-bolder py-2 social-login-icon mb-2 logo-google">
-                    <i class="fab fa-google"></i>
-                    <span class="text-google" style="margin-top: 4px"> Google</span>
-                </a>
-            </div>
 
+<div class="menu-title mt-n1">
+    <h1>Đăng nhập </h1>
+    <p class="color-theme opacity-50">
+        Vui lòng nhập thông tin đăng nhập của bạn bên dưới
+    </p>
+</div>
+
+<div class="content mb-0">
+    <div class="input-style no-borders has-icon validate-field mb-4">
+        <i class="fa fa-user"></i>
+        <input type="text" @bind-value="UserName" class="form-control validate-name" id="form1a" placeholder="Tên đăng nhập">
+        <label for="form1a" class="color-blue-dark">Name</label>
+        <i class="fa fa-times disabled invalid color-red-dark"></i>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <em>(bắt buộc)</em>
+    </div>
+    <div class="input-style no-borders has-icon validate-field mb-4">
+        <i class="fa fa-lock"></i>
+        <input type="password" @bind-value="Password" class="form-control validate-text" id="form3a" placeholder="Mật khẩu">
+        <label for="form3a" class="color-blue-dark">Password</label>
+        <i class="fa fa-times disabled invalid color-red-dark"></i>
+        <i class="fa fa-check disabled valid color-green-dark"></i>
+        <em>(bắt buộc)</em>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <a href="#" @onclick="ForgotPasswordButton" data-menu="menu-forgot-1" class="font-10">Quên mật khẩu?</a>
+        </div>
+        <div class="col-6">
+            <a data-menu="menu-register-1" href="#" class="float-end font-10">Đăng ký tài khoản mới</a>
+            <div class="clearfix"></div>
         </div>
     </div>
-    <div class="m-0">
-        <div class="col-5">
-@*             <LanguageSwitch OnSave="OnLanguageSwitchAsync"></LanguageSwitch>
- *@        </div>
-    </div>
+    <a href="#" @onclick="LoginUser" class="btn btn-full btn-m shadow-l rounded-s text-uppercase font-900 bg-green-dark mt-n2">Đăng nhập</a>
+    <div class="divider divider-margins mt-4 mb-4"></div>
+    <p class=" mb-2">
+        @*  <a href="#"  class="btn btn-full btn-m shadow-l rounded-s text-uppercase font-900 bg-green-dark mt-n2">Facebook</a>
+        <a href="#"  class="btn btn-full btn-m shadow-l rounded-s text-uppercase font-900 bg-green-dark mt-n2">Google</a> *@
+        <a href="#" class="btn btn-icon btn-m rounded-sm btn-full shadow-l bg-facebook text-uppercase font-900 text-start"><i class="fab bg-transparent fa-facebook-f text-center"></i>Login with Facebook</a>
+        <a href="#" class="btn btn-icon btn-m rounded-sm mt-2 btn-full shadow-l bg-google text-uppercase font-900 text-start"><i class="fab bg-transparent fa-google text-center"></i>Login with Google</a>
+
+    </p>
+
 </div>
-<div class="d-flex">
-    <p>Bạn chưa có tài khoản?</p>
-    <a style="color: red" href="/Register">Đăng ký ngay</a>
-</div>
-<div>
-    <a href="/TrangChu">Trải nghiệm không cần đăng nhập</a>
-</div>
+
+
+
+
+       @*  <div class="card-body mx-0">
+            <h1>Đăng nhập</h1>
+            <p class="font-11 mb-0 mt-n2">
+                Vui lòng nhập thông tin đăng nhập của bạn bên dưới
+            </p>
+            <div class="input-style no-borders has-icon validate-field mb-4 mt-3">
+                <i class="fa fa-user"></i>
+                <input type="name" @bind-value="UserName" class="form-control validate-name" id="form1ab" placeholder="Tên đăng nhập">
+                <label for="form1ab" class="color-blue-dark">Name</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
+                <em>(required)</em>
+            </div>
+            <div class="input-style no-borders has-icon validate-field mb-4">
+                <i class="fa fa-lock"></i>
+                <input type="password" @bind-value="Password" class="form-control validate-text" id="form3ab" placeholder="Mật khẩu">
+                <label for="form3ab" class="color-blue-dark">Password</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
+                <em>(required)</em>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <a href="#" @onclick="ForgotPasswordButton" data-menu="menu-forgot-2" class="font-10">Quên mật khẩu?</a>
+                </div>
+                <div class="col-6">
+                    <a data-menu="menu-register-2" href="#" class="float-end font-10">Đăng ký tài khoản mới</a>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <a href="#" class="btn btn-full btn-m shadow-l rounded-s text-uppercase font-900 bg-green-dark mt-n2">Đăng nhập</a>
+        </div>
+        <div class="card-overlay bg-black opacity-90"></div> *@
 <SwitchTenantModal OnSave="OnSwitchTenantSave" @ref="switchTenantModal"></SwitchTenantModal>
 @* <SwitchTenantModal OnSave="OnSwitchTenantSave" @ref="switchTenantModal"></SwitchTenantModal> *@
 <EmailActivationModal OnSave="OnEmailActivation" @ref="emailActivationModal"></EmailActivationModal>

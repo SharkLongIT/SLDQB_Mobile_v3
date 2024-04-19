@@ -8,6 +8,21 @@ using BBK.SaaS.Mobile.MAUI.Services.Account;
 using BBK.SaaS.Mobile.MAUI.Services.UI;
 using Microsoft.JSInterop;
 using BBK.SaaS.Mobile.MAUI.Services.Tenants;
+using BBK.SaaS.Mdls.Cms.Categories.Dto;
+
+using Microsoft.AspNetCore.Components.Web.Virtualization;
+using BBK.SaaS.Core.Threading;
+using BBK.SaaS.Mdls.Cms.Articles.MDto;
+using BBK.SaaS.Mdls.Cms.Categories;
+using BBK.SaaS.Mobile.MAUI.Services.User;
+using BBK.SaaS.Services.Account;
+
+
+
+
+
+
+
 
 #if ANDROID
 using BBK.SaaS.Mobile.MAUI.Platforms.Android.HttpClient;
@@ -17,6 +32,18 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
 {
     public partial class MainLayout
     {
+
+        private ItemsProviderResult<CmsCatDto> cmsCatDto;
+        private Virtualize<CmsCatDto> CmsContainer { get; set; }
+        private readonly GetArticlesByCatInput _filter = new GetArticlesByCatInput();
+        protected ICmsCatsAppService cmsCatsAppService { get; set; }
+        protected INavigationService navigationService { get; set; }
+        protected IApplicationContext ApplicationContext { get; set; }
+        protected IAccountService AccountService { get; set; }
+        protected IAccessTokenManager AccessTokenManager { get; set; }
+
+        protected UserProfileService userProfileService { get; set; }   
+
         [Inject]
         protected NavigationManager NavigationManager { get; set; }
 
@@ -27,7 +54,26 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
 
         private bool IsConfigurationsInitialized { get; set; }
 
+
+        private bool HasUserInfo => AccessTokenManager != null &&
+          AccessTokenManager.IsUserLoggedIn &&
+          ApplicationContext != null &&
+          ApplicationContext.LoginInfo != null &&
+          ApplicationContext?.LoginInfo?.User != null;
+
         private string _logoURL;
+        private string _userImage;
+
+        public MainLayout()
+        {
+            cmsCatsAppService = DependencyResolver.Resolve<ICmsCatsAppService>();
+            navigationService = DependencyResolver.Resolve<INavigationService>();
+            ApplicationContext = DependencyResolver.Resolve<IApplicationContext>();
+            userProfileService = DependencyResolver.Resolve<UserProfileService>();
+            AccountService = DependencyResolver.Resolve<IAccountService>();
+            AccessTokenManager = DependencyResolver.Resolve<IAccessTokenManager>();
+
+        }
 
         protected override async Task OnInitializedAsync()
         {
@@ -42,10 +88,20 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
             navigationService.Initialize(NavigationManager);
 
             _logoURL = await DependencyResolver.Resolve<TenantCustomizationService>().GetTenantLogo();
+            await GetUserPhoto();
 
             await SetLayout();
         }
+        private async Task GetUserPhoto()
+        {
+            if (!HasUserInfo)
+            {
+                return;
+            }
 
+            _userImage = await userProfileService.GetProfilePicture(ApplicationContext.LoginInfo.User.Id);
+            StateHasChanged();
+        }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -133,5 +189,105 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
             await dom.SetAttribute(JS, "body", "data-kt-app-toolbar-enabled", "true");
             await dom.SetAttribute(JS, "body", "class", "app-default");
         }
+
+
+        #region open side bar
+        bool IsOpenSideBar;
+        public async Task OpenSideBar()
+        {
+            IsOpenSideBar = true;
+        }
+        public async Task CloseSideBar()
+        {
+            IsOpenSideBar = false;
+        }
+        #endregion
+        #region Category
+
+        private async ValueTask<ItemsProviderResult<CmsCatDto>> LoadCategories(ItemsProviderRequest request)
+        {
+            _filter.MaxResultCount = Math.Clamp(request.Count, 1, 1000);
+            _filter.SkipCount = request.StartIndex;
+            //_filter.Take = Math.Clamp(request.Count, 1, 1000);
+
+            await UserDialogsService.Block();
+
+            await WebRequestExecuter.Execute(
+            async () => await cmsCatsAppService.GetCmsCats(),
+            async (result) =>
+            {
+                var articlesFilter = result.Items.ToList();
+                cmsCatDto = new ItemsProviderResult<CmsCatDto>(articlesFilter, articlesFilter.Count);
+                await UserDialogsService.UnBlock();
+            }
+        );
+
+            return cmsCatDto;
+        }
+        #endregion
+
+
+
+        #region Uri
+        public async Task Login()
+        {
+            IsOpenSideBar = false;
+            navigationService.NavigateTo($"Login");
+
+
+        }
+        public async Task Home()
+        {
+            IsOpenSideBar = false;
+            navigationService.NavigateTo(NavigationUrlConsts.TrangChu);
+
+
+        }
+        public async Task Logout()
+        {
+            IsOpenSideBar = false;
+            await AccountService.LogoutAsync();
+            //AccountService.AbpAuthenticateModel.UserNameOrEmailAddress = null;
+            //await UserDialogsService.AlertSuccess("Đăng xuất thành công");
+            navigationService.NavigateTo(NavigationUrlConsts.TrangChu);
+
+        }
+        public async Task NguoiTimViec()
+        {
+            IsOpenSideBar = false;
+            navigationService.NavigateTo(NavigationUrlConsts.NguoiTimViec);
+
+        }
+        public async Task ViecTimNguoi()
+        {
+            IsOpenSideBar = false;
+            navigationService.NavigateTo(NavigationUrlConsts.ViecTimNguoi);
+
+        }
+        public async Task TinTuc()
+        {
+            IsOpenSideBar = false;
+            navigationService.NavigateTo(NavigationUrlConsts.TinTuc);
+
+        }
+        public async Task LienHe()
+        {
+            IsOpenSideBar = false;
+            navigationService.NavigateTo(NavigationUrlConsts.LienHe);
+
+        }
+        public async Task Filter()
+        {
+            IsOpenSideBar = false;
+            navigationService.NavigateTo(NavigationUrlConsts.Filter);
+
+        }
+        public async Task Register()
+        {
+            IsOpenSideBar = false;
+            navigationService.NavigateTo(NavigationUrlConsts.Register);
+
+        }
+        #endregion
     }
 }

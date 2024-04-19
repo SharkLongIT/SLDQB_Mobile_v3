@@ -39,6 +39,8 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
         private decimal? SalaryMin;
         private decimal? SalaryMax;
 
+        private int RecruitmentCount;
+        bool IsRecruitmentCount;
         protected IGeoUnitAppService geoUnitAppService { get; set; }
         private ItemsProviderResult<GeoUnitDto> geoUnitDto;
         private Virtualize<GeoUnitDto> GeoUnitContainer { get; set; }
@@ -208,7 +210,8 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
         private async Task RefeshList()
         {
             IsCancel = true;
-
+            IsRecruitmentCount = true;
+            IsOpenFilter = false;
             #region InPage
             _SearchText = _filter.Filtered;
             if (_filter.Salary.HasValue)
@@ -341,6 +344,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                     {
                         model.Recruiter.AvatarUrl = AsyncHelper.RunSync(async () => await articleService.GetPicture(model.Recruiter.AvatarUrl));
                     }
+                    RecruitmentCount = jobFilter.Count;
                     if (jobFilter.Count == 0)
                     {
                         isError = true;
@@ -365,7 +369,17 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
             navigationService.NavigateTo($"ThongTinVTN?Id={recruitment.Id}&WorkAddress={recruitment.WorkAddress}&HumanResSizeCat={recruitment.Recruiter.HumanResSizeCat.DisplayName}&Experiences={recruitment.Experiences.DisplayName}&SphereOfActivity={recruitment.Recruiter.SphereOfActivity.DisplayName}");
         }
 
-      
+        bool IsOpenFilter;
+
+        public async Task OpenFilter()
+        {
+            IsOpenFilter = true;
+        }
+        public async Task CloseFilter()
+        {
+            IsOpenFilter = false;
+        }
+
 
 
 

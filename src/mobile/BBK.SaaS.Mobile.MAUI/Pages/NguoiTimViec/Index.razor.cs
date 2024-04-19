@@ -110,6 +110,8 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
         private decimal? SalaryMax;
 
 
+        private int JobAppCount;
+        bool IsJobAppCount;
         [Inject]
         protected NavigationManager NavigationManager { get; set; }
 
@@ -131,53 +133,13 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
         }
         protected override async Task OnInitializedAsync()
         {
-            if (ApplicationContext.LoginInfo == null || ApplicationContext.LoginInfo.User.UserType == Authorization.Users.UserTypeEnum.Type1)
-            {
-                IsDefault1 = true;
-            }
+           
             //await SetPageHeader(L("Danh sách Người tìm việc"));
-            await SetPageHeader(L("Danh sách Người tìm việc"), new List<Services.UI.PageHeaderButton>());
-            var querySegment = NavigationManager.Uri.Substring(NavigationManager.Uri.IndexOf("NguoiTimViec") + "NguoiTimViec".Length);
-            var q1 = System.Web.HttpUtility.ParseQueryString(querySegment);
-            if (q1["Career"] != null)
-            {
-                OccupationId = long.Parse(q1["Career"]);
-            }
-         
-            if (q1["WorkSite"] != null)
-            {
-                Worksite = int.Parse(q1["WorkSite"]);
-            }
-            if (q1["Experience"] != null)
-            {
-                ExperienceId = int.Parse(q1["Experience"]);
-            }
-            if (q1["Degree"] != null)
-            {
-                DegreeId = int.Parse(q1["Degree"]);
-            }
-            if (q1["SalaryMin"] != null && q1["SalaryMin"] != "")
-            {
-                SalaryMin = decimal.Parse(q1["SalaryMin"]);
-            }
-            else
-            {
-                SalaryMin = null;
-            }
-            if (q1["SalaryMax"] != null && q1["SalaryMax"] != "")
-            {
-                SalaryMax = decimal.Parse(q1["SalaryMax"]);
-            }
-            else
-            {
-                SalaryMax = null;
-            }
-
-            await ReloadList();
         }
         private async Task RefeshList()
         {
-            IsCancel = true;
+            IsOpenFilter = false;
+            IsJobAppCount = true;
             _Gender = _filter.Gender;
             _LiteracyId = _filter.LiteracyId;
             _ExperiencesId = _filter.ExperiencesId; // kinh nghiem
@@ -195,66 +157,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
             StateHasChanged();
             await LoadJobApplication(new ItemsProviderRequest());
         }
-        private async Task ReloadList()
-        {
-            _WorkSite = Worksite;
-            if (ExperienceId == 0)
-            {
-                _ExperiencesId = null;
-            }
-            else
-            {
-                _ExperiencesId = ExperienceId;
-            }
-            if (OccupationId == 0) { 
-                _OccupationId = null; // nganh nghe
-            }
-            else
-            {
-                _OccupationId = OccupationId;
-            }
-            if (DegreeId == 0)
-            {
-                _LiteracyId = null; // bang cap
-            }   
-            else
-            { 
-                _LiteracyId = DegreeId; 
-            }
-            if (SalaryMin.HasValue)
-            {
-
-                _SalaryMin = SalaryMin.Value;
-            }
-            if (SalaryMax.HasValue)
-            {
-                _SalaryMax = SalaryMax.Value;
-            }
-            await JobApplicationContainer.RefreshDataAsync();
-            StateHasChanged();
-            //await LoadJobApplication(new ItemsProviderRequest());
-        }
-
-        private async Task CancelList()
-        {
-            _Gender = null;
-            _LiteracyId = null;
-            _ExperiencesId = null;
-            _WorkSite = 0;
-            _OccupationId = null;
-            SalaryMin = null;
-            SalaryMax = null;
-            _SalaryMax = null;
-            _SalaryMin = null;
-            IsCancel = false;
-            // await LoadJobApplication(new ItemsProviderRequest());
-            //await OnInitializedAsync();
-            await JobApplicationContainer.RefreshDataAsync();
-            //await Task.Delay(500);
-            StateHasChanged();
-
-        }
-
 
         #region
 
@@ -347,6 +249,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
                     //    _avatarCandidate = await UserProfileService.GetProfilePicture(item.Candidate.UserId);
                     //    item.Candidate.AvatarUrl = _avatarCandidate;
                     //}
+                    JobAppCount = jobFilter.Count;  
                     if (jobFilter.Count == 0)
                     {
                         isError = true;
@@ -428,5 +331,17 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
 
             return result;
         }
+        bool IsOpenFilter;
+
+        public async Task OpenFilter()
+        {
+            IsOpenFilter = true;
+        }
+        public async Task CloseFilter()
+        {
+            IsOpenFilter = false;
+        }
+
+
     }
 }

@@ -189,5 +189,18 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             StateHasChanged();
 
         }
+
+        bool IsOpenFilter;
+
+        public async Task OpenFilter()
+        {
+            IsOpenFilter = true;
+        }
+        public async Task CloseFilter()
+        {
+            IsOpenFilter = false;
+        }
+
+
     }
 }

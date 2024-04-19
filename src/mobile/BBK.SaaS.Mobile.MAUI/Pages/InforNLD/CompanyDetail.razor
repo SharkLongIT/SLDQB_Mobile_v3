@@ -3,24 +3,7 @@
 @inherits SaaSMainLayoutPageComponentBase
 @attribute [Route("/CompanyDetail")]
 
-
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/test1.css">
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-</head>
-@* <button @onclick="Back">Ql</button>
- *@@if (Model.Recruiter != null)
+@if (Model.Recruiter != null)
 {
    @*  <div>
     <div class="card">
@@ -168,19 +151,19 @@
 		</div>
 		<div class="divider mb-0"></div>
 		<div class="content">
-			<div class="d-flex text-center">
+			<div class="d-flex text-center justify-content-center">
 				<div class="m-auto">
 					<h1 class="mb-n1 font-30">@Count</h1>
 					<p class="font-10 mb-n2">Việc làm</p>
 				</div>
-				<div class="m-auto">
+				@* <div class="m-auto">
 					<h1 class="mb-n1 font-30">35</h1>
 					<p class="font-10 mb-n2">Vị trí</p>
 				</div>
 				<div class="m-auto">
 					<h1 class="mb-n2 font-30">76</h1>
 					<p class="font-10 mb-n2">Hồ sơ</p>
-				</div>
+				</div> *@
 			</div>
 		</div>
 	</div>
@@ -226,14 +209,14 @@
 
 	<div class="card card-style">
 		<div class="content">
-			<h2 class="vcard-title color-highlight mb-1">Phone</h2>
-			<p class="mb-3">
+			<h2 class="vcard-title color-highlight mb-1">Thông tin chung</h2>
+			@* <p class="mb-3">
 				Tapping any field will have an action on your Mobile. Tap a field below to call the numbers.
-			</p>
+			</p> *@
 			<div class="divider my-3"></div>
 			<a href="tel:+@Model.Recruiter.ContactPhone" class="default-link d-flex">
 				<div>
-					<span class="font-11 d-block mb-n2 opacity-50 color-theme">Mobile</span>
+					<span class="font-11 d-block mb-n2 opacity-50 color-theme">Số điện thoại</span>
 					<span class="default-link d-block color-theme font-15 font-400">@Model.Recruiter.ContactPhone</span>
 				</div>
 				<div class="ms-auto">
@@ -241,135 +224,44 @@
 				</div>
 			</a>
 			<div class="divider my-3"></div>
-			@* <a href="tel:+2 234 567 890" class="default-link d-flex">
+			<a class="default-link d-flex">
 				<div>
-					<span class="font-11 d-block mb-n2 opacity-50 color-theme">Office</span>
-					<span class="default-link d-block color-theme font-15 font-400">+2 234 567 890</span>
+					<span class="font-11 d-block mb-n2 opacity-50 color-theme">Ngày thành lập</span>
+					<span class="default-link d-block color-theme font-15 font-400"> @date.ToShortDateString()</span>
 				</div>
 				<div class="ms-auto">
-					<i class="fa fa-suitcase color-theme opacity-30 pt-3 mt-1"></i>
+					<i class="fa fa-calendar color-theme opacity-30 pt-3 mt-1"></i>
 				</div>
 			</a>
 			<div class="divider my-3"></div>
-			<a href="tel:+3 234 567 890" class="default-link d-flex">
-				<div>
-					<span class="font-11 d-block mb-n2 opacity-50 color-theme">Personal</span>
-					<span class="default-link d-block color-theme font-15 font-400">+3 234 567 890</span>
-				</div>
-				<div class="ms-auto">
-					<i class="fa fa-user color-theme opacity-30 pt-3 mt-1"></i>
-				</div>
-			</a> *@
-		</div>
-	</div>
-	<div class="card card-style">
-		<div class="content">
-			<h2 class="vcard-title color-highlight mb-1">Address</h2>
-			<p class="mb-3">
-				Tap a field below to open in your maps app.
-			</p>
-			<div class="divider my-3"></div>
 			<a href="https://maps.app.goo.gl/ScCr1uuKsxUUgWeXA" class="default-link d-flex">
 				<div>
-					<span class="font-11 d-block mb-n2 opacity-50 color-theme">Headquarters</span>
+					<span class="font-11 d-block mb-n2 opacity-50 color-theme">Địa chỉ</span>
 					<span class="default-link d-block color-theme font-15 font-400">@Model.Recruiter.Address, <br> @Model.Village, @Model.District, @Model.Province</span>
 				</div>
 				<div class="ms-auto">
 					<i class="fa fa-map-marker color-theme opacity-30 pt-4 mt-3"></i>
 				</div>
 			</a>
-		</div>
-	</div>
-	<div class="card card-style">
-		<div class="content">
-			<h2 class="vcard-title color-highlight mb-1">Email</h2>
-			<p class="mb-3">
-				Tap a field below to open in your email app.
-			</p>
 			<div class="divider my-3"></div>
 			<a href="mailto:home@domain.com" class="default-link d-flex">
 				<div>
-					<span class="font-11 d-block mb-n2 opacity-50 color-theme">Home</span>
-					<span class="default-link d-block color-theme font-15 font-400">@Model.Recruiter.WebSite</span>
-				</div>
-				<div class="ms-auto">
-					<i class="fa fa-phone color-theme opacity-30 pt-3 mt-1"></i>
-				</div>
-			</a>
-			<div class="divider my-3"></div>
-			<a href="maillto:office@bbksolution.com" class="default-link d-flex">
-				<div>
-					<span class="font-11 d-block mb-n2 opacity-50 color-theme">Office</span>
-					<span class="default-link d-block color-theme font-15 font-400">office@bbksolution.com</span>
-				</div>
-				<div class="ms-auto">
-					<i class="fa fa-suitcase color-theme opacity-30 pt-3 mt-1"></i>
-				</div>
-			</a>
-			<div class="divider my-3"></div>
-			<a href="mailto:personal@bbksolution.com" class="default-link d-flex">
-				<div>
-					<span class="font-11 d-block mb-n2 opacity-50 color-theme">Personal</span>
-					<span class="default-link d-block color-theme font-15 font-400">personal@bbksolution.com</span>
-				</div>
-				<div class="ms-auto">
-					<i class="fa fa-user color-theme opacity-30 pt-3 mt-1"></i>
-				</div>
-			</a>
-		</div>
-	</div>
-	<div class="card card-style">
-		<div class="content">
-			<h2 class="vcard-title color-highlight mb-1">Website</h2>
-			<p class="mb-3">
-				Tap a field below to open in the address.
-			</p>
-			<div class="divider my-3"></div>
-			<a href="https://www.bbksolution.com" class="default-link d-flex">
-				<div>
-					<span class="font-11 d-block mb-n2 opacity-50 color-theme">URL</span>
+					<span class="font-11 d-block mb-n2 opacity-50 color-theme">Website</span>
 					<span class="default-link d-block color-theme font-15 font-400">@Model.Recruiter.WebSite</span>
 				</div>
 				<div class="ms-auto">
 					<i class="fa fa-globe color-theme opacity-30 pt-3 mt-1"></i>
 				</div>
 			</a>
-		</div>
-	</div>
-	<div class="card card-style">
-		<div class="content">
-			<h2 class="vcard-title color-highlight mb-1">Social</h2>
-			<p class="mb-3">
-				Tap a field below to call the numbers.
-			</p>
-			<div class="divider my-3"></div>
-			<a href="#" class="default-link d-flex">
-				<div>
-					<span class="font-11 d-block mb-n2 opacity-50 color-theme">Facebook</span>
-					<span class="default-link d-block color-theme font-15 font-400">bbksolution</span>
-				</div>
-				<div class="ms-auto">
-					<i class="fab fa-facebook-f color-theme opacity-30 pt-3 mt-1"></i>
-				</div>
-			</a>
-			<div class="divider my-3"></div>
-			<a href="#" class="default-link d-flex">
-				<div>
-					<span class="font-11 d-block mb-n2 opacity-50 color-theme">Twitter</span>
-					<span class="default-link d-block color-theme font-15 font-400">bbksolution</span>
-				</div>
-				<div class="ms-auto">
-					<i class="fab fa-twitter color-theme opacity-30 pt-3 mt-1"></i>
-				</div>
-			</a>
+
 		</div>
 	</div>
 	<div class="card card-style">
 		<div class="content">
 			<h2 class="vcard-title color-highlight mb-1">Việc làm của công ty</h2>
-			<p class="mb-3">
+			@* <p class="mb-3">
 				Tap a field below to call the numbers.
-			</p>
+			</p> *@
 			<div class="divider my-3"></div>
 			<Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
 

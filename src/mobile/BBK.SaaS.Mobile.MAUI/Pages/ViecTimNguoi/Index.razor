@@ -2,77 +2,189 @@
 @inherits SaaSMainLayoutPageComponentBase
 @attribute [Route("/" + NavigationUrlConsts.ViecTimNguoi)]
 
-@* <div class="row align-items-center mt-3 mb-3 m-0 ">
-    <div class="col-xl-12">
-        <div class="align-items-center">
-            <a href="/FilterVTN">
-                <div class="d-flex justify-content-end">
-                    <i class="fa fa-sliders icon-filter-list"></i>
-                    <span>Bộ lọc nâng cao</span>
-                </div>
-            </a>
-            <div class="input-group">
-                <input type="search" id="searchInput" @bind="_filter.Filtered" class="form-control input-filter" placeholder="@L("Nhập vị trí tuyển dụng")">
-                <button @onclick="RefeshList" class="btn btn-search" type="button">
-                    <i class="fa fa-search" style="color:white" aria-label="Search"></i>
-                </button>
-            </div>
-             <div class="d-flex mt-3">
-            <input type="search" @bind="_filter.Salary" class="form-control input-filter" placeholder="@L("Nhập mức lương tối thiểu")" />
-            <input type="search" @bind="_filter.SalaryMax" class="form-control input-filter ml-3" placeholder="@L("Nhập mức lương tối đa")" />
-            </div>
+<div class="content mt-5"></div>
+<!-- Tìm kiếm thông tin -->
+<div class="content mt-n4  search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important">
+    <i class="fa fa-search" @onclick="RefeshList"></i>
+    <input type="search" class="border-0" @bind="_filter.Filtered" placeholder="Tìm kiếm thông tin">
+    <a href="#" class="clear-search disabled mt-0"><i class="fa fa-times color-red-dark"></i></a>
+</div>
+<div class="content mt-0">
+    <a href="#" data-menu="menu-filter" @onclick="OpenFilter">
+        <h4 class="text-uppercase color-highlight">
+            <i class="fa font-14 fa-star color-yellow-dark px-2"></i>Tìm kiếm nâng cao
+        </h4>
+    </a>
+</div>
+
+
+@if (IsOpenFilter == true)
+{
+    <div id="menu-filter" class="menu menu-box-top menu-box-detached rounded-m menu-active" data-menu-height="420" style="display: block; height: 420px;">
+        <div class="menu-title">
+            <h1>Tìm kiếm nâng cao</h1>
+            <p class="color-highlight">
+                Lọc kết quả tìm kiếm của bạn
+            </p><a href="#" @onclick="CloseFilter" class="close-menu"><i class="fa fa-times"></i></a>
         </div>
-    </div>
-</div> *@
+        <p class="mb-3 mx-3">
+            Các bộ lọc này có thể được mở rộng theo mặc định hoặc thu gọn để giữ cho mọi thứ sạch sẽ và nhỏ gọn.
+        </p>
+        <div class="divider divider-margins"></div>
+        <div class="content mt-n3 mx-3 me-4 mb-0">
+            <!-- Địa điểm-->
+            <div class="list-group list-custom-small list-icon-0">
+                <a data-bs-toggle="collapse" class="border-0" href="#collapse-filter-0">
+                    <span class="font-15 font-600">Địa điểm</span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+            </div>
+            <div class="collapse" id="collapse-filter-0">
+                <Virtualize @ref="GeoUnitContainer" Context="geounit" ItemsProvider="@LoadGeoUnit" ItemSize="1">
+                    <select class="cus-select w-100" @bind="_filter.WorkSiteId">
+                        <option value="0" selected>Tất cả địa điểm</option>
 
-<div class="page-content header-clear-medium">
-    <div class="card card-style">
-        <div class="content">
-            @if (isError)
-            {
-                <div class="text-error">
-                    @* <i class='fas fa-search search-icon'></i> *@
-                    <h3>Không tìm thấy kết quả!!!</h3>
-                    <span class="mt-2">Thử tìm kiếm với từ khoá khác.</span>
-                </div>
-            }
-            else
-            {
-                <Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
+                        @foreach (var item in WorkSite)
+                        {
+                            <option value="@item.Id">@item.DisplayName</option>
+                        }
 
-                    <a href="javascript:;" @onclick="(() => ViewRecruitment(recruitment))">
-                        <div class="d-flex">
-                            <div>
-                                <img src="@recruitment.Recruiter.AvatarUrl" class="me-3 rounded-m" width="110">
-                            </div>
-                            <div>
-                                <h5 class="font-700 text-uppercase">  @recruitment.Title</h5>
-                                <h1 class="font-500 font-15 line-height-m">
-                                    @recruitment.Recruiter.CompanyName
-                                </h1>
-                                <span class="badge bg-green-dark text-uppercase font-12">
-                                    <i class="fa-solid fa-dollar-sign pe-1"></i>
-                                    @{
-                                        var minSalaryInMillion = Math.Truncate(recruitment.MinSalary / 1000000);
-                                        var maxSalaryInMillion = Math.Truncate(recruitment.MaxSalary / 1000000);
-                                    }
-                                    @minSalaryInMillion - @maxSalaryInMillion triệu
-                                </span>
-                                <span class="badge bg-blue-dark text-uppercase font-12">
-                                    <i class="fa-solid fa-city pe-1"></i>
-                                    @recruitment.WorkAddress
-                                </span>
-                                <span class="badge bg-gray-dark text-uppercase font-12">
-                                    <i class="fa-regular fa-star pe-1"></i>
-                                    @recruitment.Experiences.DisplayName
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="divider mt-3 mb-3"></div>
+                    </select>
                 </Virtualize>
-            }
+                <div class="mb-3"></div>
+            </div>
+            <!-- Ngành nghề -->
+            <div class="list-group list-custom-small list-icon-0">
+                <a data-bs-toggle="collapse" class="border-0" href="#collapse-filter-1">
+                    <span class="font-15 font-600">Ngành nghề</span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+            </div>
+            <div class="collapse" id="collapse-filter-1">
+                <Virtualize @ref="CatFilterListContainer" Context="cat" ItemsProvider="@LoadFilter" ItemSize="100">
+                    <select class="cus-select2 w-100" @bind="_filter.Job">
+                        <option value="0" selected>Tất cả ngành nghề</option>
+                        @foreach (var item in Career)
+                        {
+                            <option value="@item.Id">
+                                @item.DisplayName
+                            </option>
+
+                        }
+                    </select>
+                </Virtualize>
+                <div class="mb-3"></div>
+            </div>
+            <!--Kinh nghiệm-->
+            <div class="list-group list-custom-small list-icon-0">
+                <a data-bs-toggle="collapse" class="border-0" href="#collapse-filter-2">
+                    <span class="font-15 font-600">Kinh nghiệm</span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+            </div>
+            <div class="collapse" id="collapse-filter-2">
+                <Virtualize @ref="CatFilterListContainer" Context="cat" ItemsProvider="@LoadFilter" ItemSize="100">
+                    <select class="cus-select2 w-100" @bind="_filter.Experience">
+                        <option value="0" selected>Tất cả kinh nghiệm</option>
+                        @foreach (var item in Experience)
+                        {
+                            <option value="@item.Id">
+                                @item.DisplayName
+                            </option>
+
+                        }
+                    </select>
+                </Virtualize>
+                <div class="mb-3"></div>
+            </div>
+            <!--Mức lương tối thiểu-->
+            <div class="list-group list-custom-small list-icon-0">
+                <a data-bs-toggle="collapse" class="border-0" href="#collapse-filter-3">
+                    <span class="font-15 font-600">Mức lương tối thiểu</span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+            </div>
+            <div class="collapse" id="collapse-filter-3">
+                <input type="search" class="w-100" placeholder="Mức lương tối thiểu" @bind="_filter.Salary">
+                <div class="mb-3"></div>
+            </div>
+            <!--Mức lương tối đa-->
+            <div class="list-group list-custom-small list-icon-0">
+                <a data-bs-toggle="collapse" class="border-0" href="#collapse-filter-4">
+                    <span class="font-15 font-600">Mức lương tối đa</span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+            </div>
+            <div class="collapse" id="collapse-filter-4">
+                <input type="search" class="w-100" placeholder="Mức lương tối đa" @bind="_filter.SalaryMax">
+                <div class="mb-3"></div>
+            </div>
         </div>
+        <div class="divider divider-margins mt-2 mb-4"></div>
+        <a href="#" @onclick="RefeshList" class=" close-menu btn btn-full mx-3 btn-m bg-blue-dark rounded-m font-700 text-uppercase w-80">
+            Tìm kiếm
+        </a>
+        <div class="divider divider-margins mt-4 mb-4"></div>
+        @*   <div class="content">
+    Use any element you wish from the <a href="component-inputs.html">Component Inputs</a>. We have plenty
+    of options to make your
+    filters rich and powerful.
+    </div> *@
+    </div>
+}
+
+@if (IsRecruitmentCount == true)
+{
+    <div class="content mt-0">
+        <h4 class="font-700">Đã tìm thấy @RecruitmentCount kết quả </h4>
+    </div>
+}
+<div class="card card-style">
+    <div class="content">
+        @if (isError == true)
+        {
+            <div class="text-error">
+                @* <i class='fas fa-search search-icon'></i> *@
+                <h3>Không tìm thấy kết quả!!!</h3>
+                <span class="mt-2">Thử tìm kiếm với từ khoá khác.</span>
+            </div>
+        }
+        else
+        {
+            <Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
+
+                <a href="javascript:;" @onclick="(() => ViewRecruitment(recruitment))">
+                    <div class="d-flex">
+                        <div>
+                            <img src="@recruitment.Recruiter.AvatarUrl" class="me-3 rounded-m" width="110">
+                        </div>
+                        <div>
+                            <h5 class="font-700 text-uppercase">  @recruitment.Title</h5>
+                            <h1 class="font-500 font-15 line-height-m">
+                                @recruitment.Recruiter.CompanyName
+                            </h1>
+                            <span class="badge bg-green-dark text-uppercase font-12">
+                                <i class="fa-solid fa-dollar-sign pe-1"></i>
+                                @{
+                                    var minSalaryInMillion = Math.Truncate(recruitment.MinSalary / 1000000);
+                                    var maxSalaryInMillion = Math.Truncate(recruitment.MaxSalary / 1000000);
+                                }
+                                @minSalaryInMillion - @maxSalaryInMillion triệu
+                            </span>
+                            <span class="badge bg-blue-dark text-uppercase font-12">
+                                <i class="fa-solid fa-city pe-1"></i>
+                                @recruitment.WorkAddress
+                            </span>
+                            <span class="badge bg-gray-dark text-uppercase font-12">
+                                <i class="fa-regular fa-star pe-1"></i>
+                                @recruitment.Experiences.DisplayName
+                            </span>
+                        </div>
+                    </div>
+                </a>
+                <div class="divider mt-3 mb-3"></div>
+            </Virtualize>
+        }
     </div>
 </div>
 
