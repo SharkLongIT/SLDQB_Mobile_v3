@@ -290,6 +290,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
                     if (jobFilter.Count == 0)
                     {
                         isError1 = true;
+                        IsFilter = false;
                     }
                     else
                     {
@@ -323,7 +324,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             await UserDialogsService.Block();
 
             await WebRequestExecuter.Execute(
-                async () => await jobApplicationAppService.GetAllJobApps(_filter),
+                async () => await jobApplicationAppService.GetAllJobAppsMobile(_filter),
 
                 async (result) =>
                 {
@@ -331,11 +332,11 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
                     var jobCount = result.Items.Count;
 					JobAppCount = jobCount;
 
-					foreach (var item in jobFilter)
-                    {
-                        _avatarCandidate = await UserProfileService.GetProfilePicture(item.Candidate.UserId);
-                        item.Candidate.AvatarUrl = _avatarCandidate;
-                    }
+                    //foreach (var item in jobFilter)
+                    //{
+                    //    _avatarCandidate = await UserProfileService.GetProfilePicture(item.Candidate.UserId);
+                    //    item.Candidate.AvatarUrl = _avatarCandidate;
+                    //}
                     if (jobFilter.Count == 0)
                     {
                         isError = true;
@@ -455,6 +456,30 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 
             return result;
         }
-    }
 
+        private bool IsShowForm { get; set; } = false;
+        private async Task ShowLogin()
+        {
+            //ShowClassNameNLD = "menu-active";
+            if (IsUserLoggedIn == true)
+            {
+                IsShowForm = false;
+                StateHasChanged();
+            }
+            else
+            {
+                IsShowForm = true;
+                StateHasChanged();
+            }
+
+
+        }
+        private async Task HideLogin()
+        {
+            //var dom = DependencyResolver.Resolve<DomManipulatorService>();
+            //await dom.ClearAllAttributes(JS, "#menu-login-1");
+            ////await dom.SetAttribute(JS, "#menu-login-1", "class", "menu-active");
+        }
+    }
+    
 }

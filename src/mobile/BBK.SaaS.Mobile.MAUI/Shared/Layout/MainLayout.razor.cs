@@ -250,6 +250,8 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
             //AccountService.AbpAuthenticateModel.UserNameOrEmailAddress = null;
             //await UserDialogsService.AlertSuccess("Đăng xuất thành công");
             navigationService.NavigateTo(NavigationUrlConsts.TrangChu);
+            StateHasChanged();
+
 
         }
         public async Task NguoiTimViec()

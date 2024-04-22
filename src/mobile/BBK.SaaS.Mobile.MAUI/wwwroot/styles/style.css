@@ -5268,7 +5268,7 @@ input[type=number] {
 
 /* Generating Color Pack*/
 .color-highlight {
-  color: #DA4453 !important;
+    color: #8CC152 !important
 }
 
 .bg-highlight {
@@ -5277,7 +5277,7 @@ input[type=number] {
 }
 
 .border-highlight {
-  border-color: #DA4453 !important;
+    border-color: #8CC152 !important;
 }
 
 .gradient-highlight {

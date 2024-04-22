@@ -5,12 +5,12 @@
 <div class="content mt-5"></div>
 <!-- Tìm kiếm thông tin -->
 <div class="content mt-n4  search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important">
-    <i class="fa fa-search" @onclick="RefeshList"></i>
-    <input type="search" class="border-0" @bind="_filter.Filtered" placeholder="Tìm kiếm thông tin">
+    <i class="fa fa-search" @* @onclick="RefeshList" *@></i>
+    <input type="search" class="border-0" @bind="_filter.Filtered" placeholder="Tìm kiếm thông tin" @oninput="selectedValue">
     <a href="#" class="clear-search disabled mt-0"><i class="fa fa-times color-red-dark"></i></a>
 </div>
 <div class="content mt-0">
-    <a href="#" data-menu="menu-filter" @onclick="OpenFilter">
+    <a  data-menu="menu-filter" @onclick="OpenFilter">
         <h4 class="text-uppercase color-highlight">
             <i class="fa font-14 fa-star color-yellow-dark px-2"></i>Tìm kiếm nâng cao
         </h4>
@@ -25,7 +25,7 @@
             <h1>Tìm kiếm nâng cao</h1>
             <p class="color-highlight">
                 Lọc kết quả tìm kiếm của bạn
-            </p><a href="#" @onclick="CloseFilter" class="close-menu"><i class="fa fa-times"></i></a>
+            </p><a @onclick="CloseFilter" class="close-menu"><i class="fa fa-times"></i></a>
         </div>
         <p class="mb-3 mx-3">
             Các bộ lọc này có thể được mở rộng theo mặc định hoặc thu gọn để giữ cho mọi thứ sạch sẽ và nhỏ gọn.

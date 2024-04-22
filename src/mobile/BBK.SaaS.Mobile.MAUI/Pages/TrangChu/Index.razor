@@ -22,7 +22,7 @@
                 <div class="carousel-item">
                     <img src="images/QuangBinh/QB_Intro_3.jpg" class="d-block w-100" height="260px" alt="Slide 2">
                     <div class="carousel-caption d-md-block">
-                         <h3 class="color-white">Cán bộ nhân viên Trung tâm</h3>
+                        <h3 class="color-white">Cán bộ nhân viên Trung tâm</h3>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -44,7 +44,7 @@
 
         <!-- Slogan -->
         <div class="d-flex mt-3">
-            <a href="#" data-menu="menu-login-1" class="align-self-center scale-box text-center ps-3">
+            <a href="/NguoiTimViec" data-menu="menu-login-1" class="align-self-center scale-box text-center ps-3">
                 <i class="fa fa-user color-green-dark fa-2x"></i>
                 <p class="color-white text-center text-uppercase mb-3">Ứng viên</p>
             </a>
@@ -52,7 +52,7 @@
                 <h1 class="color-white text-center mb-0 font-28">Bạn muốn tìm việc</h1>
                 <p class="color-white text-center mb-3 ">Hãy để chúng tôi giúp đỡ bạn</p>
             </div>
-            <a href="#" data-menu="menu-login-2" class="align-self-center scale-box text-center ms-auto pe-3">
+            <a href="/ViecTimNguoi" data-menu="menu-login-2" class="align-self-center scale-box text-center ms-auto pe-3">
                 <i class="fa fa-handshake color-green-dark fa-2x"></i>
                 <p class="color-white text-center text-uppercase mb-3">Nhà tuyển dụng</p>
             </a>
@@ -63,51 +63,52 @@
 <!-- Tìm kiếm thông tin -->
 <div class="content mt-n4 search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important">
     <i class="fa fa-search" @* @onclick="RefeshList" *@></i>
-    <input type="text" class="border-0" placeholder="Tìm kiếm thông tin" data-search @oninput="selectedValue" >
+    <input type="search" class="border-0" placeholder="Tìm kiếm thông tin" data-search @oninput="selectedValue">
+    <i class="fa fa-search" @onclick="RefeshList" style="background-color: blue"></i>
     <a href="#" class="clear-search disabled mt-0"><i class="fa fa-times color-red-dark"></i></a>
 </div>
 
 <!-- Kết quả tìm kiếm -->
 @if (IsFilter == true)
 {
-    <div class="card card-style p-4">
-        <Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
+        <div class="card card-style p-4">
+            <Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
 
-            <a href="javascript:;" @onclick="(() => ViewRecruitment(recruitment))">
-                <div class="d-flex">
-                    <div>
-                        <img src="@recruitment.Recruiter.AvatarUrl" class="me-3 rounded-m" width="110">
+                <a href="javascript:;" @onclick="(() => ViewRecruitment(recruitment))">
+                    <div class="d-flex">
+                        <div>
+                            <img src="@recruitment.Recruiter.AvatarUrl" class="me-3 rounded-m" width="110">
+                        </div>
+                        <div>
+                            <h5 class="font-700 text-uppercase">  @recruitment.Title</h5>
+                            <h1 class="font-500 font-15 line-height-m">
+                                @recruitment.Recruiter.CompanyName
+                            </h1>
+                            <span class="badge bg-green-dark text-uppercase font-12">
+                                <i class="fa-solid fa-dollar-sign pe-1"></i>
+                                @{
+                                    var minSalaryInMillion = Math.Truncate(recruitment.MinSalary / 1000000);
+                                    var maxSalaryInMillion = Math.Truncate(recruitment.MaxSalary / 1000000);
+                                }
+                                @minSalaryInMillion - @maxSalaryInMillion triệu
+                            </span>
+                            <span class="badge bg-blue-dark text-uppercase font-12">
+                                <i class="fa-solid fa-city pe-1"></i>
+                                @recruitment.WorkAddress
+                            </span>
+                            <span class="badge bg-gray-dark text-uppercase font-12">
+                                <i class="fa-regular fa-star pe-1"></i>
+                                @recruitment.Experiences.DisplayName
+                            </span>
+                        </div>
                     </div>
-                    <div>
-                        <h5 class="font-700 text-uppercase">  @recruitment.Title</h5>
-                        <h1 class="font-500 font-15 line-height-m">
-                            @recruitment.Recruiter.CompanyName
-                        </h1>
-                        <span class="badge bg-green-dark text-uppercase font-12">
-                            <i class="fa-solid fa-dollar-sign pe-1"></i>
-                            @{
-                                var minSalaryInMillion = Math.Truncate(recruitment.MinSalary / 1000000);
-                                var maxSalaryInMillion = Math.Truncate(recruitment.MaxSalary / 1000000);
-                            }
-                            @minSalaryInMillion - @maxSalaryInMillion triệu
-                        </span>
-                        <span class="badge bg-blue-dark text-uppercase font-12">
-                            <i class="fa-solid fa-city pe-1"></i>
-                            @recruitment.WorkAddress
-                        </span>
-                        <span class="badge bg-gray-dark text-uppercase font-12">
-                            <i class="fa-regular fa-star pe-1"></i>
-                            @recruitment.Experiences.DisplayName
-                        </span>
-                    </div>
-                </div>
-            </a>
-            <div class="divider mt-3 mb-3"></div>
-        </Virtualize>
+                </a>
+                <div class="divider mt-3 mb-3"></div>
+            </Virtualize>
 
 
 
-        @*  <a href="#" data-filter-item data-filter-name="all pediatrics" class="search-result-list">
+            @*  <a href="#" data-filter-item data-filter-name="all pediatrics" class="search-result-list">
         <i class="fa font-14 fa-child color-blue-dark"></i>
         <span>Pediatrics</span>
         <i class="fa fa-angle-right"></i>
@@ -142,23 +143,20 @@
         <span>Cardiovascular</span>
         <i class="fa fa-angle-right"></i>
         </a> *@
-    </div>
-    @if (isError1 == true)
-    {
-        <div class="search-no-results disabled">
+        </div>
+}
+@if (isError1 == true)
+{
+    <div class="card card-style p-2">
+        <div class="search-no-results ">
             <div class="content">
-                <h3>Specialist Needed?</h3>
+                <h3>Không có kết quả!!!</h3>
                 <p class="opacity-70 color-theme">
-                    There's nothing matching the description you're looking for,
-                    try a different keyword or call our office to book a specialist meeting
+                    Không có công việc phù hợp với mô tả bạn đang tìm kiếm, hãy thử một từ khoá khác.
                 </p>
-                <a href="#" class="btn btn-m btn-full bg-blue-dark text-uppercase rounded-sm font-700">
-                    Call
-                    Now
-                </a>
             </div>
         </div>
-    }
+    </div>
 }
 
 <!-- Thống kê -->
@@ -251,7 +249,7 @@
 <!-- Người tìm việc - Việc tìm người -->
 <div class="card card-style">
     <div class="content mb-0">
-        <h4 class="pb-1 text-uppercase color-highlight text-center">
+        <h4 class="pb-1 text-uppercase color-highlight text-center" >
             <i class="fa-solid fa-magnifying-glass pe-2"></i>Người tìm việc - Việc tìm người<i class="fa-solid fa-magnifying-glass ps-2"></i>
         </h4>
     </div>
@@ -410,8 +408,47 @@
     </div>
 </div>
 
+@if (IsShowForm == true)
+{
+    <!-- menu-login-1 -->
+    <div id="menu-login-1" class="menu menu-box-top menu-box-detached rounded-m menu-active" data-menu-height="320" data-menu-effect="menu-over" style="display: block;height: 320px;">
+        <div class="menu-title mt-n1">
+            <h1>Đăng nhập ứng viên</h1>
+            <p class="color-theme opacity-50">Please enter your credentials below</p>
+            <a href="#" class="close-menu"><i class="fa fa-times"></i></a>
+        </div>
 
+        <div class="content mb-0">
+            <div class="input-style no-borders has-icon validate-field mb-4">
+                <i class="fa fa-user"></i>
+                <input type="name" class="form-control validate-name" id="form1a" placeholder="Name">
+                <label for="form1a" class="color-blue-dark">Name</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
+                <em>(required)</em>
+            </div>
+            <div class="input-style no-borders has-icon validate-field mb-4">
+                <i class="fa fa-lock"></i>
+                <input type="password" class="form-control validate-text" id="form3a" placeholder="Password">
+                <label for="form3a" class="color-blue-dark">Password</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
+                <em>(required)</em>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <a href="#" data-menu="menu-forgot-1" class="font-10">Forgot Password?</a>
+                </div>
+                <div class="col-6">
+                    <a data-menu="menu-register-1" href="#" class="float-end font-10">Create Account</a>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <a href="#" class="btn btn-full btn-m shadow-l rounded-s text-uppercase font-900 bg-green-dark mt-n2" style="">LOGIN</a>
+        </div>
+    </div>
 
+}
 
 
 

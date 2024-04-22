@@ -171,7 +171,20 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
             }
             await ReloadList();
         }
+        public async void selectedValue(ChangeEventArgs args)
+        {
+            string select = Convert.ToString(args.Value);
+            _SearchText = select;
+            //IsFilter = true;
+            //if (_SearchText == "")
+            //{
+            //    IsFilter = false;
+            //}
+            await RecruitmentContainer.RefreshDataAsync();
+            StateHasChanged();
+            //await LoadRecruitment(new ItemsProviderRequest());
 
+        }
         private async Task ReloadList()
         {
             #region InPage
