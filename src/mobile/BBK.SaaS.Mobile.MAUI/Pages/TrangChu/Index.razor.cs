@@ -12,6 +12,7 @@ using BBK.SaaS.Mdls.Category.Indexings;
 using BBK.SaaS.Mdls.Category.Indexings.Dto;
 using BBK.SaaS.Mdls.Cms.Articles;
 using BBK.SaaS.Mdls.Cms.Articles.MDto;
+using BBK.SaaS.Mdls.Cms.Entities;
 using BBK.SaaS.Mdls.Profile.Candidates;
 using BBK.SaaS.Mdls.Profile.Candidates.Dto;
 using BBK.SaaS.Mdls.Profile.Recruiters;
@@ -165,6 +166,10 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             string select = Convert.ToString(args.Value);
             _SearchText = select;
             IsFilter = true;
+            if (_SearchText == "")
+            {
+                IsFilter = false;
+            }
             await RecruitmentContainer.RefreshDataAsync();
             StateHasChanged();
             //await LoadRecruitment(new ItemsProviderRequest());
@@ -247,7 +252,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 
             return articleDto;
         }
-
 
         public async Task ViewArticle(ArticleModel article)
         {

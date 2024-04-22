@@ -71,46 +71,39 @@
 @if (IsFilter == true)
 {
     <div class="card card-style p-4">
-        <Virtualize @ref="JobApplicationContainer" Context="job" ItemsProvider="@LoadJobApplication" ItemSize="20">
-            <a href="javascript:;" @onclick="(() => ViewUser(job))">
+        <Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
+
+            <a href="javascript:;" @onclick="(() => ViewRecruitment(recruitment))">
                 <div class="d-flex">
                     <div>
-                        <img src="@job.Candidate.AvatarUrl" class="me-3 rounded-circle shadow-l"
-                             width="100">
+                        <img src="@recruitment.Recruiter.AvatarUrl" class="me-3 rounded-m" width="110">
                     </div>
                     <div>
-                        <h5 class="font-700 text-uppercase">@job.User.Name</h5>
-                        <h1 class="font-700 font-15 line-height-m pb-2">@job.JobApplication.Positions.DisplayName</h1>
+                        <h5 class="font-700 text-uppercase">  @recruitment.Title</h5>
+                        <h1 class="font-500 font-15 line-height-m">
+                            @recruitment.Recruiter.CompanyName
+                        </h1>
                         <span class="badge bg-green-dark text-uppercase font-12">
                             <i class="fa-solid fa-dollar-sign pe-1"></i>
-                            @if (job.JobApplication.DesiredSalary.HasValue)
-                            {
-                                <span>
-                                    @{
-                                        var minSalaryInMillion = Math.Truncate(job.JobApplication.DesiredSalary.Value / 1000000);
-                                    }
-                                    @minSalaryInMillion triệu
-                                </span>
+                            @{
+                                var minSalaryInMillion = Math.Truncate(recruitment.MinSalary / 1000000);
+                                var maxSalaryInMillion = Math.Truncate(recruitment.MaxSalary / 1000000);
                             }
-                            else
-                            {
-                                <span>Lương thoả thuận</span>
-                            }
+                            @minSalaryInMillion - @maxSalaryInMillion triệu
+                        </span>
+                        <span class="badge bg-blue-dark text-uppercase font-12">
+                            <i class="fa-solid fa-city pe-1"></i>
+                            @recruitment.WorkAddress
                         </span>
                         <span class="badge bg-gray-dark text-uppercase font-12">
-                            <i class="fa-solid fa-graduation-cap pe-1"></i>
-                            @job.JobApplication.Literacy.DisplayName
-                        </span>
-                        <span class="badge bg-teal-dark text-uppercase font-12">
-                            <i class="fa-solid fa-comment pe-1"></i>
-                            @job.JobApplication.Province.DisplayName
+                            <i class="fa-regular fa-star pe-1"></i>
+                            @recruitment.Experiences.DisplayName
                         </span>
                     </div>
                 </div>
             </a>
             <div class="divider mt-3 mb-3"></div>
         </Virtualize>
-
 
 
 
@@ -200,73 +193,15 @@
     </div>
 </div>
 
-<!-- Sự kiện nổi bật -->
-@*     <div class="card card-style mx-0">
-    <div class="content">
-    <h4 class="pb-1 text-uppercase color-highlight">Sự kiện nổi bật</h4>
-    </div>
-    <div class="row mb-0 mt-n3">
-    <div class="col-6 pe-0">
-    <div class="card card-style"
-    style="background-image: url(images/QuangBinh/sk_002.jpg);">
-    <div class="card-top text-center">
-    <span class="badge bg-blue-dark px-2 py-1 color-white m-3">
-    <i class="fa fa-fire me-2"></i>Phiên giao dịch
-    </span>
-    </div>
-    <div class="card-bottom py-1 px-2 bg-black">
-    <h5 class="color-white font-500  text-center">
-    Phiên giao dịch đầu xuân 2024
-    </h5>
-    </div>
-    <div class="card-overlay bg-black opacity-20"></div>
-    </div>
-    </div>
-    <div class="col-6 ps-0">
-    <div class="card ms-0 card-style mb-2"
-    style="background-image: url(images/QuangBinh/002.png);">
-    <div class="card-top text-center">
-    <span class="badge bg-yellow-dark px-2 py-1 color-white m-3">
-    <i class="fa fa-star me-2"></i>Thông báo
-    </span>
-    </div>
-    <div class="card-bottom py-1 px-2 bg-black">
-    <h5 class="color-white font-500 font-14 mb-n1 text-center">
-    Thông báo thi EPS Topik
-    </h5>
-    </div>
-    <div class="card-overlay bg-black opacity-20"></div>
-    </div>
-    <div class="card ms-0 card-style mb-2"
-    style="background-image: url(images/QuangBinh/004.jpg);">
-    <div class="card-top text-center">
-    <span class="badge bg-green-dark px-2 py-1 color-white m-3">
-    <i class="fa fa-bell me-2"></i>Du học
-    </span>
-    </div>
-    <div class="card-bottom py-1 px-2 bg-black">
-    <h5 class="color-white font-500 font-14 mb-n1 text-center">
-    Thông báo tuyển sinh du học Nhật
-    </h5>
-    </div>
-    <div class="card-overlay bg-black opacity-20"></div>
-    </div>
-    </div>
-    </div>
-    </div>
-    *@
-
-<div class="card card-style">
+<div class="card card-style mx-0">
     <div class="content">
         <h4 class="pb-1 text-uppercase color-highlight">Sự kiện nổi bật</h4>
     </div>
-    <div class="row">
+    <div class="row mb-0 mt-n3">
         <div class="col-6 pe-0">
-            <div class="card card-style" style="background-image: url(images/QuangBinh/sk_002.jpg); width: 100%; height: 280px">
+            <a href="#" class="card card-style" data-card-height="280" style="background-image: url(&quot;images/QuangBinh/sk_002.jpg&quot;); height: 280px;">
                 <div class="card-top text-center">
-                    <span class="badge bg-blue-dark px-2 py-1 color-white m-3">
-                        <i class="fa fa-fire me-2"></i>Phiên giao dịch
-                    </span>
+                    <span class="badge bg-blue-dark px-2 py-1 color-white m-3"><i class="fa fa-fire me-2"></i>Phiên giao dịch</span>
                 </div>
                 <div class="card-bottom py-1 px-2 bg-black">
                     <h5 class="color-white font-500  text-center">
@@ -274,36 +209,31 @@
                     </h5>
                 </div>
                 <div class="card-overlay bg-black opacity-20"></div>
-            </div>
+            </a>
         </div>
         <div class="col-6 ps-0">
-            <div class="card card-style ms-0" style="background-image: url(images/QuangBinh/002.png); width: 100%; height: 135px">
+            <a href="#" class="card ms-0 card-style mb-2" data-card-height="135" style="background-image: url(&quot;images/QuangBinh/002.png&quot;); height: 135px;">
                 <div class="card-top text-center">
-                    <span class="badge bg-blue-dark px-2 py-1 color-white m-3">
-                        <i class="fa fa-fire me-2"></i>Thông báo
-                    </span>
+                    <span class="badge bg-yellow-dark px-2 py-1 color-white m-3"><i class="fa fa-star me-2"></i>Thông báo</span>
                 </div>
                 <div class="card-bottom py-1 px-2 bg-black">
-                    <h5 class="color-white font-500  text-center">
+                    <h5 class="color-white font-500 font-14 mb-n1 text-center">
                         Thông báo thi EPS Topik
                     </h5>
                 </div>
                 <div class="card-overlay bg-black opacity-20"></div>
-            </div>
-            <div class="card card-style ms-0" style="background-image: url(images/QuangBinh/004.jpg); width: 100%; height: 135px;margin-top: -20px">
+            </a>
+            <a href="#" class="card ms-0 card-style mb-2" data-card-height="135" style="background-image: url(&quot;images/QuangBinh/004.jpg&quot;); height: 135px;">
                 <div class="card-top text-center">
-                    <span class="badge bg-blue-dark px-2 py-1 color-white m-3">
-                        <i class="fa fa-fire me-2"></i>Du học
-                    </span>
+                    <span class="badge bg-green-dark px-2 py-1 color-white m-3"><i class="fa fa-bell me-2"></i>Du học</span>
                 </div>
                 <div class="card-bottom py-1 px-2 bg-black">
-                    <h5 class="color-white font-500  text-center">
+                    <h5 class="color-white font-500 font-14 mb-n1 text-center">
                         Thông báo tuyển sinh du học Nhật
-
                     </h5>
                 </div>
                 <div class="card-overlay bg-black opacity-20"></div>
-            </div>
+            </a>
         </div>
     </div>
 </div>
@@ -462,7 +392,7 @@
                             </strong>
                         </p>
                         <p>
-                            @articles.Author - @articles.LastModificationTime<span class="d-block float-end color-blue-dark font-11">
+                            @articles.Author - @articles.LastModificationTime.ToShortDateString()<span class="d-block float-end color-blue-dark font-11">
                                 Chi
                                 tiết
                             </span>
