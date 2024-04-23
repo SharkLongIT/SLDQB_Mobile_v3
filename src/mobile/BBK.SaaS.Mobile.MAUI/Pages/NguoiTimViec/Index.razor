@@ -6,15 +6,15 @@
 
 <div class="content mt-5"></div>
 <!-- Tìm kiếm thông tin -->
-<div class="content mt-n4  search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important">
+@* <div class="content mt-n4  search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important">
 	<i class="fa fa-search" @onclick="RefeshList"></i>
 	<input type="search" class="border-0" placeholder="Tìm kiếm thông tin">
 	<a href="#" class="clear-search disabled mt-0"><i class="fa fa-times color-red-dark"></i></a>
-</div>
+</div> *@
 <div class="content mt-0">
-	<a href="#" data-menu="menu-filter" @onclick="OpenFilter">
+	<a data-menu="menu-filter" @onclick="OpenFilter">
 		<h4 class="text-uppercase color-highlight">
-			<i class="fa font-14 fa-star color-yellow-dark px-2"></i>Tìm kiếm nâng cao
+			<i class="fa font-14 fa-search color-yellow-dark px-2"></i>Bộ lọc nâng cao
 		</h4>
 	</a>
 </div>
@@ -28,7 +28,7 @@
             </p><a href="#" @onclick="CloseFilter" class="close-menu"><i class="fa fa-times"></i></a>
         </div>
         <p class="mb-3 mx-3">
-            Các bộ lọc này có thể được mở rộng theo mặc định hoặc thu gọn để giữ cho mọi thứ sạch sẽ và nhỏ gọn.
+            Các bộ lọc này có thể được mở rộng theo mặc định hoặc thu gọn lại.
         </p>
         <div class="divider divider-margins"></div>
         <div class="content mt-n3 mx-3 me-4 mb-0">
@@ -41,7 +41,7 @@
             </div>
             <div class="collapse" id="collapse-filter-0">
                 <Virtualize @ref="GeoUnitContainer" Context="geounit" ItemsProvider="@LoadGeoUnit" ItemSize="1">
-                    <select class="cus-select w-100" @bind="_filter.WorkSiteId">
+                    <select class="cus-select w-100" @bind="_filter.WorkSiteId" style="height: 33px;">
                         <option value="0" selected>Tất cả địa điểm</option>
 
                         @foreach (var item in WorkSite)
@@ -62,7 +62,7 @@
             </div>
             <div class="collapse" id="collapse-filter-1">
                 <Virtualize @ref="CatFilterListContainer" Context="cat" ItemsProvider="@LoadFilter" ItemSize="100">
-                    <select class="cus-select2 w-100" @bind="_filter.OccupationId">
+                    <select class="cus-select2 w-100" @bind="_filter.OccupationId" style="height: 33px;">
                         <option value="0" selected>Tất cả ngành nghề</option>
                         @foreach (var item in Career)
                         {
@@ -84,7 +84,7 @@
             </div>
             <div class="collapse" id="collapse-filter-2">
                 <Virtualize @ref="CatFilterListContainer" Context="cat" ItemsProvider="@LoadFilter" ItemSize="100">
-                    <select class="cus-select2 w-100" @bind="_filter.ExperiencesId">
+                    <select class="cus-select2 w-100" @bind="_filter.ExperiencesId" style="height: 33px;">
                         <option value="0" selected>Tất cả kinh nghiệm</option>
                         @foreach (var item in Experience)
                         {
@@ -107,7 +107,7 @@
             </div>
             <div class="collapse" id="collapse-filter-6">
                 <Virtualize @ref="CatFilterListContainer" Context="cat" ItemsProvider="@LoadFilter" ItemSize="100">
-                    <select class="cus-select2 w-100" @bind="_filter.LiteracyId">
+                    <select class="cus-select2 w-100" @bind="_filter.LiteracyId" style="height: 33px;">
                         <option value="0" selected>Tất cả bằng cấp</option>
                         @foreach (var item in Degree)
                         {
@@ -131,7 +131,7 @@
                 </a>
             </div>
             <div class="collapse" id="collapse-filter-3">
-                <input type="search" class="w-100" placeholder="Mức lương tối thiểu" @bind="_filter.SalaryMin">
+                <input type="search" class="w-100" placeholder="Nhập mức lương tối thiểu" @bind="_filter.SalaryMin">
                 <div class="mb-3"></div>
             </div>
             <!--Mức lương tối đa-->
@@ -142,12 +142,12 @@
                 </a>
             </div>
             <div class="collapse" id="collapse-filter-4">
-                <input type="search" class="w-100" placeholder="Mức lương tối đa" @bind="_filter.SalaryMax">
+                <input type="search" class="w-100" placeholder="Nhập mức lương tối đa" @bind="_filter.SalaryMax">
                 <div class="mb-3"></div>
             </div>
         </div>
         <div class="divider divider-margins mt-2 mb-4"></div>
-        <a href="#" @onclick="RefeshList" class=" close-menu btn btn-full mx-3 btn-m bg-blue-dark rounded-m font-700 text-uppercase w-80">
+        <a @onclick="RefeshList" class=" close-menu btn btn-full mx-3 btn-m bg-blue-dark rounded-m font-700 text-uppercase w-80">
             Tìm kiếm
         </a>
         <div class="divider divider-margins mt-4 mb-4"></div>

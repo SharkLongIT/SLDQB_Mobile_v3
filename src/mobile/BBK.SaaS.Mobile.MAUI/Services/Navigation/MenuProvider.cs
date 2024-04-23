@@ -240,121 +240,125 @@ namespace BBK.SaaS.Services.Navigation
             {
                
                   //---------------------------------------------
-                new NavigationMenuItem
-                {
-                    Title = L.Localize("Trang chủ"),
-                    Icon = "fa fa-home",
-                    NavigationUrl  = NavigationUrlConsts.TrangChu
-                },
-                new NavigationMenuItem
-                {
-                    Title = L.Localize("Việc tìm người"),
-                    Icon = "fas fa-briefcase",
-                    NavigationUrl  = NavigationUrlConsts.ViecTimNguoi
-                },
-                new NavigationMenuItem
-                {
-                    Title = L.Localize("Người tìm việc"),
-                    Icon = "fa fa-user",
-                    NavigationUrl  = NavigationUrlConsts.NguoiTimViec
-                },
+                //new NavigationMenuItem
+                //{
+                //    Title = L.Localize("Trang chủ"),
+                //    Icon = "fa fa-home",
+                //    NavigationUrl  = NavigationUrlConsts.TrangChu
+                //},
+                //new NavigationMenuItem
+                //{
+                //    Title = L.Localize("Việc tìm người"),
+                //    Icon = "fas fa-briefcase",
+                //    NavigationUrl  = NavigationUrlConsts.ViecTimNguoi
+                //},
+                //new NavigationMenuItem
+                //{
+                //    Title = L.Localize("Người tìm việc"),
+                //    Icon = "fa fa-user",
+                //    NavigationUrl  = NavigationUrlConsts.NguoiTimViec
+                //},
 
-                //-Chuyên mục-------------------------------------------
+                ////-Chuyên mục-------------------------------------------
+                // new NavigationMenuItem
+                // {
+                //    Title = L.Localize("Chuyên mục"),
+                //    Items = new List<NavigationMenuItem>
+                //    {
+                //        new NavigationMenuItem
+                //        {
+                //            Title = L.Localize("Tin tức"),
+                //            //Icon = "fa fa-heart",
+                //            NavigationUrl  = NavigationUrlConsts.TinTuc
+                //        },
+                //        // new NavigationMenuItem
+                //        //{
+                //        //    Title = L.Localize("detail Tin tức"),
+                //        //    //Icon = "fa fa-heart",
+                //        //    NavigationUrl  = NavigationUrlConsts.ArticleDetail
+                //        //},
+                //        new NavigationMenuItem
+                //        {
+                //            Title = L.Localize("Thông tin du học"),
+                //            //Icon = "fa fa-heart",
+                //            NavigationUrl  = NavigationUrlConsts.ThongTinDuHoc
+                //        },
+                //        new NavigationMenuItem
+                //        {
+                //            Title = L.Localize("Thông tin xuất khẩu lao động"),
+                //            //Icon = "fa fa-heart",
+                //            NavigationUrl  = NavigationUrlConsts.ThongTinXuatKhauLaoDong
+                //        },
+                //        new NavigationMenuItem
+                //        {
+                //            Title = L.Localize("Đào tạo kĩ năng"),
+                //            //Icon = "fa fa-heart",
+                //            NavigationUrl  = NavigationUrlConsts.DaotaoKyNang
+                //        },
+                //        new NavigationMenuItem
+                //        {
+                //            Title = L.Localize("Đào tạo nghề"),
+                //            //Icon = "fa fa-heart",
+                //            NavigationUrl  = NavigationUrlConsts.DaoTaoNghe
+                //        },
+                //        new NavigationMenuItem
+                //        {
+                //            Title = L.Localize("Dịch vụ khác"),
+                //            //Icon = "fa fa-heart",
+                //            NavigationUrl  = NavigationUrlConsts.DichVuKhac
+                //        },
+                //          new NavigationMenuItem
+                //        {
+                //            Title = L.Localize("Văn bản mới"),
+                //            //Icon = "fa fa-heart",
+                //            NavigationUrl  = NavigationUrlConsts.VanBanMoi
+                //        },
+                //    }
+
+
+                //},
+
+                ////--lien he---
+                // new NavigationMenuItem
+                // {
+                //        Title = L.Localize("Liên hệ & Hỏi đáp"),
+                //        Icon = "fa fa-phone",
+                //        NavigationUrl  = NavigationUrlConsts.LienHe
+                // },
+                // //  new NavigationMenuItem
+                // //{
+                // //       Title = L.Localize("Phiên giao dịch"),
+                // //       Icon = "fab fa-ideal",
+                // //       NavigationUrl  = NavigationUrlConsts.PhienGiaoDich
+                // //},
+                // new NavigationMenuItem
+                // {
+                //        Title = L.Localize("Giới thiệu"),
+                //        Icon = "fa fa-info-circle",
+                //        NavigationUrl  = NavigationUrlConsts.GioiThieu
+                // },
+
+
+                // new NavigationMenuItem
+                // {
+                //    Title = L.Localize("Tenants"),
+                //    Icon = "fa-solid fa-list",
+                //    NavigationUrl = NavigationUrlConsts.Tenants,
+                //    RequiredPermissionName = AppPermissions.Pages_Tenants,
+                // },
+                // new NavigationMenuItem
+                // {
+                //    Title = L.Localize("Users"),
+                //    Icon = "fa-solid fa-filter",
+                //    NavigationUrl= NavigationUrlConsts.User,
+                //    RequiredPermissionName = AppPermissions.Pages_Administration_Users,
+                // },
+
                  new NavigationMenuItem
                  {
-                    Title = L.Localize("Chuyên mục"),
+                    Title = L.Localize("Hồ sơ cá nhân"),
                     Items = new List<NavigationMenuItem>
                     {
-                        new NavigationMenuItem
-                        {
-                            Title = L.Localize("Tin tức"),
-                            //Icon = "fa fa-heart",
-                            NavigationUrl  = NavigationUrlConsts.TinTuc
-                        },
-                        // new NavigationMenuItem
-                        //{
-                        //    Title = L.Localize("detail Tin tức"),
-                        //    //Icon = "fa fa-heart",
-                        //    NavigationUrl  = NavigationUrlConsts.ArticleDetail
-                        //},
-                        new NavigationMenuItem
-                        {
-                            Title = L.Localize("Thông tin du học"),
-                            //Icon = "fa fa-heart",
-                            NavigationUrl  = NavigationUrlConsts.ThongTinDuHoc
-                        },
-                        new NavigationMenuItem
-                        {
-                            Title = L.Localize("Thông tin xuất khẩu lao động"),
-                            //Icon = "fa fa-heart",
-                            NavigationUrl  = NavigationUrlConsts.ThongTinXuatKhauLaoDong
-                        },
-                        new NavigationMenuItem
-                        {
-                            Title = L.Localize("Đào tạo kĩ năng"),
-                            //Icon = "fa fa-heart",
-                            NavigationUrl  = NavigationUrlConsts.DaotaoKyNang
-                        },
-                        new NavigationMenuItem
-                        {
-                            Title = L.Localize("Đào tạo nghề"),
-                            //Icon = "fa fa-heart",
-                            NavigationUrl  = NavigationUrlConsts.DaoTaoNghe
-                        },
-                        new NavigationMenuItem
-                        {
-                            Title = L.Localize("Dịch vụ khác"),
-                            //Icon = "fa fa-heart",
-                            NavigationUrl  = NavigationUrlConsts.DichVuKhac
-                        },
-                          new NavigationMenuItem
-                        {
-                            Title = L.Localize("Văn bản mới"),
-                            //Icon = "fa fa-heart",
-                            NavigationUrl  = NavigationUrlConsts.VanBanMoi
-                        },
-                    }
-
-
-                },
-
-                //--lien he---
-                 new NavigationMenuItem
-                 {
-                        Title = L.Localize("Liên hệ & Hỏi đáp"),
-                        Icon = "fa fa-phone",
-                        NavigationUrl  = NavigationUrlConsts.LienHe
-                 },
-                 //  new NavigationMenuItem
-                 //{
-                 //       Title = L.Localize("Phiên giao dịch"),
-                 //       Icon = "fab fa-ideal",
-                 //       NavigationUrl  = NavigationUrlConsts.PhienGiaoDich
-                 //},
-                 new NavigationMenuItem
-                 {
-                        Title = L.Localize("Giới thiệu"),
-                        Icon = "fa fa-info-circle",
-                        NavigationUrl  = NavigationUrlConsts.GioiThieu
-                 },
-
-
-                 new NavigationMenuItem
-                 {
-                    Title = L.Localize("Tenants"),
-                    Icon = "fa-solid fa-list",
-                    NavigationUrl = NavigationUrlConsts.Tenants,
-                    RequiredPermissionName = AppPermissions.Pages_Tenants,
-                 },
-                 new NavigationMenuItem
-                 {
-                    Title = L.Localize("Users"),
-                    Icon = "fa-solid fa-filter",
-                    NavigationUrl= NavigationUrlConsts.User,
-                    RequiredPermissionName = AppPermissions.Pages_Administration_Users,
-                 },
-
-
                         new NavigationMenuItem
                         {
                                 Title = L.Localize("Thông tin cá nhân "),
@@ -402,7 +406,8 @@ namespace BBK.SaaS.Services.Navigation
                             //Icon = "fa-solid fa-cog",
                             NavigationUrl  = NavigationUrlConsts.Settings,
                         },
-               
+                    }
+ }
 
 
 

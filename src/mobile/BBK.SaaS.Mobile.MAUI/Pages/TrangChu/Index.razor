@@ -62,10 +62,10 @@
 </div>
 <!-- Tìm kiếm thông tin -->
 <div class="content mt-n4 search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important">
-    <i class="fa fa-search" @* @onclick="RefeshList" *@></i>
-    <input type="search" class="border-0" placeholder="Tìm kiếm thông tin" data-search @oninput="selectedValue">
-    <i class="fa fa-search" @onclick="RefeshList" style="background-color: blue"></i>
-    <a href="#" class="clear-search disabled mt-0"><i class="fa fa-times color-red-dark"></i></a>
+    @* <button  class="btn btn-primary" type="button"> *@
+        <i class="fa fa-search" @onclick="RefeshList" aria-label="Search"></i>
+    @* </button> *@
+    <input type="search" class="border-0" placeholder="Tìm kiếm thông tin" @bind="_filtered.Filtered" data-search >
 </div>
 
 <!-- Kết quả tìm kiếm -->
@@ -364,7 +364,7 @@
 <!-- Tin tức -->
 <div class="card card-style">
     <div class="content">
-        <a href="content.html">
+        <a href="/TinTuc">
             <div class="d-flex">
                 <div class="align-self-center">
                     <h1 class="font-22 text-uppercase">Tin tức</h1>

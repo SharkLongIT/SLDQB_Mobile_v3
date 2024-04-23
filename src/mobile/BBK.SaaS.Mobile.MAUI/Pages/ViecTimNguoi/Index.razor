@@ -12,7 +12,7 @@
 <div class="content mt-0">
     <a  data-menu="menu-filter" @onclick="OpenFilter">
         <h4 class="text-uppercase color-highlight">
-            <i class="fa font-14 fa-star color-yellow-dark px-2"></i>Tìm kiếm nâng cao
+            <i class="fa font-14 fa-star color-yellow-dark px-2"></i>Bộ lọc nâng cao
         </h4>
     </a>
 </div>
@@ -28,7 +28,7 @@
             </p><a @onclick="CloseFilter" class="close-menu"><i class="fa fa-times"></i></a>
         </div>
         <p class="mb-3 mx-3">
-            Các bộ lọc này có thể được mở rộng theo mặc định hoặc thu gọn để giữ cho mọi thứ sạch sẽ và nhỏ gọn.
+            Các bộ lọc này có thể được mở rộng theo mặc định hoặc thu gọn lại.
         </p>
         <div class="divider divider-margins"></div>
         <div class="content mt-n3 mx-3 me-4 mb-0">
@@ -41,7 +41,7 @@
             </div>
             <div class="collapse" id="collapse-filter-0">
                 <Virtualize @ref="GeoUnitContainer" Context="geounit" ItemsProvider="@LoadGeoUnit" ItemSize="1">
-                    <select class="cus-select w-100" @bind="_filter.WorkSiteId">
+                    <select class="cus-select w-100" @bind="_filter.WorkSiteId" style="height: 33px;">
                         <option value="0" selected>Tất cả địa điểm</option>
 
                         @foreach (var item in WorkSite)
@@ -62,7 +62,7 @@
             </div>
             <div class="collapse" id="collapse-filter-1">
                 <Virtualize @ref="CatFilterListContainer" Context="cat" ItemsProvider="@LoadFilter" ItemSize="100">
-                    <select class="cus-select2 w-100" @bind="_filter.Job">
+                    <select class="cus-select2 w-100" @bind="_filter.Job" style="height: 33px;">
                         <option value="0" selected>Tất cả ngành nghề</option>
                         @foreach (var item in Career)
                         {
@@ -84,7 +84,7 @@
             </div>
             <div class="collapse" id="collapse-filter-2">
                 <Virtualize @ref="CatFilterListContainer" Context="cat" ItemsProvider="@LoadFilter" ItemSize="100">
-                    <select class="cus-select2 w-100" @bind="_filter.Experience">
+                    <select class="cus-select2 w-100" @bind="_filter.Experience" style="height: 33px;">
                         <option value="0" selected>Tất cả kinh nghiệm</option>
                         @foreach (var item in Experience)
                         {
@@ -105,7 +105,7 @@
                 </a>
             </div>
             <div class="collapse" id="collapse-filter-3">
-                <input type="search" class="w-100" placeholder="Mức lương tối thiểu" @bind="_filter.Salary">
+                <input type="search" class="w-100" placeholder="Nhập mức lương tối thiểu" @bind="_filter.Salary">
                 <div class="mb-3"></div>
             </div>
             <!--Mức lương tối đa-->
@@ -116,12 +116,12 @@
                 </a>
             </div>
             <div class="collapse" id="collapse-filter-4">
-                <input type="search" class="w-100" placeholder="Mức lương tối đa" @bind="_filter.SalaryMax">
+                <input type="search" class="w-100" placeholder="Nhập mức lương tối đa" @bind="_filter.SalaryMax">
                 <div class="mb-3"></div>
             </div>
         </div>
         <div class="divider divider-margins mt-2 mb-4"></div>
-        <a href="#" @onclick="RefeshList" class=" close-menu btn btn-full mx-3 btn-m bg-blue-dark rounded-m font-700 text-uppercase w-80">
+        <a  @onclick="RefeshList" class=" close-menu btn btn-full mx-3 btn-m bg-blue-dark rounded-m font-700 text-uppercase w-80">
             Tìm kiếm
         </a>
         <div class="divider divider-margins mt-4 mb-4"></div>

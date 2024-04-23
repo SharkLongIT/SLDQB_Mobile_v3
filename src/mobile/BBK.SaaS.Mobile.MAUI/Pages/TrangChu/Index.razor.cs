@@ -161,31 +161,31 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 
         bool ListUserNull;
         bool IsFilter;
-        public async void selectedValue(ChangeEventArgs args)
-        {
-            string select = Convert.ToString(args.Value);
-            _SearchText = select;
-            IsFilter = true;
-            if (_SearchText == "")
-            {
-                IsFilter = false;
-            }
-            await RecruitmentContainer.RefreshDataAsync();
-            StateHasChanged();
-            //await LoadRecruitment(new ItemsProviderRequest());
+        //public async void selectedValue(ChangeEventArgs args)
+        //{
+        //    string select = Convert.ToString(args.Value);
+        //    _SearchText = select;
+        //    IsFilter = true;
+        //    if (_SearchText == "")
+        //    {
+        //        IsFilter = false;
+        //    }
+        //    await RecruitmentContainer.RefreshDataAsync();
+        //    StateHasChanged();
+        //    //await LoadRecruitment(new ItemsProviderRequest());
 
-        }
+        //}
         private async Task RefeshList()
         {
-            IsFilter = true;
+            //IsFilter = true;
             _SearchText = _filtered.Filtered;
             //_Job = _filtered.Job.Value;
             //_WorkSite = _filtered.WorkSiteId.Value;
-            await RecruitmentContainer.RefreshDataAsync();
-            StateHasChanged();
-            await LoadRecruitment(new ItemsProviderRequest());
+            //await RecruitmentContainer.RefreshDataAsync();
+            //StateHasChanged();
+            //await LoadRecruitment(new ItemsProviderRequest());
 
-            //await UriFilter();
+            await UriFilter();
         }
 
         public async Task UriFilter()
