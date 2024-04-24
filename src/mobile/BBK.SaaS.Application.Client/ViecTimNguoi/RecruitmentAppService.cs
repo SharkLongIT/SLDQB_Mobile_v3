@@ -59,9 +59,14 @@ namespace BBK.SaaS.ViecTimNguoi
             throw new NotImplementedException();
         }
 
+		public async Task<int> CountRecruiment()
+		{
+			return await ApiClient.PostAnonymousAsync<int>(GetEndpoint(nameof(CountRecruiment)));
+		}
 
 
-        #endregion
 
-    }
+		#endregion
+
+	}
 }

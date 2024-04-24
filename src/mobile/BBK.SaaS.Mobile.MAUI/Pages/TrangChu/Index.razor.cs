@@ -1,5 +1,4 @@
-﻿using Abp.Application.Services.Dto;
-using Abp.Threading;
+﻿using Abp.Threading;
 using BBK.SaaS.ApiClient;
 using BBK.SaaS.Authorization.Accounts;
 using BBK.SaaS.Authorization.Accounts.Dto;
@@ -12,7 +11,6 @@ using BBK.SaaS.Mdls.Category.Indexings;
 using BBK.SaaS.Mdls.Category.Indexings.Dto;
 using BBK.SaaS.Mdls.Cms.Articles;
 using BBK.SaaS.Mdls.Cms.Articles.MDto;
-using BBK.SaaS.Mdls.Cms.Entities;
 using BBK.SaaS.Mdls.Profile.Candidates;
 using BBK.SaaS.Mdls.Profile.Candidates.Dto;
 using BBK.SaaS.Mdls.Profile.Recruiters;
@@ -27,12 +25,13 @@ using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 {
-    public partial class Index : SaaSMainLayoutPageComponentBase
+	public partial class Index : SaaSMainLayoutPageComponentBase
     {
         protected NavMenu NavMenu { get; set; }
         private bool IsUserLoggedIn;
         protected IJobApplicationAppService jobApplicationAppService { get; set; }
         protected IRecruitmentAppService recruitmentAppService { get; set; }
+        protected IRecruiterAppService recruiterAppService { get; set; }
         protected IArticlesAppService articlesAppService { get; set; }
         protected INavigationService navigationService { get; set; }
         protected IUserProfileService UserProfileService { get; set; }
@@ -101,6 +100,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             navigationService = DependencyResolver.Resolve<INavigationService>();
             jobApplicationAppService = DependencyResolver.Resolve<IJobApplicationAppService>();
             recruitmentAppService = DependencyResolver.Resolve<IRecruitmentAppService>();
+			recruiterAppService = DependencyResolver.Resolve<IRecruiterAppService>();
             UserProfileService = DependencyResolver.Resolve<IUserProfileService>();
             ApplicationContext = DependencyResolver.Resolve<IApplicationContext>();
             _accountAppService = DependencyResolver.Resolve<IAccountAppService>();
@@ -157,6 +157,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             //check loggedIn
             IsUserLoggedIn = navigationService.IsUserLoggedIn();
             await GetUserPhoto();
+            await Statistical();
         }
 
         bool ListUserNull;
@@ -280,8 +281,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
                 async (result) =>
                 {
                     var jobFilter = ObjectMapper.Map<List<RecruitmentDto>>(result.Items.Where(x => x.DeadlineSubmission.CompareTo(DateTime.Today) >= 0).Where(x => x.Status == false && x.DeadlineSubmission.CompareTo(DateTime.Today) >= 0).Take(6));
-                    var recruitmentCount = ObjectMapper.Map<List<RecruitmentDto>>(result.Items.Where(x => x.DeadlineSubmission.CompareTo(DateTime.Today) >= 0).Where(x => x.Status == false && x.DeadlineSubmission.CompareTo(DateTime.Today) >= 0));
-                    RecruitmentCount = recruitmentCount.Count;
 					foreach (var model in jobFilter)
                     {
                         model.Recruiter.AvatarUrl = AsyncHelper.RunSync(async () => await articleService.GetPicture(model.Recruiter.AvatarUrl));
@@ -298,7 +297,9 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
                     }
                     recruitmentDto = new ItemsProviderResult<RecruitmentDto>(jobFilter, jobFilter.Count);
                     await UserDialogsService.UnBlock();
-                }
+                    StateHasChanged();
+
+				}
             );
 
             return recruitmentDto;
@@ -322,6 +323,8 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             _filter.Search = "";
 
             await UserDialogsService.Block();
+
+            //var count = recruiterAppService.
 
             await WebRequestExecuter.Execute(
                 async () => await jobApplicationAppService.GetAllJobAppsMobile(_filter),

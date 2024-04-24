@@ -128,11 +128,16 @@ namespace BBK.SaaS.NguoiTimViec
             return await ApiClient.PutAsync<JobApplicationEditDto>(GetEndpoint(nameof(UpdateJobApplicationForWeb)), input);
         }
 
+		public async Task<int> CountJob()
+		{
+			return await ApiClient.PostAnonymousAsync<int>(GetEndpoint(nameof(CountJob)));
+		}
 
 
 
 
 
-        #endregion
-    }
+
+		#endregion
+	}
 }
