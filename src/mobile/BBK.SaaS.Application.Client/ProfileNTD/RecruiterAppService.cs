@@ -48,7 +48,12 @@ namespace BBK.SaaS.ProfileNTD
         {
             return await ApiClient.PutAsync<long>(GetEndpoint(nameof(UpdateRecruiterForMobile)), input);
         }
-        #endregion
 
-    }
+		public async Task<int> CountRecruiter()
+		{
+			return await ApiClient.PostAnonymousAsync<int>(GetEndpoint(nameof(CountRecruiter)));
+		}
+		#endregion
+
+	}
 }
