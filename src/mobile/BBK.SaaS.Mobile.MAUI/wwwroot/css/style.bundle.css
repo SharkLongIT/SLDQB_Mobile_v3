@@ -3162,6 +3162,7 @@ textarea.form-control-lg {
   --bs-btn-disabled-color: #000000;
   --bs-btn-disabled-bg: #ffc700;
   --bs-btn-disabled-border-color: #ffc700;
+ 
 }
 
 .btn-danger {
@@ -33616,6 +33617,7 @@ html:not([data-theme=dark]) .theme-light-bg-body {
   color: var(--kt-warning-inverse);
   border-color: var(--kt-warning);
   background-color: var(--kt-warning);
+
 }
 .btn.btn-warning i,
 .btn.btn-warning .svg-icon {

@@ -63,87 +63,87 @@
 <!-- Tìm kiếm thông tin -->
 <div class="content mt-n4 search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important">
     @* <button  class="btn btn-primary" type="button"> *@
-        <i class="fa fa-search" @onclick="RefeshList" aria-label="Search"></i>
+    <i class="fa fa-search" @onclick="RefeshList" aria-label="Search"></i>
     @* </button> *@
-    <input type="search" class="border-0" placeholder="Tìm kiếm thông tin" @bind="_filtered.Filtered" data-search >
+    <input type="search" class="border-0" placeholder="Tìm kiếm thông tin" @bind="_filtered.Filtered" data-search>
 </div>
 
 <!-- Kết quả tìm kiếm -->
 @if (IsFilter == true)
 {
-        <div class="card card-style p-4">
-            <Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
+    <div class="card card-style p-4">
+        <Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
 
-                <a href="javascript:;" @onclick="(() => ViewRecruitment(recruitment))">
-                    <div class="d-flex">
-                        <div>
-                            <img src="@recruitment.Recruiter.AvatarUrl" class="me-3 rounded-m" width="110">
-                        </div>
-                        <div>
-                            <h5 class="font-700 text-uppercase">  @recruitment.Title</h5>
-                            <h1 class="font-500 font-15 line-height-m">
-                                @recruitment.Recruiter.CompanyName
-                            </h1>
-                            <span class="badge bg-green-dark text-uppercase font-12">
-                                <i class="fa-solid fa-dollar-sign pe-1"></i>
-                                @{
-                                    var minSalaryInMillion = Math.Truncate(recruitment.MinSalary / 1000000);
-                                    var maxSalaryInMillion = Math.Truncate(recruitment.MaxSalary / 1000000);
-                                }
-                                @minSalaryInMillion - @maxSalaryInMillion triệu
-                            </span>
-                            <span class="badge bg-blue-dark text-uppercase font-12">
-                                <i class="fa-solid fa-city pe-1"></i>
-                                @recruitment.WorkAddress
-                            </span>
-                            <span class="badge bg-gray-dark text-uppercase font-12">
-                                <i class="fa-regular fa-star pe-1"></i>
-                                @recruitment.Experiences.DisplayName
-                            </span>
-                        </div>
+            <a href="javascript:;" @onclick="(() => ViewRecruitment(recruitment))">
+                <div class="d-flex">
+                    <div>
+                        <img src="@recruitment.Recruiter.AvatarUrl" class="me-3 rounded-m" width="110">
                     </div>
-                </a>
-                <div class="divider mt-3 mb-3"></div>
-            </Virtualize>
+                    <div>
+                        <h5 class="font-700 text-uppercase">  @recruitment.Title</h5>
+                        <h1 class="font-500 font-15 line-height-m">
+                            @recruitment.Recruiter.CompanyName
+                        </h1>
+                        <span class="badge bg-green-dark text-uppercase font-12">
+                            <i class="fa-solid fa-dollar-sign pe-1"></i>
+                            @{
+                                var minSalaryInMillion = Math.Truncate(recruitment.MinSalary / 1000000);
+                                var maxSalaryInMillion = Math.Truncate(recruitment.MaxSalary / 1000000);
+                            }
+                            @minSalaryInMillion - @maxSalaryInMillion triệu
+                        </span>
+                        <span class="badge bg-blue-dark text-uppercase font-12">
+                            <i class="fa-solid fa-city pe-1"></i>
+                            @recruitment.WorkAddress
+                        </span>
+                        <span class="badge bg-gray-dark text-uppercase font-12">
+                            <i class="fa-regular fa-star pe-1"></i>
+                            @recruitment.Experiences.DisplayName
+                        </span>
+                    </div>
+                </div>
+            </a>
+            <div class="divider mt-3 mb-3"></div>
+        </Virtualize>
 
 
 
-            @*  <a href="#" data-filter-item data-filter-name="all pediatrics" class="search-result-list">
-        <i class="fa font-14 fa-child color-blue-dark"></i>
-        <span>Pediatrics</span>
-        <i class="fa fa-angle-right"></i>
-        </a>
-        <a href="#" data-filter-item data-filter-name="all neurology" class="search-result-list">
-        <i class="fa font-14 fa-brain color-dark-light"></i>
-        <span>Neurology</span>
-        <i class="fa fa-angle-right"></i>
-        </a>
-        <a href="#" data-filter-item data-filter-name="all pulmonary" class="search-result-list">
-        <i class="fa font-14 fa-lungs color-brown-dark"></i>
-        <span>Pulmonary</span>
-        <i class="fa fa-angle-right"></i>
-        </a>
-        <a href="#" data-filter-item data-filter-name="all orthopedy" class="search-result-list">
-        <i class="fa font-14 fa-bone color-gray-dark"></i>
-        <span>Orthopedy</span>
-        <i class="fa fa-angle-right"></i>
-        </a>
-        <a href="#" data-filter-item data-filter-name="all orthodontics" class="search-result-list">
-        <i class="fa font-14 fa-tooth color-gray-dark"></i>
-        <span>Orthodontist</span>
-        <i class="fa fa-angle-right"></i>
-        </a>
-        <a href="#" data-filter-item data-filter-name="all ophtalmology" class="search-result-list">
-        <i class="fa font-14 fa-eye color-green-dark"></i>
-        <span>Ophthalmology</span>
-        <i class="fa fa-angle-right"></i>
-        </a>
-        <a href="#" data-filter-item data-filter-name="all cardiovascular" class="search-result-list">
-        <i class="fa font-14 fa-heart color-red-dark"></i>
-        <span>Cardiovascular</span>
-        <i class="fa fa-angle-right"></i>
-        </a> *@
-        </div>
+        @*  <a href="#" data-filter-item data-filter-name="all pediatrics" class="search-result-list">
+    <i class="fa font-14 fa-child color-blue-dark"></i>
+    <span>Pediatrics</span>
+    <i class="fa fa-angle-right"></i>
+    </a>
+    <a href="#" data-filter-item data-filter-name="all neurology" class="search-result-list">
+    <i class="fa font-14 fa-brain color-dark-light"></i>
+    <span>Neurology</span>
+    <i class="fa fa-angle-right"></i>
+    </a>
+    <a href="#" data-filter-item data-filter-name="all pulmonary" class="search-result-list">
+    <i class="fa font-14 fa-lungs color-brown-dark"></i>
+    <span>Pulmonary</span>
+    <i class="fa fa-angle-right"></i>
+    </a>
+    <a href="#" data-filter-item data-filter-name="all orthopedy" class="search-result-list">
+    <i class="fa font-14 fa-bone color-gray-dark"></i>
+    <span>Orthopedy</span>
+    <i class="fa fa-angle-right"></i>
+    </a>
+    <a href="#" data-filter-item data-filter-name="all orthodontics" class="search-result-list">
+    <i class="fa font-14 fa-tooth color-gray-dark"></i>
+    <span>Orthodontist</span>
+    <i class="fa fa-angle-right"></i>
+    </a>
+    <a href="#" data-filter-item data-filter-name="all ophtalmology" class="search-result-list">
+    <i class="fa font-14 fa-eye color-green-dark"></i>
+    <span>Ophthalmology</span>
+    <i class="fa fa-angle-right"></i>
+    </a>
+    <a href="#" data-filter-item data-filter-name="all cardiovascular" class="search-result-list">
+    <i class="fa font-14 fa-heart color-red-dark"></i>
+    <span>Cardiovascular</span>
+    <i class="fa fa-angle-right"></i>
+    </a> *@
+    </div>
 }
 @if (isError1 == true)
 {
@@ -196,6 +196,67 @@
         <h4 class="pb-1 text-uppercase color-highlight">Sự kiện nổi bật</h4>
     </div>
     <div class="row mb-0 mt-n3">
+        @* <Virtualize @ref="ArticlesContainer" Context="articles" ItemsProvider="@LoadNewestArticles" ItemSize="100"> *@
+
+        @if (articleModel1.Count > 0)
+        {
+            @foreach (var article1 in articleModel1)
+            {
+                <div class="col-6 pe-0">
+                    <a href="#" class="card card-style" data-card-height="280" style="background-image: url(@article1.PrimaryImageUrl); height: 280px;">
+                        <div class="card-top text-center">
+                            <span class="badge bg-blue-dark px-2 py-1 color-white m-3"><i class="fa fa-fire me-2"></i>ten chuyen muc</span>
+                        </div>
+                        <div class="card-bottom py-1 px-2 bg-black">
+                            <h5 class="color-white font-500  text-center" style="display: -webkit-box;
+                                                                                -webkit-line-clamp: 2;
+                                                                                -webkit-box-orient: vertical;
+                                                                                overflow: hidden;">
+                                @article1.Title
+                            </h5>
+                        </div>
+                        <div class="card-overlay bg-black opacity-20"></div>
+                    </a>
+                </div>
+            }
+
+        }
+        @if (articleModel2.Count > 0)
+        {
+            <div class="col-6 ps-0">
+                @foreach (var article2 in articleModel2)
+                {
+                    @*                     <a href="javascript:;" class="card card-style " data-card-height="280" style="background-image: url(&quot;images/QuangBinh/sk_002.jpg&quot;);height: 135px;" @onclick="(() => ViewArticle(article2))">
+            *@
+                    <a href="#" class="card ms-0 card-style mb-2" data-card-height="135" style="background-image: url(@article2.PrimaryImageUrl); height: 135px;">
+
+                        <div class="card-top text-center">
+                            <span class="badge bg-green-dark px-2 py-1 color-white m-3"><i class="fa fa-star me-2"></i>ten chuyen muc</span>
+                        </div>
+                        <div class="card-bottom py-1 px-2 bg-black">
+                            <h5 class="color-white font-500  text-center" style="display: -webkit-box;
+                                                                                -webkit-line-clamp: 1;
+                                                                                -webkit-box-orient: vertical;
+                                                                                overflow: hidden;">
+                                @article2.Title
+                            </h5>
+                        </div>
+                        <div class="card-overlay bg-black opacity-20"></div>
+                    </a>
+                }
+            </div>
+        }
+
+        @* </Virtualize> *@
+
+    </div>
+</div>
+
+@* <div class="card card-style mx-0">
+    <div class="content">
+        <h4 class="pb-1 text-uppercase color-highlight">Sự kiện nổi bật</h4>
+    </div>
+    <div class="row mb-0 mt-n3">
         <div class="col-6 pe-0">
             <a href="#" class="card card-style" data-card-height="280" style="background-image: url(&quot;images/QuangBinh/sk_002.jpg&quot;); height: 280px;">
                 <div class="card-top text-center">
@@ -235,10 +296,7 @@
         </div>
     </div>
 </div>
-
-
-
-
+ *@
 
 
 
@@ -249,7 +307,7 @@
 <!-- Người tìm việc - Việc tìm người -->
 <div class="card card-style">
     <div class="content mb-0">
-        <h4 class="pb-1 text-uppercase color-highlight text-center" >
+        <h4 class="pb-1 text-uppercase color-highlight text-center">
             <i class="fa-solid fa-magnifying-glass pe-2"></i>Người tìm việc - Việc tìm người<i class="fa-solid fa-magnifying-glass ps-2"></i>
         </h4>
     </div>
@@ -307,7 +365,7 @@
                     </a>
                     <div class="divider mt-3 mb-3"></div>
                 </Virtualize>
-                <a @onclick="UriNTV"
+                <a href="/NguoiTimViec"
                    class="btn btn-full border-blue-dark rounded-sm color-blue-dark btn-sm font-700 text-uppercase mt-4">
                     Xem
                     thêm
@@ -350,7 +408,7 @@
                     </a>
                     <div class="divider mt-3 mb-3"></div>
                 </Virtualize>
-                <a @onclick="UriVTN" class="btn btn-full border-blue-dark rounded-sm color-blue-dark btn-sm font-700 text-uppercase mt-4">
+                <a href="/ViecTimNguoi" class="btn btn-full border-blue-dark rounded-sm color-blue-dark btn-sm font-700 text-uppercase mt-4">
                     Xem
                     thêm
                 </a>
@@ -390,7 +448,7 @@
                             </strong>
                         </p>
                         <p>
-                            @articles.Author - @articles.LastModificationTime.ToShortDateString()<span class="d-block float-end color-blue-dark font-11">
+                            @articles.Author - @articles.Modified.ToShortDateString()<span class="d-block float-end color-blue-dark font-11">
                                 Chi
                                 tiết
                             </span>
@@ -400,7 +458,7 @@
             </a>
             <div class="divider mb-2 mt-2"></div>
         </Virtualize>
-        <a @onclick="UriArticle"
+        <a href="/TinTuc"
            class="btn btn-full border-blue-dark rounded-sm color-blue-dark btn-sm font-700 text-uppercase mt-4">
             Xem
             thêm
@@ -408,47 +466,6 @@
     </div>
 </div>
 
-@if (IsShowForm == true)
-{
-    <!-- menu-login-1 -->
-    <div id="menu-login-1" class="menu menu-box-top menu-box-detached rounded-m menu-active" data-menu-height="320" data-menu-effect="menu-over" style="display: block;height: 320px;">
-        <div class="menu-title mt-n1">
-            <h1>Đăng nhập ứng viên</h1>
-            <p class="color-theme opacity-50">Please enter your credentials below</p>
-            <a href="#" class="close-menu"><i class="fa fa-times"></i></a>
-        </div>
-
-        <div class="content mb-0">
-            <div class="input-style no-borders has-icon validate-field mb-4">
-                <i class="fa fa-user"></i>
-                <input type="name" class="form-control validate-name" id="form1a" placeholder="Name">
-                <label for="form1a" class="color-blue-dark">Name</label>
-                <i class="fa fa-times disabled invalid color-red-dark"></i>
-                <i class="fa fa-check disabled valid color-green-dark"></i>
-                <em>(required)</em>
-            </div>
-            <div class="input-style no-borders has-icon validate-field mb-4">
-                <i class="fa fa-lock"></i>
-                <input type="password" class="form-control validate-text" id="form3a" placeholder="Password">
-                <label for="form3a" class="color-blue-dark">Password</label>
-                <i class="fa fa-times disabled invalid color-red-dark"></i>
-                <i class="fa fa-check disabled valid color-green-dark"></i>
-                <em>(required)</em>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <a href="#" data-menu="menu-forgot-1" class="font-10">Forgot Password?</a>
-                </div>
-                <div class="col-6">
-                    <a data-menu="menu-register-1" href="#" class="float-end font-10">Create Account</a>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <a href="#" class="btn btn-full btn-m shadow-l rounded-s text-uppercase font-900 bg-green-dark mt-n2" style="">LOGIN</a>
-        </div>
-    </div>
-
-}
 
 
 

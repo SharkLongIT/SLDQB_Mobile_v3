@@ -15,7 +15,9 @@
             <div class="d-flex" style=" overflow-x: auto;
     white-space: nowrap;">
                 <Virtualize @ref="CmsContainer" Context="cmsCats" ItemsProvider="@LoadCategories">
-                    <span class=" badge bg-green-dark text-uppercase font-12" style=" margin-left: 5px;">@cmsCats.DisplayName</span>
+                    <a href="javascript:;" @onclick="(() => GetArticleByCategory(cmsCats))">
+                        <span class=" badge bg-green-dark text-uppercase font-12" style=" margin-left: 5px;">@cmsCats.DisplayName</span>
+                    </a>
                 </Virtualize>
             </div>
 

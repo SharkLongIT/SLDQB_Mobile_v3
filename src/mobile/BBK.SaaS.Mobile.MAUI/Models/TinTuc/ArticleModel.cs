@@ -12,14 +12,14 @@ namespace BBK.SaaS.Mobile.MAUI.Models.TinTuc
 {
     [AutoMapFrom(typeof(ArticleListViewDto))]
 
-    public class ArticleModel
+    public class ArticleModel : ArticleListViewDto
     {
         /// <summary>
         /// Gets or sets the title
         /// </summary>
         public string Title { get; set; }
         public long? Id { get; set; }
-        public long? CategoryId { get; set; }
+        public long CategoryId { get; set; }
         public string ShortDesc { get; set; }
         public string Photo {  get; set; }
         /// <summary>

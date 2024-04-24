@@ -114,7 +114,10 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
         {
             navigationService.NavigateTo($"ArticleDetail?Id={article.Id}&CategoryId={1}");
         }
-
+        public async Task GetArticleByCategory(CmsCatDto cmsCatDto)
+        {
+            navigationService.NavigateTo($"ListArticle?CategoryId={cmsCatDto.Id}&CategoryName={cmsCatDto.DisplayName}");
+        }
         #endregion
     }
 }

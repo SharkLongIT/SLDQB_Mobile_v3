@@ -149,43 +149,21 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
                     result => IsTenantAvailableExecuted(result, "Default")
                 );
             });
-            await SetPageHeader(L("Trang chủ"), new List<Services.UI.PageHeaderButton>()
-            {
-                //new Services.UI.PageHeaderButton(L("Đăng nhập"), NavLogin)
-            });
 
             //check loggedIn
             IsUserLoggedIn = navigationService.IsUserLoggedIn();
             await GetUserPhoto();
             await Statistical();
+            //await LoadJobApplication(new ItemsProviderRequest());
+            await LoadNewestArticles(new ItemsProviderRequest());
         }
 
         bool ListUserNull;
         bool IsFilter;
-        //public async void selectedValue(ChangeEventArgs args)
-        //{
-        //    string select = Convert.ToString(args.Value);
-        //    _SearchText = select;
-        //    IsFilter = true;
-        //    if (_SearchText == "")
-        //    {
-        //        IsFilter = false;
-        //    }
-        //    await RecruitmentContainer.RefreshDataAsync();
-        //    StateHasChanged();
-        //    //await LoadRecruitment(new ItemsProviderRequest());
-
-        //}
+       
         private async Task RefeshList()
         {
-            //IsFilter = true;
             _SearchText = _filtered.Filtered;
-            //_Job = _filtered.Job.Value;
-            //_WorkSite = _filtered.WorkSiteId.Value;
-            //await RecruitmentContainer.RefreshDataAsync();
-            //StateHasChanged();
-            //await LoadRecruitment(new ItemsProviderRequest());
-
             await UriFilter();
         }
 
@@ -226,7 +204,34 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 
         #endregion
 
+        List<ArticleModel> articleModel1 = new List<ArticleModel>();
+        List<ArticleModel> articleModel2 = new List<ArticleModel>();
+        #region Tin nổi bật
+        private async ValueTask<ItemsProviderResult<ArticleModel>> LoadNewestArticles(ItemsProviderRequest request)
+        {
+            _filter.MaxResultCount = Math.Clamp(request.Count, 1, 1000);
+            _filter.SkipCount = request.StartIndex;
 
+            await UserDialogsService.Block();
+
+            await WebRequestExecuter.Execute(
+            async () => await articleFrontEndService.GetNewestArticles(),
+            async (result) =>
+            {
+                var articlesFilter = ObjectMapper.Map<List<ArticleModel>>(result.Items.Take(3));
+                articleModel1 = articleDto.Items.Take(1).ToList();
+                articleModel2 = articleDto.Items.Skip(1).Take(2).ToList();
+
+                articleDto = new ItemsProviderResult<ArticleModel>(articlesFilter, articlesFilter.Count);
+                await UserDialogsService.UnBlock();
+            }
+        );
+
+            return articleDto;
+        }
+        #endregion
+
+        DateTime CreationTime;
         #region Tin tức
         private async ValueTask<ItemsProviderResult<ArticleModel>> LoadArticles(ItemsProviderRequest request)
         {
@@ -254,6 +259,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             return articleDto;
         }
 
+       
         public async Task ViewArticle(ArticleModel article)
         {
             navigationService.NavigateTo($"ArticleDetail?Id={article.Id}");
@@ -404,18 +410,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
         }
 
 
-        public async Task UriVTN()
-        {
-            navigationService.NavigateTo(NavigationUrlConsts.ViecTimNguoi);
-        } 
-        public async Task UriNTV()
-        {
-            navigationService.NavigateTo(NavigationUrlConsts.NguoiTimViec);
-        }
-          public async Task UriArticle()
-        {
-            navigationService.NavigateTo(NavigationUrlConsts.TinTuc);
-        }
 
         public static string GetTimeSince(DateTime objDateTime)
         {
@@ -459,30 +453,17 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 
             return result;
         }
+        #region 
+        private int RecruiteCount { get; set; }
 
-        private bool IsShowForm { get; set; } = false;
-        private async Task ShowLogin()
+        private async Task Statistical()
         {
-            //ShowClassNameNLD = "menu-active";
-            if (IsUserLoggedIn == true)
-            {
-                IsShowForm = false;
-                StateHasChanged();
-            }
-            else
-            {
-                IsShowForm = true;
-                StateHasChanged();
-            }
 
-
+            RecruiteCount = await recruiterAppService.CountRecruiter();
+            JobAppCount = await jobApplicationAppService.CountJob();
+            RecruitmentCount = await recruitmentAppService.CountRecruiment();
         }
-        private async Task HideLogin()
-        {
-            //var dom = DependencyResolver.Resolve<DomManipulatorService>();
-            //await dom.ClearAllAttributes(JS, "#menu-login-1");
-            ////await dom.SetAttribute(JS, "#menu-login-1", "class", "menu-active");
-        }
+        #endregion
     }
-    
+
 }

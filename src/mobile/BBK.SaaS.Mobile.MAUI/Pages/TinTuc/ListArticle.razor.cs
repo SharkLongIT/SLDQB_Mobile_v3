@@ -1,4 +1,5 @@
-﻿using Abp.Threading;
+﻿using Abp.Application.Services.Dto;
+using Abp.Threading;
 using BBK.SaaS.Core.Dependency;
 using BBK.SaaS.Core.Threading;
 using BBK.SaaS.Mdls.Cms.Articles;
@@ -10,9 +11,9 @@ using BBK.SaaS.Services.Navigation;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
-namespace BBK.SaaS.Mobile.MAUI.Pages.DaoTaoKyNang
+namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
 {
-    public partial class Index : SaaSMainLayoutPageComponentBase
+    public partial class ListArticle : SaaSMainLayoutPageComponentBase
     {
         [Inject]
         protected NavigationManager NavigationManager { get; set; }
@@ -34,7 +35,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.DaoTaoKyNang
         private readonly GetArticlesByCatInput _filter = new GetArticlesByCatInput();
         private Virtualize<ArticleModel> ArticlesContainer { get; set; }
 
-        public Index()
+        public ListArticle()
         {
             navigationService = DependencyResolver.Resolve<INavigationService>();
             articlesAppService = DependencyResolver.Resolve<IArticlesAppService>();
@@ -44,46 +45,30 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.DaoTaoKyNang
         }
         protected override async Task OnInitializedAsync()
         {
-            //var uri = new Uri(NavigationManager.Uri);
-            //var query = uri.Query;
-            //var parsedQuery = System.Web.HttpUtility.ParseQueryString(query);
-            //var categoryIdValue = parsedQuery["categoryId"];
-            //var categoryNameText = parsedQuery["categoryName"];
-            //if (!string.IsNullOrEmpty(categoryIdValue))
-            //{
-            //    if (int.TryParse(categoryIdValue, out var parsedCategoryId))
-            //    {
-            //        categoryId = parsedCategoryId;
-            //    }
-            //}
-            //if (!string.IsNullOrEmpty(categoryNameText))
-            //{
-            //    categoryName = categoryNameText;
-            //}
+            var querySegment = NavigationManager.Uri.Substring(NavigationManager.Uri.IndexOf("ListArticle") + "ListArticle".Length);
+            var q1 = System.Web.HttpUtility.ParseQueryString(querySegment);
 
-
-            await SetPageHeader(L("Đào tạo kỹ năng"), new List<Services.UI.PageHeaderButton>()
+            if (q1["CategoryId"] != null)
             {
-                //new Services.UI.PageHeaderButton(L("CreateNewTenant"), OpenCreateModal)
-            });
+                categoryId = int.Parse(q1["CategoryId"]);
+            }
+            if (q1["CategoryName"] != null)
+            {
+                categoryName = (q1["CategoryName"]);
+            }
         }
         private async Task RefreshList()
         {
             _SearchText = _filter.Filter;
             await ArticlesContainer.RefreshDataAsync();
             StateHasChanged();
-            await LoadArticles(new ItemsProviderRequest());
-            //await LoadPostOther(new ItemsProviderRequest());
-            //await LoadTieuDiem(new ItemsProviderRequest());
+            await LoadArticlesByCategory(new ItemsProviderRequest());
         }
 
-        private async ValueTask<ItemsProviderResult<ArticleModel>> LoadArticles(ItemsProviderRequest request)
+        private async ValueTask<ItemsProviderResult<ArticleModel>> LoadArticlesByCategory(ItemsProviderRequest request)
         {
-            //_filter.MaxResultCount = Math.Clamp(request.Count, 1, 1000);
-            //_filter.SkipCount = request.StartIndex;
-            //_filter.Take = Math.Clamp(request.Count, 1, 1000);
             _filter.Filter = _SearchText;
-            _filter.CategoryId = 4;
+            _filter.CategoryId = categoryId;
 
             await UserDialogsService.Block();
 
@@ -96,6 +81,8 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.DaoTaoKyNang
                 foreach (var model in articlesFilter)
                 {
                     model.PrimaryImageUrl = AsyncHelper.RunSync(async () => await articleService.GetPicture(model.PrimaryImageUrl));
+                    var modifed = await articlesFrontendAppService.GetArticleDetail(new EntityDto<long> { Id = model.Id.Value });
+                    model.LastModificationTime = modifed.Modified;
                 }
                 articleDto = new ItemsProviderResult<ArticleModel>(articlesFilter, articlesFilter.Count);
                 await UserDialogsService.UnBlock();
@@ -107,7 +94,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.DaoTaoKyNang
         public async Task ViewArticle(ArticleModel article)
         {
             navigationService.NavigateTo($"ArticleDetail?Id={article.Id}");
-            //navigationService.NavigateTo($"Detail4?Id={article.Id}&PrimaryImageUrl={article.PrimaryImageUrl}");
         }
 
     }
