@@ -1,11 +1,14 @@
-﻿using BBK.SaaS.Core.Dependency;
+﻿using BBK.SaaS.ApiClient;
+using BBK.SaaS.Core.Dependency;
 using BBK.SaaS.Core.Threading;
 using BBK.SaaS.Mdls.Category.Indexings;
 using BBK.SaaS.Mdls.Profile.Candidates;
 using BBK.SaaS.Mdls.Profile.Candidates.Dto;
 using BBK.SaaS.Mobile.MAUI.Models.NguoiTimViec;
+using BBK.SaaS.Mobile.MAUI.Services.User;
 using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.Services.Navigation;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System.Runtime.CompilerServices;
 
@@ -16,6 +19,8 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
         protected NavMenu NavMenu { get; set; }
 
         protected IJobApplicationAppService jobApplicationAppService { get; set; }
+        protected IApplicationContext ApplicationContext { get; set; }
+        protected IUserProfileService UserProfileService { get; set; }
 
         protected INavigationService navigationService { get; set; }
         private string _SearchText = ""; 
@@ -28,13 +33,11 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
         {
             navigationService = DependencyResolver.Resolve<INavigationService>();
             jobApplicationAppService = DependencyResolver.Resolve<IJobApplicationAppService>();
+            ApplicationContext = DependencyResolver.Resolve<IApplicationContext>();
+            UserProfileService = DependencyResolver.Resolve<IUserProfileService>();
         }
         protected override async Task OnInitializedAsync()
         {
-            await SetPageHeader(L("Hồ sơ ứng tuyển của tôi"), new List<Services.UI.PageHeaderButton>()
-            {
-                //new Services.UI.PageHeaderButton(L("Thêm mới hồ sơ"), OpenCreateModal)
-            });
         }
         private async Task RefeshList()
         {
@@ -44,16 +47,16 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
             StateHasChanged();
             await LoadJobApplication(new ItemsProviderRequest());
         }
-        private async Task CancelList()
+        private Virtualize<CreateOrEditJobModel> JobApplicationContainer { get; set; }
+        public async void selectedValue(ChangeEventArgs args)
         {
-            _SearchText = "";
-            _IsCancelList = false;
+            string select = Convert.ToString(args.Value);
+            _SearchText = select;
             await JobApplicationContainer.RefreshDataAsync();
             StateHasChanged();
-            await LoadJobApplication(new ItemsProviderRequest());
-        }
-        private Virtualize<CreateOrEditJobModel> JobApplicationContainer { get; set; }
 
+        }
+        string _userImage;
         private async ValueTask<ItemsProviderResult<CreateOrEditJobModel>> LoadJobApplication(ItemsProviderRequest request)
         {
             _filter.MaxResultCount = Math.Clamp(request.Count, 1, 1000);
@@ -67,9 +70,8 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
                 async () => await jobApplicationAppService.GetListJobAppOfCandidate(_filter),
                 async (result) =>
                 {
-                    //var jobFilter = result.Items.ToList();
-                    var jobFilter = ObjectMapper.Map<List<CreateOrEditJobModel>>(result.Items);
-
+                    var jobFilter = ObjectMapper.Map<List<CreateOrEditJobModel>>(result.Items.OrderByDescending(x=> x.CreationTime).FirstOrDefault());
+                     _userImage = await UserProfileService.GetProfilePicture(ApplicationContext.LoginInfo.User.Id);
                     if (jobFilter.Count == 0)
                     {
                         isError = true;

@@ -7,6 +7,7 @@ using BBK.SaaS.Mdls.Profile.Recruiters.Dto;
 using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.Services.Navigation;
 using Castle.MicroKernel.Registration;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System;
 using System.Collections.Generic;
@@ -52,14 +53,13 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
             StateHasChanged();
             await LoadIntroduce(new ItemsProviderRequest());
         }
-        private async Task CancelList()
+        public async void selectedValue(ChangeEventArgs args)
         {
-            _Search = "";
-            _Status = null;
-            _IsCancelList = false;
+            string select = Convert.ToString(args.Value);
+            _Search = select;
             await IntroduceContainer.RefreshDataAsync();
             StateHasChanged();
-            await LoadIntroduce(new ItemsProviderRequest());
+
         }
         private async ValueTask<ItemsProviderResult<IntroduceEditDto>> LoadIntroduce(ItemsProviderRequest request)
         {
@@ -104,7 +104,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
         }
         public async Task ViewArticle(IntroduceEditDto introduceEditDto)
         {
-            navigationService.NavigateTo($"ArticleDetailHome?Id={introduceEditDto.Article.Id}&PrimaryImageUrl={introduceEditDto.Article.PrimaryImageUrl}");
+            navigationService.NavigateTo($"ArticleDetail?Id={introduceEditDto.Article.Id}");
 
         }
         private async void DisPlayAction(IntroduceEditDto introduceEditDto)

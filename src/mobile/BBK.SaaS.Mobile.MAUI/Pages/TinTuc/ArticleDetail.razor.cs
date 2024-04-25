@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.Threading;
 using Abp.UI;
+using BBK.SaaS.ApiClient;
 using BBK.SaaS.Core.Dependency;
 using BBK.SaaS.Core.Threading;
 using BBK.SaaS.Mdls.Cms.Articles;
@@ -31,7 +32,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
         private ItemsProviderResult<ArticleModel> articleDto;
         private readonly SearchArticlesInput _filter = new SearchArticlesInput();
 
-
+        protected IApplicationContext ApplicationContext { get; set; }
         protected IFECntCategoryAppService fECntCategoryAppService { get; set; }
         private Virtualize<ArticleModel> ArticlesContainer { get; set; }
 
@@ -58,6 +59,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
             articleService = DependencyResolver.Resolve<IArticleService>();
             introduceAppService = DependencyResolver.Resolve<IIntroduceAppService>();
             fECntCategoryAppService = DependencyResolver.Resolve<IFECntCategoryAppService>();
+            ApplicationContext = DependencyResolver.Resolve<IApplicationContext>();
 
         }
 
@@ -227,16 +229,22 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
 
         public async Task GetArticleByCategory()
         {
-            var category = await fECntCategoryAppService.GetCategory(new GetCategoryInput()
-            {
-                CategoryId = Model.CategoryId,
-                SearchArticlesInput = new SearchArticlesInput() { MaxResultCount = 0 }
-            });
-            if (category != null)
-            {
-                CategoryName = category.DisplayName;
-            }
-            navigationService.NavigateTo($"ListArticle?CategoryId={Model.CategoryId}&CategoryName={CategoryName}");
+            //var category = await fECntCategoryAppService.GetCategory(new GetCategoryInput()
+            //{
+            //    CategoryId = Model.CategoryId,
+            //    SearchArticlesInput = new SearchArticlesInput() { 
+
+            //        MaxResultCount = 25 ,
+            //        CategoryId = Model.CategoryId,
+            //        Filter = "",
+            //        TenantId = ApplicationContext.CurrentTenant.TenantId,
+            //    }
+            //});
+            //if (category != null)
+            //{
+            //    CategoryName = category.DisplayName;
+            //}
+            navigationService.NavigateTo($"ListArticle?CategoryId={Model.CategoryId}");
         }
 
 

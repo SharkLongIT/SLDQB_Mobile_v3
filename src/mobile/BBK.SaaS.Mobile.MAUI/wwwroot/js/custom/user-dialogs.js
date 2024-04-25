@@ -101,7 +101,7 @@ var BlazorUserDialogService = function () {
                 confirmButtonText: confirmButtonText,
                 cancelButtonText: cancelButtonText
             }
-            background: "white").then((result) => {
+            ).then((result) => {
                 resolve(result.isConfirmed);
             });
         });

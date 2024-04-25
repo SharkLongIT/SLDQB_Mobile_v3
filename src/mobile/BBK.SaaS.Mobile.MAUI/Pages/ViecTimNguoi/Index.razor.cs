@@ -379,7 +379,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
 
         public async Task ViewRecruitment(RecruitmentDto recruitment)
         {
-            navigationService.NavigateTo($"ThongTinVTN?Id={recruitment.Id}&WorkAddress={recruitment.WorkAddress}&HumanResSizeCat={recruitment.Recruiter.HumanResSizeCat.DisplayName}&Experiences={recruitment.Experiences.DisplayName}&SphereOfActivity={recruitment.Recruiter.SphereOfActivity.DisplayName}");
+            navigationService.NavigateTo($"ThongTinVTN?Id={recruitment.Id}&WorkAddress={recruitment.WorkAddress}&HumanResSizeCat={recruitment.Recruiter.HumanResSizeCat.DisplayName}&Experiences={recruitment.Experiences.DisplayName}");
         }
 
         bool IsOpenFilter;

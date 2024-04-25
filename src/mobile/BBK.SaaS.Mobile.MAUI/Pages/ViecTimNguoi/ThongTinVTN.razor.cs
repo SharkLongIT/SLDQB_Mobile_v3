@@ -75,10 +75,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                 {
                     Experiences = (q1["Experiences"]);
                 }
-                if (q1["SphereOfActivity"] != null)
-                {
-                    SphereOfActivity = (q1["SphereOfActivity"]);
-                }
                 if (q1["WorkAddress"] != null)
                 {
                     WorkAddress = (q1["WorkAddress"]);
@@ -96,7 +92,10 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                 //company
                 Model.CompanyName = recruitment.Recruiter.CompanyName;
 
-                Model.HumanResSizeCat = HumanResSizeCat; // Quy mô nhân sự
+                if (HumanResSizeCat != "" || HumanResSizeCat != null)
+                {
+                      Model.HumanResSizeCat = HumanResSizeCat; // Quy mô nhân sự
+                }
                 if (WorkAddress == null)
                 {
                     Model.AddressForWork = recruitment.AddressName;
@@ -107,14 +106,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                 }
                 Model.AvatarUrl = recruitment.Recruiter.AvatarUrl;
                 Model.ImageCoverUrl = recruitment.Recruiter.ImageCoverUrl;
-                if (SphereOfActivity == null)
-                {
-                    Model.SphereOfActivity = recruitment.Recruiter.SphereOfActivity.DisplayName;
-                }
-                else
-                {
-                    Model.SphereOfActivity = SphereOfActivity;
-                }
                 Model.AddressCompany = recruitment.Recruiter.Address; //địa chỉ công ty
                 Model.Website = recruitment.Recruiter.WebSite;
                 //Thông tin tuyển dụng:
@@ -122,6 +113,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                 Model.AddressName = recruitment.AddressName;
                 Model.NecessarySkills = recruitment.NecessarySkills;
                 Model.Experience = Experiences; // kinh nghiệm
+               
                 Model.FormOfWork = recruitment.FormOfWork; // Hình thức làm việc
                 Model.FormOfWorkName = recruitment.FormOfWorks.DisplayName;
                 Model.NumberOfRecruits = recruitment.NumberOfRecruits; // số lượng

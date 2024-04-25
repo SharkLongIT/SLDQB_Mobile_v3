@@ -166,7 +166,7 @@
             <div class="col-6 pe-1">
                 <div class="mx-0 mb-3 text-center">
                     <h6 class="font-12 font-800 text-uppercase opacity-30">Việc đăng tuyển</h6>
-                    <h3 class="color-green-dark font-20 mb-0">@RecruitmentCount +</h3>
+                    <h3 class="color-green-dark font-20 mb-0">@RecruitmentCount+</h3>
                 </div>
             </div>
             @* <div class="col-6 ps-1">
@@ -178,13 +178,13 @@
             <div class="col-6 pe-1">
                 <div class="mx-0 mb-3 text-center">
                     <h6 class="font-12 font-800 text-uppercase opacity-30">Hồ sơ việc làm</h6>
-                    <h3 class="color-brown-dark font-20 mb-0">@JobAppCount +</h3>
+                    <h3 class="color-brown-dark font-20 mb-0">@JobAppCount+</h3>
                 </div>
             </div>
             <div class="col-6 ps-1">
                 <div class="mx-0 mb-3 text-center">
                     <h6 class="font-12 font-800 text-uppercase opacity-30">Công ty</h6>
-                    <h3 class="color-blue-dark font-20 mb-0">@RecruiteCount +</h3>
+                    <h3 class="color-blue-dark font-20 mb-0">@RecruiteCount+</h3>
                 </div>
             </div>
         </div>
@@ -203,7 +203,7 @@
             @foreach (var article1 in articleModel1)
             {
                 <div class="col-6 pe-0">
-                    <a href="#" class="card card-style" data-card-height="280" style="background-image: url(@article1.PrimaryImageUrl); height: 280px;">
+                    <a class="card card-style" data-card-height="280" style="background-image: url('@article1.PrimaryImageUrl'); height: 280px;" @onclick="(() => ViewArticle(article1))">
                         <div class="card-top text-center">
                             <span class="badge bg-blue-dark px-2 py-1 color-white m-3"><i class="fa fa-fire me-2"></i>ten chuyen muc</span>
                         </div>
@@ -211,7 +211,7 @@
                             <h5 class="color-white font-500  text-center" style="display: -webkit-box;
                                                                                 -webkit-line-clamp: 2;
                                                                                 -webkit-box-orient: vertical;
-                                                                                overflow: hidden;">
+                                                                                overflow: hidden; text-transform: none">
                                 @article1.Title
                             </h5>
                         </div>
@@ -228,16 +228,17 @@
                 {
                     @*                     <a href="javascript:;" class="card card-style " data-card-height="280" style="background-image: url(&quot;images/QuangBinh/sk_002.jpg&quot;);height: 135px;" @onclick="(() => ViewArticle(article2))">
             *@
-                    <a href="#" class="card ms-0 card-style mb-2" data-card-height="135" style="background-image: url(@article2.PrimaryImageUrl); height: 135px;">
+                    <a class="card ms-0 card-style mb-2" data-card-height="135" style="background-image: url('@article2.PrimaryImageUrl'); height: 135px;" @onclick="(() => ViewArticle(article2))">
 
                         <div class="card-top text-center">
                             <span class="badge bg-green-dark px-2 py-1 color-white m-3"><i class="fa fa-star me-2"></i>ten chuyen muc</span>
                         </div>
                         <div class="card-bottom py-1 px-2 bg-black">
-                            <h5 class="color-white font-500  text-center" style="display: -webkit-box;
+                            <h5 class="color-white font-500  text-center " style="display: -webkit-box;
                                                                                 -webkit-line-clamp: 1;
                                                                                 -webkit-box-orient: vertical;
-                                                                                overflow: hidden;">
+                                                                                overflow: hidden;
+                                                                                text-transform: none">
                                 @article2.Title
                             </h5>
                         </div>
@@ -330,8 +331,8 @@
                     <a href="javascript:;" @onclick="(() => ViewUser(job))">
                         <div class="d-flex">
                             <div>
-                                <img src="@job.Candidate.AvatarUrl" class="me-3 rounded-circle shadow-l"
-                                     width="100">
+                               @*  <img src="@job.Candidate.AvatarUrl" class="me-3 rounded-circle shadow-l"
+                                     width="100"> *@
                             </div>
                             <div>
                                 <h5 class="font-700 text-uppercase">@job.User.Name</h5>

@@ -4,11 +4,13 @@ using BBK.SaaS.Core.Dependency;
 using BBK.SaaS.Core.Threading;
 using BBK.SaaS.Mdls.Profile.ApplicationRequests;
 using BBK.SaaS.Mdls.Profile.ApplicationRequests.Dto;
+using BBK.SaaS.Mdls.Profile.Recruiters;
 using BBK.SaaS.Mobile.MAUI.Services.Article;
 using BBK.SaaS.Mobile.MAUI.Services.User;
 using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.NguoiTimViec;
 using BBK.SaaS.Services.Navigation;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
@@ -26,6 +28,8 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
         protected IUserProfileService UserProfileService { get; set; }
         protected IArticleService articleService { get; set; }
 
+        protected IRecruitmentAppService recruitmentAppService {  get; set; }    
+
         private bool IsUserLoggedIn;
         private string _userImage;
         private bool _IsCancelList;
@@ -37,11 +41,11 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
             UserProfileService = DependencyResolver.Resolve<IUserProfileService>();
             applicationRequestAppService = DependencyResolver.Resolve<IApplicationRequestAppService>();
             articleService = DependencyResolver.Resolve<IArticleService>();
+            recruitmentAppService = DependencyResolver.Resolve<IRecruitmentAppService>();
 
         }
         protected override async Task OnInitializedAsync()
         {
-            await SetPageHeader(L("Danh sách công việc đã ứng tuyển của tôi"));
             IsUserLoggedIn = navigationService.IsUserLoggedIn();
             await GetUserPhoto();
         }
@@ -54,21 +58,19 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
             StateHasChanged();
             await LoadApplicationRequest(new ItemsProviderRequest());
         }
-        private async Task CancelList()
+        public async void selectedValue(ChangeEventArgs args)
         {
-            _SearchText = "";
-            _IsCancelList = false;
-
+            string select = Convert.ToString(args.Value);
+            _SearchText = select;
             await ApplicationRequestContainer.RefreshDataAsync();
             StateHasChanged();
-            await LoadApplicationRequest(new ItemsProviderRequest());
+
         }
         private async ValueTask<ItemsProviderResult<ApplicationRequestEditDto>> LoadApplicationRequest(ItemsProviderRequest request)
         {
 
             _filter.MaxResultCount = Math.Clamp(request.Count, 1, 1000);
             _filter.SkipCount = request.StartIndex;
-            //_filter.Take = Math.Clamp(request.Count, 1, 1000);
             _filter.Search = _SearchText;
 
 
@@ -78,10 +80,21 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
                 async () => await applicationRequestAppService.GetAll(_filter),
                 async (result) =>
                 {
-                    var recruitmentPost = result.Items.ToList();
+                    var recruitmentPost = result.Items.OrderByDescending(x => x.CreationTime).ToList();
                     foreach (var model in recruitmentPost)
                     {
                         model.Recruitment.Recruiter.AvatarUrl = AsyncHelper.RunSync(async () => await articleService.GetPicture(model.Recruitment.Recruiter.AvatarUrl));
+                    }
+                    if (_SearchText != "")
+                    {
+                        if (recruitmentPost.Count == 0)
+                        {
+                            isError = true;
+                        }
+                        else
+                        {
+                            isError = false;
+                        }
                     }
                     applicationRequestDto = new ItemsProviderResult<ApplicationRequestEditDto>(recruitmentPost, recruitmentPost.Count);
                     await UserDialogsService.UnBlock();
@@ -96,7 +109,9 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
         }
         public async Task ViewJob(ApplicationRequestEditDto applicationRequest)
         {
-            navigationService.NavigateTo($"ThongTinViecLam?Id={applicationRequest.RecruitmentId}");
+            var recruitment = await recruitmentAppService.GetDetail(applicationRequest.Recruitment.Id.Value);
+            navigationService.NavigateTo($"ThongTinVTN?Id={applicationRequest.RecruitmentId}&Experiences={recruitment.Experiences.DisplayName}");
+
         }
         public async Task ViewCompany(ApplicationRequestEditDto applicationRequest)
         {

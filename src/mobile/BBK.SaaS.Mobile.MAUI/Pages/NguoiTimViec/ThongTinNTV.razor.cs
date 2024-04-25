@@ -50,12 +50,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
         }
         protected override async Task OnInitializedAsync()
         {
-            if (ApplicationContext.LoginInfo == null || ApplicationContext.LoginInfo.User.UserType == Authorization.Users.UserTypeEnum.Type1)
-            {
-                IsDefault1 = true;
-            }
-            await SetPageHeader(L("Thông tin ứng viên"), new List<Services.UI.PageHeaderButton>());
-
             var querySegment = NavigationManager.Uri.Substring(NavigationManager.Uri.IndexOf("ThongTinNTV") + "ThongTinNTV".Length);
             var q1 = System.Web.HttpUtility.ParseQueryString(querySegment);
             int? candidateId = null;
@@ -83,26 +77,15 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
                 Model.JobApplication = new JobApplicationEditDto();
                 Model.Candidate = new CandidateEditDto();
                 Model.User = new UserEditDto();
-                //Thông tin cá nhân (account)
-                Model.User.Id = candidate.User.Id;
-              
-                Model.User.UserName = candidate.User.UserName;
-                Model.User.Surname = candidate.User.Surname;
-                Model.User.Name = candidate.User.Name;
-                Model.User.EmailAddress = candidate.User.EmailAddress;
-                Model.User.PhoneNumber = candidate.User.PhoneNumber;
+
+                Model.User = candidate.User;
 
                 // Thông tin người tìm việc
-                Model.Candidate.Id = candidate.Candidate.Id;
-                Model.Candidate.Address = candidate.Candidate.Address;
-                //Model.Candidate.AvatarUrl = candidate.Candidate.AvatarUrl;
+                Model.Candidate = candidate.Candidate;
                 if (candidate.Candidate.DateOfBirth != null)
                 {
                      Model.Candidate.DateOfBirth = candidate.Candidate.DateOfBirth;
                 }    
-                //Model.Candidate.PhoneNumber = candidate.Candidate.PhoneNumber;
-                Model.Candidate.Marital = candidate.Candidate.Marital;
-                Model.Candidate.Gender = candidate.Candidate.Gender;
                 if (candidate.Candidate.District != null)
                 {
                       Model.DistrictName = candidate.Candidate.District.DisplayName;
@@ -113,6 +96,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
                 }
 
                 //Thông tin Job
+                Model.JobApplication = candidate.JobApplication;
                 Model.JobApplication.Id = candidateId;
                 if (candidate.JobApplication.Experiences != null)
                 {
@@ -129,36 +113,12 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
                 }
                 Model.JobApplication.LastModificationTime = candidate.JobApplication.LastModificationTime;
 
-                Model.JobApplication.Career = candidate.JobApplication.Career;
                 Model.Positions = Positions;
-                //Model.JobApplication.CurrencyUnit = candidate.JobApplication.CurrencyUnit;
-                Model.JobApplication.DesiredSalary = candidate.JobApplication.DesiredSalary;
                 Model.Literacy = Literacy;
-                //Model.JobApplication.WorkExperiences = candidate.JobApplication.WorkExperiences;
                 Model.FormOfWork = FormOfWork;
-                //Model.JobApplication.LearningProcessDtos = candidate.JobApplication.LearningProcessDtos;
-                Model.JobApplication.Word = candidate.JobApplication.Word;
-                Model.JobApplication.PowerPoint = candidate.JobApplication.PowerPoint;
-                Model.JobApplication.Excel = candidate.JobApplication.Excel;
 
 
-                //Kinh nghiệm làm việc
-              
-                //Model.JobApplication.WorkExperiences = candidate.JobApplication.WorkExperiences;
-
-                Model.JobApplication.WorkExperiences = new List<WorkExperienceEditDto>();  
-
-                if (candidate.JobApplication.WorkExperiences != null &&  candidate.JobApplication.WorkExperiences.Count > 0)
-                {
-                    Model.JobApplication.WorkExperiences.AddRange(candidate.JobApplication.WorkExperiences);
-                }
-                Model.JobApplication.LearningProcess = new List<LearningProcessEditDto>();  
-                if (candidate.JobApplication.LearningProcess != null)
-                {
-                    Model.JobApplication.LearningProcess.AddRange(candidate.JobApplication.LearningProcess);
-                }
-                //await UpdateImage();
-                await SetUserImageSourceAsync(Model);
+                Model.Photo = await UserProfileService.GetProfilePicture(Model.Candidate.UserId);
 
 
             }
@@ -170,17 +130,17 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
            
 
         }
-        private async Task SetUserImageSourceAsync(NguoiTimViecModal nguoiTimViec)
-        {
-           Model.Photo =  await UserProfileService.GetProfilePicture(nguoiTimViec.User.Id.Value); ;
-        }
+       
         private DatLichPVModal datLichPVModal { get; set; }
         public async Task BookUser(NguoiTimViecModal nTDDatLichModel)
         {
             if (ApplicationContext.LoginInfo == null)
             {
                 await UserDialogsService.AlertWarn("Vui lòng đăng nhập để đặt lịch!");
-                //navigationService.NavigateTo(NavigationUrlConsts.Login);
+            }
+            else if(ApplicationContext.LoginInfo.User.UserType == Authorization.Users.UserTypeEnum.Type2)
+            {
+                await UserDialogsService.AlertWarn("Vui lòng đăng nhập bằng tài khoản Nhà tuyển dụng để đặt lịch!");
             }
             else
             {

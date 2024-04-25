@@ -20,12 +20,18 @@ using BBK.SaaS.Mdls.Category.Geographies;
 using BBK.SaaS.Mdls.Category.Indexings;
 using BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec;
 using BBK.SaaS.NguoiTimViec;
+using Microsoft.AspNetCore.Components;
+using Abp.Application.Services.Dto;
+using BBK.SaaS.Mdls.Profile.Candidates.Dto;
+using BBK.SaaS.Mdls.Profile.Candidates;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
 {
     public partial class DanhSachUVDUT : SaaSMainLayoutPageComponentBase
     {
         protected INavigationService navigationService { get; set; }
+        protected IJobApplicationAppService jobApplicationAppService { get; set; }
+
         protected IApplicationRequestAppService applicationRequestAppService { get; set; }
         private string _SearchText = "";
         private bool isError = false;
@@ -66,6 +72,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
             applicationRequestAppService = DependencyResolver.Resolve<IApplicationRequestAppService>();
             CatUnitAppService = DependencyResolver.Resolve<ICatUnitAppService>();
             geoUnitAppService = DependencyResolver.Resolve<IGeoUnitAppService>();
+            jobApplicationAppService = DependencyResolver.Resolve<IJobApplicationAppService>();
 
         }
         protected override async Task OnInitializedAsync()
@@ -111,15 +118,13 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
             StateHasChanged();
             await LoadApplicationRequest(new ItemsProviderRequest());
         }
-        private async Task CancelList()
+        public async void selectedValue(ChangeEventArgs args)
         {
-            _SearchText = "";
-            _Status = null;
-            _Experience = null;
-            _IsCancelList = false;
+            string select = Convert.ToString(args.Value);
+            _SearchText = select;
             await ApplicationRequestContainer.RefreshDataAsync();
             StateHasChanged();
-            await LoadApplicationRequest(new ItemsProviderRequest());
+
         }
         #region
 
@@ -170,14 +175,17 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
                 async (result) =>
                 {
                     var recruitmentPost = result.Items.OrderByDescending(item => item.CreationTime).ToList();
-                    //if (recruitmentPost.Count == 0)
-                    //{
-                    //    isError = true;
-                    //}
-                    //else
-                    //{
-                    //    isError = false;
-                    //}
+                    if (_SearchText != "")
+                    {
+                        if (recruitmentPost.Count == 0)
+                        {
+                            isError = true;
+                        }
+                        else
+                        {
+                            isError = false;
+                        }
+                    }
                     applicationRequestDto = new ItemsProviderResult<ApplicationRequestEditDto>(recruitmentPost, recruitmentPost.Count);
                     await UserDialogsService.UnBlock();
                 }
@@ -187,7 +195,10 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
         }
         public async Task ViewApplication(ApplicationRequestEditDto applicationRequest)
         {
-            navigationService.NavigateTo($"ChiTietHSUT?Id={applicationRequest.JobApplicationId}");
+            GetJobApplicationForEditOutput candidate = await jobApplicationAppService.GetJobApplicationForEdit(new NullableIdDto<long> { Id = applicationRequest.JobApplicationId });
+
+            navigationService.NavigateTo($"ThongTinNTV?Id={applicationRequest.JobApplicationId}&Positions={candidate.JobApplication.Positions.DisplayName}&FormOfWork={candidate.JobApplication.FormOfWork.DisplayName}&Literacy={candidate.JobApplication.Literacy.DisplayName}");
+
         }
 
 
@@ -208,7 +219,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
         }
         private async void DisPlayAction(ApplicationRequestEditDto applicationRequest)
         {
-            string response = await App.Current.MainPage.DisplayActionSheet("Lựa chọn", null, null, "Đặt lịch", "Xóa");
+            string response = await App.Current.MainPage.DisplayActionSheet("Lựa chọn", null, null, "Xem CV ứng viên","Đặt lịch", "Xóa");
             if (response == "Đặt lịch")
             {
                 await BookUser(applicationRequest);
@@ -220,6 +231,10 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
                 await ApplicationRequestContainer.RefreshDataAsync();
                 StateHasChanged();
 
+            }
+            else
+            {
+                await ViewApplication(applicationRequest);
             }
         }
     }

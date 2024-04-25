@@ -231,7 +231,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
         }
         #endregion
 
-        DateTime CreationTime;
         #region Tin tức
         private async ValueTask<ItemsProviderResult<ArticleModel>> LoadArticles(ItemsProviderRequest request)
         {

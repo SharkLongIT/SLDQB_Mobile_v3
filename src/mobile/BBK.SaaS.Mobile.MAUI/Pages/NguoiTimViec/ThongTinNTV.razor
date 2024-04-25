@@ -26,21 +26,18 @@
         <div class="divider mb-0"></div>
         <div class="content">
             <div class="d-flex ">
-                @if (IsDefault1 == true)
-                {
-                    <a href="javascript:;" class="btn btn-full bg-red-dark border-red-dark rounded-sm color-white btn-sm font-700 text-uppercase mt-4" style="width: 50%" @onclick="(() => BookUser(Model))">
+                    <a href="javascript:;" class="btn btn-full bg-red-dark border-red-dark rounded-sm color-white btn-sm font-700 text-uppercase mt-4" style="width: 100%" @onclick="(() => BookUser(Model))">
                         Đặt lịch
                     </a>
-                }
-                <a class="btn btn-full border-blue-dark rounded-sm bg-blue-dark color-blue-dark btn-sm font-700 text-uppercase mt-4 no-effect" style="width:50%; margin-left: 5px;" data-bs-toggle="collapse" href="#information" aria-expanded="true" aria-controls="information">
+               @*  <a class="btn btn-full border-blue-dark rounded-sm bg-blue-dark color-blue-dark btn-sm font-700 text-uppercase mt-4 no-effect" style="width:50%; margin-left: 5px;" data-bs-toggle="collapse" href="#information" aria-expanded="true" aria-controls="information">
                     Xem tất cả
-                </a>
+                </a> *@
             </div>
         </div>
     </div>
 
 
-    <div class="collapse" id="information">
+    @* <div class="collapse" id="information"> *@
         <!--Thông tin cá nhân-->
         <div class="card card-style mb-3">
             <div class="list-group list-custom-small list-icon-0 ps-3 pe-4">
@@ -263,7 +260,7 @@
         </div>
 
 
-    </div>
+    @* </div> *@
 }
 else
 {

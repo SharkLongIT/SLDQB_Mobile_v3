@@ -2,146 +2,83 @@
 @inherits SaaSMainLayoutPageComponentBase
 @attribute [Route("/" + NavigationUrlConsts.DSGioiThieu)]
 
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-<div class="row align-items-center mt-1 m-0 ">
-    <div class="col-xl-12">
-        <div class="align-items-center">
-            <div class="card">
-                <div class="card-body filter">
-                    <input type="search" id="searchInput" @bind="_filter.Search" class="form-control input-filter" placeholder="@L("Nhập từ khoá cần tìm kiếm")">
-                    <br />
-                    <select required="" class="form-control" id="Status" name="Status" @bind="_filter.Status">
-                        <option value="" selected>Trạng thái</option>
-                        <option value="1">Chờ xử lý</option>
-                        <option value="2">Đã xử lý</option>
-                        <option value="3">Không liên lạc được</option>
-                    </select>
-                    <div class="mt-3  d-flex justify-content-center">
-                        <button @onclick="RefeshList" class="btn btn-filter" type="button">
-                            <i class="fa fa-search" style="color: white" aria-label="Search"></i>
-                        </button>
-                        @if (_IsCancelList == true)
-                        {
-                            <button @onclick="CancelList" class="btn btn-secondary ml-2" type="button">
-                                Huỷ
-                            </button>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="content mt-2  search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important; ">
+    <i class="fa fa-search"></i>
+    <input type="search" class="border-0" @bind="_filter.Search" placeholder="Tìm kiếm thông tin" @oninput="selectedValue">
 </div>
-
 @if (isError)
 {
-    <div class="text-error">
-        <i class='fas fa-search search-icon'></i>
-        <h3>Không tìm thấy kết quả!!!</h3>
-        <span class="mt-2">Thử tìm kiếm với từ khoá khác.</span>
+    <div class="card card-style">
+        <div class="content">
+            <div class="text-error">
+                <h3>Không tìm thấy kết quả!!!</h3>
+                <span class="mt-2">Thử tìm kiếm với từ khoá khác.</span>
+            </div>
+        </div>
     </div>
 }
 else
 {
     <Virtualize @ref="IntroduceContainer" Context="introduce" ItemsProvider="@LoadIntroduce" ItemSize="100">
-        <div class="row align-items-center mt-1 m-0">
-            <div class="col-xl-12">
-                <div class="justify-content-center">
-                    <div class="card job-recruitment mt-2">
-                        <div class="align-items-center">
-                            <div class="row vieclam p-3">
-                                <div class="col-12">
-                                    <div class="d-flex">
-                                            <h5 class="mt-3 name-job">
-                                                @introduce.Article.Title
-                                            </h5>
-                                        <span class="ml-auto more_vert">
-                                            <i class="material-icons" @onclick="(() => DisPlayAction(introduce))">more_vert</i>
-                                        </span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <span class="name">
-                                            Tên liên hệ:
-                                        </span>
-                                        <span class="fullname">
-                                            @introduce.FullName
-                                        </span>
-                                    </div>
-                                      <div class="mb-2">
-                                        <span class="name">
-                                            Số điện thoại:
-                                        </span>
-                                        <span>
-                                            +84 @introduce.Phone
-                                        </span>
-                                    </div>
-                                      <div class="mb-2">
-                                        <span class="name">
-                                            Email:
-                                        </span>
-                                        <span>
-                                            @introduce.Email
-                                        </span>
-                                    </div>
-                                    <div class="mb-2">
-                                        <span class="name">
-                                            Ngày giới thiệu:
-                                        </span>
-                                        <span>
-                                            @introduce.CreationTime.ToString("dd/MM/yyyy")
-                                        </span>
-                                    </div>
-                                    @if (introduce.Status == 1)
-                                    {
-                                        <div class="">
-                                            <span class="status">
-                                                Trạng thái :
-                                            </span>
-                                            <span class="wait-progres">
-                                                Chờ xử lý
-                                            </span>
-                                        </div>
-                                    }
-                                    else if (introduce.Status == 2)
-                                    {
-                                        <div class="">
-                                            <span class="status">
-                                                Trạng thái :
-                                            </span>
-                                            <span class="processed">
-                                                Đã xử lý
-                                            </span>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="">
-                                            <span class="status">
-                                                Trạng thái :
-                                            </span>
-                                            <span class="unconnected">
-                                                Không liên lạc được
-                                            </span>
-                                        </div>
-                                    }
+        <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3" style="background-color:#FFF !important; ">
 
-                                </div>
-                            </div>
-                        </div>
+            <div class="d-flex">
+                <div>
+                    <h5 class="font-700 text-uppercase">
+                        @introduce.Article.Title
+                    </h5>
+                    <div class="font-12">
+                        <span class="fullname">
+                            Tên liên hệ:
+                        </span>
+                        @introduce.FullName
                     </div>
+                    <div class="font-12">
+                        <span class="phone">
+                            Số điện thoại:
+                        </span>
+                        @introduce.Phone
+                    </div>
+                    <div class="font-12">
+                        <span class="gmail">
+                            Email:
+                        </span>
+                        @introduce.Email
+                    </div>
+                    <div class="font-12">
+                        <span class="date-introduce">
+                            Ngày giới thiệu:
+                        </span>
+                        @introduce.CreationTime.ToString("dd/MM/yyyy")
+                    </div>
+                    @if (introduce.Status == 1)
+                    {
+
+                        <span class="badge bg-gray-dark text-uppercase font-12 ml-3">
+                            Chờ xử lý
+                        </span>
+
+                    }
+                    else if (introduce.Status == 2)
+                    {
+
+                        <span class="badge bg-blue-dark text-uppercase font-12 ml-3">
+                            Đã xử lý
+                        </span>
+                    }
+                    else
+                    {
+
+                        <span class="badge bg-red-dark text-uppercase font-12 ml-3">
+                            Không liên lạc được
+                        </span>
+                    }
+                </div>
+                <div class="ms-auto">
+                    <i class="fa-solid fa-caret-down float-end" @onclick="(() => DisPlayAction(introduce))"></i>
                 </div>
             </div>
+
         </div>
     </Virtualize>
 }

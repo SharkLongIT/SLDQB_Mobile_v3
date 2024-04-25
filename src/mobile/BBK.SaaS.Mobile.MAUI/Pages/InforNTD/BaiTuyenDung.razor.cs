@@ -7,6 +7,7 @@ using BBK.SaaS.Mobile.MAUI.Services.Article;
 using BBK.SaaS.Mobile.MAUI.Services.User;
 using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.Services.Navigation;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
@@ -54,6 +55,14 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
             StateHasChanged();
             await LoadRecruitmentPost(new ItemsProviderRequest());
         }
+        public async void selectedValue(ChangeEventArgs args)
+        {
+            string select = Convert.ToString(args.Value);
+            _SearchText = select;
+            await RecruitmentContrainer.RefreshDataAsync();
+            StateHasChanged();
+
+        }
         private async ValueTask<ItemsProviderResult<RecruitmentDto>> LoadRecruitmentPost(ItemsProviderRequest request)
         {
            
@@ -74,13 +83,16 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
                     {
                         item.Recruiter.AvatarUrl = await articleService.GetPicture(item.Recruiter.AvatarUrl);
                     }
-                    if (recruitmentPost.Count == 0)
+                    if (_SearchText != "")
                     {
-                        isError = true;
-                    }
-                    else
-                    {
-                        isError = false;
+                        if (recruitmentPost.Count == 0)
+                        {
+                            isError = true;
+                        }
+                        else
+                        {
+                            isError = false;
+                        }
                     }
                     recruitmentDto = new ItemsProviderResult<RecruitmentDto>(recruitmentPost, recruitmentPost.Count);
                     await UserDialogsService.UnBlock();

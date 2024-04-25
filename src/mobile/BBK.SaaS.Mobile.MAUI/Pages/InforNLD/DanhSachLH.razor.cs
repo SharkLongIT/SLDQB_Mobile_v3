@@ -13,6 +13,7 @@ using BBK.SaaS.Core.Dependency;
 using BBK.SaaS.Core.Threading;
 using BBK.SaaS.Mobile.MAUI.Models.NguoiTimViec;
 using Abp.Extensions;
+using Microsoft.AspNetCore.Components;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
 {
@@ -49,13 +50,13 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
             StateHasChanged();
             await LoadListMakeAnAppointment(new ItemsProviderRequest());
         }
-        private async Task CancelList()
+        public async void selectedValue(ChangeEventArgs args)
         {
-            _SearchText = "";
-            _IsCancelList = false;
+            string select = Convert.ToString(args.Value);
+            _SearchText = select;
             await makeAnAppointmentContainer.RefreshDataAsync();
             StateHasChanged();
-            await LoadListMakeAnAppointment(new ItemsProviderRequest());
+
         }
         private async ValueTask<ItemsProviderResult<DatLichModel>> LoadListMakeAnAppointment(ItemsProviderRequest request)
         {

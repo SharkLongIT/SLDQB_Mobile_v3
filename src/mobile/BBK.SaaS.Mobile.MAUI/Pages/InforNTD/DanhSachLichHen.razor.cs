@@ -9,6 +9,7 @@ using BBK.SaaS.Mdls.Profile.Recruiters.Dto;
 using BBK.SaaS.Mobile.MAUI.Services.User;
 using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.Services.Navigation;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,14 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
             await makeAnAppointmentContainer.RefreshDataAsync();
             StateHasChanged();
             await LoadListMakeAnAppointment(new ItemsProviderRequest());
+        }
+        public async void selectedValue(ChangeEventArgs args)
+        {
+            string select = Convert.ToString(args.Value);
+            _SearchText = select;
+            await makeAnAppointmentContainer.RefreshDataAsync();
+            StateHasChanged();
+
         }
         private async ValueTask<ItemsProviderResult<MakeAnAppointmentDto>> LoadListMakeAnAppointment(ItemsProviderRequest request)
         {
