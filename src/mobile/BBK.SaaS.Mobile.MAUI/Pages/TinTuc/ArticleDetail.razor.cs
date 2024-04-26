@@ -139,6 +139,8 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
                 foreach (var article in articlesFilter)
                 {
                     article.PrimaryImageUrl = AsyncHelper.RunSync(async () => await articleService.GetPicture(article.PrimaryImageUrl));
+                    //ArticleViewDto articleViewDto = await articleFrontendAppService.GetArticleDetail(new EntityDto<long> { Id = article.Id.Value });
+                    //article.Modified = articleViewDto.Modified;
                 }
                 articleDto1 = new ItemsProviderResult<ArticleModel>(articlesFilter, articlesFilter.Count);
                 await UserDialogsService.UnBlock();

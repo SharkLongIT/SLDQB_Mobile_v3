@@ -16,7 +16,9 @@
             </div>
             <div class="align-self-end ">
                 <h4 class="font-24 mb-0 mt-3">@Model.Title</h4>
-                <span><i class="fa-regular fa-building font-10 pe-2"></i><span class="font-12 opacity-70">@Model.CompanyName</span></span>
+                <a href="javascript:;" @onclick="(()=>ViewCompany(Model))">
+                    <span><i class="fa-regular fa-building font-10 pe-2"></i><span class="font-12 opacity-70">@Model.CompanyName</span></span>
+                </a>
             </div>
         </div>
     </div>
@@ -62,7 +64,7 @@
             <i class="fa fa-angle-down"></i>
         </a>
     </div>
-    <div class="collapse ps-2 pe-4" id="collapse-1">
+    <div class="collapse ps-2 pe-4 show" id="collapse-1">
         <div class="d-flex">
             <div>
                 <span class="font-11 d-block mb-n2 opacity-50 color-theme">Kinh nghiệm</span>
@@ -136,7 +138,7 @@
             <i class="fa fa-angle-down"></i>
         </a>
     </div>
-    <div class="collapse ps-2 pe-4" id="collapse-2">
+    <div class="collapse ps-2 pe-4 show" id="collapse-2">
         <div>
             <span class="font-11 d-block mb-n2 opacity-50 color-theme">Ngành nghề</span>
             <span class="default-link d-block color-theme font-15 font-400">@Model.JobCatUnitName</span>

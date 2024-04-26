@@ -9,6 +9,7 @@ using BBK.SaaS.Mobile.MAUI.Models.TinTuc;
 using BBK.SaaS.Mobile.MAUI.Services.Article;
 using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.Services.Navigation;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
@@ -57,13 +58,20 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
             StateHasChanged();
             await LoadArticles(new ItemsProviderRequest());
         }
+        public async void selectedValue(ChangeEventArgs args)
+        {
+            string select = Convert.ToString(args.Value);
+            _SearchText = select;
+            
+            await ArticlesContainer.RefreshDataAsync();
+            StateHasChanged();
 
+        }
         #region Category
         private async ValueTask<ItemsProviderResult<CmsCatDto>> LoadCategories(ItemsProviderRequest request)
         {
             _filter.MaxResultCount = Math.Clamp(request.Count, 1, 1000);
             _filter.SkipCount = request.StartIndex;
-            //_filter.Take = Math.Clamp(request.Count, 1, 1000);
 
             await UserDialogsService.Block();
 
@@ -99,6 +107,17 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
                 async (result) =>
                 {
                     var articlesFilter = ObjectMapper.Map<List<ArticleModel>>(result.Items);
+                    if (_SearchText != "")
+                    {
+                        if (articlesFilter.Count == 0)
+                        {
+                            isError = true;
+                        }
+                        else
+                        {
+                            isError = false;
+                        }
+                    }
                     foreach (var model in articlesFilter)
                     {
                         model.PrimaryImageUrl = AsyncHelper.RunSync(async () => await articleService.GetPicture(model.PrimaryImageUrl));
