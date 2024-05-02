@@ -7,9 +7,16 @@
                     <h1 class="mb-3">@L("Cập nhật thông tin")</h1>
                 </div>
                 @* <img src="@_userImage" width="40px" height="40px" style="border-radius:50%; align-content:center" /> *@
-                <div class="d-flex">
+              @*   <div class="d-flex mb-3">
                     <img src="@_userImage" width="80" class="rounded-circle mt- shadow-xl preload-img">
-                </div>
+                    <div class="ms-2">
+                        <a class="btn btn-light" @onclick="ChangeAvatar" >Cập nhật</a>
+                        <div>
+                            Dạng file .jpg, .jpeg, .png, dung lượng &lt;= 300KB và kích thước tối
+                            thiểu 300x300 pixel.
+                        </div>
+                    </div>
+                </div> *@
                 <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                         <span class="required">
@@ -17,7 +24,7 @@
                         </span>
                         <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
                     </label>
-                    <input type="text" class="form-control form-control-solid" placeholder="@NameCandidate" disabled />
+                    <input type="text" class="form-control form-control-solid" placeholder="@ApplicationContext.LoginInfo.User.Name" disabled />
                 </div>
                 <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
@@ -119,9 +126,9 @@
                         </span>
                         <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
                     </label>
-                    <div class="d-flex ml-5">
+                    <div class="d-flex">
                          <input type="checkbox" class="form-check-input" style="font-size: 6px" @bind="@Model.Marital" @onclick="ChangeMarital"></input>
-                         <span class="form-check-label fw-semibold text-muted ml-3 mt-2">@NameMarital</span>
+                         <span class="form-check-label fw-semibold text-muted ms-2 mb-3">@NameMarital</span>
                     </div>
                 </div>
             </div>

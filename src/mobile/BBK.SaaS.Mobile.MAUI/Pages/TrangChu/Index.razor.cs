@@ -152,9 +152,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 
             //check loggedIn
             IsUserLoggedIn = navigationService.IsUserLoggedIn();
-            await GetUserPhoto();
             await Statistical();
-            //await LoadJobApplication(new ItemsProviderRequest());
             await LoadNewestArticles(new ItemsProviderRequest());
         }
 
@@ -396,17 +394,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
         {
             navigationService.NavigateTo(NavigationUrlConsts.Login);
         }
-        private async Task GetUserPhoto()
-        {
-            if (!IsUserLoggedIn)
-            {
-                return;
-            }
-
-            _userImage = await UserProfileService.GetProfilePicture(ApplicationContext.LoginInfo.User.Id);
-            _UserName = ApplicationContext.LoginInfo.User.Name;
-            StateHasChanged();
-        }
+     
 
 
 

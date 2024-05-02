@@ -16,8 +16,17 @@
                 </div>
             </div>
             <div>
-                <img src="@_userImage" width="80" class="rounded-circle mt- shadow-xl preload-img">
-                <i class="fa-solid fa-camera" @onclick="ChangeAvatar"></i>
+               @*  <img src="@_userImage" width="80" class="rounded-circle mt- shadow-xl preload-img">
+                <i class="fa-solid fa-camera" @onclick="ChangeAvatar"></i> *@
+
+                <a class="card card-style rounded-l rounded-circle shadow-xl preload-img" style="background-image: url('@_userImage'); height: 80px; width: 80px" @onclick="(() => ChangeAvatar())">
+                    <div class="card-bottom  px-2 bg-black">
+                        <h5 class="color-white font-500 text-center">
+                            <i class="fa-solid fa-camera"></i>
+                        </h5>
+                    </div>
+                    <div class="card-overlay bg-gray opacity-20"></div>
+                </a>
             </div>
         </div>
     </div>
@@ -52,7 +61,6 @@
                     <div class="divider my-3"></div>
                 }
             </div>
-            <div class="divider my-3"></div>
             <div>
                 <span class="font-11 d-block mb-n2 opacity-50 color-theme">Giới tính</span>
                 @if (Model.Candidate.Gender == Mdls.Profile.Candidates.Dto.GenderEnum.Male)

@@ -3,166 +3,47 @@
 @using Abp.Collections.Extensions
 @using BBK.SaaS.Models.NavigationMenu;
 
-@if (HasUserInfo)
-{
-    <div class="d-flex">
-        <div class="me-2 align-self-center">
-            <img src="@_userImage" class="gradient-red rounded-sm" width="43">
-        </div>
-        <div class="flex-grow-1 align-self-center ps-2">
-            <h1 class="font-20 font-700 mb-0">@ApplicationContext.LoginInfo.User.Name</h1>
+<div class="pt-2">
+    @if (HasUserInfo)
+    {
+        <div class="card card-style">
+            <div class="content d-flex">
+                <div class="me-2 align-self-center">
+                    <img src="@_userImage" class="gradient-red rounded-sm" width="43">
+                </div>
+                <div class="flex-grow-1 align-self-center ps-2">
+                    <h1 class="font-20 font-700 mb-0">@ApplicationContext.LoginInfo.User.Name</h1>
 
-            @if (ApplicationContext.LoginInfo.User.UserType == Authorization.Users.UserTypeEnum.Type1)
-            {
-                <p class="mt-n2 mb-0 font-10 font-400">Nhà tuyển dụng </p>
-            }
-            else
-            {
-                <p class="mt-n2 mb-0 font-10 font-400">Ứng viên </p>
+                    @if (ApplicationContext.LoginInfo.User.UserType == Authorization.Users.UserTypeEnum.Type1)
+                    {
+                        <p class="mt-n2 mb-0 font-10 font-400">Nhà tuyển dụng </p>
+                    }
+                    else
+                    {
+                        <p class="mt-n2 mb-0 font-10 font-400">Ứng viên </p>
 
-            }
-        </div>
-    </div>
-}
-else
-{
-    <div class="d-flex">
-        <div class="me-2 align-self-center">
-            <img src="images/avatars/5s.png" class="gradient-red rounded-sm" width="43">
-        </div>
-        <div class="flex-grow-1 align-self-center ps-2">
-            <h1 class="font-20 font-700 mb-0">Họ và tên</h1>
-            <p class="mt-n2 mb-0 font-10 font-400">Nhà tuyển dụng / Ứng viên</p>
-        </div>
-    </div>
-}
-@if (HasUserInfo)
-{
-    <div class="menu-item pt-2">
-        <!--begin:Menu content-->
-        <div class="menu-content">
-            <span class="menu-heading fw-bold text-uppercase fs-7">@L("Hồ sơ cá nhân")</span>
-        </div>
-        <!--end:Menu content-->
-    </div>
-}
-@foreach (var item in MenuItems)
-{
-    <div class="menu-item @(item.Items.Any() ? "menu-accordion": "")" @attributes="GetMenuAttributes(item)">
-        <!--begin:Menu link-->
-        @if (item.Items.IsNullOrEmpty())
-        {
-            <NavLink class="menu-link" href="@item.NavigationUrl">
-                <span class="menu-icon"> <i class="@item.Icon"></i> </span>
-                <span class="menu-title">@item.Title</span>
-            </NavLink>
-        }
-        else
-        {
-            <span class="menu-link">
-                <span class="menu-icon"> <i class="@item.Icon"></i> </span>
-                <span class="menu-title">@item.Title</span>
-                <span class="menu-arrow"></span>
-            </span>
-        }
-        <!--end:Menu link-->
-        @if (item.Items.Any())
-        {
-            <div class="menu-sub menu-sub-accordion">
-                @foreach (var subItem in item.Items)
-                {
-                    <div class="menu-item">
-                        <NavLink class="menu-link" href="@subItem.NavigationUrl">
-                            <span class="menu-icon"> <i class="@subItem.Icon"></i> </span>
-                            <span class="menu-title">@subItem.Title</span>
-                        </NavLink>
-                    </div>
-                }
-            </div>
-        }
-    </div>
-}
-<!--begin:Menu item-->
-<div class="menu-item pt-2">
-    <!--begin:Menu content-->
-    <div class="menu-content">
-        <span class="menu-heading fw-bold text-uppercase fs-7">@L("Sàn lao động")</span>
-    </div>
-    <!--end:Menu content-->
-</div>
-<!--end:Menu item-->
-@* @foreach (var item in MenuItems.Take(6))
-{ *@
-   @*  <div class="menu-item @(item.Items.Any() ? "menu-accordion": "")" @attributes="GetMenuAttributes(item)">
-        <!--begin:Menu link-->
-        @if (item.Items.IsNullOrEmpty())
-        { *@
-           @*  <NavLink class="menu-link" href="@item.NavigationUrl">
-                <span class="menu-icon"> <i class="@item.Icon"></i> </span>
-                <span class="menu-title">@item.Title</span>
-            </NavLink> *@
-            <div class="me-3 ms-3 mt-4">
-                <div class="list-group list-custom-small">
-                    <a href="/TrangChu">
-                        <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i>
-                        <span>Trang chủ</span>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                    <a href="/Filter">
-                        <i class="fa font-14 fa-search rounded-s bg-blue-dark"></i>
-                        <span>Tìm kiếm</span>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                    <a href="/NguoiTimViec">
-                        <i class="fa font-14 fa-user rounded-s bg-blue-dark"></i>
-                        <span>Người tìm việc</span>
-                        @* <span class="badge bg-red-dark">NEW</span> *@
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                    <a href="/ViecTimNguoi">
-                        <i class="fa font-14 fa-briefcase rounded-s bg-brown-dark"></i>
-                        <span>Việc tìm người</span>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                    <a href="/TinTuc">
-                        <i class="fa font-14 fa-newspaper rounded-s bg-green-dark"></i>
-                        <span>Tin tức</span>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                    <a href="/LienHe" class="border-0">
-                        <i class="fa font-14 fa-question rounded-s bg-teal-dark"></i>
-                        <span>Hỏi đáp</span>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
+                    }
                 </div>
             </div>
-        @* } *@
-      @*   else
-        {
-            <span class="menu-link">
-                <span class="menu-icon"> <i class="@item.Icon"></i> </span>
-                <span class="menu-title">@item.Title</span>
-                <span class="menu-arrow"></span>
-            </span>
-        }
-        <!--end:Menu link-->
-        @if (item.Items.Any())
-        {
-            <div class="menu-sub menu-sub-accordion">
-                @foreach (var subItem in item.Items)
-                {
-                    <div class="menu-item">
-                        <NavLink class="menu-link" href="@subItem.NavigationUrl">
-                            <span class="menu-icon"> <i class="@subItem.Icon"></i> </span>
-                            <span class="menu-title">@subItem.Title</span>
-                        </NavLink>
-                    </div>
-                }
-            </div>
-        } *@
-    @* </div> *@
-@* } *@
+        </div>
 
+
+    }
+    else
+    {
+        <div class="card card-style">
+            <div class="content d-flex">
+                <div class="me-2 align-self-center">
+                    <img src="images/avatars/5s.png" class="gradient-red rounded-sm" width="43">
+                </div>
+                <div class="flex-grow-1 align-self-center ps-2">
+                    <h1 class="font-20 font-700 mb-0">Họ và tên</h1>
+                    <p class="mt-n2 mb-0 font-10 font-400">Nhà tuyển dụng / Ứng viên</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
 
 @code {
     private Dictionary<string, object> GetMenuAttributes(NavigationMenuItem item)

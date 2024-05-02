@@ -144,7 +144,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
                         {
                             Model = new CandidateModel();
                             _userImage = await UserProfileService.GetProfilePicture(ApplicationContext.LoginInfo.User.Id);
-                            Model.NameCandidate = candidateEditDto.User.Name;
+                            Model.NameCandidate = ApplicationContext.LoginInfo.User.Name;
                             NameCandidate = candidateEditDto.User.Name;
                             NameMarital = candidateEditDto.Candidate.Marital == true ? "Độc thân" : "Đã kết hôn";
                             Marital = candidateEditDto.Candidate.Marital;

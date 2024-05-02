@@ -87,8 +87,6 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
             navigationService.Initialize(NavigationManager);
 
             _logoURL = await DependencyResolver.Resolve<TenantCustomizationService>().GetTenantLogo();
-            await GetUserPhoto();
-
             await SetLayout();
         }
         private async Task GetUserPhoto()
@@ -107,6 +105,7 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
             {
                 await Task.Delay(200);
                 await JS.InvokeVoidAsync("KTMenu.init");
+                  //await GetUserPhoto();
                 //await JS.InvokeVoidAsync("MenuSideBar");
             }
         }
@@ -119,7 +118,7 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
             }
             else
             {
-                var isTryAgain = await UserDialogsService.Instance.Confirm(Localization.L.Localize("NoInternet"));
+                var isTryAgain = await UserDialogsService.Instance.Confirm(Localization.L.Localize("Không có kết nối mạng"));
                 if (!isTryAgain)
                 {
                     Application.Current.Quit();
@@ -228,69 +227,21 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
         #endregion
 
 
-
-        #region Uri
-        public async Task Login()
+        public async Task GetArticleByCategory(CmsCatDto cmsCatDto)
         {
-            IsOpenSideBar = false;
-            navigationService.NavigateTo($"Login");
-
-
-        }
-        public async Task Home()
-        {
-            IsOpenSideBar = false;
-            navigationService.NavigateTo(NavigationUrlConsts.TrangChu);
-
-
+            navigationService.NavigateTo($"ListArticle?CategoryId={cmsCatDto.Id}&CategoryName={cmsCatDto.DisplayName}");
         }
         public async Task Logout()
         {
             IsOpenSideBar = false;
             await AccountService.LogoutAsync();
-            //AccountService.AbpAuthenticateModel.UserNameOrEmailAddress = null;
+            AccountService.AbpAuthenticateModel.UserNameOrEmailAddress = null;
             //await UserDialogsService.AlertSuccess("Đăng xuất thành công");
             navigationService.NavigateTo(NavigationUrlConsts.TrangChu);
+
             StateHasChanged();
 
 
         }
-        public async Task NguoiTimViec()
-        {
-            IsOpenSideBar = false;
-            navigationService.NavigateTo(NavigationUrlConsts.NguoiTimViec);
-
-        }
-        public async Task ViecTimNguoi()
-        {
-            IsOpenSideBar = false;
-            navigationService.NavigateTo(NavigationUrlConsts.ViecTimNguoi);
-
-        }
-        public async Task TinTuc()
-        {
-            IsOpenSideBar = false;
-            navigationService.NavigateTo(NavigationUrlConsts.TinTuc);
-
-        }
-        public async Task LienHe()
-        {
-            IsOpenSideBar = false;
-            navigationService.NavigateTo(NavigationUrlConsts.LienHe);
-
-        }
-        public async Task Filter()
-        {
-            IsOpenSideBar = false;
-            navigationService.NavigateTo(NavigationUrlConsts.Filter);
-
-        }
-        public async Task Register()
-        {
-            IsOpenSideBar = false;
-            navigationService.NavigateTo(NavigationUrlConsts.Register);
-
-        }
-        #endregion
     }
 }

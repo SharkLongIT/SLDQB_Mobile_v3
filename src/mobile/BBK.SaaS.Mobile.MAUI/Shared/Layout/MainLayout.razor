@@ -9,24 +9,16 @@
         <div class="header header-fixed header-logo-center mb-3" style="pointer-events: all;">
             <div class="d-flex">
                 <div class="align-self-center ms-2">
-                    <img src="images/QuangBinh/Trungtam_40.png">
+                    <a href="/TrangChu">
+                        <img src="images/QuangBinh/Trungtam_40.png">
+                    </a>
                 </div>
-                @* @if (IsOpenSideBar == false)
-                { *@
                 <div class="align-self-center ms-auto mt-1 opening-menu" style="pointer-events: all;">
-                        <a data-menu="menu-sidebar-left" class="icon icon-xs gradient-yellow rounded-s " @onclick="OpenSideBar">
-                            <i class="fa fa-list color-white font-18"></i>
-                        </a>
-                    </div>
-              @*   }
-                else
-                {
-                    <div class="align-self-center ms-auto mt-1">
-                        <a data-menu="menu-sidebar-left" class="icon icon-xs gradient-yellow rounded-s" @onclick="CloseSideBar">
-                            <i class="fa fa-times color-white font-18"></i>
-                        </a>
-                    </div>
-                } *@
+                    <a data-menu="menu-sidebar-left" class="icon icon-xs gradient-yellow rounded-s " @onclick="OpenSideBar">
+                        <i class="fa fa-list color-white font-18"></i>
+                    </a>
+                </div>
+
             </div>
         </div>
         <!--end::Wrapper-->
@@ -57,14 +49,12 @@
         </div>
 
         <!-- Sidebar-->
-      @*   @if (IsOpenSideBar == true)
-        { *@
-            <div id="menu-sidebar-left" class="bg-white menu menu-box-left" data-menu-width="320" data-menu-effect="menu-parallax" style="display: block;width: 320px;pointer-events: all;">
-                <div class="divider mb-3"></div>
-                <div class="ps-3 pe-3 pt-2 mb-4">
-                    @if (HasUserInfo)
-                    {
-                        <div class="d-flex">
+        <div id="menu-sidebar-left" class="bg-white menu menu-box-left" data-menu-width="320" data-menu-effect="menu-parallax" style="display: block;width: 320px;pointer-events: all;">
+            <div class="pt-2">
+                @if (HasUserInfo)
+                {
+                    <div class="card card-style">
+                        <div class="content d-flex">
                             <div class="me-2 align-self-center">
                                 <img src="@_userImage" class="gradient-red rounded-sm" width="43">
                             </div>
@@ -82,10 +72,14 @@
                                 }
                             </div>
                         </div>
-                    }
-                    else
-                    {
-                        <div class="d-flex">
+                    </div>
+
+
+                }
+                else
+                {
+                    <div class="card card-style">
+                        <div class="content d-flex">
                             <div class="me-2 align-self-center">
                                 <img src="images/avatars/5s.png" class="gradient-red rounded-sm" width="43">
                             </div>
@@ -94,98 +88,90 @@
                                 <p class="mt-n2 mb-0 font-10 font-400">Nhà tuyển dụng / Ứng viên</p>
                             </div>
                         </div>
-                    }
-                </div>
-
-                @if (HasUserInfo && ApplicationContext.LoginInfo.User.UserType == Authorization.Users.UserTypeEnum.Type1)
-                {
-                    <div class="divider divider-margins mb-0"></div>
-                    <div class="me-3 ms-3">
-                        <div class="list-group list-custom-small">
-                            <a href="/InforNTD">
-                                @*    <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i> *@
-                                <span>Thông tin cá nhân</span>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                            <a href="/BaiTuyenDung">
-                                @* <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i> *@
-                                <span>Danh sách tin tuyển dụng của tôi</span>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                            <a href="/DanhSachUVDUT">
-                                @* <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i> *@
-                                <span>Danh sách ứng viên đã ứng tuyển</span>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                            <a href="/DSGioiThieu">
-                                @* <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i> *@
-                                <span>Danh sách giới thiệu của tôi</span>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                            <a href="/DanhSachLichHen">
-                                @* <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i> *@
-                                <span>Danh sách lịch hẹn</span>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                            <a href="DSCauHoi">
-                                @* <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i> *@
-                                <span>Danh sách câu hỏi</span>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                            <a href="/Settings">
-                                @* <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i> *@
-                                <span>Cài đặt</span>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </div>
                     </div>
                 }
-                else if (HasUserInfo && ApplicationContext.LoginInfo.User.UserType == Authorization.Users.UserTypeEnum.Type2)
-                {
-                    <div class="divider divider-margins mb-0"></div>
-                    <div class="me-3 ms-3">
-                        <div class="list-group list-custom-small">
-                            <a href="/InforNLD">
-                                @*    <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i> *@
-                                <span>Thông tin cá nhân</span>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                            <a href="/BaiUngTuyen">
-                                @* <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i> *@
-                                <span>Danh sách hồ sơ ứng tuyển của tôi</span>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                            <a href="DSCVDaUngTuyen">
-                                @* <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i> *@
-                                <span>Danh sách công việc đã ứng tuyển của tôi</span>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                            <a href="/DSGT">
-                                @* <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i> *@
-                                <span>Danh sách giới thiệu của tôi</span>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                            <a href="/DanhSachLH">
-                                @* <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i> *@
-                                <span>Danh sách lịch hẹn</span>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                            <a href="/DanhSachCauHoi">
-                                @* <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i> *@
-                                <span>Danh sách câu hỏi</span>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                            <a href="/Setting">
-                                @* <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i> *@
-                                <span>Cài đặt</span>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                }
+            </div>
 
-                <div class="me-3 ms-3 mt-4">
+            @if (HasUserInfo && ApplicationContext.LoginInfo.User.UserType == Authorization.Users.UserTypeEnum.Type1)
+            {
+                <div class="divider divider-margins mb-0"></div>
+                <div class="me-3 ms-3">
                     <div class="list-group list-custom-small">
+                        <a href="/InforNTD">
+                            <span>Thông tin cá nhân</span>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                        <a href="/BaiTuyenDung">
+                            <span>Danh sách tin tuyển dụng của tôi</span>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                        <a href="/DanhSachUVDUT">
+                            <span>Danh sách ứng viên đã ứng tuyển</span>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                        <a href="/DSGioiThieu">
+                            <span>Danh sách giới thiệu của tôi</span>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                        <a href="/DanhSachLichHen">
+                            <span>Danh sách lịch hẹn</span>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                        <a href="DSCauHoi">
+                            <span>Danh sách câu hỏi</span>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                        <a href="/Settings">
+                            <span>Cài đặt</span>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+            else if (HasUserInfo && ApplicationContext.LoginInfo.User.UserType == Authorization.Users.UserTypeEnum.Type2)
+            {
+                <div class="card card-style">
+                    <div class="content my-0">
+                        <h5 class="font-700 text-uppercase opacity-40 font-12 pt-2 mb-0">Hồ sơ cá nhân</h5>
+                        <div class="list-group list-custom-small list-icon-0">
+                            <div class="list-group list-custom-small">
+                                <a href="/InforNLD">
+                                    <span>Thông tin cá nhân</span>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                                <a href="/BaiUngTuyen">
+                                    <span>Danh sách hồ sơ ứng tuyển của tôi</span>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                                <a href="DSCVDaUngTuyen">
+                                    <span>Danh sách công việc đã ứng tuyển của tôi</span>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                                <a href="/DSGT">
+                                    <span>Danh sách giới thiệu của tôi</span>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                                <a href="/DanhSachLH">
+                                    <span>Danh sách lịch hẹn</span>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                                <a href="/DanhSachCauHoi">
+                                    <span>Danh sách câu hỏi</span>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                                <a href="/Settings">
+                                    <span>Cài đặt</span>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="card card-style">
+                <div class="content my-0">
+                    <h5 class="font-700 text-uppercase opacity-40 font-12 pt-2 mb-0">Menu</h5>
+                    <div class="list-group list-custom-small list-icon-0">
                         <a href="/TrangChu">
                             <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i>
                             <span>Trang chủ</span>
@@ -199,102 +185,76 @@
                         <a href="/NguoiTimViec">
                             <i class="fa font-14 fa-user rounded-s bg-blue-dark"></i>
                             <span>Người tìm việc</span>
-                            @* <span class="badge bg-red-dark">NEW</span> *@
                             <i class="fa fa-angle-right"></i>
                         </a>
-                        <a href="/ViecTimNguoi" >
+                        <a href="/ViecTimNguoi">
                             <i class="fa font-14 fa-briefcase rounded-s bg-brown-dark"></i>
                             <span>Việc tìm người</span>
                             <i class="fa fa-angle-right"></i>
                         </a>
-                        <a href="/TinTuc" >
+                        <a href="/TinTuc">
                             <i class="fa font-14 fa-newspaper rounded-s bg-green-dark"></i>
                             <span>Tin tức</span>
                             <i class="fa fa-angle-right"></i>
                         </a>
-                        <a href="/LienHe" class="border-0" >
+                        <a href="/LienHe" class="border-0">
                             <i class="fa font-14 fa-question rounded-s bg-teal-dark"></i>
                             <span>Hỏi đáp</span>
                             <i class="fa fa-angle-right"></i>
                         </a>
                     </div>
                 </div>
-                <div class="me-3 ms-3 mt-4">
-                    <span class="text-uppercase font-900 font-11 opacity-30">Dịch vụ</span>
-                    <div class="list-group list-custom-small">
+            </div>
+
+            <div class="card card-style">
+                <div class="content my-0">
+                    <h5 class="font-700 text-uppercase opacity-40 font-12 pt-2 mb-0">Dịch vụ</h5>
+                    <div class="list-group list-custom-small list-icon-0">
+                        @*   <span class="text-uppercase font-900 font-11 opacity-30">Dịch vụ</span> *@
                         <Virtualize @ref="CmsContainer" Context="cmsCats" ItemsProvider="@LoadCategories">
-                            <a href="#">
-                                <i class="fa font-14 rounded-s bg-facebook"></i>
+                            <a href="javascript:;" @onclick="(() => GetArticleByCategory(cmsCats))">
+                                @* <i class="fa font-14 rounded-s bg-facebook"></i> *@
                                 <span>@cmsCats.DisplayName</span>
-                                <i class="fa fa-link"></i>
+                                <i class="fa fa-angle-right"></i>
                             </a>
                         </Virtualize>
                     </div>
                 </div>
+            </div>
 
 
 
 
 
-                <div class="me-3 ms-3 mt-4 pt-2">
-                    <span class="text-uppercase font-900 font-11 opacity-30">Cài đặt</span>
-                    <div class="list-group list-custom-small">
-
-                        @*        <a href="/Register" class="border-0" @onclick="Register">
-                <i class="fa font-14 fa-user-plus rounded-s bg-teal-dark"></i>
-                <span>Đăng ký</span>
-                <i class="fa fa-angle-right"></i>
-                </a> *@
-                        @if (!HasUserInfo)
-                        {
-                            <a href="/Login" class="border-0" @onclick="Login">
-                                <i class="fa font-14 fa-sign-in rounded-s bg-teal-dark"></i>
+            @if (!HasUserInfo)
+            {
+                <div class="card card-style">
+                    <div class="content my-0">
+                        <div class="list-group list-custom-small list-icon-0">
+                            <a href="/Login" class="border-0">
+                                <i class="fa font-14 fa-sign-out rounded-s bg-teal-dark"></i>
                                 <span>Đăng nhập</span>
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        }
-                        @if (HasUserInfo)
-                        {
-                            <a href="/Register" class="border-0" @onclick="Logout">
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (HasUserInfo)
+            {
+                <div class="card card-style">
+                    <div class="content my-0">
+                        <div class="list-group list-custom-small list-icon-0">
+                            <a class="border-0" @onclick="Logout">
                                 <i class="fa font-14 fa-sign-out rounded-s bg-teal-dark"></i>
                                 <span>Đăng xuất</span>
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        }
-
-                        @* <a href="#" data-toggle-theme="" data-trigger-switch="switch-dark3-mode">
-                <i class="fa font-12 fa-moon bg-gray-dark rounded-s"></i>
-                <span>Dark Mode</span>
-                <div class="custom-control small-switch ios-switch">
-                <input data-toggle-theme="" type="checkbox" class="ios-input" id="switch-dark3-mode">
-                <label class="custom-control-label" for="switch-dark3-mode"></label>
-                </div>
-                <i class="fa fa-angle-right"></i>
-                </a>
-                <a data-trigger-switch="sidebar-311-switch-2" href="#">
-                <i class="fa font-14 fa-circle rounded-s bg-green-dark"></i>
-                <span>Active Mode</span>
-                <div class="custom-control small-switch ios-switch">
-                <input type="checkbox" class="ios-input" id="sidebar-311-switch-2" checked="">
-                <label class="custom-control-label" for="sidebar-311-switch-2"></label>
-                </div>
-                <i class="fa fa-angle-right"></i>
-                </a>
-                <a data-trigger-switch="sidebar-31-switch-3" href="#" class="border-0">
-                <i class="fa font-14 fa-bell rounded-s bg-blue-dark"></i>
-                <span>Notifications</span>
-                <div class="custom-control small-switch ios-switch">
-                <input type="checkbox" class="ios-input" id="sidebar-31-switch-3" checked="">
-                <label class="custom-control-label" for="sidebar-31-switch-3"></label>
-                </div>
-                <i class="fa fa-angle-right"></i>
-                </a> *@
+                        </div>
                     </div>
                 </div>
-
-            </div>
-      @*   } *@
-
+            }
+        </div>
     </div>
 
 }

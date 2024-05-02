@@ -38,6 +38,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
         }
         protected override async Task OnInitializedAsync()
         {
+            await LoadJobApplication(new ItemsProviderRequest());
         }
         private async Task RefeshList()
         {
@@ -70,7 +71,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
                 async () => await jobApplicationAppService.GetListJobAppOfCandidate(_filter),
                 async (result) =>
                 {
-                    var jobFilter = ObjectMapper.Map<List<CreateOrEditJobModel>>(result.Items.OrderByDescending(x=> x.CreationTime).FirstOrDefault());
+                    var jobFilter = ObjectMapper.Map<List<CreateOrEditJobModel>>(result.Items);
                      _userImage = await UserProfileService.GetProfilePicture(ApplicationContext.LoginInfo.User.Id);
                     if (jobFilter.Count == 0)
                     {

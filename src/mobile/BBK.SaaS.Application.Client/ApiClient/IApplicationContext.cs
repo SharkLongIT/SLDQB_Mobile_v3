@@ -25,5 +25,7 @@ namespace BBK.SaaS.ApiClient
         LanguageInfo CurrentLanguage { get; set; }
 
         void Load(TenantInformation currentTenant, GetCurrentLoginInformationsOutput loginInfo);
+
+       
     }
 }
