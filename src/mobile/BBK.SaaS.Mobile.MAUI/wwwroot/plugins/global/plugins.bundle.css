@@ -34454,8 +34454,8 @@ body.swal2-height-auto {
 }
 
 .swal2-icon.swal2-warning {
-  border-color: var(--kt-warning);
-  color: var(--kt-warning);
+    border-color: #f1bc00;
+    color: #f1bc00;
 }
 .swal2-icon.swal2-error {
   border-color: var(--kt-danger);

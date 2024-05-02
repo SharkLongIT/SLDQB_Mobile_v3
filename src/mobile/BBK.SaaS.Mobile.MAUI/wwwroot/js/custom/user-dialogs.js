@@ -46,7 +46,7 @@ var BlazorUserDialogService = function () {
                 confirmButton: "btn btn-success btn-white-text"
             },
             background: "white",
-            iconHtml: '<i style="color: #50cd89;"></i>'
+            //iconHtml: '<i style="color: #50cd89;"></i>'
 
         });
     }
@@ -84,10 +84,10 @@ var BlazorUserDialogService = function () {
             buttonsStyling: false,
             confirmButtonText: confirmButtonText,
             customClass: {
-                confirmButton: "btn btn-warning"
+                confirmButton: "btn btn-warning btn-white-text"
             },
             background: "white",
-            iconHtml: '<i class="fa fa-exclamation-circle" style="color: #f1bc00;"></i>'
+            //iconHtml: '<i class="fa fa-exclamation-circle" style="color: #f1bc00;"></i>'
         });
     }
 
