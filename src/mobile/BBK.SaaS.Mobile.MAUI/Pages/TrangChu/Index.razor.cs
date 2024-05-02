@@ -336,7 +336,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 
                 async (result) =>
                 {
-                    var jobFilter = result.Items.Take(5).ToList();
+                    var jobFilter = result.Items.Take(6).ToList();
                     var jobCount = result.Items.Count;
 					JobAppCount = jobCount;
 

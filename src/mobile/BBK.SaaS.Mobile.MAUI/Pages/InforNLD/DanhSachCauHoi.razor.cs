@@ -31,7 +31,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
         }
         protected override async Task OnInitializedAsync()
         {
-            await SetPageHeader(L("Danh sách câu hỏi của tôi"));
+            await LoadContact(new ItemsProviderRequest());
         }
 
         public async void selectStatus(ChangeEventArgs args)
@@ -97,7 +97,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
                               async (result) =>
                               {
                                   //var makeAnAppointment = result.Items.ToList();
-                                  var contacts = ObjectMapper.Map<List<ContactDto>>(result.Items.OrderByDescending(x => x.CreationTime).FirstOrDefault());
+                                  var contacts = ObjectMapper.Map<List<ContactDto>>(result.Items);
                                   if (_SearchText != "")
                                   {
                                       if (contacts.Count == 0)

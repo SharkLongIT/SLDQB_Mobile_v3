@@ -10,6 +10,7 @@ using BBK.SaaS.Mobile.MAUI.Models.InforNLD;
 using BBK.SaaS.Mobile.MAUI.Models.NguoiTimViec;
 using BBK.SaaS.Mobile.MAUI.Services.User;
 using BBK.SaaS.Mobile.MAUI.Shared;
+using BBK.SaaS.NguoiTimViec;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
@@ -22,6 +23,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
         protected IJobApplicationAppService JobApplicationAppService;
         protected ICandidateAppService CandidateAppService;
         protected IGeoUnitAppService GeoUnitAppService;
+
         private ItemsProviderResult<GeoUnitDto> geoUnitDto;
         private Virtualize<GeoUnitDto> GeoUnitContainer { get; set; }
 
@@ -48,6 +50,8 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
         public string NameCandidate;
         public string NameMarital;
         public bool Marital;
+        string _userImage;
+
         private List<GeoUnitDto> ListProvince { get; set; }
         private List<GeoUnitDto> ListAllGeoUnitDto { get; set; }
         private List<GeoUnitDto> ListDistrict { get; set; }
@@ -64,7 +68,11 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
 
         public override string ModalId => "update-candidate";
 
-
+        private async Task RefreshList()
+        {
+            await OnInitializedAsync();
+            StateHasChanged();
+        }
         public async void selectedValue(ChangeEventArgs args)
         {
             long select = Convert.ToInt64(args.Value);
@@ -129,14 +137,13 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
         {
             try
             {
-
                 await SetBusyAsync(async () =>
                 {
                     await WebRequestExecuter.Execute(
                         async () =>
                         {
                             Model = new CandidateModel();
-                            Model.AvatarUrl = await UserProfileService.GetProfilePicture(ApplicationContext.LoginInfo.User.Id);
+                            _userImage = await UserProfileService.GetProfilePicture(ApplicationContext.LoginInfo.User.Id);
                             Model.NameCandidate = candidateEditDto.User.Name;
                             NameCandidate = candidateEditDto.User.Name;
                             NameMarital = candidateEditDto.Candidate.Marital == true ? "Độc thân" : "Đã kết hôn";
@@ -155,6 +162,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
            
             await Show();
         }
+
         private async Task<bool> ValidateInput()
         {
             if (Model.DateOfBirth.HasValue)
@@ -207,7 +215,53 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
             });
 
         }
+        #region Change Avatar 
+        private async void ChangeAvatar()
+        {
+            string response = await App.Current.MainPage.DisplayActionSheet("Lựa chọn", null, null, "Chụp ảnh", "Ảnh từ máy");
+            if (response == "Chụp ảnh")
+            {
+                if (MediaPicker.Default.IsCaptureSupported)
+                {
+                    var photo = await MediaPicker.Default.CapturePhotoAsync();
+                    if (photo != null)
+                    {
+                        byte[] imageBytes;
+                        var stream = await photo.OpenReadAsync();
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            stream.CopyTo(ms);
+                            imageBytes = ms.ToArray();
+                        }
+                        await CandidateAppService.UpdateProfilePictureFromMobile(imageBytes);
 
-       
+                    }
+
+                }
+            }
+            else if (response == "Ảnh từ máy")
+            {
+
+                var photo = await MediaPicker.Default.PickPhotoAsync();
+                if (photo != null)
+                {
+                    byte[] imageBytes;
+                    var stream = await photo.OpenReadAsync();
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        stream.CopyTo(ms);
+                        imageBytes = ms.ToArray();
+                    }
+                    await CandidateAppService.UpdateProfilePictureFromMobile(imageBytes);
+                }
+
+                this.StateHasChanged();
+
+            }
+            await RefreshList();
+        }
+        #endregion
+
+
     }
 }

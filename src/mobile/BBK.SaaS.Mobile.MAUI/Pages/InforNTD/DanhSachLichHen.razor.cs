@@ -37,7 +37,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
         protected override async Task OnInitializedAsync()
         {
             IsUserLoggedIn = navigationService.IsUserLoggedIn();
-            await SetPageHeader(L("Danh sách lịch hẹn"));
+            await LoadListMakeAnAppointment(new ItemsProviderRequest());
         }
         public DanhSachLichHen()
         {
