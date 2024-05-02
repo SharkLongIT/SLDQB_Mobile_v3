@@ -9,7 +9,6 @@ using BBK.SaaS.Mobile.MAUI.Services.UI;
 using Microsoft.JSInterop;
 using BBK.SaaS.Mobile.MAUI.Services.Tenants;
 using BBK.SaaS.Mdls.Cms.Categories.Dto;
-
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using BBK.SaaS.Core.Threading;
 using BBK.SaaS.Mdls.Cms.Articles.MDto;
@@ -108,6 +107,7 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
             {
                 await Task.Delay(200);
                 await JS.InvokeVoidAsync("KTMenu.init");
+                //await JS.InvokeVoidAsync("MenuSideBar");
             }
         }
 
@@ -196,6 +196,7 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
         public async Task OpenSideBar()
         {
             IsOpenSideBar = true;
+            await JS.InvokeVoidAsync("menuSideBar");
         }
         public async Task CloseSideBar()
         {
