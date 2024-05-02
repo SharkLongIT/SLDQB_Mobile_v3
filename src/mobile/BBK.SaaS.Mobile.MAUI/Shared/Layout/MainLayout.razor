@@ -11,14 +11,14 @@
                 <div class="align-self-center ms-2">
                     <img src="images/QuangBinh/Trungtam_40.png">
                 </div>
-                @if (IsOpenSideBar == false)
-                {
-                    <div class="align-self-center ms-auto mt-1" style="pointer-events: all;">
-                        <a data-menu="menu-sidebar-left" class="icon icon-xs gradient-yellow rounded-s" @onclick="OpenSideBar">
+                @* @if (IsOpenSideBar == false)
+                { *@
+                <div class="align-self-center ms-auto mt-1 opening-menu" style="pointer-events: all;">
+                        <a data-menu="menu-sidebar-left" class="icon icon-xs gradient-yellow rounded-s " @onclick="OpenSideBar">
                             <i class="fa fa-list color-white font-18"></i>
                         </a>
                     </div>
-                }
+              @*   }
                 else
                 {
                     <div class="align-self-center ms-auto mt-1">
@@ -26,7 +26,7 @@
                             <i class="fa fa-times color-white font-18"></i>
                         </a>
                     </div>
-                }
+                } *@
             </div>
         </div>
         <!--end::Wrapper-->
@@ -57,9 +57,9 @@
         </div>
 
         <!-- Sidebar-->
-        @if (IsOpenSideBar == true)
-        {
-            <div id="menu-sidebar-left" class="bg-white menu menu-box-left menu-active" data-menu-width="320" data-menu-effect="menu-parallax" style="display: block;width: 320px;pointer-events: all;">
+      @*   @if (IsOpenSideBar == true)
+        { *@
+            <div id="menu-sidebar-left" class="bg-white menu menu-box-left" data-menu-width="320" data-menu-effect="menu-parallax" style="display: block;width: 320px;pointer-events: all;">
                 <div class="divider mb-3"></div>
                 <div class="ps-3 pe-3 pt-2 mb-4">
                     @if (HasUserInfo)
@@ -293,7 +293,7 @@
                 </div>
 
             </div>
-        }
+      @*   } *@
 
     </div>
 

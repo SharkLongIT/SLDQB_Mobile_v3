@@ -67,6 +67,7 @@ namespace BBK.SaaS.Mobile.MAUI.Shared
                 await JS.InvokeVoidAsync("KTDrawer.init");
                 await JS.InvokeVoidAsync("KTImageInput.init");
                 await JS.InvokeVoidAsync("KTMenu.init");
+                //await JS.InvokeVoidAsync("MenuSideBar");
                 await JS.InvokeVoidAsync("KTPasswordMeter.init");
                 await JS.InvokeVoidAsync("KTScroll.init");
                 await JS.InvokeVoidAsync("KTScrolltop.init");
