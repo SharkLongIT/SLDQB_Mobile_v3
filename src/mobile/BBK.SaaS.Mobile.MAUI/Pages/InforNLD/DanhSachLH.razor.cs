@@ -14,6 +14,7 @@ using BBK.SaaS.Core.Threading;
 using BBK.SaaS.Mobile.MAUI.Models.NguoiTimViec;
 using Abp.Extensions;
 using Microsoft.AspNetCore.Components;
+using Android.Net.Wifi.Aware;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
 {
@@ -32,7 +33,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
 
         protected override async Task OnInitializedAsync()
         {
-            await SetPageHeader(L("Danh sách lịch hẹn"));
         }
         public DanhSachLH()
         {
@@ -116,6 +116,42 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
             navigationService.NavigateTo($"ThongTinVTN?Id={appointment.Recruitment.Id}&WorkAddress={appointment.Recruitment.WorkAddress}&Experiences={appointment.JobApplication.Experiences.DisplayName}&SphereOfActivity={appointment.Recruiter.SphereOfActivity.DisplayName}&HumanResSizeCat={appointment.Recruiter.HumanResSizeCat.DisplayName}");
 
         }
+        public async Task ViewDetail(DatLichModel datLichModel)
+        {
+            if (datLichModel.StatusOfCandidate == 2 || datLichModel.StatusOfCandidate == 3)
+            {
+                datLichModel.IsView = true;
+                await chiTietLHModal.OpenFor(datLichModel);
+            }
+        }
+
+        public async Task Refuse(DatLichModel datLichModel)
+        {
+            datLichModel.IsAgree = false;
+            datLichModel.IsView = false;
+            datLichModel.IsReject = true;
+            await chiTietLHModal.OpenFor(datLichModel);
+        }
+        public async Task Except(DatLichModel datLichModel)
+        {
+            datLichModel.IsAgree = true;
+            datLichModel.IsView = false;
+            datLichModel.IsReject = false;
+            await chiTietLHModal.OpenFor(datLichModel);
+        }
+        public async Task View(DatLichModel datLichModel)
+        {
+            datLichModel.IsAgree = false;
+            datLichModel.IsView = true;
+            datLichModel.IsReject = false;
+            await chiTietLHModal.OpenFor(datLichModel);
+        }
+
+
+
+
+
+
         private async void UpdateStatus(DatLichModel datLichModel)
         {
             if (datLichModel.StatusOfCandidate == 2 || datLichModel.StatusOfCandidate == 3)
@@ -140,13 +176,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
                     datLichModel.IsView = false;
                     datLichModel.IsReject = true;
                     await chiTietLHModal.OpenFor(datLichModel);
-                    //makeAnAppointmentAppService.UpdateForCandidate(new MakeAnAppointmentDto()
-                    //{
-                    //    Id = datLichModel.Id,
-                    //    StatusOfCandidate = 3,
-                    //    // ReasonForRefusal = ReasonForRefusal
-                    //});
-                    //await UserDialogsService.AlertSuccess(L("Từ chối thành công"));
+                   
                 }
                 else if (response == "Xác nhận")
                 {
@@ -154,13 +184,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
                     datLichModel.IsView = false;
                     datLichModel.IsReject = false;
                     await chiTietLHModal.OpenFor(datLichModel);
-                    //makeAnAppointmentAppService.UpdateForCandidate(new MakeAnAppointmentDto()
-                    //{
-                    //    Id = datLichModel.Id,
-                    //    StatusOfCandidate = 2,
-                    //    // ReasonForRefusal = ReasonForRefusal
-                    //});
-                    //await UserDialogsService.AlertSuccess(L("Xác nhận thành công"));
                 }
                 else if (response == "Xem chi tiết")
                 {
@@ -169,7 +192,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
                     datLichModel.IsReject = false;
                     await chiTietLHModal.OpenFor(datLichModel);
                 }
-               
+
             }
 
         }

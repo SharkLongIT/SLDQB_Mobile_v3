@@ -132,9 +132,18 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
         }
         public async Task DeletePost(RecruitmentDto recruitmentDto)
         {
-            await iRecruitmentAppService.DeleteDoc(recruitmentDto.Id);
-            await UserDialogsService.AlertSuccess(L("Xoá thành công " + recruitmentDto.Title));
-            await RefeshList();
+            var Isdelete = await UserDialogsService.Confirm("Bạn chắc muốn xoá tin tuyển dụng?", "Xóa", "Huỷ");
+            if (Isdelete == true)
+            {
+                await iRecruitmentAppService.DeleteDoc(recruitmentDto.Id);
+                await UserDialogsService.AlertSuccess(L("Xoá thành công " + recruitmentDto.Title));
+                await RecruitmentContrainer.RefreshDataAsync();
+                await RefeshList();
+            }
+            else
+            {
+
+            }
 
         }
         private async void DisPlayAction(RecruitmentDto recruitmentDto)

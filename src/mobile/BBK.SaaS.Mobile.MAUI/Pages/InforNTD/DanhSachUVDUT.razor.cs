@@ -24,6 +24,7 @@ using Microsoft.AspNetCore.Components;
 using Abp.Application.Services.Dto;
 using BBK.SaaS.Mdls.Profile.Candidates.Dto;
 using BBK.SaaS.Mdls.Profile.Candidates;
+using BBK.SaaS.ViecTimNguoi;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
 {
@@ -217,9 +218,26 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
         {
                 await datLich.OpenFor(applicationRequest);
         }
+     
+        public async Task DeleteAppRequest(ApplicationRequestEditDto applicationRequest)
+        {
+            var Isdelete = await UserDialogsService.Confirm("Bạn chắc muốn xoá ?", "Xóa", "Huỷ");
+            if (Isdelete == true)
+            {
+                await applicationRequestAppService.Delete(applicationRequest.Id);
+                await UserDialogsService.AlertSuccess(L("Xóa thành công"));
+                await ApplicationRequestContainer.RefreshDataAsync();
+                StateHasChanged();
+            }
+            else
+            {
+
+            }
+        }
+
         private async void DisPlayAction(ApplicationRequestEditDto applicationRequest)
         {
-            string response = await App.Current.MainPage.DisplayActionSheet("Lựa chọn", null, null, "Xem CV ứng viên","Đặt lịch", "Xóa");
+            string response = await App.Current.MainPage.DisplayActionSheet("Lựa chọn", null, null, "Xem CV ứng viên", "Đặt lịch", "Xóa");
             if (response == "Đặt lịch")
             {
                 await BookUser(applicationRequest);

@@ -3,7 +3,8 @@
 @attribute [Route("/" + NavigationUrlConsts.DSCVDaUngTuyen)]
 
 
-<div class="content mt-n4  search-box search-header bg-theme card-style me-3 ms-3 mb-2 mt-4" style="background-color:#FFF !important; ">
+
+<div class="content mt-2  search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important; ">
     <i class="fa fa-search"></i>
     <input type="search" class="border-0" @bind="_filter.Search" placeholder="Tìm kiếm thông tin" @oninput="selectedValue">
 </div>
@@ -23,71 +24,79 @@ else
     <Virtualize @ref="ApplicationRequestContainer" Context="application" ItemsProvider="@LoadApplicationRequest" ItemSize="100">
         <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3" style="background-color:#FFF !important; ">
 
-                <div class="d-flex">
-                    <div>
-                        <img src="@application.Recruitment.Recruiter.AvatarUrl" class="me-3 rounded-m" width="110">
-                    </div>
-                    <div>
-                        <h5 class="font-700 text-uppercase">  @application.Recruitment.Title</h5>
-                        <h1 class="font-500 font-15 line-height-m">
-                            @application.Recruitment.Recruiter.CompanyName
-                        </h1>
-                        <span class="badge bg-blue-dark text-uppercase font-12">
-                            <i class="fa-solid fa-city pe-1"></i>
-                            @application.JobApplication.Title
-                        </span>
-                        <span class="badge bg-gray-dark text-uppercase font-12">
-                            <i class="fa-regular fa-star pe-1"></i>
-                            @application.Recruitment.Ranks.DisplayName
-                        </span>
-
-                        @if (application.Status == 1)
-                        {
-                            <div>
-                                <span class="badge bg-gray-dark text-uppercase font-12">
-                                    Đang ứng tuyển
-                                </span>
-                            </div>
-                        }
-                        else if (application.Status == 2)
-                        {
-                            <div>
-                                <span class="badge bg-red-dark text-uppercase font-12 ml-3">
-                                    NTD đã xem
-                                </span>
-                            </div>
-
-
-                        }
-                        else if (application.Status == 3)
-                        {
-                            <div>
-                                <span class="badge bg-green-dark text-uppercase font-12">
-                                    Hồ sơ phù hợp
-                                </span>
-                            </div>
-                        }
-                        else
-                        {
-                            <div>
-                                <span class="badge bg-gray-dark text-uppercase font-12">
-                                    Chưa xác định
-                                </span>
-                            </div>
-                        }
-                    </div>
-                    <div class="ms-auto">
-                        <i class="fa-solid fa-caret-down float-end " @onclick="(() => DisPlayAction(application))"></i>
-                    </div>
+            <div class="d-flex">
+                <div>
+                    <img src="@application.Recruitment.Recruiter.AvatarUrl" class="me-3 rounded-m" width="110">
                 </div>
                 <div>
-                    <span class="badge bg-gray-dark text-uppercase font-12">
-                        Ngày ứng tuyển:
-                        @application.CreationTime.ToString("dd/MM/yyyy")
+                    <h5 class="font-700 text-uppercase">  @application.Recruitment.Title</h5>
+                    <h1 class="font-500 font-15 line-height-m">
+                        @application.Recruitment.Recruiter.CompanyName
+                    </h1>
+                    <span class="badge bg-blue-dark text-uppercase font-12">
+                        <i class="fa-solid fa-city pe-1"></i>
+                        @application.JobApplication.Title
                     </span>
-                </div>
-                <div class="divider mt-3 mb-3"></div>
+                    <span class="badge bg-gray-dark text-uppercase font-12">
+                        <i class="fa-regular fa-star pe-1"></i>
+                        @application.Recruitment.Ranks.DisplayName
+                    </span>
 
+                    @if (application.Status == 1)
+                    {
+                        <div>
+                            <span class="badge bg-gray-dark text-uppercase font-12">
+                                Đang ứng tuyển
+                            </span>
+                        </div>
+                    }
+                    else if (application.Status == 2)
+                    {
+                        <div>
+                            <span class="badge bg-red-dark text-uppercase font-12 ml-3">
+                                NTD đã xem
+                            </span>
+                        </div>
+
+
+                    }
+                    else if (application.Status == 3)
+                    {
+                        <div>
+                            <span class="badge bg-green-dark text-uppercase font-12">
+                                Hồ sơ phù hợp
+                            </span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <span class="badge bg-gray-dark text-uppercase font-12">
+                                Chưa xác định
+                            </span>
+                        </div>
+                    }
+                </div>
+                <div class="ms-auto">
+                    @* <i class="fa-solid fa-caret-down float-end " @onclick="(() => DisPlayAction(application))"></i> *@
+                    <a data-bs-toggle="dropdown" class="icon icon-m color-theme"><i class="fa fa-ellipsis-h"></i></a>
+                    <div class="dropdown-menu border-0 bg-theme rounded-m shadow-xl px-2 mt-n4">
+                        <div class="list-group list-custom-small mt-n2 mb-n2">
+                            <a @onclick="(() => ViewJob(application))" data-menu="menu-archive"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Xem công việc<i class="fa"></i></a>
+                            <a @onclick="(() => ViewCompany(application))" data-menu="menu-download"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Xem trang công ty<i class="fa"></i></a>
+                            <a @onclick="(() => ViewApplication(application))" data-menu="menu-delete"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Xem lại CV<i class="fa"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div>
+                <span class="badge bg-gray-dark text-uppercase font-12">
+                    Ngày ứng tuyển:
+                    @application.CreationTime.ToString("dd/MM/yyyy")
+                </span>
+            </div>
+            <div class="divider mt-3 mb-3"></div>
+
+        </div>
     </Virtualize>
 }

@@ -174,12 +174,13 @@
         <div class="collapse ps-2 pe-4" id="collapse-7">
             @if (Model.JobApplication.WorkExperiences != null && Model.JobApplication.WorkExperiences.Count > 0)
             {
-
                 <div class="content">
-
                     @foreach (var workExperience in Model.JobApplication.WorkExperiences)
                     {
                         <div class="list-group list-custom-small pb-4 mb-2 exp-list">
+                              <div class="ms-auto">
+                              <i class="fa-solid fa-caret-down float-end " @onclick="(() => DisPlayAction(workExperience))"></i>
+                                </div>
                             <div>
                                 <span style="float: left" class="work-position">@workExperience.Positions</span>
                                 <span style="float: right" class="start-end-date">
@@ -220,6 +221,9 @@
                     @foreach (var learningprocess in Model.JobApplication.LearningProcess)
                     {
                         <div class="list-group list-custom-small pb-4 mb-2 learn-list">
+                             <div class="ms-auto">
+                              <i class="fa-solid fa-caret-down float-end " @onclick="(() => DisPlayActionLearn(learningprocess))"></i>
+                                </div>
                             <div>
                                 <span style="float: left" class="academic">
                                     @learningprocess.AcademicDiscipline

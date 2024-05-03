@@ -15,56 +15,67 @@
     <i class="fa fa-search"></i>
     <input type="search" class="border-0" @bind="_filter.Filtered" placeholder="Tìm kiếm thông tin" @oninput="selectedValue">
 </div>
-<div class="card card-style">
-    <div class="content">
         @if (isError == true)
-        {
+{
+    <div class="card card-style">
+        <div class="content">
             <div class="text-error">
                 <h3>Không tìm thấy kết quả!!!</h3>
                 <span class="mt-2">Thử tìm kiếm với từ khoá khác.</span>
             </div>
-        }
-        else
-        {
-            <Virtualize @ref="RecruitmentContrainer" Context="recruitment" ItemsProvider="@LoadRecruitmentPost" ItemSize="100">
+        </div>
+    </div>
+}
+else
+{
+    <Virtualize @ref="RecruitmentContrainer" Context="recruitment" ItemsProvider="@LoadRecruitmentPost" ItemSize="100">
 
-                <div class="d-flex">
-                    <div class="d-flex">
-                        <div>
-                            <img src="@recruitment.Recruiter.AvatarUrl" class="me-3 rounded-m" width="110">
-                        </div>
-                        <div>
-                            <h5 class="font-700 text-uppercase">  @recruitment.Title</h5>
-                            <h1 class="font-500 font-15 line-height-m">
-                                @recruitment.Recruiter.CompanyName
-                            </h1>
-                            <span class="badge bg-green-dark text-uppercase font-12">
-                                <i class="fa-solid fa-dollar-sign pe-1"></i>
-                                @{
-                                    var minSalaryInMillion = Math.Truncate(recruitment.MinSalary / 1000000);
-                                    var maxSalaryInMillion = Math.Truncate(recruitment.MaxSalary / 1000000);
-                                }
-                                @minSalaryInMillion - @maxSalaryInMillion triệu
-                            </span>
-                            <span class="badge bg-blue-dark text-uppercase font-12">
-                                <i class="fa-solid fa-city pe-1"></i>
-                                @recruitment.WorkAddress
-                            </span>
-                            <span class="badge bg-gray-dark text-uppercase font-12">
-                                <i class="fa-regular fa-star pe-1"></i>
-                                @recruitment.Experiences.DisplayName
-                            </span>
-                        </div>
-                    </div>
-                    <div class="ms-auto">
-                        <i class="fa-solid fa-caret-down float-end " @onclick="(() => DisPlayAction(recruitment))"></i>
+        <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3" style="background-color:#FFF !important; ">
+
+            <div class="d-flex">
+                <div>
+                    <img src="@recruitment.Recruiter.AvatarUrl" class="me-3 rounded-m" width="110">
+                </div>
+                <div>
+                    <h5 class="font-700 text-uppercase">  @recruitment.Title</h5>
+                    <h1 class="font-500 font-15 line-height-m">
+                        @recruitment.Recruiter.CompanyName
+                    </h1>
+                    <span class="badge bg-green-dark text-uppercase font-12">
+                        <i class="fa-solid fa-dollar-sign pe-1"></i>
+                        @{
+                            var minSalaryInMillion = Math.Truncate(recruitment.MinSalary / 1000000);
+                            var maxSalaryInMillion = Math.Truncate(recruitment.MaxSalary / 1000000);
+                        }
+                        @minSalaryInMillion - @maxSalaryInMillion triệu
+                    </span>
+                    <span class="badge bg-blue-dark text-uppercase font-12">
+                        <i class="fa-solid fa-city pe-1"></i>
+                        @recruitment.WorkAddress
+                    </span>
+                    <span class="badge bg-gray-dark text-uppercase font-12">
+                        <i class="fa-regular fa-star pe-1"></i>
+                        @recruitment.Experiences.DisplayName
+                    </span>
+                </div>
+            </div>
+            <div class="ms-auto">
+                @* <i class="fa-solid fa-caret-down float-end " @onclick="(() => DisPlayAction(recruitment))"></i> *@
+
+                <a data-bs-toggle="dropdown" class="icon icon-m color-theme"><i class="fa fa-ellipsis-h float-end"></i></a>
+                <div class="dropdown-menu border-0 bg-theme rounded-m shadow-xl px-2 mt-n4">
+                    <div class="list-group list-custom-small mt-n2 mb-n2">
+                        <a @onclick="(() => ViewRecruitment(recruitment))" data-menu="menu-archive"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Xem tin<i class="fa"></i></a>
+                        <a @onclick="(() => UpdatePost(recruitment))" data-menu="menu-download"><i class="fa font-14 fa-pencil color-blue-dark opacity-60"></i>Sửa tin<i class="fa"></i></a>
+                        <a @onclick="(() => DeletePost(recruitment))" data-menu="menu-delete"><i class="fa font-14 fa-trash color-red-dark opacity-60"></i>Xoá tin<i class="fa"></i></a>
                     </div>
                 </div>
-                <div class="divider mt-3 mb-3"></div>
-            </Virtualize>
-        }
-    </div>
-</div>
+
+            </div>
+        </div>
+    </Virtualize>
+}
+
 
 <CreateRecruitmentModal OnSave="RefeshList" @ref="createRecruitmentModal"></CreateRecruitmentModal>
 <UpdateRecruimentModal OnSave="RefeshList" @ref="updateRecruitmentModal"></UpdateRecruimentModal>

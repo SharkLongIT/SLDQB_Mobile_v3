@@ -23,128 +23,145 @@ else
     <Virtualize @ref="makeAnAppointmentContainer" Context="appointment" ItemsProvider="@LoadListMakeAnAppointment" ItemSize="100">
         <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3" style="background-color:#FFF !important; ">
 
-                <div class="d-flex">
-                    <div>
-                        <h5 class="font-700 text-uppercase">
-                                @appointment.Recruitment.Title
-                        </h5>
+            <div class="d-flex">
+                <div>
+                    <h5 class="font-700 text-uppercase">
+                        @appointment.Recruitment.Title
+                    </h5>
 
-                        <div class="font-12">
-                            <span class="company">
-                                Tên công ty:
-                            </span>
-                                @appointment.Recruiter.CompanyName
-                        </div>
-                        <div class="font-12">
-                            <span class="name-job">
-                                Tên hồ sơ ứng tuyển:
-                            </span>
-                                @appointment.Recruitment.Title
-                        </div>
-                        <div class="font-12">
-                            <span class="rank">
-                                Vị trí ứng tuyển:
-                            </span>
-                                @appointment.Ranks.DisplayName
-                        </div>
-                        <div class="font-12">
-                            <span class="interview">
-                                Ngày hẹn:
-                            </span>
-                                @appointment.InterviewTime.ToString("dd/MM/yyyy")
-                        </div>
-                        <div class="font-12">
-                            <span class="typeInterview">
-                                Ngày hẹn:
-                            </span>
-                                @appointment.TypeInterview
-                        </div>
-                        @if (appointment.StatusOfCandidate == 1)
-                        {
-                            <div class="font-12">
-                                <span class="result">
-                                    Kết quả :
-                                </span>
-                                <span class="wait">
-                                    Chờ phỏng vấn
-                                </span>
-                            </div>
-                        }
-                        else if (appointment.StatusOfCandidate == 2)
-                        {
-                            <div class="font-12">
-                                <span class="result">
-                                    Kết quả :
-                                </span>
-                                <span class="accept">
-                                    Xác nhận phỏng vấn
-                                </span>
-                            </div>
-
-                        }
-                        else if (appointment.StatusOfCandidate == 3)
-                        {
-                            <div class="font-12">
-                                <span class="result">
-                                    Kết quả :
-                                </span>
-                                <span class="refuse">
-                                    Từ chối phỏng vấn
-                                </span>
-                            </div>
-
-                        }
-                        else
-                        {
-                            <div class="font-12">
-                                <span class="result">
-                                    Kết quả :
-                                </span>
-                                <span class="interviewed">
-                                    Đã phỏng vấn
-                                </span>
-                            </div>
-                        }
-                        @if (appointment.InterviewResultLetter == 0)
-                        {
-                            <div class="font-12">
-                                <span class="status">
-                                    Trạng thái phỏng vấn:
-                                </span>
-                                <span class="no-point">
-                                    Chưa có kết quả
-                                </span>
-                            </div>
-
-                        }
-                        else if (appointment.InterviewResultLetter == 1)
-                        {
-                            <div class="font-12">
-                                <span class="status">
-                                    Trạng thái phỏng vấn:
-                                </span>
-                                <span class="pass">
-                                    Đỗ
-                                </span>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="font-12">
-                                <span class="status">
-                                    Trạng thái phỏng vấn:
-                                </span>
-                                <span class="fail">
-                                    Trượt
-                                </span>
-                            </div>
-                        }
+                    <div class="font-12">
+                        <span class="company">
+                            Tên công ty:
+                        </span>
+                        @appointment.Recruiter.CompanyName
                     </div>
-                    <div class="ms-auto">
-                        <i class="fa-solid fa-caret-down float-end" @onclick="(() => UpdateStatus(appointment))"></i>
+                    <div class="font-12">
+                        <span class="name-job">
+                            Tên hồ sơ ứng tuyển:
+                        </span>
+                        @appointment.Recruitment.Title
+                    </div>
+                    <div class="font-12">
+                        <span class="rank">
+                            Vị trí ứng tuyển:
+                        </span>
+                        @appointment.Ranks.DisplayName
+                    </div>
+                    <div class="font-12">
+                        <span class="interview">
+                            Ngày hẹn:
+                        </span>
+                        @appointment.InterviewTime.ToString("dd/MM/yyyy")
+                    </div>
+                    <div class="font-12">
+                        <span class="typeInterview">
+                            Ngày hẹn:
+                        </span>
+                        @appointment.TypeInterview
+                    </div>
+                    @if (appointment.StatusOfCandidate == 1)
+                    {
+                        <div class="font-12">
+                            <span class="result">
+                                Kết quả :
+                            </span>
+                            <span class="wait">
+                                Chờ phỏng vấn
+                            </span>
+                        </div>
+                    }
+                    else if (appointment.StatusOfCandidate == 2)
+                    {
+                        <div class="font-12">
+                            <span class="result">
+                                Kết quả :
+                            </span>
+                            <span class="accept">
+                                Xác nhận phỏng vấn
+                            </span>
+                        </div>
+
+                    }
+                    else if (appointment.StatusOfCandidate == 3)
+                    {
+                        <div class="font-12">
+                            <span class="result">
+                                Kết quả :
+                            </span>
+                            <span class="refuse">
+                                Từ chối phỏng vấn
+                            </span>
+                        </div>
+
+                    }
+                    else
+                    {
+                        <div class="font-12">
+                            <span class="result">
+                                Kết quả :
+                            </span>
+                            <span class="interviewed">
+                                Đã phỏng vấn
+                            </span>
+                        </div>
+                    }
+                    @if (appointment.InterviewResultLetter == 0)
+                    {
+                        <div class="font-12">
+                            <span class="status">
+                                Trạng thái phỏng vấn:
+                            </span>
+                            <span class="no-point">
+                                Chưa có kết quả
+                            </span>
+                        </div>
+
+                    }
+                    else if (appointment.InterviewResultLetter == 1)
+                    {
+                        <div class="font-12">
+                            <span class="status">
+                                Trạng thái phỏng vấn:
+                            </span>
+                            <span class="pass">
+                                Đỗ
+                            </span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="font-12">
+                            <span class="status">
+                                Trạng thái phỏng vấn:
+                            </span>
+                            <span class="fail">
+                                Trượt
+                            </span>
+                        </div>
+                    }
+                </div>
+                <div class="ms-auto">
+                    @* <i class="fa-solid fa-caret-down float-end" @onclick="(() => UpdateStatus(appointment))"></i> *@
+                    <a data-bs-toggle="dropdown" class="icon icon-m color-theme"><i class="fa fa-ellipsis-h"></i></a>
+                    <div class="dropdown-menu border-0 bg-theme rounded-m shadow-xl px-2 mt-n4">
+                        <div class="list-group list-custom-small mt-n2 mb-n2">
+                            @if (appointment.StatusOfCandidate == 2 || appointment.StatusOfCandidate == 3)
+                            {
+                                <a @onclick="(() => ViewDetail(appointment))" data-menu="menu-archive"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Chi tiết tin<i class="fa"></i></a>
+                                <a @onclick="(() => ViewJob(appointment))" data-menu="menu-download"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Xem công việc<i class="fa"></i></a>
+                            }
+                            else
+                            {
+                                <a @onclick="(() => Refuse(appointment))" data-menu="menu-download"><i class="fa font-14 fa-times color-red-dark opacity-60"></i>Từ chối<i class="fa"></i></a>
+                                <a @onclick="(() => Except(appointment))" data-menu="menu-download"><i class="fa font-14 fa-check color-green-dark opacity-60"></i>Xác nhận<i class="fa"></i></a>
+                                <a @onclick="(() => View(appointment))" data-menu="menu-archive"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Chi tiết tin<i class="fa"></i></a>
+
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
     </Virtualize>
 }
 <ChiTietLHModal OnSave="RefeshList" @ref=chiTietLHModal></ChiTietLHModal>

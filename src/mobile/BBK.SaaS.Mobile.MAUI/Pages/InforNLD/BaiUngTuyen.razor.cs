@@ -23,7 +23,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
         protected IUserProfileService UserProfileService { get; set; }
 
         protected INavigationService navigationService { get; set; }
-        private string _SearchText = ""; 
+        private string _SearchText = "";
         private bool isError = false;
         private bool _IsCancelList;
 
@@ -72,7 +72,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
                 async (result) =>
                 {
                     var jobFilter = ObjectMapper.Map<List<CreateOrEditJobModel>>(result.Items);
-                     _userImage = await UserProfileService.GetProfilePicture(ApplicationContext.LoginInfo.User.Id);
+                    _userImage = await UserProfileService.GetProfilePicture(ApplicationContext.LoginInfo.User.Id);
                     if (jobFilter.Count == 0)
                     {
                         isError = true;
@@ -105,6 +105,18 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
             await createOrEditJobModal.OpenFor(null);
         }
 
+        public async Task DeleteJobApplication(CreateOrEditJobModel user)
+        {
+            var Isdelete = await UserDialogsService.Confirm("Bạn có chắc chắn xóa bài ứng tuyển không", "Xóa bài ứng tuyển");
+            if (Isdelete == true) { 
+                await jobApplicationAppService.DeleteJobApplication(new Abp.Application.Services.Dto.NullableIdDto<long> { Id = user.Id });
+                await UserDialogsService.AlertSuccess(L("Xóa thành công"));
+                await RefeshList();
+            }
+            else
+            {
+            }
+        }
         private async void DisPlayAction(CreateOrEditJobModel CreateOrEditJobModel)
         {
             string response = await App.Current.MainPage.DisplayActionSheet("Lựa chọn", null ,  null, "Xem hồ sơ", "Sửa hồ sơ", "Xóa");

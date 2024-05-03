@@ -13,7 +13,7 @@
 <div class="content mb-0">
     <div class="input-style no-borders has-icon validate-field mb-4">
         <i class="fa fa-user"></i>
-        <input type="text" @bind-value="UserName" class="form-control validate-name" id="form1a" placeholder="Tên đầy đủ">
+        <input type="text" @bind-value="Model.Name" class="form-control validate-name" id="form1a" placeholder="Tên đầy đủ">
         <label for="form1a" class="color-blue-dark">Name</label>
         <i class="fa fa-times disabled invalid color-red-dark"></i>
         <i class="fa fa-check disabled valid color-green-dark"></i>
@@ -21,7 +21,7 @@
     </div>
     <div class="input-style no-borders has-icon validate-field mb-4">
         <i class="fa fa-envelope"></i>
-        <input type="text" class="form-control validate-name" id="form1a" placeholder="Email">
+        <input type="text" @bind="Model.EmailAddress" class="form-control validate-name" id="form1a" placeholder="Email">
         <label for="form1a" class="color-blue-dark">Email</label>
         <i class="fa fa-times disabled invalid color-red-dark"></i>
         <i class="fa fa-check disabled valid color-green-dark"></i>
@@ -29,69 +29,35 @@
     </div>
     <div class="input-style no-borders has-icon validate-field mb-4">
         <i class="fa fa-lock"></i>
-        <input type="password" @bind-value="Password" class="form-control validate-text" id="form3a" placeholder="Mật khẩu">
+        <input type="password" @bind-value="Model.Password" class="form-control validate-text" id="form3a" placeholder="Mật khẩu">
         <label for="form3a" class="color-blue-dark">Password</label>
         <i class="fa fa-times disabled invalid color-red-dark"></i>
         <i class="fa fa-check disabled valid color-green-dark"></i>
         <em>(bắt buộc)</em>
     </div>
-  @*   <div class="row">
-        <div class="col-sm-12">
-            <p class="m-b-5">Bạn là</p>
-        </div>
-        <div class="col-6 form-group mb-4">
-            <div class="form-check radio radio-warning m-0 w-100">
-                <input class="form-check-input" id="radio26" type="radio" name="UserType" value="2" checked="">
-                <label class="form-check-label mb-0 w-100" for="radio26"><span class="flex-grow-1"><span class="mt-0 mega-title-badge no-wrap">Người lao động</span></span></label>
-
-            </div>
-        </div>
-        <div class="col-6 form-group mb-4">
-            <div class="form-check radio radio-danger m-0 w-100">
-                <input class="form-check-input" id="radio27" type="radio" name="UserType" value="1">
-                <label class="form-check-label mb-0 w-100" for="radio27"><span class="flex-grow-1"><span class="mt-0 mega-title-badge no-wrap">Nhà tuyển dụng</span></span></label>
-            </div>
-
-        </div>
-    </div> *@
     <div class="row">
         <div class="col-sm-12">
             <p class="m-b-5">Bạn là</p>
         </div>
         <div class="col-6 form-check icon-check ms-5">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" value="" id="radio5">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio5">
             <label class="form-check-label" for="radio5">Người lao động</label>
             <i class="icon-check-1 fa fa-thumbs-down color-gray-dark font-16"></i>
             <i class="icon-check-2 fa fa-thumbs-up font-16 color-highlight"></i>
         </div>
         <div class="col-6 form-check icon-check">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" value="" id="radio6">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio6">
             <label class="form-check-label" for="radio6">Nhà tuyển dụng</label>
             <i class="icon-check-1 far fa-frown color-gray-dark font-16"></i>
             <i class="icon-check-2 far fa-smile font-16 color-highlight"></i>
         </div>
     </div>
-   
-
-   
-
-
- @*    <div class="row">
-        <div class="col-6">
-            <a href="#" data-menu="menu-forgot-1" class="font-10">Quên mật khẩu?</a>
-        </div>
-        <div class="col-6">
-            <a data-menu="menu-register-1" href="/Register" class="float-end font-10">Đăng ký tài khoản mới</a>
-            <div class="clearfix"></div>
-        </div>
-    </div> *@
     <div class="d-flex mb-4">
         <input type="checkbox" />
         <span class="ms-2">Đồng ý với <a style="color: lightgreen">Điều khoản sử dụng</a></span>
     </div>
-    <a href="#" @onclick="LoginUser" class="btn btn-full btn-m shadow-l rounded-s text-uppercase font-900 bg-green-dark mt-n2">Đăng ký</a>
+    <a @onclick="RegisterUser" class="btn btn-full btn-m shadow-l rounded-s text-uppercase font-900 bg-green-dark mt-n2">Đăng ký</a>
     <div class="divider divider-margins mt-4 mb-4"></div>
-    @* <div class="divider divider-margins ">Hoặc đăng ký bằng</div> *@
     <p class=" mb-2">
         <a href="https://facebook.com" class="btn btn-icon btn-m rounded-sm btn-full shadow-l bg-facebook text-uppercase font-900 text-start"><i class="fab bg-transparent fa-facebook-f text-center"></i>Đăng ký bằng Facebook</a>
         <a href="https://google.com" class="btn btn-icon btn-m rounded-sm mt-2 btn-full shadow-l bg-google text-uppercase font-900 text-start"><i class="fab bg-transparent fa-google text-center"></i>Đăng ký bằng Google</a>

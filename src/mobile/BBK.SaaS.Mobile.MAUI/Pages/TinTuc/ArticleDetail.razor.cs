@@ -66,7 +66,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
         protected override async Task OnInitializedAsync()
         {
             _IsInitialication = false; 
-            await SetPageHeader(L("Chi tiết tin tức"), new List<Services.UI.PageHeaderButton>());
             var querySegment = NavigationManager.Uri.Substring(NavigationManager.Uri.IndexOf("ArticleDetail") + "ArticleDetail".Length);
             var q1 = System.Web.HttpUtility.ParseQueryString(querySegment);
 
@@ -238,13 +237,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
             //var category = await fECntCategoryAppService.GetCategory(new GetCategoryInput()
             //{
             //    CategoryId = Model.CategoryId,
-            //    SearchArticlesInput = new SearchArticlesInput() { 
-
-            //        MaxResultCount = 25 ,
-            //        CategoryId = Model.CategoryId,
-            //        Filter = "",
-            //        TenantId = ApplicationContext.CurrentTenant.TenantId,
-            //    }
+            //    SearchArticlesInput = new SearchArticlesInput() { MaxResultCount = 5 }
             //});
             //if (category != null)
             //{

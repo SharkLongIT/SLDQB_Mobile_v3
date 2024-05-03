@@ -70,8 +70,8 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.LienHe
             //}
             if (Model.FullName == null || string.IsNullOrEmpty(Model.FullName))
             {
-                //await UserDialogsService.AlertWarn("Họ và tên không được để trống!");
-                await App.Current.MainPage.DisplayAlert("Lỗi", "Họ và tên không được để trống", "Ok");
+                await UserDialogsService.AlertWarn("Họ và tên không được để trống!");
+                //await App.Current.MainPage.DisplayAlert("Lỗi", "Họ và tên không được để trống", "Ok");
                 return false;
             }
             if (Model.Email == null || string.IsNullOrEmpty(Model.Email))

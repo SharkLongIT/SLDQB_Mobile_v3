@@ -390,13 +390,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 
         #endregion
 
-        public async Task NavLogin()
-        {
-            navigationService.NavigateTo(NavigationUrlConsts.Login);
-        }
-     
-
-
 
         public static string GetTimeSince(DateTime objDateTime)
         {

@@ -87,10 +87,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
 
             return cmsCatDto;
         }
-        //private void NavigateToCategory(int categoryId, string categoryName, MouseEventArgs e)
-        //{
-        //    navigationService.NavigateTo($"Category?categoryId={categoryId}&categoryName={categoryName}");
-        //}
         #endregion
 
 
@@ -131,7 +127,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
         }
         public async Task ViewArticle(ArticleModel article)
         {
-            navigationService.NavigateTo($"ArticleDetail?Id={article.Id}&CategoryId={1}");
+            navigationService.NavigateTo($"ArticleDetail?Id={article.Id}");
         }
         public async Task GetArticleByCategory(CmsCatDto cmsCatDto)
         {
