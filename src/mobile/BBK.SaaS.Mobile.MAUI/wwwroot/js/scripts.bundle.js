@@ -16,7 +16,7 @@ var KTBlockUI = function(element, options) {
         zIndex: false,
         overlayClass: '',
         overflow: 'hidden',
-        message: '<span class="spinner-border text-primary"></span>'
+        message: '<div class="preloader d-flex justify-content-center"> <div class="spinner-border text-primary"></div></div>'
     };
 
     ////////////////////////////
