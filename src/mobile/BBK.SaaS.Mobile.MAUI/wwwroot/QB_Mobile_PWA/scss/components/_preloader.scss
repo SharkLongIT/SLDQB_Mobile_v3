@@ -14,6 +14,15 @@
 		margin-left: -15px;
 	}
 }
+.preloader {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	z-index: 99999;
+	transition: all 200ms ease;
+}
 .preloader-hide {
 	opacity: 0;
 	pointer-events: none;

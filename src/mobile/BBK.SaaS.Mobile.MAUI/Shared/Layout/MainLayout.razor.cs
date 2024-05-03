@@ -86,7 +86,8 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
             var navigationService = DependencyResolver.Resolve<INavigationService>();
             navigationService.Initialize(NavigationManager);
 
-            _logoURL = await DependencyResolver.Resolve<TenantCustomizationService>().GetTenantLogo();
+            //_logoURL = await DependencyResolver.Resolve<TenantCustomizationService>().GetTenantLogo();
+            
             await SetLayout();
         }
         private async Task GetUserPhoto()
@@ -105,7 +106,8 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
             {
                 await Task.Delay(200);
                 await JS.InvokeVoidAsync("KTMenu.init");
-                  //await GetUserPhoto();
+                await GetUserPhoto();
+                //await GetUserPhoto();
                 //await JS.InvokeVoidAsync("MenuSideBar");
             }
         }
@@ -181,12 +183,15 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
         {
             var dom = DependencyResolver.Resolve<DomManipulatorService>();
             await dom.ClearAllAttributes(JS, "body");
-            await dom.SetAttribute(JS, "body", "id", "kt_app_body");
-            await dom.SetAttribute(JS, "body", "data-kt-app-layout", "light-sidebar");
-            await dom.SetAttribute(JS, "body", "data-kt-app-sidebar-enabled", "true");
-            await dom.SetAttribute(JS, "body", "data-kt-app-sidebar-fixed", "true");
-            await dom.SetAttribute(JS, "body", "data-kt-app-toolbar-enabled", "true");
-            await dom.SetAttribute(JS, "body", "class", "app-default");
+            //await dom.SetAttribute(JS, "body", "id", "kt_app_body");
+            //await dom.SetAttribute(JS, "body", "data-kt-app-layout", "light-sidebar");
+            //await dom.SetAttribute(JS, "body", "data-kt-app-sidebar-enabled", "true");
+            //await dom.SetAttribute(JS, "body", "data-kt-app-sidebar-fixed", "true");
+            //await dom.SetAttribute(JS, "body", "data-kt-app-toolbar-enabled", "true");
+            //await dom.SetAttribute(JS, "body", "class", "app-default");
+            await dom.SetAttribute(JS, "body", "class", "theme-light");
+            await dom.SetAttribute(JS, "body", "data-highlight", "red");
+            await dom.SetAttribute(JS, "body", "data-gradient", "body-default");
         }
 
 
