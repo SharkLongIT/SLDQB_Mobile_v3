@@ -11,6 +11,7 @@ using BBK.SaaS.Mdls.Category.Indexings;
 using BBK.SaaS.Mdls.Category.Indexings.Dto;
 using BBK.SaaS.Mdls.Cms.Articles;
 using BBK.SaaS.Mdls.Cms.Articles.MDto;
+using BBK.SaaS.Mdls.Cms.Categories;
 using BBK.SaaS.Mdls.Profile.Candidates;
 using BBK.SaaS.Mdls.Profile.Candidates.Dto;
 using BBK.SaaS.Mdls.Profile.Recruiters;
@@ -20,12 +21,11 @@ using BBK.SaaS.Mobile.MAUI.Services.Article;
 using BBK.SaaS.Mobile.MAUI.Services.User;
 using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.Services.Navigation;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 {
-	public partial class Index : SaaSMainLayoutPageComponentBase
+    public partial class Index : SaaSMainLayoutPageComponentBase
     {
         protected NavMenu NavMenu { get; set; }
         private bool IsUserLoggedIn;
@@ -38,6 +38,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
         protected IProfileAppService ProfileAppService { get; set; }
         protected IApplicationContext ApplicationContext { get; set; }
         protected IArticleFrontEndService articleFrontEndService { get; set; }
+        protected IFECntCategoryAppService fECntCategoryAppService { get; set; }
         protected IArticleService articleService { get; set; }
         private IAccountAppService _accountAppService;
 
@@ -100,7 +101,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             navigationService = DependencyResolver.Resolve<INavigationService>();
             jobApplicationAppService = DependencyResolver.Resolve<IJobApplicationAppService>();
             recruitmentAppService = DependencyResolver.Resolve<IRecruitmentAppService>();
-			recruiterAppService = DependencyResolver.Resolve<IRecruiterAppService>();
+            recruiterAppService = DependencyResolver.Resolve<IRecruiterAppService>();
             UserProfileService = DependencyResolver.Resolve<IUserProfileService>();
             ApplicationContext = DependencyResolver.Resolve<IApplicationContext>();
             _accountAppService = DependencyResolver.Resolve<IAccountAppService>();
@@ -110,6 +111,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             CatUnitAppService = DependencyResolver.Resolve<ICatUnitAppService>();
             geoUnitAppService = DependencyResolver.Resolve<IGeoUnitAppService>();
             ProfileAppService = DependencyResolver.Resolve<IProfileAppService>();
+            fECntCategoryAppService = DependencyResolver.Resolve<IFECntCategoryAppService>();
 
 
 
@@ -153,12 +155,13 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             //check loggedIn
             IsUserLoggedIn = navigationService.IsUserLoggedIn();
             await Statistical();
-            await LoadNewestArticles(new ItemsProviderRequest());
+            await GetNewestArticles();
+            //await LoadNewestArticles(new ItemsProviderRequest());
         }
 
         bool ListUserNull;
         bool IsFilter;
-       
+
         private async Task RefeshList()
         {
             _SearchText = _filtered.Filtered;
@@ -218,14 +221,74 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             {
                 var articlesFilter = ObjectMapper.Map<List<ArticleModel>>(result.Items.Take(3));
                 articleModel1 = articleDto.Items.Take(1).ToList();
-                articleModel2 = articleDto.Items.Skip(1).Take(2).ToList();
+                //if (articleModel1 != null && articleModel1.Count > 0)
+                //{
+                //    foreach (var item in articleModel1)
+                //    {
+                //        var detail = await articleFrontEndService.GetArticleDetail(new Abp.Application.Services.Dto.EntityDto<long> { Id = item.Id.Value });
+                //        if (detail.Categories != null && detail.Categories[0].Id > 0)
+                //        {
+                //            var Category = await fECntCategoryAppService.GetCategory(new Mdls.Cms.Categories.MDto.GetCategoryInput { CategoryId = detail.Categories[0].Id, SearchArticlesInput = null });
+                //            item.CategoryDisplayName = Category.DisplayName;
+                //        }
+                //    }
+                //}
 
+                articleModel2 = articleDto.Items.Skip(1).Take(2).ToList();
+                //if (articleModel2 != null && articleModel2.Count > 0)
+                //{
+                //    foreach (var item in articleModel2)
+                //    {
+                //        var detail = await articleFrontEndService.GetArticleDetail(new Abp.Application.Services.Dto.EntityDto<long> { Id = item.Id.Value });
+                //        if (detail.Categories != null && detail.Categories[0].Id > 0)
+                //        {
+                //            var Category = await fECntCategoryAppService.GetCategory(new Mdls.Cms.Categories.MDto.GetCategoryInput { CategoryId = detail.Categories[0].Id, SearchArticlesInput = null });
+                //            item.CategoryDisplayName = Category.DisplayName;
+                //        }
+                //    }
+                //}
                 articleDto = new ItemsProviderResult<ArticleModel>(articlesFilter, articlesFilter.Count);
                 await UserDialogsService.UnBlock();
             }
         );
 
             return articleDto;
+        }
+
+        private async Task GetNewestArticles()
+        {
+              await WebRequestExecuter.Execute(
+              async () => await articleFrontEndService.GetNewestArticles(),
+              async (result) =>
+              {
+                  articleModel1 = articleDto.Items.Take(1).ToList();
+                  if (articleModel1 != null && articleModel1.Count > 0)
+                  {
+                      foreach (var item in articleModel1)
+                      {
+                          var detail = await articleFrontEndService.GetArticleDetail(new Abp.Application.Services.Dto.EntityDto<long> { Id = item.Id.Value });
+                          if (detail.Categories != null && detail.Categories[0].Id > 0)
+                          {
+                              var Category = await fECntCategoryAppService.GetCategory(new Mdls.Cms.Categories.MDto.GetCategoryInput { CategoryId = detail.Categories[0].Id, SearchArticlesInput = null });
+                              item.CategoryDisplayName = Category.DisplayName;
+                          }
+                      }
+                  }
+
+                  articleModel2 = articleDto.Items.Skip(1).Take(2).ToList();
+                  if (articleModel2 != null && articleModel2.Count > 0)
+                  {
+                      foreach (var item in articleModel2)
+                      {
+                          var detail = await articleFrontEndService.GetArticleDetail(new Abp.Application.Services.Dto.EntityDto<long> { Id = item.Id.Value });
+                          if (detail.Categories != null && detail.Categories[0].Id > 0)
+                          {
+                              var Category = await fECntCategoryAppService.GetCategory(new Mdls.Cms.Categories.MDto.GetCategoryInput { CategoryId = detail.Categories[0].Id, SearchArticlesInput = null });
+                              item.CategoryDisplayName = Category.DisplayName;
+                          }
+                      }
+                  }
+              });
         }
         #endregion
 
@@ -256,7 +319,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             return articleDto;
         }
 
-       
+
         public async Task ViewArticle(ArticleModel article)
         {
             navigationService.NavigateTo($"ArticleDetail?Id={article.Id}");
@@ -264,7 +327,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
         #endregion
 
         #region Việc tìm người
-       public int RecruitmentCount;
+        public int RecruitmentCount;
         private async ValueTask<ItemsProviderResult<RecruitmentDto>> LoadRecruitment(ItemsProviderRequest request)
         {
             _filtered.MaxResultCount = 6;
@@ -284,7 +347,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
                 async (result) =>
                 {
                     var jobFilter = ObjectMapper.Map<List<RecruitmentDto>>(result.Items.Where(x => x.DeadlineSubmission.CompareTo(DateTime.Today) >= 0).Where(x => x.Status == false && x.DeadlineSubmission.CompareTo(DateTime.Today) >= 0).Take(6));
-					foreach (var model in jobFilter)
+                    foreach (var model in jobFilter)
                     {
                         model.Recruiter.AvatarUrl = AsyncHelper.RunSync(async () => await articleService.GetPicture(model.Recruiter.AvatarUrl));
                     }
@@ -302,7 +365,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
                     await UserDialogsService.UnBlock();
                     StateHasChanged();
 
-				}
+                }
             );
 
             return recruitmentDto;
@@ -315,7 +378,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
         #endregion
 
         #region Người tìm việc
-       private int JobAppCount;
+        private int JobAppCount;
         private Virtualize<GetJobApplicationForEditOutput> JobApplicationContainer { get; set; }
         public List<GetJobApplicationForEditOutput> getJobApplicationForEditOutputs { get; set; }
         private async ValueTask<ItemsProviderResult<GetJobApplicationForEditOutput>> LoadJobApplication(ItemsProviderRequest request)
@@ -336,7 +399,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
                 {
                     var jobFilter = result.Items.Take(6).ToList();
                     var jobCount = result.Items.Count;
-					JobAppCount = jobCount;
+                    JobAppCount = jobCount;
 
                     //foreach (var item in jobFilter)
                     //{
