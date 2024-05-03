@@ -235,22 +235,16 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
 
         public async Task GetArticleByCategory()
         {
-            //var category = await fECntCategoryAppService.GetCategory(new GetCategoryInput()
-            //{
-            //    CategoryId = Model.CategoryId,
-            //    SearchArticlesInput = new SearchArticlesInput() { 
-
-            //        MaxResultCount = 25 ,
-            //        CategoryId = Model.CategoryId,
-            //        Filter = "",
-            //        TenantId = ApplicationContext.CurrentTenant.TenantId,
-            //    }
-            //});
-            //if (category != null)
-            //{
-            //    CategoryName = category.DisplayName;
-            //}
-            navigationService.NavigateTo($"ListArticle?CategoryId={Model.CategoryId}");
+            var category = await fECntCategoryAppService.GetCategory(new GetCategoryInput()
+            {
+                CategoryId = Model.CategoryId,
+                SearchArticlesInput = null,
+            });
+            if (category != null)
+            {
+                CategoryName = category.DisplayName;
+            }
+            navigationService.NavigateTo($"ListArticle?CategoryId={Model.CategoryId}&CategoryName={CategoryName}");
         }
 
 

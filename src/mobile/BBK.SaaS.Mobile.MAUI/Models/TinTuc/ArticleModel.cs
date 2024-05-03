@@ -80,5 +80,7 @@ namespace BBK.SaaS.Mobile.MAUI.Models.TinTuc
 
         public long ViewedCount { get; set; }
 
+        public string CategoryDisplayName { get; set; } 
+
     }
 }
