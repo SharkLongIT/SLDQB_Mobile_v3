@@ -31,7 +31,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
         }
         protected override async Task OnInitializedAsync()
         {
-            await SetPageHeader(L("Danh sách câu hỏi"));
         }
 
        

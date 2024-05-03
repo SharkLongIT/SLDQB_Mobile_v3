@@ -39,10 +39,10 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
         protected override async Task OnInitializedAsync()
         {
 
-            await SetPageHeader(L("Danh sách tin tuyển dụng của tôi"), new List<Services.UI.PageHeaderButton>()
-            {
-                //new Services.UI.PageHeaderButton(L("Thêm mới tin"), OpenCreateModal)
-            });
+            //await SetPageHeader(L("Danh sách tin tuyển dụng của tôi"), new List<Services.UI.PageHeaderButton>()
+            //{
+            //    new Services.UI.PageHeaderButton(L("Thêm mới tin"), OpenCreateModal)
+            //});
 
 
             IsUserLoggedIn = navigationService.IsUserLoggedIn();
@@ -105,7 +105,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
         }
         public async Task ViewRecruitment(RecruitmentDto recruitment)
         {
-            navigationService.NavigateTo($"ChiTietBTD?Id={recruitment.Id}&Experiences={recruitment.Experiences.DisplayName}&JobCatUnitName={recruitment.JobCatUnitName}&HumanResSizeCat={recruitment.Recruiter.HumanResSizeCat.DisplayName}");
+            navigationService.NavigateTo($"ThongTinVTN?Id={recruitment.Id}&Experiences={recruitment.Experiences.DisplayName}&JobCatUnitName={recruitment.JobCatUnitName}&HumanResSizeCat={recruitment.Recruiter.HumanResSizeCat.DisplayName}");
         }
 
 

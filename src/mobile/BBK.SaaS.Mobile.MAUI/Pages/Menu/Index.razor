@@ -1,3 +1,55 @@
 ﻿@using BBK.SaaS.Services.Navigation
 @inherits SaaSMainLayoutPageComponentBase
 @attribute [Route("/" + NavigationUrlConsts.Menu)]
+
+
+<div class="card card-style">
+	<div class="content">
+		
+	</div>
+</div>
+
+<div class="row">
+	<a href="/BaiTuyenDung" class="col-6">
+		<div class="card card-style me-0 mb-3 text-center pt-2">
+			<i class="fa fa-briefcase color-yellow-dark fa-3x mt-4"></i>
+			<h1 class="pt-4 font-20">Tin tuyển dụng</h1>
+			<p class="font-14 opacity-50 mt-n2 mb-4">@RecruitmentPostCount </p>
+		</div>
+	</a>
+	<a href="/DanhSachUVDUT" class="col-6">
+		<div class="card card-style ms-0 mb-3 text-center pt-2">
+			<i class="fa fa-user color-dark-dark fa-3x mt-4"></i>
+			<h1 class="pt-4 font-20">Ứng viên ứng tuyển</h1>
+			<p class="font-14 opacity-50 mt-n2 mb-4">@ApplicationCount </p>
+		</div>
+	</a>
+	<a href="DanhSachGioiThieu" class="col-6">
+		<div class="card card-style me-0 mb-3 text-center pt-2">
+			<i class="fa fa-link color-gray-dark fa-3x mt-4"></i>
+			<h1 class="pt-4 font-20">Tin giới thiệu</h1>
+			<p class="font-14 opacity-50 mt-n2 mb-4">@IntroduceCount </p>
+		</div>
+	</a>
+	<a href="/DanhSachLichHen" class="col-6">
+		<div class="card card-style ms-0 mb-3 text-center pt-2">
+			<i class="fa fa-calendar color-blue-dark fa-3x mt-4"></i>
+			<h1 class="pt-4 font-20">Lịch hẹn</h1>
+			<p class="font-14 opacity-50 mt-n2 mb-4">@MakeAnAppoint </p>
+		</div>
+	</a>
+	<a href="/DSCauHoi" class="col-6">
+		<div class="card card-style me-0 mb-3 text-center pt-2">
+			<i class="fa fa-question color-red-dark fa-3x mt-4"></i>
+			<h1 class="pt-4 font-20">Câu hỏi</h1>
+			<p class="font-14 opacity-50 mt-n2 mb-4">@ContactCount</p>
+		</div>
+	</a>
+	@* <a href="#" class="col-6">
+		<div class="card card-style ms-0 mb-3 text-center pt-2">
+			<i class="fa fa-guitar color-brown-dark fa-3x mt-4"></i>
+			<h1 class="pt-4 font-20">Guitars</h1>
+			<p class="font-11 opacity-50 mt-n2 mb-4">Awesome Riffs </p>
+		</div>
+	</a> *@
+</div>

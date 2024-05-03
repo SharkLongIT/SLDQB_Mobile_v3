@@ -78,18 +78,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
         }
         protected override async Task OnInitializedAsync()
         {
-            if (ApplicationContext.LoginInfo.User.UserType == Authorization.Users.UserTypeEnum.Type1)
-            {
-                await SetPageHeader(L("Danh sách ứng viên đã ứng tuyển"));
-
-            }
-            else
-            {
-                navigationService.NavigateTo(NavigationUrlConsts.DSCVDaUngTuyen);
-
-            }
             IsUserLoggedIn = navigationService.IsUserLoggedIn();
-
             await GetUserPhoto();
         }
         private async Task RefeshList()

@@ -58,19 +58,19 @@ else
                         @recruitment.Experiences.DisplayName
                     </span>
                 </div>
-            </div>
-            <div class="ms-auto">
-                @* <i class="fa-solid fa-caret-down float-end " @onclick="(() => DisPlayAction(recruitment))"></i> *@
+                <div class="ms-auto">
+                    @* <i class="fa-solid fa-caret-down float-end " @onclick="(() => DisPlayAction(recruitment))"></i> *@
 
-                <a data-bs-toggle="dropdown" class="icon icon-m color-theme"><i class="fa fa-ellipsis-h float-end"></i></a>
-                <div class="dropdown-menu border-0 bg-theme rounded-m shadow-xl px-2 mt-n4">
-                    <div class="list-group list-custom-small mt-n2 mb-n2">
-                        <a @onclick="(() => ViewRecruitment(recruitment))" data-menu="menu-archive"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Xem tin<i class="fa"></i></a>
-                        <a @onclick="(() => UpdatePost(recruitment))" data-menu="menu-download"><i class="fa font-14 fa-pencil color-blue-dark opacity-60"></i>Sửa tin<i class="fa"></i></a>
-                        <a @onclick="(() => DeletePost(recruitment))" data-menu="menu-delete"><i class="fa font-14 fa-trash color-red-dark opacity-60"></i>Xoá tin<i class="fa"></i></a>
+                    <a data-bs-toggle="dropdown" class="icon icon-m color-theme"><i class="fa fa-ellipsis-h float-end" style="margin-top: -10px"></i></a>
+                    <div class="dropdown-menu border-0 bg-theme rounded-m shadow-xl px-2 mt-n4">
+                        <div class="list-group list-custom-small mt-n2 mb-n2">
+                            <a @onclick="(() => ViewRecruitment(recruitment))" data-menu="menu-archive"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Xem tin<i class="fa"></i></a>
+                            <a @onclick="(() => UpdatePost(recruitment))" data-menu="menu-download"><i class="fa font-14 fa-pencil color-blue-dark opacity-60"></i>Sửa tin<i class="fa"></i></a>
+                            <a @onclick="(() => DeletePost(recruitment))" data-menu="menu-delete"><i class="fa font-14 fa-trash color-red-dark opacity-60"></i>Xoá tin<i class="fa"></i></a>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
     </Virtualize>

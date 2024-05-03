@@ -41,7 +41,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
         }
         protected override async Task OnInitializedAsync()
         {
-            await SetPageHeader(L("Danh sách tin giới thiệu của tôi"));
         }
         private async Task RefeshList()
         {
