@@ -4,19 +4,19 @@
     <div class="content">
         @if (_isInitialized)
         {
-                @if (IsView == true)
-                {
-                    <h1>@L("Chi tiết lịch hẹn phỏng vấn ")</h1>
+            @if (IsView == true)
+            {
+                <h1>@L("Chi tiết lịch hẹn phỏng vấn ")</h1>
 
-                }
-                @if (IsAgree == true)
-                {
-                    <h1>@L("Xác nhận lịch hẹn phỏng vấn ")</h1>
-                }
-                @if (IsReject == true)
-                {
-                    <h1>@L("Từ chối lịch hẹn phỏng vấn ")</h1>
-                }
+            }
+            @if (IsAgree == true)
+            {
+                <h1>@L("Xác nhận lịch hẹn phỏng vấn ")</h1>
+            }
+            @if (IsReject == true)
+            {
+                <h1>@L("Từ chối lịch hẹn phỏng vấn ")</h1>
+            }
             <h5>@L("Công việc được phỏng vấn")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <input type="text" class="form-control validate-text" id="form1" @bind="UserInput.Recruitment.Title" disabled>
@@ -31,7 +31,7 @@
             </div>
             <h5>@L("Vị trí phỏng vấn")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
-                <input type="text" class="form-control validate-text" id="form1" @bind="UserInput.Recruitment.Ranks" disabled>
+                <input type="text" class="form-control validate-text" id="form1" @bind="UserInput.Recruitment.Ranks.DisplayName" disabled>
             </div>
             <h5> @L("Ngày phỏng vấn")</h5>
             <div class="input-style has-borders no-icon mb-4">
@@ -46,6 +46,18 @@
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <input type="text" class="form-control validate-text" id="form1" @bind="UserInput.Message" disabled>
             </div>
+            @if (IsAgree == true)
+            {
+                <h5>@L("Nội dung gửi đến nhà tuyển dụng") </h5>
+            }
+            @if (IsReject == true)
+            {
+                <h5> @L("Lý do từ chối") </h5>
+            }
+            @if (IsView == true)
+            {
+                <h5>@L("Nội dung") </h5>
+            }
             <div class="input-style has-borders no-icon mb-4">
                 @if (IsView == true)
                 {
@@ -53,7 +65,7 @@
                 }
                 else
                 {
-                      <textarea id="form7" @bind="UserInput.ReasonForRefusal"></textarea>
+                    <textarea id="form7" @bind="UserInput.ReasonForRefusal"></textarea>
                 }
                 <label for="form7" class="color-highlight">
                     @if (IsAgree == true)
@@ -75,8 +87,8 @@
                 <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Hủy</a>
                 @if (IsView == false)
                 {
-                <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveExpWork">Gửi</a>
-                }          
+                    <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveExpWork">Gửi</a>
+                }
             </div>
         }
     </div>
