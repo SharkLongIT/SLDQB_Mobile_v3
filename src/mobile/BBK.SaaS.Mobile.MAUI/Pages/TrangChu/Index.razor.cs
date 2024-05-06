@@ -262,32 +262,32 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
               async (result) =>
               {
                   articleModel1 = articleDto.Items.Take(1).ToList();
-                  //if (articleModel1 != null && articleModel1.Count > 0)
-                  //{
-                  //    foreach (var item in articleModel1)
-                  //    {
-                  //        var detail = await articleFrontEndService.GetArticleDetail(new Abp.Application.Services.Dto.EntityDto<long> { Id = item.Id.Value });
-                  //        if (detail.Categories != null && detail.Categories[0].Id > 0)
-                  //        {
-                  //            var Category = await fECntCategoryAppService.GetCategory(new Mdls.Cms.Categories.MDto.GetCategoryInput { CategoryId = detail.Categories[0].Id, SearchArticlesInput = null });
-                  //            item.CategoryDisplayName = Category.DisplayName;
-                  //        }
-                  //    }
-                  //}
+                  if (articleModel1 != null && articleModel1.Count > 0)
+                  {
+                      foreach (var item in articleModel1)
+                      {
+                          var detail = await articleFrontEndService.GetArticleDetail(new Abp.Application.Services.Dto.EntityDto<long> { Id = item.Id.Value });
+                          if (detail.Categories != null && detail.Categories[0].Id > 0)
+                          {
+                              var Category = await fECntCategoryAppService.GetCategory(new Mdls.Cms.Categories.MDto.GetCategoryInput { CategoryId = detail.Categories[0].Id, SearchArticlesInput = null });
+                              item.CategoryDisplayName = Category.DisplayName;
+                          }
+                      }
+                  }
 
                   articleModel2 = articleDto.Items.Skip(1).Take(2).ToList();
-                  //if (articleModel2 != null && articleModel2.Count > 0)
-                  //{
-                  //    foreach (var item in articleModel2)
-                  //    {
-                  //        var detail = await articleFrontEndService.GetArticleDetail(new Abp.Application.Services.Dto.EntityDto<long> { Id = item.Id.Value });
-                  //        if (detail.Categories != null && detail.Categories[0].Id > 0)
-                  //        {
-                  //            var Category = await fECntCategoryAppService.GetCategory(new Mdls.Cms.Categories.MDto.GetCategoryInput { CategoryId = detail.Categories[0].Id, SearchArticlesInput = null });
-                  //            item.CategoryDisplayName = Category.DisplayName;
-                  //        }
-                  //    }
-                  //}
+                  if (articleModel2 != null && articleModel2.Count > 0)
+                  {
+                      foreach (var item in articleModel2)
+                      {
+                          var detail = await articleFrontEndService.GetArticleDetail(new Abp.Application.Services.Dto.EntityDto<long> { Id = item.Id.Value });
+                          if (detail.Categories != null && detail.Categories[0].Id > 0)
+                          {
+                              var Category = await fECntCategoryAppService.GetCategory(new Mdls.Cms.Categories.MDto.GetCategoryInput { CategoryId = detail.Categories[0].Id, SearchArticlesInput = null });
+                              item.CategoryDisplayName = Category.DisplayName;
+                          }
+                      }
+                  }
               });
         }
         #endregion
