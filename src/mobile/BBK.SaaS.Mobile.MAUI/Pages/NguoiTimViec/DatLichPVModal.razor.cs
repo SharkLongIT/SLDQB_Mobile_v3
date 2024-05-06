@@ -127,6 +127,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
                     Model.StatusOfCandidate = 1;
                     Model.JobApplicationId = nTDDatLichModel.JobApplication.Id.Value;
                     Model.TenantId = 1;
+                    Model.TypeInterview = "1";
                     await WebRequestExecuter.Execute(
                         async () =>
                         {
@@ -156,6 +157,12 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
             RankId = rank.Rank;
             StateHasChanged();
         }
+        public async void selectInterview(ChangeEventArgs args)
+        {
+            string select = Convert.ToString(args.Value);
+            Model.TypeInterview = select;
+            StateHasChanged();
+        }
         private async Task<bool> ValidateInput()
         {
 
@@ -164,11 +171,11 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
                 await UserDialogsService.AlertWarn(@L("Vui lòng chọn công việc mời phỏng vấn!"));
                 return false;
             }
-            if (Model.TypeInterview == null || (string.IsNullOrEmpty(Model.TypeInterview)))
-            {
-                await UserDialogsService.AlertWarn(@L("Vui lòng nhập hình thức phỏng vấn!"));
-                return false;
-            }
+            //if (Model.TypeInterview == null || (string.IsNullOrEmpty(Model.TypeInterview)))
+            //{
+            //    await UserDialogsService.AlertWarn(@L("Vui lòng nhập hình thức phỏng vấn!"));
+            //    return false;
+            //}
             if (Model.Address == null || (string.IsNullOrEmpty(Model.Address)))
             {
                 await UserDialogsService.AlertWarn(@L("Vui lòng nhập địa chỉ phỏng vấn!"));

@@ -9,7 +9,7 @@
             <h5>  @L("Chức danh")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <input type="text" class="form-control validate-text" id="form1" @bind="Model.Title">
-                <em>(required)</em>
+                <em>(bắt buộc)</em>
             </div>
             <h5> @L("Nghề nghiệp")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
@@ -22,6 +22,7 @@
 
                     }
                 </select>
+                <em>(bắt buộc)</em>
             </div>
             <h5> @L("Hình thức làm việc")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
@@ -34,6 +35,9 @@
 
                     }
                 </select>
+                <em>(bắt buộc)</em>
+
+
             </div>
             <h5> @L("Bằng cấp")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
@@ -46,6 +50,9 @@
 
                     }
                 </select>
+                <em>(bắt buộc)</em>
+
+
             </div>
             <h5> @L("Số năm kinh nghiệm")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
@@ -59,6 +66,9 @@
 
                     }
                 </select>
+                <em>(bắt buộc)</em>
+
+
             </div>
             <h5>  @L("Cấp bậc")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
@@ -73,16 +83,21 @@
 
                     }
                 </select>
+                <em>(bắt buộc)</em>
+
+
             </div>
             <h5>  @L("Độ tuổi tối thiểu")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <input type="number" class="form-control validate-text" id="form1" @bind="Model.MinAge">
-                <em>(required)</em>
+                <em>(bắt buộc)</em>
+
             </div>
             <h5>  @L("Độ tuổi tối đa")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <input type="number" class="form-control validate-text" id="form1" @bind="Model.MaxAge">
-                <em>(required)</em>
+                <em>(bắt buộc)</em>
+
             </div>
             <h5>  @L("Giới tính")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
@@ -91,19 +106,27 @@
                     <option value="1">Nam</option>
                     <option value="2">Nữ</option>
                 </select>
+                <em>(bắt buộc)</em>
+
             </div>
             <h5>   @L("Số lượng tuyển")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <input type="number" class="form-control validate-text" id="form1" @bind="Model.NumberOfRecruits">
-                <em>(required)</em>
+                <em>(bắt buộc)</em>
+
             </div>
             <h5>@L("Thời hạn thử việc(tháng)")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <input type="number" class="form-control validate-text" id="form1" @bind="Model.ProbationPeriod">
+                <em>(bắt buộc)</em>
+
             </div>
             <h5>@L("Hạn nộp hồ sơ")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <input type="date" id="form1" @bind="Model.DeadlineSubmission">
+                <em>(bắt buộc)</em>
+
+
             </div>
             <h4>Địa điểm làm việc</h4>
             <h5>@L("Tỉnh/Thành phố")</h5>
@@ -117,6 +140,9 @@
                         </option>
                     }
                 </select>
+                <em>(bắt buộc)</em>
+
+
             </div>
             <h5> @L("Quận/Huyện")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
@@ -133,15 +159,31 @@
                     }
 
                 </select>
+                <em>(bắt buộc)</em>
+
+
             </div>
             <h5>@L("Số nhà tên đường")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <input type="text" class="form-control" id="form1" @bind="Model.WorkAddress">
+                <em>(bắt buộc)</em>
+
+
             </div>
             <h4>Mức lương & Kỹ năng</h4>
             <h5> @L("Mức lương tối thiểu (VNĐ)")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <input type="number" class="form-control" id="form1" @bind="Model.MinSalary">
+                <em>(bắt buộc)</em>
+
+
+            </div>
+            <h5> @L("Mức lương tối đa (VNĐ)")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="number" class="form-control" id="form1" @bind="Model.MaxSalary">
+                <em>(bắt buộc)</em>
+
+
             </div>
             <h5> @L("Kỹ năng cần thiết")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
@@ -152,40 +194,41 @@
             <div class="input-style has-borders no-icon mb-4">
                 <textarea id="form7" @bind="Model.JobDesc"></textarea>
                 <label for="form7" class="color-highlight">@L("Mô tả công việc")</label>
-                <em class="mt-n3">(required)</em>
+                <em class="mt-n3">(bắt buộc)</em>
             </div>
             <h5>@L("Yêu cầu công việc")</h5>
             <div class="input-style has-borders no-icon mb-4">
                 <textarea id="form8" @bind="Model.JobRequirementDesc"></textarea>
                 <label for="form8" class="color-highlight">@L("Yêu cầu công việc")</label>
-                <em class="mt-n3">(required)</em>
+                <em class="mt-n3">(bắt buộc)</em>
             </div>
             <h5>@L("Quyền lợi")</h5>
             <div class="input-style has-borders no-icon mb-4">
                 <textarea id="form9" @bind="Model.BenefitDesc"></textarea>
                 <label for="form9" class="color-highlight">@L("Quyền lợi")</label>
-                <em class="mt-n3">(required)</em>
+                <em class="mt-n3">(bắt buộc)</em>
             </div>
             <h4>Thông tin người liên hệ</h4>
             <h5>@L("Họ và tên")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <input type="text" class="form-control validate-text" id="form1" @bind="Model.FullName">
-                <em>(required)</em>
+                <em>(bắt buộc)</em>
             </div>
             <h5> @L("Email")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <input type="text" class="form-control validate-text" id="form1" @bind="Model.Email">
-                <em>(required)</em>
+                <em>(bắt buộc)</em>
+
             </div>
             <h5> @L("Điện thoại")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <input type="text" class="form-control validate-text" id="form1" @bind="Model.PhoneNumber">
-                <em>(required)</em>
+                <em>(bắt buộc)</em>
             </div>
             <h5>    @L("Điạ chỉ liên hệ")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <input type="text" class="form-control validate-text" id="form1" @bind="Model.Address">
-                <em>(required)</em>
+                <em>(bắt buộc)</em>
             </div>
             <div class="d-flex justify-content-center">
                 <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Đóng</a>
