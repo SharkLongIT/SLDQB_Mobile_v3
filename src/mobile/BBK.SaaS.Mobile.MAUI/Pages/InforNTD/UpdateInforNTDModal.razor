@@ -1,208 +1,135 @@
 ﻿@inherits ModalBase
-<div class="modal fade" id="@ModalId" tabindex="-1" aria-hidden="true" IsScrollable="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded">
-            <div class="modal-body scroll-y pt-10 pb-10">
-                <div class="mb-13 text-center">
-                    <h1 class="mb-3">@L("Cập nhật thông tin")</h1>
-                </div>
-                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                        <span class="required">
-                            @L("Tên công ty")
-                        </span>
-                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                    </label>
-                    <input type="text" class="form-control form-control-solid" @bind="recruiterEditDto.CompanyName" />
-                </div>
 
-                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                        <span class="required">
-                            @L("Tên người liên hệ")
-                        </span>
-                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                    </label>
-                    <input type="text" class="form-control form-control-solid" @bind="recruiterEditDto.ContactName" />
-                </div>
-                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                        <span class="required">
-                            @L("Email người liên hệ")
-                        </span>
-                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                    </label>
-                    <input type="text" class="form-control form-control-solid" @bind="recruiterEditDto.ContactEmail" />
-                </div>
-                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                        <span class="required">
-                            @L("Số điện thoại")
-                        </span>
-                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                    </label>
-                    <input type="number" class="form-control form-control-solid" @bind="recruiterEditDto.ContactPhone" />
-                </div>
-                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                        <span class="required">
-                            @L("Quy mô nhân sự")
-                        </span>
-                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                    </label>
-                    <select required="required" class="form-control" @bind="@recruiterEditDto.HumanResSizeCatId">
-                        @if (catFilterLists != null)
-                        {
-                            @foreach (var item in catFilterLists.StaffSize)
-                            {
-                                <option value="@item.Id">
-                                    @item.DisplayName
-                                </option>
-                            }
-
-                        }
-                    </select>
-                </div>
-                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                        <span class="required">
-                            @L("Lĩnh vực hoạt động")
-                        </span>
-                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                    </label>
-                    <select required="required" class="form-control" @bind="@SphereOfActivityId">
-                        @if (catFilterLists != null)
-                        {
-                            @foreach (var item in catFilterLists.Career)
-                            {
-                                <option value="@item.Id">
-                                    @item.DisplayName
-                                </option>
-                            }
-
-                        }
-                    </select>
-                </div>
-                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                        <span>
-                            @L("Website")
-                        </span>
-
-                    </label>
-                    <input type="text" class="form-control form-control-solid" @bind="recruiterEditDto.WebSite" />
-                </div>
-                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                        <span>
-                            @L("Mã số thuế")
-                        </span>
-
-                    </label>
-                    <input type="text" class="form-control form-control-solid" @bind="recruiterEditDto.TaxCode" />
-                </div>
-                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                        <span>
-                            @L("Ngày thành lập công ty")
-                        </span>
-                    </label>
-                    <input type="date" class="form-control form-control-solid" @bind="@DateOfEstablishment" />
-                </div>
-                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                        <span class="required">
-                            @L("Tỉnh/Thành phố")
-                        </span>
-                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                    </label>
-                    <select required="required" class="form-control" @onchange="selectedValue">
-                        @if (ListProvince != null && ListProvince.Count > 0)
-                        {
-                            @foreach (var item in ListProvince)
-                            {
-                                <option value="@item.Id">
-                                    @item.DisplayName
-                                </option>
-                            }
-
-                        }
-
-                    </select>
-
-                </div>
-                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                        <span class="required">
-                            @L("Quận/huyện")
-                        </span>
-                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                    </label>
-                    <select required="required" class="form-control" @onchange="changeDistrict">
-
-                        @if (ListDistrict != null && ListDistrict.Count > 0)
-                        {
-                            @foreach (var item in ListDistrict)
-                            {
-                                <option value="@item.Id">
-                                    @item.DisplayName
-                                </option>
-                            }
-                        }
-
-                    </select>
-
-                </div>
-                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                        <span class="required">
-                            @L("Phường/Xã")
-                        </span>
-                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                    </label>
-                    <select required="required" class="form-control" @bind="recruiterEditDto.VillageId">
-
-                        @if (ListVillage != null && ListVillage.Count > 0)
-                        {
-                            @foreach (var item in ListVillage)
-                            {
-                                <option value="@item.Id">
-                                    @item.DisplayName
-                                </option>
-                            }
-                        }
-
-                    </select>
-
-                </div>
-                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                        <span class="required">
-                            @L("Địa chỉ")
-                        </span>
-                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                    </label>
-                    <input type="text" class="form-control form-control-solid" @bind="recruiterEditDto.Address" />
-                </div>
-
-                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                        <span>
-                            @L("Mô tả")
-                        </span>
-
-                    </label>
-                    <textarea class="form-control" style="height:100px;" type="text" @bind="recruiterEditDto.Description"></textarea>
-                </div>
-
-            </div>
-            <div class="text-center mt-3 mb-3">
-                <button type="reset" data-dismiss="modal" class="btn btn-light me-3" @onclick="Hide">@L("Đóng")</button>
-                <button type="button" class="btn " style="background-color:#00b14f" @onclick="Save">
-                    <span class="indicator-label" style="color:white">@L("Lưu")</span>
-                </button>
-            </div>
+<div id="@ModalId" class="menu menu-box-modal rounded-m" data-menu-width="330">
+    <div class="content">
+        <h1 class="mb-3">@L("Cập nhật thông tin")</h1>
+        <h5>  @L("Tên công ty")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control validate-text" id="form1" @bind="recruiterEditDto.CompanyName">
+            <em>(required)</em>
         </div>
+        <h5>@L("Tên người liên hệ")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control validate-text" id="form1" @bind="recruiterEditDto.ContactName">
+            <em>(required)</em>
+        </div>
+        <h5>@L("Email người liên hệ")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control validate-text" id="form1" @bind="recruiterEditDto.ContactEmail">
+            <em>(required)</em>
+        </div>
+        <h5> @L("Số điện thoại")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control validate-text" id="form1" @bind="recruiterEditDto.ContactPhone">
+            <em>(required)</em>
+        </div>
+        <h5> @L("Quy mô nhân sự")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <select class="form-control" @bind="@recruiterEditDto.HumanResSizeCatId">
+                @if (catFilterLists != null)
+                {
+                    @foreach (var item in catFilterLists.StaffSize)
+                    {
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+                    }
 
+                }
+            </select>
+        </div>
+        <h5>  @L("Lĩnh vực hoạt động")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <select class="form-control" @bind="@SphereOfActivityId">
+                @if (catFilterLists != null)
+                {
+                    @foreach (var item in catFilterLists.Career)
+                    {
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+                    }
+
+                }
+            </select>
+        </div>
+        <h5>  @L("Website")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control form-control-solid" @bind="recruiterEditDto.WebSite" />
+            <em>(required)</em>
+        </div>
+        <h5> @L("Mã số thuế")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control form-control-solid" @bind="recruiterEditDto.TaxCode" />
+            <em>(required)</em>
+        </div>
+        <h5>  @L("Ngày thành lập công ty")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="date" class="form-control" @bind="DateOfEstablishment" />
+            <em>(required)</em>
+        </div>
+        <h5> @L("Tỉnh/Thành phố")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <select required="required" class="form-control" @onchange="selectedValue">
+                @if (ListProvince != null && ListProvince.Count > 0)
+                {
+                    @foreach (var item in ListProvince)
+                    {
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+                    }
+
+                }
+
+            </select>
+        </div>
+        <h5>  @L("Quận/huyện")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <select required="required" class="form-control" @onchange="changeDistrict">
+
+                @if (ListDistrict != null && ListDistrict.Count > 0)
+                {
+                    @foreach (var item in ListDistrict)
+                    {
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+                    }
+                }
+
+            </select>
+        </div>
+        <h5>   @L("Phường/Xã")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <select required="required" class="form-control" @bind="recruiterEditDto.VillageId">
+
+                @if (ListVillage != null && ListVillage.Count > 0)
+                {
+                    @foreach (var item in ListVillage)
+                    {
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+                    }
+                }
+
+            </select>
+        </div>
+        <h5>  @L("Địa chỉ")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control" @bind="recruiterEditDto.Address" />
+            <em>(required)</em>
+        </div>
+        <h5> @L("Mô tả")</h5>
+        <div class="input-style has-borders no-icon mb-4">
+            <textarea id="form7" @bind="recruiterEditDto.Description"></textarea>
+            <label for="form7" class="color-highlight">@L("Mô tả")</label>
+            <em class="mt-n3">(required)</em>
+        </div>
+        <div class="d-flex justify-content-center">
+            <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Đóng</a>
+            <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Save">Lưu</a>
+        </div>
     </div>
 </div>

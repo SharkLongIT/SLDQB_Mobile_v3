@@ -39,7 +39,7 @@ else
                          width="100">
                 </div>
                 <div>
-                    <h5 class="font-700 text-uppercase">@job.Title</h5>
+                    <h5 class="font-700 text-uppercase" @onclick="(() => ViewUser(job))">@job.Title</h5>
 
                     <h1 class="font-700 font-15 line-height-m pb-2">@job.Occupations.DisplayName</h1>
                     <span class="badge bg-green-dark text-uppercase font-12">
