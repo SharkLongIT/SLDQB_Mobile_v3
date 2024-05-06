@@ -137,8 +137,8 @@ else
 
                 </div>
                 <div class="ms-auto">
-                    @* <i class="fa-solid fa-caret-down float-end " @onclick="(() => DisPlayAction(appointment))"></i> *@
-                    <a data-bs-toggle="dropdown" class="icon icon-m color-theme"><i class="fa fa-ellipsis-h float-end" style="margin-top: -10px"></i></a>
+                    <i class="fa-solid fa-caret-down float-end " @onclick="(() => DisPlayAction(appointment))"></i>
+                   @*  <a data-bs-toggle="dropdown" class="icon icon-m color-theme"><i class="fa fa-ellipsis-h float-end" style="margin-top: -10px"></i></a>
                     @if (appointment.StatusOfCandidate == 1)
                     {
                         <div class="dropdown-menu border-0 bg-theme rounded-m shadow-xl px-2 mt-n4">
@@ -155,7 +155,7 @@ else
                                 <a @onclick="(() => ViewAppointment(appointment))" data-menu="menu-download"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Xem<i class="fa"></i></a>
                             </div>
                         </div>
-                    }
+                    } *@
                 </div>
             </div>
         </div>

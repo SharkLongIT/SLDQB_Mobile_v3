@@ -1,369 +1,228 @@
 ﻿@inherits ModalBase
-<div class="modal fade" id="@ModalId" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded">
-            <div class="modal-body scroll-y pt-10 pb-10">
-                @if (_isInitialized)
-                {
-                    <div class="btn btn-sm btn-icon btn-active-color-primary position-absolute" style="top:20px;right:20px" data-bs-dismiss="modal">
-                        <span class="svg-icon svg-icon-1">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
-                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
-                            </svg>
-                        </span>
-                    </div>
-                    <div class="mb-13 text-center">
-                        <h1 class="mb-3">@L("Cập nhật tin tuyển dụng")</h1>
-                    </div>
-                    <div class="card shadow-sm p-0 m-0">
-                        <div class="card-body d-flex flex-column py-10 m-0">
-                            <h4>Thông tin cơ bản</h4>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container ">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Chức danh")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" @bind="recruitment.Title" />
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Nghề nghiệp")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <select required="required" class="form-control" @bind="recruitment.JobCatUnitId">
-                                    @foreach (var item in CatFilterList.Career)
-                                    {
-                                        <option value="@item.Id">
-                                            @item.DisplayName
-                                        </option>
+<div id="@ModalId" class="menu menu-box-modal rounded-m" data-menu-width="330">
 
-                                    }
-                                </select>
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Hình thức làm việc")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <select required="required" class="form-control" @bind="recruitment.FormOfWork">
-                                    @foreach (var item in CatFilterList.FormOfWork)
-                                    {
-                                        <option value="@item.Id">
-                                            @item.DisplayName
-                                        </option>
+    <div class="content">
+        @if (_isInitialized)
+        {
+            <h1>@L("Cập nhật tin tuyển dụng")</h1>
 
-                                    }
-                                </select>
-                            </div>
-
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Bằng cấp")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <select required="required" class="form-control" @bind="recruitment.Degree">
-                                    @foreach (var item in CatFilterList.Degree)
-                                    {
-                                        <option value="@item.Id">
-                                            @item.DisplayName
-                                        </option>
-
-                                    }
-                                </select>
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Số năm kinh nghiệm")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-
-                                <select required="required" class="form-control" @bind="recruitment.Experience">
-                                    @foreach (var item in CatFilterList.Experience)
-                                    {
-
-                                        <option value="@item.Id">
-                                            @item.DisplayName
-                                        </option>
-
-
-                                    }
-                                </select>
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Cấp bậc")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-
-                                <select required="required" class="form-control" @bind="recruitment.Rank">
-                                    @foreach (var item in CatFilterList.Rank)
-                                    {
-
-                                        <option value="@item.Id">
-                                            @item.DisplayName
-                                        </option>
-
-
-                                    }
-                                </select>
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Độ tuổi tối thiểu")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <input type="number" class="form-control form-control-solid" @bind="recruitment.MinAge" />
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Độ tuổi tối đa")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <input type="number" class="form-control form-control-solid" @bind="recruitment.MaxAge" />
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Giới tính")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-
-                                <select required="required" class="form-control" @bind="recruitment.GenderRequired">
-                                    <option value="0">Không yêu cầu</option>
-                                    <option value="1">Nam</option>
-                                    <option value="2">Nữ</option>
-                                </select>
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Số lượng tuyển")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <input type="number" class="form-control form-control-solid" @bind="recruitment.NumberOfRecruits" />
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span>
-                                        @L("Thời hạn thử việc")
-                                    </span>
-                                </label>
-                                <input type="number" class="form-control form-control-solid" @bind="recruitment.ProbationPeriod" />
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span>
-                                        @L("Hạn nộp hồ sơ")
-                                    </span>
-                                </label>
-                                <input type="date" class="form-control form-control-solid" @bind="recruitment.DeadlineSubmission" />
-                            </div>
-                            <h4>Địa điểm làm việc</h4>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Tỉnh/Thành phố")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-
-                                <select required="required" class="form-control" @onchange="selectedValue">
-                                    @foreach (var item in ListProvince)
-                                    {
-                                        @if(item.Id == Model.ProvinceId)
-                                        {
-                                            <option selected value="@item.Id">
-                                                @item.DisplayName
-                                            </option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@item.Id">
-                                                @item.DisplayName
-                                            </option>
-                                        }
-
-                                }
-                                </select>
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Quận/Huyện")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <select required="required" class="form-control" @bind="recruitment.DistrictCode">
-
-                                    @if (ListDistrict != null && ListDistrict.Count > 0)
-                                    {
-                                        @foreach (var item in ListDistrict)
-                                        {
-                                            @if (item.Code == Model.DistrictCode)
-                                            {
-                                                <option selected value="@item.Code">
-                                                    @item.DisplayName
-                                                </option>
-                                            }
-                                            else
-                                            {
-                                                <option value="@item.Code">
-                                                    @item.DisplayName
-                                                </option>
-                                            }
-                                        }
-                                    }
-
-                                </select>
-
-                                @*   <select required="required" class="form-control" @bind="@Model.FormOfWorkId">
-                            @foreach (var item in FormOfWork)
-                            {
-
-                            <option value="@item.Id">
-                            @item.DisplayName
-                            </option>
-
-
-                            }
-                            </select> *@
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span>
-                                        @L("Số nhà tên đường")
-                                    </span>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" @bind="recruitment.WorkAddress" />
-                            </div>
-                            <h6>Mức lương & Kỹ năng</h6>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Mức lương tối thiểu (VNĐ)")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <input type="number" class="form-control form-control-solid" @bind="recruitment.MinSalary" />
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Mức lương tối đa (VNĐ)")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <input type="number" class="form-control form-control-solid" @bind="recruitment.MaxSalary" />
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span>
-                                        @L("Kỹ năng cần thiết")
-                                    </span>
-
-                                </label>
-                                <input type="text" class="form-control form-control-solid" @bind="Model.NecessarySkills" />
-                            </div>
-                            <h4>Mô tả công việc</h4>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Mô tả công việc")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <textarea class="form-control form-control-solid" @bind="recruitment.JobDesc">   </textarea>
-                                @* <textarea  class="form-control form-control-solid" @bind="@EmailMessage"  /> *@
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Yêu cầu công việc")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <textarea type="text" class="form-control form-control-solid" @bind="recruitment.JobRequirementDesc" style="height: 110px" />
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Quyền lợi")
-                                    </span>
-                                </label>
-                                <textarea type="text" class="form-control form-control-solid" @bind="recruitment.BenefitDesc" style="height: 110px" />
-                            </div>
-
-
-                            <h4>Thông tin người liên hệ</h4>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Họ và tên")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" @bind="recruitment.FullName" />
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Email")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" @bind="recruitment.Email" />
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Điện thoại")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" @bind="recruitment.PhoneNumber" />
-                            </div>
-                            <div class="d-flex flex-column fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Điạ chỉ liên hệ")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" @bind="recruitment.Address" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center mt-3">
-                        <button type="reset" data-dismiss="modal" class="btn btn-light me-3" @onclick="Hide">@L("Huỷ")</button>
-                        <button type="button" class="btn " style="background-color:#00b14f" @onclick="SaveJob">
-                            <span class="indicator-label" style="color: white">@L("Lưu")</span>
-                        </button>
-                    </div>
-                }
+            <h4>Thông tin cơ bản</h4>
+            <h5>  @L("Chức danh")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="text" class="form-control validate-text" id="form1" @bind="recruitment.Title">
+                <em>(required)</em>
             </div>
 
-        </div>
+            <h5> @L("Nghề nghiệp")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <select required="required" @bind="recruitment.JobCatUnitId">
+                    @foreach (var item in CatFilterList.Career)
+                    {
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+
+                    }
+                </select>
+            </div>
+            <h5> @L("Hình thức làm việc")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <select required="required" @bind="recruitment.FormOfWork">
+                    @foreach (var item in CatFilterList.FormOfWork)
+                    {
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+
+                    }
+                </select>
+            </div>
+            <h5> @L("Bằng cấp")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <select required="required" @bind="recruitment.Degree">
+                    @foreach (var item in CatFilterList.Degree)
+                    {
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+
+                    }
+                </select>
+            </div>
+            <h5> @L("Số năm kinh nghiệm")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <select required="required" @bind="recruitment.Experience">
+                    @foreach (var item in CatFilterList.Experience)
+                    {
+
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+
+
+                    }
+                </select>
+            </div>
+            <h5>  @L("Cấp bậc")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <select required="required" @bind="recruitment.Rank">
+                    @foreach (var item in CatFilterList.Rank)
+                    {
+
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+
+
+                    }
+                </select>
+            </div>
+            <h5>  @L("Độ tuổi tối thiểu")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="number" class="form-control validate-text" id="form1" @bind="recruitment.MinAge">
+                <em>(required)</em>
+            </div>
+            <h5>  @L("Độ tuổi tối đa")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="number" class="form-control validate-text" id="form1" @bind="recruitment.MaxAge">
+                <em>(required)</em>
+            </div>
+            <h5>  @L("Giới tính")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <select required="required" @bind="recruitment.GenderRequired">
+                    <option value="0">Không yêu cầu</option>
+                    <option value="1">Nam</option>
+                    <option value="2">Nữ</option>
+                </select>
+            </div>
+            <h5>   @L("Số lượng tuyển")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="number" class="form-control validate-text" id="form1" @bind="recruitment.NumberOfRecruits">
+                <em>(required)</em>
+            </div>
+            <h5>@L("Thời hạn thử việc(tháng)")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="number" class="form-control validate-text" id="form1" @bind="recruitment.ProbationPeriod">
+            </div>
+            <h5>@L("Hạn nộp hồ sơ")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="date" id="form1" @bind="recruitment.DeadlineSubmission">
+            </div>
+            <h4>Địa điểm làm việc</h4>
+            <h5>@L("Tỉnh/Thành phố")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <select required="required" @onchange="selectedValue">
+                    <option value="0">Chọn Tỉnh/Thành phố</option>
+                    @foreach (var item in ListProvince)
+                    {
+                        @if (item.Id == Model.ProvinceId)
+                        {
+                            <option selected value="@item.Id">
+                                @item.DisplayName
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">
+                                @item.DisplayName
+                            </option>
+                        }
+
+                    }
+                </select>
+            </div>
+            <h5> @L("Quận/Huyện")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <select required="required" class="form-control">
+                    @if (ListDistrict != null && ListDistrict.Count > 0)
+                    {
+                        @foreach (var item in ListDistrict)
+                        {
+                            @if (item.Code == Model.DistrictCode)
+                            {
+                                <option selected value="@item.Code">
+                                    @item.DisplayName
+                                </option>
+                            }
+                            else
+                            {
+                                <option value="@item.Code">
+                                    @item.DisplayName
+                                </option>
+                            }
+                        }
+                    }
+                </select>
+            </div>
+            <h5>@L("Số nhà tên đường")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="text" class="form-control" id="form1" @bind="recruitment.WorkAddress">
+            </div>
+            <h4>Mức lương & Kỹ năng</h4>
+            <h5> @L("Mức lương tối thiểu (VNĐ)")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="number" class="form-control" id="form1" @bind="recruitment.MinSalary">
+            </div>
+            <h5> @L("Kỹ năng cần thiết")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="text" class="form-control" id="form1" @bind="recruitment.NecessarySkills">
+            </div>
+            <h4>Mô tả công việc</h4>
+            <h5> @L("Mô tả công việc")</h5>
+            <div class="input-style has-borders no-icon mb-4">
+                <textarea id="form7" @bind="recruitment.JobDesc"></textarea>
+                <label for="form7" class="color-highlight">@L("Mô tả công việc")</label>
+                <em class="mt-n3">(required)</em>
+            </div>
+            <h5>@L("Yêu cầu công việc")</h5>
+            <div class="input-style has-borders no-icon mb-4">
+                <textarea id="form8" @bind="recruitment.JobRequirementDesc"></textarea>
+                <label for="form8" class="color-highlight">@L("Yêu cầu công việc")</label>
+                <em class="mt-n3">(required)</em>
+            </div>
+            <h5>@L("Quyền lợi")</h5>
+            <div class="input-style has-borders no-icon mb-4">
+                <textarea id="form9" @bind="recruitment.BenefitDesc"></textarea>
+                <label for="form9" class="color-highlight">@L("Quyền lợi")</label>
+                <em class="mt-n3">(required)</em>
+            </div>
+            <h4>Thông tin người liên hệ</h4>
+            <h5>@L("Họ và tên")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="text" class="form-control validate-text" id="form1" @bind="recruitment.FullName">
+                <em>(required)</em>
+            </div>
+            <h5> @L("Email")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="text" class="form-control validate-text" id="form1" @bind="recruitment.Email">
+                <em>(required)</em>
+            </div>
+            <h5> @L("Điện thoại")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="text" class="form-control validate-text" id="form1" @bind="recruitment.PhoneNumber">
+                <em>(required)</em>
+            </div>
+            <h5>    @L("Điạ chỉ liên hệ")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="text" class="form-control validate-text" id="form1" @bind="recruitment.Address">
+                <em>(required)</em>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Đóng</a>
+                <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveJob">Lưu</a>
+            </div>
+
+
+
+
+
+
+
+
+
+
+       
+        }
     </div>
-
-
-
 </div>

@@ -1,104 +1,54 @@
 ﻿@inherits ModalBase
-<div class="modal fade" id="@ModalId" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded">
-            <div class="modal-body scroll-y pt-10 pb-10">
 
-                <div class="btn btn-sm btn-icon btn-active-color-primary position-absolute" style="top:20px;right:20px" data-bs-dismiss="modal">
-                    <span class="svg-icon svg-icon-1">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
-                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
-                        </svg>
-                    </span>
-                </div>
-                <div class="mb-13 text-center">
-                    <h1 class="mb-3">@L("Cập nhật lịch phỏng vấn")</h1>
-                </div>
-                <div class="card shadow-sm p-0 m-0">
-                    <div class="card-body d-flex flex-column py-10 m-0">
-
-                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container ">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span >
-                                    @L("Công việc mời phỏng vấn")
-                                </span>
-                            </label>
-                            <input type="text" class="form-control form-control-solid" placeholder="@ApplicationRequest" disabled/>
-                        </div>
-                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container ">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span >
-                                    @L("Hình thức phỏng vấn")
-                                </span>
-                            </label>
-                            <input type="text" class="form-control form-control-solid" @bind="Model.TypeInterview" disabled />
-                        </div>
-                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container ">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span >
-                                    @L("Địa chỉ phỏng vấn")
-                                </span>
-                            </label>
-                            <input type="text" class="form-control form-control-solid" @bind="Model.Address" disabled />
-                        </div>
-                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container ">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span >
-                                    @L("Vị trí phỏng vấn")
-                                </span>
-                            </label>
-                            <input type="text" class="form-control form-control-solid" placeholder="@RanksName" disabled />
-                        </div>
-                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container ">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span >
-                                    @L("Thời gian phỏng vấn")
-                                </span>
-                            </label>
-                            <input type="date" class="form-control form-control-solid" @bind="Model.InterviewTime" disabled />
-                        </div>
-                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container ">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span >
-                                    @L("Lời nhắn")
-                                </span>
-                            </label>
-                            <input type="text" class="form-control form-control-solid" @bind="Model.Message" disabled />
-                        </div>
-                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container ">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span >
-                                    @L("Lời nhắn ứng viên")
-                                </span>
-                            </label>
-                            <input type="text" class="form-control form-control-solid" @bind="Model.ReasonForRefusal" disabled />
-                        </div>
-                        <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container ">
-                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                <span class="required">
-                                    @L("Kết quả phỏng vấn")
-                                </span>
-                            </label>
-                            <select @bind="@Model.InterviewResultLetter">
-                                <option selected value="">Chọn</option>
-                                <option value="1">Đỗ</option>
-                                <option value="2">Trượt</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center mt-8">
-                    <button type="reset" data-dismiss="modal" class="btn btn-light me-3" @onclick="Hide">@L("Huỷ")</button>
-                    <button type="button" class="btn" style="background-color:#00b14f" @onclick="SaveJob">
-                        <span style="color: white" class="indicator-label">@L("Lưu")</span>
-                    </button>
-                </div>
-            </div>
-
+<div id="@ModalId" class="menu menu-box-modal rounded-m" data-menu-width="330">
+    <div class="content">
+        <h1>@L("Cập nhật lịch phỏng vấn")</h1>
+        <h5>   @L("Công việc mời phỏng vấn")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control  validate-text" placeholder="@ApplicationRequest" disabled />
+            <em>(required)</em>
+        </div>
+        <h5> @L("Hình thức phỏng vấn")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control  validate-text" @bind="Model.TypeInterview" disabled />
+            <em>(required)</em>
+        </div>
+        <h5> @L("Địa chỉ phỏng vấn")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control  validate-text" @bind="Model.Address" disabled />
+            <em>(required)</em>
+        </div>
+        <h5> @L("Vị trí phỏng vấn")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control  validate-text" placeholder="@RanksName" disabled />
+            <em>(required)</em>
+        </div>
+        <h5> @L("Thời gian phỏng vấn")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control  validate-text" @bind="Model.InterviewTime" disabled />
+            <em>(required)</em>
+        </div>
+        <h5>  @L("Lời nhắn")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control  validate-text" @bind="Model.Message" disabled />
+            <em>(required)</em>
+        </div>
+        <h5>   @L("Lời nhắn ứng viên")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control  validate-text" @bind="Model.ReasonForRefusal" disabled />
+            <em>(required)</em>
+        </div>
+        <h5>@L("Kết quả phỏng vấn")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <select @bind="@Model.InterviewResultLetter">
+                <option selected value="">Chọn</option>
+                <option value="1">Đỗ</option>
+                <option value="2">Trượt</option>
+            </select>
+        </div>
+        <div class="d-flex justify-content-center">
+            <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Đóng</a>
+            <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveJob">Lưu</a>
         </div>
     </div>
-
-
-
 </div>
