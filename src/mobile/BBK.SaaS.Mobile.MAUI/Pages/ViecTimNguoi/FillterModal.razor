@@ -1,0 +1,108 @@
+﻿@inherits ModalBase
+
+<div id="@ModalId" class="menu menu-box-top menu-box-detached rounded-m" style="width:100%" >
+    <div class="menu-title">
+        <h1>Tìm kiếm nâng cao</h1>
+        <p class="color-highlight">
+            Lọc kết quả tìm kiếm của bạn
+        </p><a class="close-menu"><i class="fa fa-times"></i></a>
+    </div>
+    <p class="mb-3 mx-3">
+        Các bộ lọc này có thể được mở rộng theo mặc định hoặc thu gọn lại.
+    </p>
+    <div class="divider divider-margins"></div>
+    <div class="content mt-n3 mx-3 me-4 mb-0">
+        <!-- Địa điểm-->
+        <div class="list-group list-custom-small list-icon-0">
+            <a data-bs-toggle="collapse" class="border-0" href="#collapse-filter-0">
+                <span class="font-15 font-600">Địa điểm</span>
+                <i class="fa fa-angle-down"></i>
+            </a>
+        </div>
+        <div class="collapse" id="collapse-filter-0">
+            <Virtualize @ref="GeoUnitContainer" Context="geounit" ItemsProvider="@LoadGeoUnit" ItemSize="1">
+                <select class="cus-select w-100" @bind="_filter.WorkSiteId" style="height: 33px;">
+                    <option value="0" selected>Tất cả địa điểm</option>
+
+                    @foreach (var item in WorkSite)
+                    {
+                        <option value="@item.Id">@item.DisplayName</option>
+                    }
+
+                </select>
+            </Virtualize>
+            <div class="mb-3"></div>
+        </div>
+        <!-- Ngành nghề -->
+        <div class="list-group list-custom-small list-icon-0">
+            <a data-bs-toggle="collapse" class="border-0" href="#collapse-filter-1">
+                <span class="font-15 font-600">Ngành nghề</span>
+                <i class="fa fa-angle-down"></i>
+            </a>
+        </div>
+        <div class="collapse" id="collapse-filter-1">
+            <Virtualize @ref="CatFilterListContainer" Context="cat" ItemsProvider="@LoadFilter" ItemSize="100">
+                <select class="cus-select2 w-100" @bind="_filter.Job" style="height: 33px;">
+                    <option value="0" selected>Tất cả ngành nghề</option>
+                    @foreach (var item in Career)
+                    {
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+
+                    }
+                </select>
+            </Virtualize>
+            <div class="mb-3"></div>
+        </div>
+        <!--Kinh nghiệm-->
+        <div class="list-group list-custom-small list-icon-0">
+            <a data-bs-toggle="collapse" class="border-0" href="#collapse-filter-2">
+                <span class="font-15 font-600">Kinh nghiệm</span>
+                <i class="fa fa-angle-down"></i>
+            </a>
+        </div>
+        <div class="collapse" id="collapse-filter-2">
+            <Virtualize @ref="CatFilterListContainer" Context="cat" ItemsProvider="@LoadFilter" ItemSize="100">
+                <select class="cus-select2 w-100" @bind="_filter.Experience" style="height: 33px;">
+                    <option value="0" selected>Tất cả kinh nghiệm</option>
+                    @foreach (var item in Experience)
+                    {
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+
+                    }
+                </select>
+            </Virtualize>
+            <div class="mb-3"></div>
+        </div>
+        <!--Mức lương tối thiểu-->
+        <div class="list-group list-custom-small list-icon-0">
+            <a data-bs-toggle="collapse" class="border-0" href="#collapse-filter-3">
+                <span class="font-15 font-600">Mức lương tối thiểu</span>
+                <i class="fa fa-angle-down"></i>
+            </a>
+        </div>
+        <div class="collapse" id="collapse-filter-3">
+            <input type="search" class="w-100" placeholder="Nhập mức lương tối thiểu" @bind="_filter.Salary">
+            <div class="mb-3"></div>
+        </div>
+        <!--Mức lương tối đa-->
+        <div class="list-group list-custom-small list-icon-0">
+            <a data-bs-toggle="collapse" class="border-0" href="#collapse-filter-4">
+                <span class="font-15 font-600">Mức lương tối đa</span>
+                <i class="fa fa-angle-down"></i>
+            </a>
+        </div>
+        <div class="collapse" id="collapse-filter-4">
+            <input type="search" class="w-100" placeholder="Nhập mức lương tối đa" @bind="_filter.SalaryMax">
+            <div class="mb-3"></div>
+        </div>
+    </div>
+    <div class="divider divider-margins mt-2 mb-4"></div>
+    <a @onclick="Save" class=" close-menu btn btn-full mx-3 btn-m bg-blue-dark rounded-m font-700 text-uppercase w-80">
+        Tìm kiếm
+    </a>
+    <div class="divider divider-margins mt-4 mb-4"></div>
+</div>

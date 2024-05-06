@@ -9,7 +9,7 @@ var ModalCustomManagerService = function () {
         for (i = 0; i < menuSideBarLeft.length; i++) {
             menuSideBarLeft[i].classList.add("menu-active");
             menuSideBarLeft[i].style.display = "block";
-            menuSideBarLeft[i].style.width = "320px";
+            menuSideBarLeft[i].style.width = "95%";
             //menuSideBarLeft[i].style.height = "100%";
         }
         for (i = 0; i < menuHider.length; i++) {
