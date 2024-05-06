@@ -386,10 +386,11 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
         }
 
         bool IsOpenFilter;
-
+        FillterModal fillterModal = new FillterModal() ;
         public async Task OpenFilter()
         {
             IsOpenFilter = true;
+            await fillterModal.OpenFor();
         }
         public async Task CloseFilter()
         {

@@ -71,17 +71,19 @@
                     @if (IsAgree == true)
                     {
                         @L("Nội dung gửi đến nhà tuyển dụng")
+                        <em class="mt-n3">(bắt buộc)</em>
                     }
                     @if (IsReject == true)
                     {
                         @L("Lý do từ chối")
+                        <em class="mt-n3">(bắt buộc)</em>
                     }
                     @if (IsView == true)
                     {
                         @L("Nội dung")
                     }
                 </label>
-                <em class="mt-n3">(required)</em>
+               
             </div>
             <div class="d-flex justify-content-center">
                 <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Hủy</a>
