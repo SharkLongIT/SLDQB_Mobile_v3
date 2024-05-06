@@ -75,9 +75,8 @@
 </div>
 <!-- Tìm kiếm thông tin -->
 <div class="content mt-n4 search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important">
-    <i class="fa fa-search" @* @onclick="RefeshList" *@></i>
-    <input type="text" class="border-0" placeholder="Tìm kiếm thông tin" data-search @* @oninput="selectedValue" *@>
-    <a href="#" class="clear-search disabled mt-0"><i class="fa fa-times color-red-dark"></i></a>
+    <i class="fa fa-search" @onclick="RefeshList"></i>
+    <input type="search" class="border-0" placeholder="Tìm kiếm thông tin" @bind="_filtered.Filtered">
 </div>
 <div class="content mt-0">
     <a data-menu="menu-filter" @onclick="OpenFilter">

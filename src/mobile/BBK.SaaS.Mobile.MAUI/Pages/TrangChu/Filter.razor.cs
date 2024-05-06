@@ -130,21 +130,12 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
         private async Task RefeshList()
         {
             _SearchText = _filtered.Filtered;
-            if (_filtered.Job.HasValue)
-            {
-                _Job = _filtered.Job.Value;
-            }
-            if (_filtered.WorkSiteId.HasValue)
-            {
-                _WorkSite = _filtered.WorkSiteId.Value;
-            }
-
             await UriFilter();
         }
 
         public async Task UriFilter()
         {
-            navigationService.NavigateTo($"ViecTimNguoi?_SearchText={_SearchText}&Job={_Job}&WorkSite={_WorkSite}");
+            navigationService.NavigateTo($"ViecTimNguoi?_SearchText={_SearchText}");
         }
         private async ValueTask<ItemsProviderResult<RecruitmentDto>> LoadRecruitment(ItemsProviderRequest request)
         {

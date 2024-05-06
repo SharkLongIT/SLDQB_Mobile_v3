@@ -249,7 +249,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
                     //    _avatarCandidate = await UserProfileService.GetProfilePicture(item.Candidate.UserId);
                     //    item.Candidate.AvatarUrl = _avatarCandidate;
                     //}
-                    JobAppCount = jobFilter.Count;  
+                    JobAppCount = jobFilter.Count;
                     if (jobFilter.Count == 0)
                     {
                         isError = true;

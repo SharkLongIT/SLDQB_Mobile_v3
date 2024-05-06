@@ -358,13 +358,16 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                         model.Recruiter.AvatarUrl = AsyncHelper.RunSync(async () => await articleService.GetPicture(model.Recruiter.AvatarUrl));
                     }
                     RecruitmentCount = jobFilter.Count;
-                    if (jobFilter.Count == 0)
+                    if (_SearchText != "")
                     {
-                        isError = true;
-                    }
-                    else
-                    {
-                        isError = false;
+                        if (jobFilter.Count == 0)
+                        {
+                            isError = true;
+                        }
+                        else
+                        {
+                            isError = false;
+                        }
                     }
                     recruitmentDto = new ItemsProviderResult<RecruitmentDto>(jobFilter, jobFilter.Count);
 

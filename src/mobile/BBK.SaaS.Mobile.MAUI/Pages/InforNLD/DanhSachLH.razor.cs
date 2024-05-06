@@ -1,24 +1,17 @@
 ﻿using Abp.UI;
-using BBK.SaaS.Mdls.Profile.Candidates.Dto;
-using BBK.SaaS.Mdls.Profile.Candidates;
-using BBK.SaaS.Mobile.MAUI.Shared;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BBK.SaaS.Services.Navigation;
 using BBK.SaaS.Core.Dependency;
 using BBK.SaaS.Core.Threading;
+using BBK.SaaS.Mdls.Profile.Candidates;
+using BBK.SaaS.Mdls.Profile.Candidates.Dto;
 using BBK.SaaS.Mobile.MAUI.Models.NguoiTimViec;
-using Abp.Extensions;
+using BBK.SaaS.Mobile.MAUI.Shared;
+using BBK.SaaS.Services.Navigation;
 using Microsoft.AspNetCore.Components;
-using Android.Net.Wifi.Aware;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
 {
-    public partial class DanhSachLH : SaaSMainLayoutPageComponentBase
+	public partial class DanhSachLH : SaaSMainLayoutPageComponentBase
     {
         protected INavigationService navigationService { get; set; }
         private string _SearchText = "";

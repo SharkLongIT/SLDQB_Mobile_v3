@@ -105,44 +105,6 @@
             </a>
             <div class="divider mt-3 mb-3"></div>
         </Virtualize>
-
-
-
-        @*  <a href="#" data-filter-item data-filter-name="all pediatrics" class="search-result-list">
-    <i class="fa font-14 fa-child color-blue-dark"></i>
-    <span>Pediatrics</span>
-    <i class="fa fa-angle-right"></i>
-    </a>
-    <a href="#" data-filter-item data-filter-name="all neurology" class="search-result-list">
-    <i class="fa font-14 fa-brain color-dark-light"></i>
-    <span>Neurology</span>
-    <i class="fa fa-angle-right"></i>
-    </a>
-    <a href="#" data-filter-item data-filter-name="all pulmonary" class="search-result-list">
-    <i class="fa font-14 fa-lungs color-brown-dark"></i>
-    <span>Pulmonary</span>
-    <i class="fa fa-angle-right"></i>
-    </a>
-    <a href="#" data-filter-item data-filter-name="all orthopedy" class="search-result-list">
-    <i class="fa font-14 fa-bone color-gray-dark"></i>
-    <span>Orthopedy</span>
-    <i class="fa fa-angle-right"></i>
-    </a>
-    <a href="#" data-filter-item data-filter-name="all orthodontics" class="search-result-list">
-    <i class="fa font-14 fa-tooth color-gray-dark"></i>
-    <span>Orthodontist</span>
-    <i class="fa fa-angle-right"></i>
-    </a>
-    <a href="#" data-filter-item data-filter-name="all ophtalmology" class="search-result-list">
-    <i class="fa font-14 fa-eye color-green-dark"></i>
-    <span>Ophthalmology</span>
-    <i class="fa fa-angle-right"></i>
-    </a>
-    <a href="#" data-filter-item data-filter-name="all cardiovascular" class="search-result-list">
-    <i class="fa font-14 fa-heart color-red-dark"></i>
-    <span>Cardiovascular</span>
-    <i class="fa fa-angle-right"></i>
-    </a> *@
     </div>
 }
 @if (isError1 == true)
@@ -169,12 +131,6 @@
                     <h3 class="color-green-dark font-20 mb-0">@RecruitmentCount+</h3>
                 </div>
             </div>
-            @* <div class="col-6 ps-1">
-                <div class="mx-0 mb-3 text-center">
-                    <h6 class="font-12 font-800 text-uppercase opacity-30">Phiên giao dịch</h6>
-                    <h3 class="color-aqua-light font-20 mb-0">25+</h3>
-                </div>
-            </div> *@
             <div class="col-6 pe-1">
                 <div class="mx-0 mb-3 text-center">
                     <h6 class="font-12 font-800 text-uppercase opacity-30">Hồ sơ việc làm</h6>
@@ -196,8 +152,6 @@
         <h4 class="pb-1 text-uppercase color-highlight">Sự kiện nổi bật</h4>
     </div>
     <div class="row mb-0 mt-n3">
-        @* <Virtualize @ref="ArticlesContainer" Context="articles" ItemsProvider="@LoadNewestArticles" ItemSize="100"> *@
-
         @if (articleModel1!= null && articleModel1.Count > 0)
         {
             @foreach (var article1 in articleModel1)
@@ -205,7 +159,7 @@
                 <div class="col-6 pe-0">
                     <a class="card card-style" data-card-height="280" style="background-image: url('@article1.PrimaryImageUrl'); height: 280px;" @onclick="(() => ViewArticle(article1))">
                         <div class="card-top text-center">
-                            <span class="badge bg-blue-dark px-2 py-1 color-white m-3"><i class="fa fa-fire me-2"></i></span>
+                            @* <span class="badge bg-blue-dark px-2 py-1 color-white m-3"><i class="fa fa-fire me-2"></i>@article1.CategoryDisplayName</span> *@
                         </div>
                         <div class="card-bottom py-1 px-2 bg-black">
                             <h5 class="color-white font-500  text-center" style="display: -webkit-box;
@@ -226,12 +180,10 @@
             <div class="col-6 ps-0">
                 @foreach (var article2 in articleModel2)
                 {
-                    @*                     <a href="javascript:;" class="card card-style " data-card-height="280" style="background-image: url(&quot;images/QuangBinh/sk_002.jpg&quot;);height: 135px;" @onclick="(() => ViewArticle(article2))">
-            *@
                     <a class="card ms-0 card-style mb-2" data-card-height="135" style="background-image: url('@article2.PrimaryImageUrl'); height: 135px;" @onclick="(() => ViewArticle(article2))">
 
                         <div class="card-top text-center">
-                            <span class="badge bg-green-dark px-2 py-1 color-white m-3"><i class="fa fa-star me-2"></i></span>
+                            @* <span class="badge bg-green-dark px-2 py-1 color-white m-3"><i class="fa fa-star me-2"></i>@article2.CategoryDisplayName</span> *@
                         </div>
                         <div class="card-bottom py-1 px-2 bg-black">
                             <h5 class="color-white font-500  text-center " style="display: -webkit-box;
@@ -247,9 +199,6 @@
                 }
             </div>
         }
-
-        @* </Virtualize> *@
-
     </div>
 </div>
 <!-- Người tìm việc - Việc tìm người -->
