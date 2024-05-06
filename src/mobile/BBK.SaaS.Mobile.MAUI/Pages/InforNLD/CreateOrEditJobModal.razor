@@ -1,202 +1,128 @@
 ﻿@inherits ModalBase
-<div class="modal fade" id="@ModalId" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content rounded">
-            <div class="modal-body scroll-y pt-10 pb-10">
-                @if (_isInitialized)
-                {
-                    <div class="btn btn-sm btn-icon btn-active-color-primary position-absolute" style="top:20px;right:20px" data-bs-dismiss="modal">
-                        <span class="svg-icon svg-icon-1">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
-                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
-                            </svg>
-                        </span>
-                    </div>
-                    <div class="mb-13 text-center">
-                        @if(IsEdit == true)
-                        {
-                            <h1 class="mb-3">@L("Cập nhật hồ sơ ứng tuyển")</h1>
 
-                        }
-                        else
-                        {
-                            <h1 class="mb-3">@L("Tạo mới hồ sơ ứng tuyển")</h1>
+<div id="@ModalId" class="menu menu-box-modal rounded-m" data-menu-width="330">
+    <div class="content">
 
-                        }
-                    </div>
-                    <div class="card shadow-sm p-0 m-0">
-                        <div class="card-body d-flex flex-column py-10 m-0">
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container ">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Tên hồ sơ")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <input type="text" class="form-control form-control-solid" @bind="Model.Title" />
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Cấp bậc mong muốn")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <select required="required" class="form-control" @bind="Model.PositionsId">
-                                    @*   <option value="-1">Chọn cấp bậc mong muốn</option> *@
-                                    @foreach (var item in Rank)
-                                    {
-                                        <option value="@item.Id">
-                                            @item.DisplayName
-                                        </option>
+        @if (_isInitialized)
+        {
+            <div class="d-flex">
+                <div>
+                    @if (IsEdit == true)
+                    {
+                        <h1>@L("Cập nhật hồ sơ ứng tuyển")</h1>
 
-                                    }
-                                </select>
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Nghề nghiệp")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <select required="required" class="form-control" @bind="Model.OccupationId">
-                                    @foreach (var item in Career)
-                                    {
-
-                                        <option value="@item.Id">
-                                            @item.DisplayName
-                                        </option>
-
-                                    }
-                                </select>
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Bằng cấp")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <select required="required" class="form-control" @bind="Model.LiteracyId">
-                                    @foreach (var item in Degree)
-                                    {
-                                        <option value="@item.Id">
-                                            @item.DisplayName
-                                        </option>
-
-                                    }
-                                </select>
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Số năm kinh nghiệm")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-
-                                <select required="required" class="form-control" @bind="@Model.ExperiencesId">
-                                    @foreach (var item in Experience)
-                                    {
-
-                                        <option value="@item.Id">
-                                            @item.DisplayName
-                                        </option>
-
-
-                                    }
-                                </select>
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span>
-                                        @L("Mức lương mong muốn")
-                                    </span>
-                                </label>
-                                <input type="number" class="form-control form-control-solid" @bind="@Model.DesiredSalary" />
-                            </div>
-
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Hình thức làm việc")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <select required="required" class="form-control" @bind="@Model.FormOfWorkId">
-                                    @foreach (var item in FormOfWork)
-                                    {
-
-                                        <option value="@item.Id">
-                                            @item.DisplayName
-                                        </option>
-
-
-                                    }
-                                </select>
-                            </div>
-
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Nơi muốn làm việc")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <select required="required" class="form-control" @bind="@Model.WorkSite">
-                                    @foreach (var item in WorkSite)
-                                    {
-                                        <option value="@item.Id">
-                                            @item.DisplayName
-                                        </option>
-                                    }
-                                </select>
-                            </div>
-                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
-                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                    <span class="required">
-                                        @L("Mục tiêu")
-                                    </span>
-                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
-                                </label>
-                                <textarea type="text" style="height: 90px;" class="form-control form-control-solid" @bind="Model.Career" />
-                            </div>
-                            <div class="row">
-                                <div class="col-2">
-                                    <input type="checkbox" class="form-check-input main-job-check " style="width: 15px; height: 15px" @bind="Model.IsPublished"/>
-                                </div>
-                                <div class="col-10">
-                                    <span class="mt-4 main-job-text">@L("Đặt làm hồ sơ chính")</span>
-                                </div>
-                            </div>
-                          @*   <label class="form-check form-switch form-check-custom form-check-solid">
-                                <input type="checkbox" class="form-check-input m-1" @bind="Model.IsPublished"></input>
-                                <span class="form-check-label fw-semibold text-muted">@L("Đặt làm hồ sơ chính")</span>
-                            </label> *@
-                        </div>
-                         
-                    </div>
-                
-                    <div class="text-center mt-8">
-                        <button class="btn btn-light me-3" @onclick="(()=>Hide())">@L("Huỷ")</button>
-                        @if(IsEdit == true)
-                        {
-                            <button type="button" class="btn " style="background-color: #00b14f" @onclick="SaveJob">
-                                <span style="color: white" class="indicator-label">@L("Lưu")</span>
-                            </button>
-                        }
-                        else
-                        {
-                            <button type="button" class="btn " style="background-color: #00b14f" @onclick="SaveJob">
-                                <span style="color: white" class="indicator-label">@L("Lưu")</span>
-                            </button>
-                        }
-
-                    </div>
-                }
+                    }
+                    else
+                    {
+                        <h1>@L("Tạo mới hồ sơ ứng tuyển")</h1>
+                    }
+                </div>
             </div>
-        </div>
+            <h5> @L("Tên hồ sơ")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="text" class="form-control validate-text" id="form1" @bind="Model.Title">
+                <em>(required)</em>
+            </div>
+            <div class="input-style has-borders no-icon">
+                <h5>@L("Cấp bậc mong muốn")</h5>
+                <select class="form-control" @bind="Model.PositionsId">
+                    @*   <option value="-1">Chọn cấp bậc mong muốn</option> *@
+                    @foreach (var item in Rank)
+                    {
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+
+                    }
+                </select>
+            </div>
+            <div class="input-style has-borders no-icon">
+                <h5>  @L("Nghề nghiệp")</h5>
+                <select class="form-control" @bind="Model.OccupationId">
+                    @foreach (var item in Career)
+                    {
+
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+
+                    }
+                </select>
+            </div>
+            <div class="input-style has-borders no-icon">
+                <h5>    @L("Bằng cấp")</h5>
+                <select class="form-control" @bind="Model.LiteracyId">
+                    @foreach (var item in Degree)
+                    {
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+
+                    }
+                </select>
+            </div>
+            <div class="input-style has-borders no-icon">
+                <h5>    @L("Số năm kinh nghiệm")</h5>
+                <select class="form-control" @bind="@Model.ExperiencesId">
+                    @foreach (var item in Experience)
+                    {
+
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+
+
+                    }
+                </select>
+            </div>
+            <h5> @L("Mức lương mong muốn")</h5>
+            <div class="input-style has-borders has-icon validate-field mb-4">
+                <input type="number" class="form-control validate-name" id="form1" @bind="@Model.DesiredSalary">
+                <label for="form1" class="color-highlight">Name</label>
+                <em>(required)</em>
+            </div>
+            <div class="input-style has-borders no-icon">
+                <h5>@L("Hình thức làm việc")</h5>
+                <select class="form-control" @bind="@Model.FormOfWorkId">
+                    @foreach (var item in FormOfWork)
+                    {
+
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+
+
+                    }
+                </select>
+            </div>
+            <div class="input-style has-borders no-icon">
+                <h5>@L("Nơi muốn làm việc")</h5>
+                <select class="form-control" @bind="@Model.WorkSite">
+                    @foreach (var item in WorkSite)
+                    {
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="input-style has-borders no-icon mb-4">
+                <textarea id="form7" @bind="Model.Career"></textarea>
+                <label for="form7" class="color-highlight">@L("Mục tiêu")</label>
+                <em class="mt-n3">(required)</em>
+            </div>
+            <div class="form-check icon-check">
+                <input class="form-check-input" type="checkbox" id="check1 " @bind="Model.IsPublished">
+                <label class="form-check-label" for="check1">@L("Đặt làm hồ sơ chính")</label>
+                <i class="icon-check-1 fa fa-square color-gray-dark font-16"></i>
+                <i class="icon-check-2 fa fa-check-square font-16 color-highlight"></i>
+            </div>
+
+
+            <div class="d-flex justify-content-center">
+                <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Hủy</a>
+                <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveJob">Lưu</a>
+            </div>
+        }
     </div>
 </div>

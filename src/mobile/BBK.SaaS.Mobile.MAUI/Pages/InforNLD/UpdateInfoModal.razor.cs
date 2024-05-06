@@ -262,6 +262,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
         }
         #endregion
 
+       
 
     }
 }

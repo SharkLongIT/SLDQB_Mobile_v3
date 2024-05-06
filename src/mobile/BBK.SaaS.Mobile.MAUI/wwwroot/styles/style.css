@@ -744,7 +744,7 @@ body {
   top: 50%;
   left: 50%;
   width: 330px;
-  max-height: 480px;
+  max-height: 750px;
   transform: translate(-50%, -50%) scale(0, 0);
   opacity: 0;
   pointer-events: none;
@@ -3183,7 +3183,7 @@ button:active {
 }
 
 .input-style input[type=date]::-webkit-calendar-picker-indicator {
-  opacity: 0.3;
+  /*opacity: 0.3;*/
 }
 
 .input-style textarea {
@@ -3198,11 +3198,11 @@ button:active {
 
 .input-style input[type=date] {
   color: inherit;
-  width: calc(100vw - 64px);
+  /*width: calc(100vw - 64px);*/
   display: block;
   appearance: none;
   -webkit-appearance: none;
-  padding-top: 2px;
+  padding-top: 5px;
 }
 
 .input-style em,
