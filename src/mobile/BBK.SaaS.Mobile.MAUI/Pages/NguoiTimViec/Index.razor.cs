@@ -26,8 +26,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
 
         private ItemsProviderResult<CatFilterList> CatFilterListDto;
         private readonly CatFilterList _filterCat = new CatFilterList();
-
-        private bool IsDefault1;
         private Virtualize<CatFilterList> CatFilterListContainer { get; set; }
         protected IGeoUnitAppService geoUnitAppService { get; set; }
         private ItemsProviderResult<GeoUnitDto> geoUnitDto;
@@ -99,15 +97,14 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
         private long? _OccupationId;
         private decimal? _SalaryMin;
         private decimal? _SalaryMax;
-        private string _avatarCandidate;
+        //private string _avatarCandidate;
 
-        private long OccupationId;
-        private long Worksite;
-        private long ExperienceId;
-        private long DegreeId;
-        private decimal? SalaryMin;
-        private decimal? SalaryMax;
-
+        //private long OccupationId;
+        //private long Worksite;
+        //private long ExperienceId;
+        //private long DegreeId;
+        //private decimal? SalaryMin;
+        //private decimal? SalaryMax;
 
         private int JobAppCount;
         bool IsJobAppCount;
@@ -116,8 +113,8 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
 
 
         protected IApplicationContext ApplicationContext { get; set; }
-        private bool IsUserLoggedIn;
-        private bool IsCancel;
+        //private bool IsUserLoggedIn;
+        //private bool IsCancel;
         private ItemsProviderResult<NTDDatLichModel> jobApplicationDto;
         private JobAppSearch _filter = new JobAppSearch();
         public Index()
@@ -132,7 +129,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
         }
         protected override async Task OnInitializedAsync()
         {
-           
+
         }
         private async Task RefeshList()
         {
@@ -141,13 +138,14 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
             _filter = FilterModalNTV._filter;
             _Gender = _filter.Gender;
             _LiteracyId = _filter.LiteracyId;
-            _ExperiencesId = _filter.ExperiencesId; 
+            _ExperiencesId = _filter.ExperiencesId;
             if (_filter.WorkSiteId.HasValue)
             {
-                _WorkSite = _filter.WorkSiteId.Value; 
+                _WorkSite = _filter.WorkSiteId.Value;
             }
             _OccupationId = _filter.OccupationId; // nghe nghiep
-            if (_filter.SalaryMin.HasValue) {
+            if (_filter.SalaryMin.HasValue)
+            {
 
                 _SalaryMin = _filter.SalaryMin.Value;
             }
@@ -167,7 +165,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
             await LoadJobApplication(new ItemsProviderRequest());
             StateHasChanged();
         }
-     
+
         #region
 
         public CatFilterList catFilterList { get; set; }
@@ -237,6 +235,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
         private Virtualize<NTDDatLichModel> JobApplicationContainer { get; set; }
         private async ValueTask<ItemsProviderResult<NTDDatLichModel>> LoadJobApplication(ItemsProviderRequest request)
         {
+            _Initialized = false;
             _filter.LiteracyId = _LiteracyId;
             _filter.Gender = _Gender;
             _filter.ExperiencesId = _ExperiencesId;
@@ -247,27 +246,23 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
             await UserDialogsService.Block();
 
             await WebRequestExecuter.Execute(
+
                 async () => await jobApplicationAppService.GetAllJobAppsMobile(_filter),
                 async (result) =>
                 {
                     var jobFilter = ObjectMapper.Map<List<NTDDatLichModel>>(result.Items);
-                    JobAppCount = jobFilter.Count;
-                    if (_LiteracyId != null || _ExperiencesId != null || _WorkSite != 0 || _OccupationId != null || _SalaryMin != null || _SalaryMax != null)
+                    if (jobFilter.Count == 0)
                     {
-                        if (jobFilter.Count == 0)
-                        {
-                            isError = true;
-                        }
-                        else
-                        {
-                            isError = false;
+                        isError = true;
+                    }
+                    else
+                    {
+                        isError = false;
 
-                        }
                     }
                     jobApplicationDto = new ItemsProviderResult<NTDDatLichModel>(jobFilter, jobFilter.Count);
                     await UserDialogsService.UnBlock();
                     StateHasChanged();
-
                 }
             );
 
@@ -283,7 +278,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
 
         //đặt lịch phỏng vấn
         private DatLichPVModal datLichPVModal { get; set; }
-       
+
         public static string GetTimeSince(DateTime objDateTime)
         {
             string result = string.Empty;
@@ -328,12 +323,12 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
         }
         bool IsOpenFilter;
 
-         FilterModalNTV FilterModalNTV = new FilterModalNTV();
+        FilterModalNTV FilterModalNTV = new FilterModalNTV();
         public async Task OpenFilter()
         {
-           // IsOpenFilter = true;
+            // IsOpenFilter = true;
             await FilterModalNTV.OpenFor();
         }
-       
+
     }
 }
