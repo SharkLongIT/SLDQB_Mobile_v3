@@ -21,49 +21,43 @@
 @if (IsOpenFilter == true)
 {
     <div id="menu-filter" class="menu menu-box-top menu-box-detached rounded-m menu-active" data-menu-height="420" style="display: block; height: 420px;">
-        <div class="menu-title">
-            <h1>Tìm kiếm nâng cao</h1>
-            <p class="color-highlight">
-                Lọc kết quả tìm kiếm của bạn
-            </p><a @onclick="CloseFilter" class="close-menu"><i class="fa fa-times"></i></a>
-        </div>
-        <p class="mb-3 mx-3">
-            Các bộ lọc này có thể được mở rộng theo mặc định hoặc thu gọn lại.
-        </p>
-        <div class="divider divider-margins"></div>
-        <div class="content mt-n3 mx-3 me-4 mb-0">
-            <!-- Địa điểm-->
-            <div class="list-group list-custom-small list-icon-0">
-                <a data-bs-toggle="collapse" class="border-0" href="#collapse-filter-0">
-                    <span class="font-15 font-600">Địa điểm</span>
-                    <i class="fa fa-angle-down"></i>
-                </a>
-            </div>
-            <div class="collapse" id="collapse-filter-0">
-                <Virtualize @ref="GeoUnitContainer" Context="geounit" ItemsProvider="@LoadGeoUnit" ItemSize="1">
-                    <select class="cus-select w-100" @bind="_filter.WorkSiteId" style="height: 33px;">
-                        <option value="0" selected>Tất cả địa điểm</option>
+        <div class="content">
 
+            <div class="mb-4">
+                <div class="d-flex">
+                    <h4>Tìm kiếm nâng cao</h4>
+                    <div class="ms-auto">
+                        <a @onclick="CloseFilter" class="close-menu"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <p class="color-highlight">
+                    Lọc kết quả tìm kiếm của bạn
+                </p>
+            </div>
+            <!-- Địa điểm-->
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <Virtualize @ref="GeoUnitContainer" Context="geounit" ItemsProvider="@LoadGeoUnit" ItemSize="1">
+                    <select id="form5" @bind="_filter.WorkSiteId">
+                        <option value="0" selected="">Tất cả địa điểm</option>
                         @foreach (var item in WorkSite)
                         {
                             <option value="@item.Id">@item.DisplayName</option>
                         }
-
                     </select>
+                    <span><i class="fa fa-chevron-down"></i></span>
+                    <i class="fa fa-check disabled valid color-green-dark"></i>
+                    <i class="fa fa-check disabled invalid color-red-dark"></i>
+                    <em></em>
                 </Virtualize>
-                <div class="mb-3"></div>
+                <label for="form1" class="color-blue-dark font-600 text-uppercase">Địa điểm</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
             </div>
             <!-- Ngành nghề -->
-            <div class="list-group list-custom-small list-icon-0">
-                <a data-bs-toggle="collapse" class="border-0" href="#collapse-filter-1">
-                    <span class="font-15 font-600">Ngành nghề</span>
-                    <i class="fa fa-angle-down"></i>
-                </a>
-            </div>
-            <div class="collapse" id="collapse-filter-1">
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <Virtualize @ref="CatFilterListContainer" Context="cat" ItemsProvider="@LoadFilter" ItemSize="100">
-                    <select class="cus-select2 w-100" @bind="_filter.OccupationId" style="height: 33px;">
-                        <option value="0" selected>Tất cả ngành nghề</option>
+                    <select id="form5" @bind="_filter.OccupationId">
+                        <option value="0" selected="">Tất cả ngành nghề</option>
                         @foreach (var item in Career)
                         {
                             <option value="@item.Id">
@@ -72,20 +66,21 @@
 
                         }
                     </select>
+                    <span><i class="fa fa-chevron-down"></i></span>
+                    <i class="fa fa-check disabled valid color-green-dark"></i>
+                    <i class="fa fa-check disabled invalid color-red-dark"></i>
+                    <em></em>
                 </Virtualize>
-                <div class="mb-3"></div>
+                <label for="form1" class="color-blue-dark font-600 text-uppercase">Ngành nghề</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
             </div>
+
             <!--Kinh nghiệm-->
-            <div class="list-group list-custom-small list-icon-0">
-                <a data-bs-toggle="collapse" class="border-0" href="#collapse-filter-2">
-                    <span class="font-15 font-600">Kinh nghiệm</span>
-                    <i class="fa fa-angle-down"></i>
-                </a>
-            </div>
-            <div class="collapse" id="collapse-filter-2">
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <Virtualize @ref="CatFilterListContainer" Context="cat" ItemsProvider="@LoadFilter" ItemSize="100">
-                    <select class="cus-select2 w-100" @bind="_filter.ExperiencesId" style="height: 33px;">
-                        <option value="0" selected>Tất cả kinh nghiệm</option>
+                    <select id="form5" @bind="_filter.ExperiencesId">
+                        <option value="0" selected="">Tất cả kinh nghiệm</option>
                         @foreach (var item in Experience)
                         {
                             <option value="@item.Id">
@@ -94,21 +89,21 @@
 
                         }
                     </select>
+                    <span><i class="fa fa-chevron-down"></i></span>
+                    <i class="fa fa-check disabled valid color-green-dark"></i>
+                    <i class="fa fa-check disabled invalid color-red-dark"></i>
+                    <em></em>
                 </Virtualize>
-                <div class="mb-3"></div>
+                <label for="form1" class="color-blue-dark font-600 text-uppercase">Kinh nghiệm</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
             </div>
 
             <!--Bằng cấp-->
-            <div class="list-group list-custom-small list-icon-0">
-                <a data-bs-toggle="collapse" class="border-0" href="#collapse-filter-6">
-                    <span class="font-15 font-600">Bằng cấp</span>
-                    <i class="fa fa-angle-down"></i>
-                </a>
-            </div>
-            <div class="collapse" id="collapse-filter-6">
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <Virtualize @ref="CatFilterListContainer" Context="cat" ItemsProvider="@LoadFilter" ItemSize="100">
-                    <select class="cus-select2 w-100" @bind="_filter.LiteracyId" style="height: 33px;">
-                        <option value="0" selected>Tất cả bằng cấp</option>
+                    <select id="form5" @bind="_filter.LiteracyId">
+                        <option value="0" selected="">Tất cả bằng cấp</option>
                         @foreach (var item in Degree)
                         {
 
@@ -118,44 +113,37 @@
 
                         }
                     </select>
+                    <span><i class="fa fa-chevron-down"></i></span>
+                    <i class="fa fa-check disabled valid color-green-dark"></i>
+                    <i class="fa fa-check disabled invalid color-red-dark"></i>
+                    <em></em>
                 </Virtualize>
-                <div class="mb-3"></div>
+                <label for="form1" class="color-blue-dark font-600 text-uppercase">Bằng cấp</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
             </div>
 
 
             <!--Mức lương tối thiểu-->
-            <div class="list-group list-custom-small list-icon-0">
-                <a data-bs-toggle="collapse" class="border-0" href="#collapse-filter-3">
-                    <span class="font-15 font-600">Mức lương tối thiểu</span>
-                    <i class="fa fa-angle-down"></i>
-                </a>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="search" class="form-control validate-name" id="form1" placeholder="Nhập mức lương tối thiểu" @bind="_filter.SalaryMin">
+                <label for="form1" class="color-blue-dark font-600 text-uppercase">Mức lương tối thiểu</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
             </div>
-            <div class="collapse" id="collapse-filter-3">
-                <input type="search" class="w-100" placeholder="Nhập mức lương tối thiểu" @bind="_filter.SalaryMin">
-                <div class="mb-3"></div>
-            </div>
+
             <!--Mức lương tối đa-->
-            <div class="list-group list-custom-small list-icon-0">
-                <a data-bs-toggle="collapse" class="border-0" href="#collapse-filter-4">
-                    <span class="font-15 font-600">Mức lương tối đa</span>
-                    <i class="fa fa-angle-down"></i>
-                </a>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="search" class="form-control validate-name" id="form1" placeholder="Nhập mức lương tối đa" @bind="_filter.SalaryMax">
+                <label for="form1" class="color-blue-dark font-600 text-uppercase">Mức lương tối đa</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
             </div>
-            <div class="collapse" id="collapse-filter-4">
-                <input type="search" class="w-100" placeholder="Nhập mức lương tối đa" @bind="_filter.SalaryMax">
-                <div class="mb-3"></div>
-            </div>
-        </div>
-        <div class="divider divider-margins mt-2 mb-4"></div>
-        <a @onclick="RefeshList" class=" close-menu btn btn-full mx-3 btn-m bg-blue-dark rounded-m font-700 text-uppercase w-80">
+
+        <a @onclick="RefeshList" class=" close-menu btn btn-full btn-m bg-blue-dark rounded-m font-700 text-uppercase w-100 mb-3" style="width: 95%">
             Tìm kiếm
         </a>
-        <div class="divider divider-margins mt-4 mb-4"></div>
-        @*   <div class="content">
-    Use any element you wish from the <a href="component-inputs.html">Component Inputs</a>. We have plenty
-    of options to make your
-    filters rich and powerful.
-    </div> *@
+    </div>
     </div>
 }
 

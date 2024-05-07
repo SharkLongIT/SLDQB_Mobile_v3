@@ -8,6 +8,7 @@ using BBK.SaaS.Mdls.Category.Indexings.Dto;
 using BBK.SaaS.Mdls.Profile.Recruiters.Dto;
 using BBK.SaaS.Mobile.MAUI.Models.NguoiTimViec;
 using BBK.SaaS.Mobile.MAUI.Shared;
+using BBK.SaaS.Services.Navigation;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
@@ -18,7 +19,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
 		[Parameter] public EventCallback OnSave { get; set; }
         private Virtualize<GeoUnitDto> GeoUnitContainer { get; set; }
         private Virtualize<CatFilterList> CatFilterListContainer { get; set; }
-
+        protected INavigationService navigationService { get; set; }
         protected ICatUnitAppService CatUnitAppService;
 
         private ItemsProviderResult<CatFilterList> CatFilterListDto;
@@ -82,11 +83,16 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
             set => _staffSize = value;
         }
         #endregion
-
+        private long Job;
+        private long Worksite;
+        private long ExperienceId;
+        private decimal? SalaryMin;
+        private decimal? SalaryMax;
         public FillterModal()
 		{
             geoUnitAppService = DependencyResolver.Resolve<IGeoUnitAppService>();
             CatUnitAppService = DependencyResolver.Resolve<ICatUnitAppService>();
+            navigationService = DependencyResolver.Resolve<INavigationService>();
         }
 
 		
@@ -110,6 +116,8 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
 		private async Task Save()
 		{
             await Hide();
+            navigationService.NavigateTo($"ViecTimNguoi?Worksite={_filter.WorkSiteId}");
+
         }
 
         #region GetAPI

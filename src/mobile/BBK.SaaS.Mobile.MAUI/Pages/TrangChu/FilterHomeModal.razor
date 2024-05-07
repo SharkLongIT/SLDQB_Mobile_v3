@@ -1,0 +1,64 @@
+﻿@inherits ModalBase
+
+
+<div id="@ModalId" class="menu menu-box-top menu-box-detached rounded-m">
+    <div class="content">
+        @if (_isInitialized == true)
+        {
+            <div class="mb-4">
+                <div class="d-flex">
+                    <h4>Tìm kiếm nâng cao</h4>
+                    <div class="ms-auto">
+                        <a class="close-menu"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <p class="color-highlight">
+                    Lọc kết quả tìm kiếm của bạn
+                </p>
+            </div>
+            <!-- Địa điểm-->
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <Virtualize @ref="GeoUnitContainer" Context="geounit" ItemsProvider="@LoadGeoUnit" ItemSize="1">
+                    <select id="form5" @onchange="FilterWorksite">
+                        <option value="0" selected="">Tất cả địa điểm</option>
+                        @foreach (var item in WorkSite)
+                        {
+                            <option value="@item.Id">@item.DisplayName</option>
+                        }
+                    </select>
+                    <span><i class="fa fa-chevron-down"></i></span>
+                    <i class="fa fa-check disabled valid color-green-dark"></i>
+                    <i class="fa fa-check disabled invalid color-red-dark"></i>
+                    <em></em>
+                </Virtualize>
+                <label for="form1" class="color-blue-dark font-600 text-uppercase">Địa điểm</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
+            </div>
+            <!-- Ngành nghề -->
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <Virtualize @ref="CatFilterListContainer" Context="cat" ItemsProvider="@LoadFilter" ItemSize="100">
+                    <select id="form5" @onchange="FilterJob">
+                        <option value="0" selected="">Tất cả nghành nghề</option>
+                        @foreach (var item in Career)
+                        {
+                            <option value="@item.Id">
+                                @item.DisplayName
+                            </option>
+
+                        }
+                    </select>
+                    <span><i class="fa fa-chevron-down"></i></span>
+                    <i class="fa fa-check disabled valid color-green-dark"></i>
+                    <i class="fa fa-check disabled invalid color-red-dark"></i>
+                    <em></em>
+                </Virtualize>
+                <label for="form1" class="color-blue-dark font-600 text-uppercase">Ngành nghề</label>
+                <i class="fa fa-times disabled invalid color-red-dark"></i>
+                <i class="fa fa-check disabled valid color-green-dark"></i>
+            </div>
+
+            <a @onclick="RefeshList" class=" close-menu btn btn-full  btn-m bg-blue-dark rounded-m font-700 text-uppercase w-100 mb-3" style="width: 95%">Tìm kiếm</a>
+        }
+    </div>
+</div>

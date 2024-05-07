@@ -66,14 +66,14 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
         }
         private async Task<bool> ValidateInput()
         {
-            IsUserLoggedIn = navigationService.IsUserLoggedIn();
+            //IsUserLoggedIn = navigationService.IsUserLoggedIn();
 
-            if (IsUserLoggedIn == false)
-            {
-                await UserDialogsService.AlertWarn("Bạn chưa đăng nhập!");
-                ReturnLogin = true;
-                return false;
-            }
+            //if (IsUserLoggedIn == false)
+            //{
+            //    await UserDialogsService.AlertWarn("Bạn chưa đăng nhập!");
+            //    ReturnLogin = true;
+            //    return false;
+            //}
             if (Model.FullName == null || string.IsNullOrEmpty(Model.FullName))
             {
                 await UserDialogsService.AlertWarn("Họ và tên không được để trống!");

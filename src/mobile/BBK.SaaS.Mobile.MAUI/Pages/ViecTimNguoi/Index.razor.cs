@@ -145,9 +145,9 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
             {
                 Job = int.Parse(q1["Job"]);
             }
-            if (q1["WorkSite"] != null)
+            if (q1["Worksite"] != null)
             {
-                Worksite = int.Parse(q1["WorkSite"]);
+                Worksite = int.Parse(q1["Worksite"]);
             }
             if (q1["Experience"] != null)
             {
@@ -358,7 +358,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                         model.Recruiter.AvatarUrl = AsyncHelper.RunSync(async () => await articleService.GetPicture(model.Recruiter.AvatarUrl));
                     }
                     RecruitmentCount = jobFilter.Count;
-                    if (_SearchText != "")
+                    if (_SearchText != "" || _Job != 0 || _SalaryMax != null || _SalaryMin != null  || _SalaryMax != null || _Experience != 0 || _Degree != 0 || _WorkSite != 0)
                     {
                         if (jobFilter.Count == 0)
                         {
@@ -390,7 +390,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
         public async Task OpenFilter()
         {
             IsOpenFilter = true;
-            await fillterModal.OpenFor();
+            //await fillterModal.OpenFor();
         }
         public async Task CloseFilter()
         {

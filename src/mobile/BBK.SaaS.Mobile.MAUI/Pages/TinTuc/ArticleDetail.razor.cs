@@ -214,7 +214,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
                 }
                 else
                 {
-                    await UserDialogsService.AlertError("Vui lòng đăng nhập để giới thiệu");
+                    await introduceModal.OpenFor(Model);
                 }
                 //else
                 //{

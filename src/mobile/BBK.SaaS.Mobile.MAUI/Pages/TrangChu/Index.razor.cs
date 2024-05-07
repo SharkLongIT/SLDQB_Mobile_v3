@@ -155,7 +155,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             //check loggedIn
             IsUserLoggedIn = navigationService.IsUserLoggedIn();
             await Statistical();
-            await GetNewestArticles();
+            //await GetNewestArticles();
             //await LoadNewestArticles(new ItemsProviderRequest());
         }
 

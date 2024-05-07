@@ -1,21 +1,28 @@
-﻿using BBK.SaaS.Core.Dependency;
-using BBK.SaaS.Core.Threading;
+﻿using BBK.SaaS.Mdls.Category.Geographies.Dto;
 using BBK.SaaS.Mdls.Category.Geographies;
-using BBK.SaaS.Mdls.Category.Geographies.Dto;
-using BBK.SaaS.Mdls.Category.Indexings;
 using BBK.SaaS.Mdls.Category.Indexings.Dto;
+using BBK.SaaS.Mdls.Category.Indexings;
 using BBK.SaaS.Mdls.Cms.Articles;
 using BBK.SaaS.Mdls.Profile.Candidates;
-using BBK.SaaS.Mdls.Profile.Recruiters;
 using BBK.SaaS.Mdls.Profile.Recruiters.Dto;
+using BBK.SaaS.Mdls.Profile.Recruiters;
 using BBK.SaaS.Mobile.MAUI.Shared;
-using BBK.SaaS.Services.Navigation;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using BBK.SaaS.Services.Navigation;
+using BBK.SaaS.Core.Dependency;
+using BBK.SaaS.Core.Threading;
+using Microsoft.AspNetCore.Components;
+using Abp.UI;
+using static Android.Graphics.ColorSpace;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 {
-    public partial class Filter : SaaSMainLayoutPageComponentBase
+    public partial class FilterHomeModal : ModalBase
     {
         protected NavMenu NavMenu { get; set; }
         protected IJobApplicationAppService jobApplicationAppService { get; set; }
@@ -35,6 +42,8 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
         private Virtualize<CatFilterList> CatFilterListContainer { get; set; }
         private readonly RecruimentInput _filter = new RecruimentInput();
 
+        public override string ModalId => "filter-home";
+        [Parameter] public EventCallback OnSave { get; set; }
 
         private string _SearchText = "";
         private long _Job;
@@ -56,7 +65,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             set => _career = value;
         }
 
-        public Filter()
+        public FilterHomeModal()
         {
             navigationService = DependencyResolver.Resolve<INavigationService>();
             recruitmentAppService = DependencyResolver.Resolve<IRecruitmentAppService>();
@@ -64,6 +73,37 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             CatUnitAppService = DependencyResolver.Resolve<ICatUnitAppService>();
 
         }
+        bool _isInitialized;
+        public async Task OpenFor()
+        {
+            _isInitialized = false;
+            try
+            {
+
+
+                await SetBusyAsync(async () =>
+                {
+
+                  
+                    await WebRequestExecuter.Execute(
+                        async () =>
+                        {
+                            await LoadGeoUnit(new ItemsProviderRequest());
+                            await LoadFilter(new ItemsProviderRequest());
+                            _isInitialized = true;
+                        }
+                    );;
+
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new UserFriendlyException(ex.Message);
+            }
+            await Show();
+        }
+
+
         #region filter
         private async ValueTask<ItemsProviderResult<CatFilterList>> LoadFilter(ItemsProviderRequest request)
         {
@@ -118,59 +158,15 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 
         #endregion
 
+
         private async Task RefeshList()
         {
             _SearchText = _filtered.Filtered;
-            //if (_filter.WorkSiteId.HasValue)
-            //{
-            //    _WorkSite = _filter.WorkSiteId.Value;
-            //}
-            //if (_filter.Job.HasValue)
-            //{
-            //    _Job = _filter.Job.Value;
-            //}
-
-            await UriFilter();
+            await Hide();
+            navigationService.NavigateTo($"ViecTimNguoi?_SearchText={_SearchText}&Job={_Job}&Worksite={_WorkSite}");
         }
 
-        public async Task UriFilter()
-        {
-            navigationService.NavigateTo($"ViecTimNguoi?_SearchText={_SearchText}&Job={_Job}&WorkSite={_WorkSite}");
-        }
-        private async ValueTask<ItemsProviderResult<RecruitmentDto>> LoadRecruitment(ItemsProviderRequest request)
-        {
-            _filter.MaxResultCount = Math.Clamp(request.Count, 1, 1000);
-            _filter.SkipCount = request.StartIndex;
-            _filter.Take = Math.Clamp(request.Count, 1, 1000);
-            _filter.Filtered = _SearchText;
-            _filter.Job = _Job;
-            _filter.SalaryMax = _SalaryMax;
-            _filter.Salary = _Salary;
-            _filter.Experience = _Experience;
-            _filter.Degree = _Degree;
-            _filter.WorkSiteId = _WorkSite;
-            await UserDialogsService.Block();
 
-            //var catuint = await CatUnitAppService.GetFilterList();
-
-
-            await WebRequestExecuter.Execute(
-                async () => await recruitmentAppService.GetAllUser(_filter),
-
-                async (result) =>
-                {
-                    var jobFilter = ObjectMapper.Map<List<RecruitmentDto>>(result.Items.Where(x => x.DeadlineSubmission.CompareTo(DateTime.Today) >= 0).Where(x => x.Status == false && x.DeadlineSubmission.CompareTo(DateTime.Today) >= 0).Take(10));
-                    recruitmentDto = new ItemsProviderResult<RecruitmentDto>(jobFilter, jobFilter.Count);
-                    await UserDialogsService.UnBlock();
-                });
-
-            return recruitmentDto;
-        }
-        public async Task LoadFilterTitle(RecruitmentDto recruitmentDto)
-        {
-            _filtered.Filtered = recruitmentDto.Title;
-            await RefeshList();
-        }
         public async void FilterWorksite(ChangeEventArgs args)
         {
             long select = Convert.ToInt64(args.Value);
@@ -182,22 +178,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             long select = Convert.ToInt64(args.Value);
             _Job = select;
 
-        }
-        bool IsOpenFilter;
-
-        public async Task OpenFilter()
-        {
-            IsOpenFilter = true;
-        }
-        public async Task CloseFilter()
-        {
-            IsOpenFilter = false;
-        }
-
-        private FilterHomeModal filterHomeModal { get; set; }
-        public async Task OpenFilterHomeModal()
-        {
-            await filterHomeModal.OpenFor();
         }
     }
 }

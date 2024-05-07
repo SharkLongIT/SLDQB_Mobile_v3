@@ -8,8 +8,8 @@ namespace BBK.SaaS.ApiClient
 
      //   private const string DefaultHostUrl = "https://bpm.bbksolution.com/"; //TODO: Replace with PROD WebAPI URL.
         private const string DefaultHostUrl = "http://192.168.0.248:32080/"; //TODO: Replace with PROD WebAPI URL.
+       // private const string DefaultHostUrl = "https://test.bbksolution.com/"; //TODO: Replace with PROD WebAPI URL.
        //private const string DefaultHostUrl = "http://192.168.0.248:31080/"; //TODO: Replace with PROD WebAPI URL.
-       //private const string DefaultHostUrl = "http://localhost:44301/"; //TODO: Replace with PROD WebAPI URL.
       // private const string DefaultHostUrl = "https://localhost:44303/"; //TODO: Replace with PROD WebAPI URL.
 
         public static string BaseUrl { get; private set; }

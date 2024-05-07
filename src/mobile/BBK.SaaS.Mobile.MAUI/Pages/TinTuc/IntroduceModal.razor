@@ -1,7 +1,12 @@
 ﻿@inherits ModalBase
 <div id="@ModalId" class="menu menu-box-modal rounded-m" data-menu-width="330">
     <div class="content">
-        <h1>@L("Giới thiệu")</h1>
+        <div class="d-flex">
+            <h1>@L("Giới thiệu")</h1>
+            <div class="ms-auto">
+                <a class="close-menu"><i class="fa fa-times"></i></a>
+            </div>
+        </div>
         <h5> @L("Họ và tên")</h5>
         <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
             <input type="text" class="form-control validate-text" id="form1" @bind="Model.FullName">
