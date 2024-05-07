@@ -4,7 +4,12 @@
     <div class="content">
         @if (_isInitialized)
         {
-            <h1>@L("Tạo mới tin tuyển dụng")</h1>
+            <div class="d-flex">
+                <h1>@L("Tạo mới tin tuyển dụng")</h1>
+                <div class="ms-auto">
+                    <a class="close-menu" @onclick="Hide"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
             <h4>Thông tin cơ bản</h4>
             <h5>  @L("Chức danh")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
@@ -13,7 +18,7 @@
             </div>
             <h5> @L("Nghề nghiệp")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
-                <select required="required"  @onchange="selectDisplayName">
+                <select required="required" @onchange="selectDisplayName">
                     @foreach (var item in CatFilterList.Career)
                     {
                         <option value="@item.Id">
@@ -41,7 +46,7 @@
             </div>
             <h5> @L("Bằng cấp")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
-                <select required="required"  @bind="Model.Degree">
+                <select required="required" @bind="Model.Degree">
                     @foreach (var item in CatFilterList.Degree)
                     {
                         <option value="@item.Id">
@@ -56,7 +61,7 @@
             </div>
             <h5> @L("Số năm kinh nghiệm")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
-                <select required="required"  @onchange="selectExperience">
+                <select required="required" @onchange="selectExperience">
                     @foreach (var item in CatFilterList.Experience)
                     {
                         <option value="@item.Id">
@@ -72,7 +77,7 @@
             </div>
             <h5>  @L("Cấp bậc")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
-                <select required="required"  @bind="Model.Rank">
+                <select required="required" @bind="Model.Rank">
                     @foreach (var item in CatFilterList.Rank)
                     {
 
@@ -230,10 +235,10 @@
                 <input type="text" class="form-control validate-text" id="form1" @bind="Model.Address">
                 <em>(bắt buộc)</em>
             </div>
-            <div class="d-flex justify-content-center">
-                <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Đóng</a>
+            @* <div class="d-flex justify-content-center"> *@
+                @* <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Đóng</a> *@
                 <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveJob">Tạo mới</a>
-            </div>
+            @* </div> *@
         }
     </div>
 </div>

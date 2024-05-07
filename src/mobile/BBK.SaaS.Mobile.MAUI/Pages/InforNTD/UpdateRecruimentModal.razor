@@ -4,8 +4,12 @@
     <div class="content">
         @if (_isInitialized)
         {
-            <h1>@L("Cập nhật tin tuyển dụng")</h1>
-
+            <div class="d-flex">
+                <h1>@L("Cập nhật tin tuyển dụng")</h1>
+                <div class="ms-auto">
+                    <a class="close-menu" @onclick="Hide"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
             <h4>Thông tin cơ bản</h4>
             <h5>  @L("Chức danh")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
@@ -224,11 +228,7 @@
                 <input type="text" class="form-control validate-text" id="form1" @bind="recruitment.Address">
                 <em>(bắt buộc)</em>
             </div>
-
-            <div class="d-flex justify-content-center">
-                <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Đóng</a>
-                <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveJob">Lưu</a>
-            </div>
+            <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveJob">Lưu</a>
         }
     </div>
 </div>

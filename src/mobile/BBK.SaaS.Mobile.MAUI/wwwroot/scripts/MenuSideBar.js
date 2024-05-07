@@ -2,13 +2,13 @@
     //Open Menu
     const menuHider = document.querySelectorAll('.menu-hider');
     const menuSideBarLeft = document.querySelectorAll('#menu-sidebar-left');
-        for (i = 0; i < menuSideBarLeft.length; i++) {
-            menuSideBarLeft[i].classList.add("menu-active");
-            menuSideBarLeft[i].style.display = "block";
-            menuSideBarLeft[i].style.width = "320px";
-        }
-        for (i = 0; i < menuHider.length; i++) {
-            menuHider[i].classList.add("menu-active");
+    for (i = 0; i < menuSideBarLeft.length; i++) {
+        menuSideBarLeft[i].classList.add("menu-active");
+        menuSideBarLeft[i].style.display = "block";
+        menuSideBarLeft[i].style.width = "320px";
+    }
+    for (i = 0; i < menuHider.length; i++) {
+        menuHider[i].classList.add("menu-active");
 
     }
     //Closing Menus

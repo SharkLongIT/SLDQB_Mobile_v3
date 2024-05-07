@@ -14,21 +14,22 @@ var ModalCustomManagerService = function () {
         }
         for (i = 0; i < menuHider.length; i++) {
             menuHider[i].classList.add("menu-active");
-
         }
+
+        // hide modal
+        const menuClose = document.querySelectorAll('.menu-hider');
+        menuClose.forEach(el => el.addEventListener('click', e => {
+            const activeMenu = document.querySelectorAll('.menu-active');
+            for (let i = 0; i < activeMenu.length; i++) { activeMenu[i].classList.remove('menu-active'); }
+            var iframes = document.querySelectorAll('iframe');
+            iframes.forEach(el => { var hrefer = el.getAttribute('src'); el.setAttribute('newSrc', hrefer); el.setAttribute('src', ''); var newSrc = el.getAttribute('newSrc'); el.setAttribute('src', newSrc) });
+        }));
     }
 
     var hide = function (id) {
         //$("#" + id).modal('hide')
         //Closing Menus
-        const menuClose = document.querySelectorAll('.close-menu');
-        menuClose.forEach(el => el.addEventListener('click', e => {
-            const activeMenu = document.querySelectorAll('.menu-active');
-            for (let i = 0; i < activeMenu.length; i++) { activeMenu[i].classList.remove('menu-active'); }
-            for (let i = 0; i < wrappers.length; i++) { wrappers[i].style.transform = "translateX(-" + 0 + "px)" }
-            var iframes = document.querySelectorAll('iframe');
-            iframes.forEach(el => { var hrefer = el.getAttribute('src'); el.setAttribute('newSrc', hrefer); el.setAttribute('src', ''); var newSrc = el.getAttribute('newSrc'); el.setAttribute('src', newSrc) });
-        }));
+      
 
         const activeMenu = document.querySelectorAll('.menu-active');
         for (let i = 0; i < activeMenu.length; i++) { activeMenu[i].classList.remove('menu-active'); }

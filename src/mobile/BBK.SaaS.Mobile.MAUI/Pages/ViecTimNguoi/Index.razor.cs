@@ -260,10 +260,18 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
 
                 _SalaryMin = _filter.Salary.Value;
             }
+            else
+            {
+                _SalaryMin = null;
+            }
             if (_filter.SalaryMax.HasValue)
             {
 
                 _SalaryMax = _filter.SalaryMax.Value;
+            }
+            else
+            {
+                _SalaryMax = null;
             }
             if (_filter.Experience.HasValue) { _Experience = _filter.Experience.Value; }
             if (_filter.Degree.HasValue) { _Degree = _filter.Degree.Value; }
@@ -420,8 +428,8 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
         FillterModal fillterModal = new FillterModal() ;
         public async Task OpenFilter()
         {
-            IsOpenFilter = true;
-            //await fillterModal.OpenFor();
+            //IsOpenFilter = true;
+            await fillterModal.OpenFor();
         }
         public async Task CloseFilter()
         {

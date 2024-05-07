@@ -83,30 +83,13 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
             set => _staffSize = value;
         }
         #endregion
-        private long Job;
-        private long Worksite;
-        private long ExperienceId;
-        private decimal? SalaryMin;
-        private decimal? SalaryMax;
         public FillterModal()
 		{
             geoUnitAppService = DependencyResolver.Resolve<IGeoUnitAppService>();
             CatUnitAppService = DependencyResolver.Resolve<ICatUnitAppService>();
             navigationService = DependencyResolver.Resolve<INavigationService>();
         }
-
-		
-
 		public override string ModalId => "update-candidate";
-
-		private async Task RefreshList()
-		{
-			await OnInitializedAsync();
-			StateHasChanged();
-		}
-		
-
-		
 		public async Task OpenFor()
 		{
 			await Show();
@@ -116,6 +99,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
 		private async Task Save()
 		{
             await Hide();
+            StateHasChanged();
             await OnSave.InvokeAsync();
         }
 
@@ -142,9 +126,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
 
             return geoUnitDto;
         }
-
-        #region
-
         public CatFilterList catFilterList { get; set; }
         private async ValueTask<ItemsProviderResult<CatFilterList>> LoadFilter(ItemsProviderRequest request)
         {
@@ -180,7 +161,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
 
 
         }
-        #endregion
         #endregion
 
     }

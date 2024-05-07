@@ -1,24 +1,18 @@
-﻿using BBK.SaaS.Mdls.Category.Geographies.Dto;
-using BBK.SaaS.Mdls.Category.Geographies;
-using BBK.SaaS.Mdls.Category.Indexings.Dto;
-using BBK.SaaS.Mdls.Category.Indexings;
-using BBK.SaaS.Mdls.Cms.Articles;
-using BBK.SaaS.Mdls.Profile.Candidates;
-using BBK.SaaS.Mdls.Profile.Recruiters.Dto;
-using BBK.SaaS.Mdls.Profile.Recruiters;
-using BBK.SaaS.Mobile.MAUI.Shared;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BBK.SaaS.Services.Navigation;
+﻿using Abp.UI;
 using BBK.SaaS.Core.Dependency;
 using BBK.SaaS.Core.Threading;
+using BBK.SaaS.Mdls.Category.Geographies;
+using BBK.SaaS.Mdls.Category.Geographies.Dto;
+using BBK.SaaS.Mdls.Category.Indexings;
+using BBK.SaaS.Mdls.Category.Indexings.Dto;
+using BBK.SaaS.Mdls.Cms.Articles;
+using BBK.SaaS.Mdls.Profile.Candidates;
+using BBK.SaaS.Mdls.Profile.Recruiters;
+using BBK.SaaS.Mdls.Profile.Recruiters.Dto;
+using BBK.SaaS.Mobile.MAUI.Shared;
+using BBK.SaaS.Services.Navigation;
 using Microsoft.AspNetCore.Components;
-using Abp.UI;
-using static Android.Graphics.ColorSpace;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 {

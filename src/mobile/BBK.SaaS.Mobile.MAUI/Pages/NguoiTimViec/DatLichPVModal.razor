@@ -6,6 +6,9 @@
         {
 
             <h1>@L("Đặt lịch phỏng vấn ")</h1>
+            <div class="ms-auto">
+                <a class="close-menu" @onclick="Hide"><i class="fa fa-times"></i></a>
+            </div>
             <h5>@L("Chọn công việc mời phỏng vấn")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <select required="required" class="form-control" @onchange="selectedValue">
@@ -45,10 +48,7 @@
             <div class="input-style has-borders no-icon mb-4">
                 <textarea id="form7" @bind="Model.Message"></textarea>
             </div>
-            <div class="d-flex justify-content-center">
-                <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Đóng</a>
                 <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveBookJob">Đặt lịch</a>
-            </div>
         }
     </div>
 </div>

@@ -4,7 +4,7 @@
         <div class="d-flex">
             <h1>@L("Giới thiệu")</h1>
             <div class="ms-auto">
-                <a class="close-menu"><i class="fa fa-times"></i></a>
+                <a class="close-menu" @onclick="Hide"><i class="fa fa-times"></i></a>
             </div>
         </div>
         <h5> @L("Họ và tên")</h5>
@@ -16,7 +16,7 @@
         <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
             <input type="text" class="form-control validate-text" id="form1" @bind="Model.Email">
             <em>(bắt buộc)</em>
-        </div> 
+        </div>
         <h5>@L("Số điện thoại")</h5>
         <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
             <input type="text" class="form-control validate-text" id="form1" @bind="Model.Phone">
@@ -31,9 +31,6 @@
         <div mt-3>
             <p style="color:red; text-decoration:underline;">Chính sách giới thiệu</p>
         </div>
-        <div class="d-flex justify-content-center">
-            <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Đóng</a>
-            <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="CreateIntroduce">Gửi</a>
-        </div>
+        <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="CreateIntroduce">Gửi</a>
     </div>
 </div>
