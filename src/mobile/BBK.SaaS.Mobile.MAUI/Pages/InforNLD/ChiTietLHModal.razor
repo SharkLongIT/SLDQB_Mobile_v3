@@ -4,19 +4,24 @@
     <div class="content">
         @if (_isInitialized)
         {
-            @if (IsView == true)
-            {
-                <h1>@L("Chi tiết lịch hẹn phỏng vấn ")</h1>
+            <div class="d-flex">
+                @if (IsView == true)
+                {
+                    <h1>@L("Chi tiết lịch hẹn phỏng vấn ")</h1>
 
-            }
-            @if (IsAgree == true)
-            {
-                <h1>@L("Xác nhận lịch hẹn phỏng vấn ")</h1>
-            }
-            @if (IsReject == true)
-            {
-                <h1>@L("Từ chối lịch hẹn phỏng vấn ")</h1>
-            }
+                }
+                @if (IsAgree == true)
+                {
+                    <h1>@L("Xác nhận lịch hẹn phỏng vấn ")</h1>
+                }
+                @if (IsReject == true)
+                {
+                    <h1>@L("Từ chối lịch hẹn phỏng vấn ")</h1>
+                }
+                <div class="ms-auto">
+                    <a class="close-menu" @onclick="Hide"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
             <h5>@L("Công việc được phỏng vấn")</h5>
             <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
                 <input type="text" class="form-control validate-text" id="form1" @bind="UserInput.Recruitment.Title" disabled>
@@ -83,15 +88,17 @@
                         @L("Nội dung")
                     }
                 </label>
-               
+
             </div>
-            <div class="d-flex justify-content-center">
-                <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Hủy</a>
-                @if (IsView == false)
-                {
-                    <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveExpWork">Gửi</a>
-                }
-            </div>
+            @* <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Hủy</a> *@
+            @if (IsView == false)
+            {
+                <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveExpWork">Gửi</a>
+            }
+            else
+            {
+                <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Đóng</a>
+            }
         }
     </div>
 </div>

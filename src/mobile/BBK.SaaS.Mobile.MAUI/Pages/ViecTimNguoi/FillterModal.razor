@@ -58,7 +58,7 @@
     <!--Kinh nghiệm-->
     <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
         <Virtualize @ref="CatFilterListContainer" Context="cat" ItemsProvider="@LoadFilter" ItemSize="100">
-            <select id="form5" @bind="_filter.Job">
+            <select id="form5" @bind="_filter.Experience">
                 <option value="0" selected="">Tất cả kinh nghiệm</option>
                 @foreach (var item in Experience)
                 {
