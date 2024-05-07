@@ -83,11 +83,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
             set => _staffSize = value;
         }
         #endregion
-        private long Job;
-        private long Worksite;
-        private long ExperienceId;
-        private decimal? SalaryMin;
-        private decimal? SalaryMax;
+      
         public FillterModal()
 		{
             geoUnitAppService = DependencyResolver.Resolve<IGeoUnitAppService>();
