@@ -115,7 +115,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
 
         private ItemsProviderResult<RecruitmentDto> recruitmentDto;
         private Virtualize<RecruitmentDto> RecruitmentContainer { get; set; }
-        private readonly RecruimentInput _filter = new RecruimentInput();
+        private  RecruimentInput _filter = new RecruimentInput();
         [Inject]
         protected NavigationManager NavigationManager { get; set; }
 
@@ -220,27 +220,58 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
             await LoadRecruitment(new ItemsProviderRequest());
         }
         private bool IsCancel;
-        private async Task RefeshList()
+        //private async Task RefeshList()
+        //{
+        //    IsCancel = true;
+        //    IsRecruitmentCount = true;
+        //    IsOpenFilter = false;
+        //    #region InPage
+        //    _SearchText = _filter.Filtered;
+        //    if (_filter.Salary.HasValue)
+        //    {
+
+        //    _SalaryMin = _filter.Salary.Value;
+        //    } 
+        //    if (_filter.SalaryMax.HasValue)
+        //    {
+
+        //    _SalaryMax = _filter.SalaryMax.Value;
+        //    }   
+        //    _Experience = _filter.Experience.Value;
+        //    _Degree = _filter.Degree.Value;
+        //    _Job = _filter.Job.Value;
+        //    _WorkSite = _filter.WorkSiteId.Value;
+        //    #endregion
+
+        //    await RecruitmentContainer.RefreshDataAsync();
+        //    StateHasChanged();
+        //    await LoadRecruitment(new ItemsProviderRequest());
+        //}
+        private async Task RefeshListAfterFillter()
         {
             IsCancel = true;
             IsRecruitmentCount = true;
             IsOpenFilter = false;
             #region InPage
+            _filter = fillterModal._filter;
             _SearchText = _filter.Filtered;
             if (_filter.Salary.HasValue)
             {
 
-            _SalaryMin = _filter.Salary.Value;
-            } 
+                _SalaryMin = _filter.Salary.Value;
+            }
             if (_filter.SalaryMax.HasValue)
             {
 
-            _SalaryMax = _filter.SalaryMax.Value;
-            }   
-            _Experience = _filter.Experience.Value;
-            _Degree = _filter.Degree.Value;
-            _Job = _filter.Job.Value;
-            _WorkSite = _filter.WorkSiteId.Value;
+                _SalaryMax = _filter.SalaryMax.Value;
+            }
+            if (_filter.Experience.HasValue) { _Experience = _filter.Experience.Value; }
+            if (_filter.Degree.HasValue) { _Degree = _filter.Degree.Value; }
+
+            if (_filter.Job.HasValue) { _Job = _filter.Job.Value; }
+            
+            if (_filter.WorkSiteId.HasValue) { _WorkSite = _filter.WorkSiteId.Value; }
+           
             #endregion
 
             await RecruitmentContainer.RefreshDataAsync();
