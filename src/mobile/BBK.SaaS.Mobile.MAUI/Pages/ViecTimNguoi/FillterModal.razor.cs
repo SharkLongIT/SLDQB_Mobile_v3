@@ -26,7 +26,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
 
         private ItemsProviderResult<GeoUnitDto> geoUnitDto;
 
-        private readonly RecruimentInput _filter = new RecruimentInput();
+        public  RecruimentInput _filter = new RecruimentInput();
         #region CatUnit
         private List<CatUnitDto> _degree { get; set; }
         private List<CatUnitDto> _career { get; set; }
@@ -110,6 +110,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
 		private async Task Save()
 		{
             await Hide();
+            await OnSave.InvokeAsync();
         }
 
         #region GetAPI
