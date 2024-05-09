@@ -1824,12 +1824,16 @@ button {
   margin: 10px;
   border-radius: 10px;
 }
-.scroll-ad h1 {
-  display: block;
-  font-size: 18px;
-  padding: 7px 0px 0px 80px;
-  margin-bottom: -3px;
-}
+    .scroll-ad h1 {
+        /*display: block;*/
+        font-size: 18px;
+        padding: 7px 0px 0px 80px;
+        margin-bottom: -3px;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
 .scroll-ad em {
   padding: 0px 85px 0px 80px;
   font-style: normal;

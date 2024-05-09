@@ -97,5 +97,19 @@ namespace BBK.SaaS.Mobile.MAUI.Services.UI
 
             return await JS.InvokeAsync<string>("BlazorUserDialogService.prompt", message, title, confirmButtonText, showCancelButton, cancelButtonText, allowOutsideClick);
         }
+
+        public async Task<bool> ConfirmLogout(string message, string title = "",  string confirmButtonText = "", string cancelButtonText = "")
+        {
+          
+            if (string.IsNullOrWhiteSpace(confirmButtonText))
+            {
+                confirmButtonText = "Đăng xuất";
+            }
+            if (string.IsNullOrWhiteSpace(cancelButtonText))
+            {
+                cancelButtonText = "Huỷ";
+            }
+            return await JS.InvokeAsync<bool>("BlazorUserDialogService.logout", message, title, confirmButtonText, cancelButtonText);
+        }
     }
 }

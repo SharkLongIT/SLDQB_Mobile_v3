@@ -5,11 +5,25 @@ using BBK.SaaS.Mobile.MAUI.Services.UI;
 using BBK.SaaS.Mobile.MAUI.Services.User;
 using BBK.SaaS.Models.NavigationMenu;
 using BBK.SaaS.Services.Navigation;
+using BBK.SaaS.Mdls.Cms.Categories.Dto;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
+using BBK.SaaS.Core.Threading;
+using BBK.SaaS.Mdls.Cms.Articles.MDto;
+using BBK.SaaS.Mdls.Cms.Categories;
+using BBK.SaaS.Services.Account;
 
 namespace BBK.SaaS.Mobile.MAUI.Shared
 {
     public partial class NavMenu : SaaSComponentBase
     {
+        private ItemsProviderResult<CmsCatDto> cmsCatDto;
+        private Virtualize<CmsCatDto> CmsContainer { get; set; }
+        private readonly GetArticlesByCatInput _filter = new GetArticlesByCatInput();
+        protected ICmsCatsAppService cmsCatsAppService { get; set; }
+        protected INavigationService navigationService { get; set; }
+        protected IAccountService AccountService { get; set; }
+
+
         protected IMenuProvider MenuProvider { get; set; }
         protected IApplicationContext ApplicationContext { get; set; }
         protected IAccessTokenManager AccessTokenManager { get; set; }
@@ -34,7 +48,9 @@ namespace BBK.SaaS.Mobile.MAUI.Shared
             ApplicationContext = DependencyResolver.Resolve<IApplicationContext>();
             AccessTokenManager = DependencyResolver.Resolve<IAccessTokenManager>();
             UserProfileService = DependencyResolver.Resolve<IUserProfileService>();
-
+            cmsCatsAppService = DependencyResolver.Resolve<ICmsCatsAppService>();
+            navigationService = DependencyResolver.Resolve<INavigationService>();
+            AccountService = DependencyResolver.Resolve<IAccountService>();
             LanguageService = DependencyResolver.Resolve<LanguageService>();
             LanguageService.OnLanguageChanged += (s, e) =>
             {
@@ -93,6 +109,55 @@ namespace BBK.SaaS.Mobile.MAUI.Shared
 
             _userImage = await UserProfileService.GetProfilePicture(ApplicationContext.LoginInfo.User.Id);
             StateHasChanged();
+        }
+        #region Category
+
+        private async ValueTask<ItemsProviderResult<CmsCatDto>> LoadCategories(ItemsProviderRequest request)
+        {
+            _filter.MaxResultCount = Math.Clamp(request.Count, 1, 1000);
+            _filter.SkipCount = request.StartIndex;
+            //_filter.Take = Math.Clamp(request.Count, 1, 1000);
+
+            await UserDialogsService.Block();
+
+            await WebRequestExecuter.Execute(
+            async () => await cmsCatsAppService.GetCmsCats(),
+            async (result) =>
+            {
+                var articlesFilter = result.Items.ToList();
+                cmsCatDto = new ItemsProviderResult<CmsCatDto>(articlesFilter, articlesFilter.Count);
+                await UserDialogsService.UnBlock();
+            }
+        );
+
+            return cmsCatDto;
+        }
+        #endregion
+
+        public async Task GetArticleByCategory(CmsCatDto cmsCatDto)
+        {
+            navigationService.NavigateTo($"ListArticle?CategoryId={cmsCatDto.Id}&CategoryName={cmsCatDto.DisplayName}");
+            //await LoadCategories(new ItemsProviderRequest());
+            StateHasChanged();
+        }
+        public async Task Logout()
+        {
+
+            var notLogout = await UserDialogsService.ConfirmLogout("Đăng xuất khỏi tài khoản của bạn?", "Đăng xuất");
+            if (notLogout == false)
+            {
+                await AccountService.LogoutAsync();
+                AccountService.AbpAuthenticateModel.UserNameOrEmailAddress = null;
+                await UserDialogsService.AlertSuccess("Đăng xuất thành công");
+                navigationService.NavigateTo(NavigationUrlConsts.TrangChu);
+            }
+            else
+            {
+            }
+
+            StateHasChanged();
+
+
         }
     }
 }

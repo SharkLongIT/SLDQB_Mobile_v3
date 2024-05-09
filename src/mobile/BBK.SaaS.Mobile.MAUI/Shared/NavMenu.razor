@@ -3,7 +3,7 @@
 @using Abp.Collections.Extensions
 @using BBK.SaaS.Models.NavigationMenu;
 
-<div class="pt-2">
+@* <div class="pt-2">
     @if (HasUserInfo)
     {
         <div class="card card-style">
@@ -27,9 +27,209 @@
         </div>
 
     }
-  
+
+</div>
+ *@
+
+
+
+
+<div class="pt-2">
+    @if (HasUserInfo)
+    {
+        <div class="card card-style">
+            <div class="content d-flex">
+                <div class="me-2 align-self-center">
+                    <img src="@_userImage" class="gradient-red rounded-sm" width="43">
+                </div>
+                <div class="flex-grow-1 align-self-center ps-2">
+                    <h1 class="font-20 font-700 mb-0">@ApplicationContext.LoginInfo.User.Name</h1>
+                    @if (ApplicationContext.LoginInfo.User.UserType == Authorization.Users.UserTypeEnum.Type1)
+                    {
+                        <p class="mt-n2 mb-0 font-10 font-400">Nhà tuyển dụng </p>
+                    }
+                    else
+                    {
+                        <p class="mt-n2 mb-0 font-10 font-400">Ứng viên </p>
+
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="card card-style">
+            <div class="content d-flex">
+                <div class="me-2 align-self-center">
+                    <img src="images/avatars/5s.png" class="gradient-red rounded-sm" width="43">
+                </div>
+                <div class="flex-grow-1 align-self-center ps-2">
+                    <h1 class="font-20 font-700 mb-0">Họ và tên</h1>
+                    <p class="mt-n2 mb-0 font-10 font-400">Nhà tuyển dụng / Ứng viên</p>
+                </div>
+            </div>
+        </div>
+    }
 </div>
 
+@if (HasUserInfo && ApplicationContext.LoginInfo.User.UserType == Authorization.Users.UserTypeEnum.Type1)
+{
+    <div class="card card-style">
+        <div class="content my-0">
+            <div class="list-group list-custom-small">
+                <a href="/InforNTD">
+                    <span>Thông tin cá nhân</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                <a href="/BaiTuyenDung">
+                    <span>Danh sách tin tuyển dụng của tôi</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                <a href="/DanhSachUVDUT">
+                    <span>Danh sách ứng viên đã ứng tuyển</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                <a href="/DSGioiThieu">
+                    <span>Danh sách giới thiệu của tôi</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                <a href="/DanhSachLichHen">
+                    <span>Danh sách lịch hẹn</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                <a href="DSCauHoi">
+                    <span>Danh sách câu hỏi</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                <a href="/Settings">
+                    <span>Cài đặt</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+}
+else if (HasUserInfo && ApplicationContext.LoginInfo.User.UserType == Authorization.Users.UserTypeEnum.Type2)
+{
+    <div class="card card-style">
+        <div class="content my-0">
+            <h5 class="font-700 text-uppercase opacity-40 font-12 pt-2 mb-0">Hồ sơ cá nhân</h5>
+            <div class="list-group list-custom-small list-icon-0">
+                <div class="list-group list-custom-small">
+                    <a href="/InforNLD">
+                        <span>Thông tin cá nhân</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    <a href="/BaiUngTuyen">
+                        <span>Danh sách hồ sơ ứng tuyển của tôi</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    <a href="DSCVDaUngTuyen">
+                        <span>Danh sách công việc đã ứng tuyển của tôi</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    <a href="/DSGT">
+                        <span>Danh sách giới thiệu của tôi</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    <a href="/DanhSachLH">
+                        <span>Danh sách lịch hẹn</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    <a href="/DanhSachCauHoi">
+                        <span>Danh sách câu hỏi</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                    <a href="/Settings">
+                        <span>Cài đặt</span>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="card card-style">
+    <div class="content my-0">
+        <h5 class="font-700 text-uppercase opacity-40 font-12 pt-2 mb-0">Menu</h5>
+        <div class="list-group list-custom-small list-icon-0">
+            <a href="/TrangChu">
+                <i class="fa font-14 fa-home rounded-s bg-yellow-dark"></i>
+                <span>Trang chủ</span>
+                <i class="fa fa-angle-right"></i>
+            </a>
+            <a href="/Filter">
+                <i class="fa font-14 fa-search rounded-s bg-blue-dark"></i>
+                <span>Tìm kiếm</span>
+                <i class="fa fa-angle-right"></i>
+            </a>
+            <a href="/NguoiTimViec">
+                <i class="fa font-14 fa-user rounded-s bg-blue-dark"></i>
+                <span>Người tìm việc</span>
+                <i class="fa fa-angle-right"></i>
+            </a>
+            <a href="/ViecTimNguoi">
+                <i class="fa font-14 fa-briefcase rounded-s bg-brown-dark"></i>
+                <span>Việc tìm người</span>
+                <i class="fa fa-angle-right"></i>
+            </a>
+            <a href="/TinTuc">
+                <i class="fa font-14 fa-newspaper rounded-s bg-green-dark"></i>
+                <span>Dịch vụ</span>
+                <i class="fa fa-angle-right"></i>
+            </a>
+            <a href="/LienHe" class="border-0">
+                <i class="fa font-14 fa-question rounded-s bg-teal-dark"></i>
+                <span>Hỏi đáp</span>
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="card card-style">
+    <div class="content my-0">
+        <h5 class="font-700 text-uppercase opacity-40 font-12 pt-2 mb-0">Dịch vụ</h5>
+        <div class="list-group list-custom-small list-icon-0">
+            <Virtualize @ref="CmsContainer" Context="cmsCats" ItemsProvider="@LoadCategories">
+                <a href="javascript:;" @onclick="(() => GetArticleByCategory(cmsCats))">
+                    <span>@cmsCats.DisplayName</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </Virtualize>
+        </div>
+    </div>
+</div>
+
+@if (!HasUserInfo)
+{
+    <div class="card card-style">
+        <div class="content my-0">
+            <div class="list-group list-custom-small list-icon-0">
+                <a href="/Login" class="border-0">
+                    <i class="fa font-14 fa-sign-out rounded-s bg-teal-dark"></i>
+                    <span>Đăng nhập</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+}
+@if (HasUserInfo)
+{
+    <div class="card card-style">
+        <div class="content my-0">
+            <div class="list-group list-custom-small list-icon-0">
+                <a class="border-0" @onclick="Logout">
+                    <i class="fa font-14 fa-sign-out rounded-s bg-teal-dark"></i>
+                    <span>Đăng xuất</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+}
 @code {
     private Dictionary<string, object> GetMenuAttributes(NavigationMenuItem item)
     {

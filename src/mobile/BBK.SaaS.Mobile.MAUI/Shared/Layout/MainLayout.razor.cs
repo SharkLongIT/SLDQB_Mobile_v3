@@ -104,6 +104,7 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
             {
                 await Task.Delay(200);
                 await JS.InvokeVoidAsync("KTMenu.init");
+                //await JS.InvokeVoidAsync("footerBar");
             }
         }
 
@@ -230,14 +231,23 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
         public async Task GetArticleByCategory(CmsCatDto cmsCatDto)
         {
             navigationService.NavigateTo($"ListArticle?CategoryId={cmsCatDto.Id}&CategoryName={cmsCatDto.DisplayName}");
+            await LoadCategories(new ItemsProviderRequest());
+            StateHasChanged();
         }
         public async Task Logout()
         {
-            IsOpenSideBar = false;
-            await AccountService.LogoutAsync();
-            AccountService.AbpAuthenticateModel.UserNameOrEmailAddress = null;
-            //await UserDialogsService.AlertSuccess("Đăng xuất thành công");
-            navigationService.NavigateTo(NavigationUrlConsts.TrangChu);
+
+            var notLogout = await UserDialogsService.ConfirmLogout("Đăng xuất khỏi tài khoản của bạn?", "Đăng xuất");
+            if (notLogout == false)
+            {
+                await AccountService.LogoutAsync();
+                AccountService.AbpAuthenticateModel.UserNameOrEmailAddress = null;
+                await UserDialogsService.AlertSuccess("Đăng xuất thành công");
+                navigationService.NavigateTo(NavigationUrlConsts.TrangChu);
+            }
+            else
+            {
+            }
 
             StateHasChanged();
 

@@ -82,9 +82,9 @@ else
                     <a data-bs-toggle="dropdown" class="icon icon-m color-theme"><i class="fa fa-ellipsis-h" style="margin-top: -10px"></i></a>
                     <div class="dropdown-menu border-0 bg-theme rounded-m shadow-xl px-2 mt-n4">
                         <div class="list-group list-custom-small mt-n2 mb-n2">
+                            <a @onclick="(() => ViewApplication(application))" data-menu="menu-delete"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Xem chi tiết<i class="fa"></i></a>
                             <a @onclick="(() => ViewJob(application))" data-menu="menu-archive"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Xem công việc<i class="fa"></i></a>
                             <a @onclick="(() => ViewCompany(application))" data-menu="menu-download"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Xem trang công ty<i class="fa"></i></a>
-                            <a @onclick="(() => ViewApplication(application))" data-menu="menu-delete"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Xem lại CV<i class="fa"></i></a>
                         </div>
                     </div>
                 </div>

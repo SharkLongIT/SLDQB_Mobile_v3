@@ -205,3 +205,12 @@
  *@
 <UngtuyenModal @ref="ungtuyenModal"></UngtuyenModal>
 
+<div class="scroll-ad shadow-xl bg-theme rounded-m ">
+    <img src="@Model.AvatarUrl" class="shadow-l rounded-m" alt="img">
+    <h1 class="text-uppercase font-900 font-18 color-white"><span class="color-highlight">@Model.Title </span></h1>
+    @* <em class="font-12">@Model.CompanyName</em> *@
+    <a href="javascript:;" class="bg-highlight color-white shadow-m rounded-s" style="margin-top: 3px;" @onclick="(()=>UngTuyen(Model))">Ứng tuyển</a>
+   @*  <a href="javascript:;" class="btn  bg-highlight rounded-m text-uppercase font-700 " style="width: 100%" @onclick="(()=>UngTuyen(Model))">
+        Ứng tuyển
+    </a> *@
+</div>

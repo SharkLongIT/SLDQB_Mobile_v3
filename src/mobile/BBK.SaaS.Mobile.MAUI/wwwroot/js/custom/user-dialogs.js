@@ -99,7 +99,25 @@ var BlazorUserDialogService = function () {
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: confirmButtonText,
-                cancelButtonText: cancelButtonText
+                cancelButtonText: cancelButtonText,
+            }
+            ).then((result) => {
+                resolve(result.isConfirmed);
+            });
+        });
+
+        let result = await promise;
+        return result;
+    }
+    var logout = async function (text, title, cancelButtonText, confirmButtonText) {
+        let promise = new Promise((resolve, reject) => {
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: cancelButtonText,
+                confirmButtonText: confirmButtonText,
             }
             ).then((result) => {
                 resolve(result.isConfirmed);
@@ -133,6 +151,7 @@ var BlazorUserDialogService = function () {
         alertError: alertError,
         alertWarn: alertWarn,
         confirm: confirm,
-        prompt: prompt
+        prompt: prompt,
+        logout: logout
     };
 }();

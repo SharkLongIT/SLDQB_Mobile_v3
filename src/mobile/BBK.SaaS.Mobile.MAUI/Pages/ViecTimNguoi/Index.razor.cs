@@ -370,9 +370,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
         #endregion
         private async ValueTask<ItemsProviderResult<RecruitmentDto>> LoadRecruitment(ItemsProviderRequest request)
         {
-            //_filter.MaxResultCount = Math.Clamp(request.Count, 1, 1000);
-            //_filter.SkipCount = request.StartIndex;
-            //_filter.Take = Math.Clamp(request.Count, 1, 1000);
             _filter.Filtered = _SearchText;
             _filter.Job = _Job;
             _filter.SalaryMax = _SalaryMax;
@@ -382,9 +379,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
             _filter.WorkSiteId = _WorkSite;
 
             await UserDialogsService.Block();
-
-            //var catuint = await CatUnitAppService.GetFilterList();
-
 
             await WebRequestExecuter.Execute(
                 async () => await recruitmentAppService.GetAllUser(_filter),
@@ -409,8 +403,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                         }
                     }
                     recruitmentDto = new ItemsProviderResult<RecruitmentDto>(jobFilter, jobFilter.Count);
-
-
                     await UserDialogsService.UnBlock();
 
                 }
@@ -436,7 +428,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
             IsOpenFilter = false;
         }
 
-
+      
 
 
 

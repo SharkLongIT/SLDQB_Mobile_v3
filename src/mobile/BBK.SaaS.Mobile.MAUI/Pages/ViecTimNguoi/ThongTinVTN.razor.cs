@@ -11,6 +11,7 @@ using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.Services.Navigation;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+using Microsoft.JSInterop;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
 {
@@ -52,6 +53,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
         }
         protected override async Task OnInitializedAsync()
         {
+
             try
             {
                 if (ApplicationContext.LoginInfo == null || ApplicationContext.LoginInfo.User.UserType == Authorization.Users.UserTypeEnum.Type2)
@@ -130,6 +132,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                 Model.PhoneNumber = recruitment.PhoneNumber;
                 Model.Address = recruitment.Address;
                 await UpdateImage();
+                await JS.InvokeVoidAsync("scroll");
             }
             catch (Exception ex )
             {

@@ -10,7 +10,7 @@
     <a href="#" class="clear-search disabled mt-0"><i class="fa fa-times color-red-dark"></i></a>
 </div>
 <div class="content mt-0">
-    <a  data-menu="menu-filter" @onclick="OpenFilter">
+    <a data-menu="menu-filter" @onclick="OpenFilter">
         <h4 class="text-uppercase color-highlight">
             <i class="fa font-14 fa-star color-yellow-dark px-2"></i>Bộ lọc nâng cao
         </h4>
@@ -127,19 +127,22 @@
         <h4 class="font-700">Đã tìm thấy @RecruitmentCount kết quả </h4>
     </div>
 } *@
-<div class="card card-style">
-    <div class="content">
+
         @if (isError == true)
-        {
+{
+    <div class="card card-style">
+        <div class="content">
             <div class="text-error">
                 <h3>Không tìm thấy kết quả!!!</h3>
                 <span class="mt-2">Thử tìm kiếm với từ khoá khác.</span>
             </div>
-        }
-        else
-        {
-            <Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
-
+        </div>
+    </div>
+}
+else
+{
+    <Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
+        <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3" style="background-color:#FFF !important; ">
                 <a href="javascript:;" @onclick="(() => ViewRecruitment(recruitment))">
                     <div class="d-flex">
                         <div>
@@ -169,9 +172,23 @@
                         </div>
                     </div>
                 </a>
-                <div class="divider mt-3 mb-3"></div>
-            </Virtualize>
-        }
-    </div>
-</div>
+            </div>
+    </Virtualize>
 
+}
+@* <nav aria-label="pagination-demo">
+    <ul class="pagination pagination- justify-content-center">
+        <li class="page-item">
+            <a class="page-link py-2 rounded-xs color-black bg-transparent bg-theme shadow-xl border-0" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-left"></i></a>
+        </li>
+        <li class="page-item active"><a class="page-link py-2 rounded-xs bg-hightlight shadow-l border-0" href="#">1</a></li>
+        <li class="page-item"><a class="page-link py-2 rounded-xs color-black bg-theme shadow-l border-0" href="#">2</a></li>
+        <li class="page-item"><a class="page-link py-2 rounded-xs color-black bg-theme shadow-l border-0" href="#">3</a></li>
+        <li class="page-item"><a class="page-link py-2 rounded-xs color-black bg-theme shadow-l border-0" href="#">4</a></li>
+        <li class="page-item"><a class="page-link py-2 rounded-xs color-black bg-theme shadow-l border-0" href="#">5</a></li>
+        <li class="page-item">
+            <a class="page-link py-2 rounded-xs color-black bg-transparent bg-theme shadow-l border-0" href="#"><i class="fa fa-angle-right"></i></a>
+        </li>
+    </ul>
+</nav>
+ *@
