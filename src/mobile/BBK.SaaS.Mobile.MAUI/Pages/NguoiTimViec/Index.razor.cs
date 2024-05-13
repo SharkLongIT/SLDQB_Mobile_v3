@@ -238,8 +238,22 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
             _filter.LiteracyId = _LiteracyId;
             _filter.Gender = _Gender;
             _filter.ExperiencesId = _ExperiencesId;
-            _filter.WorkSiteId = _WorkSite;
-            _filter.OccupationId = _OccupationId;
+            if(_WorkSite <= 0)
+            {
+                _filter.WorkSiteId = null;
+            }
+            else
+            {
+                _filter.WorkSiteId = _WorkSite;
+            }
+            if (_OccupationId <= 0)
+            {
+                _filter.OccupationId = null;
+            }
+            else
+            {
+                _filter.OccupationId = _OccupationId;
+            }
             _filter.SalaryMin = _SalaryMin;
             _filter.SalaryMax = _SalaryMax;
             await UserDialogsService.Block();
