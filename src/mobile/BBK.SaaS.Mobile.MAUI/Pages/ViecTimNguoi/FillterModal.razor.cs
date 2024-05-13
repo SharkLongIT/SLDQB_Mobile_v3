@@ -1,12 +1,10 @@
-﻿using Abp.UI;
-using BBK.SaaS.Core.Dependency;
+﻿using BBK.SaaS.Core.Dependency;
 using BBK.SaaS.Core.Threading;
 using BBK.SaaS.Mdls.Category.Geographies;
 using BBK.SaaS.Mdls.Category.Geographies.Dto;
 using BBK.SaaS.Mdls.Category.Indexings;
 using BBK.SaaS.Mdls.Category.Indexings.Dto;
 using BBK.SaaS.Mdls.Profile.Recruiters.Dto;
-using BBK.SaaS.Mobile.MAUI.Models.NguoiTimViec;
 using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.Services.Navigation;
 using Microsoft.AspNetCore.Components;

@@ -5576,47 +5576,47 @@ var KTUtil = function() {
                 throw new Error("Invalid node passed to fireEvent: " + node.id);
             }
 
-            if (node.dispatchEvent) {
-                // Gecko-style approach (now the standard) takes more work
-                var eventClass = "";
+            //if (node.dispatchEvent) {
+            //    // Gecko-style approach (now the standard) takes more work
+            //    var eventClass = "";
 
-                // Different events have different event classes.
-                // If this switch statement can't map an eventName to an eventClass,
-                // the event firing is going to fail.
-                switch (eventName) {
-                case "click": // Dispatching of 'click' appears to not work correctly in Safari. Use 'mousedown' or 'mouseup' instead.
-                case "mouseenter":
-                case "mouseleave":
-                case "mousedown":
-                case "mouseup":
-                    eventClass = "MouseEvents";
-                    break;
+            //    // Different events have different event classes.
+            //    // If this switch statement can't map an eventName to an eventClass,
+            //    // the event firing is going to fail.
+            //    switch (eventName) {
+            //    case "click": // Dispatching of 'click' appears to not work correctly in Safari. Use 'mousedown' or 'mouseup' instead.
+            //    case "mouseenter":
+            //    case "mouseleave":
+            //    case "mousedown":
+            //    case "mouseup":
+            //        eventClass = "MouseEvents";
+            //        break;
 
-                case "focus":
-                case "change":
-                case "blur":
-                case "select":
-                    eventClass = "HTMLEvents";
-                    break;
+            //    case "focus":
+            //    case "change":
+            //    case "blur":
+            //    case "select":
+            //        eventClass = "HTMLEvents";
+            //        break;
 
-                default:
-                    throw "fireEvent: Couldn't find an event class for event '" + eventName + "'.";
-                    break;
-                }
-                var event = doc.createEvent(eventClass);
+            //    default:
+            //        throw "fireEvent: Couldn't find an event class for event '" + eventName + "'.";
+            //        break;
+            //    }
+            //    var event = doc.createEvent(eventClass);
 
-                var bubbles = eventName == "change" ? false : true;
-                event.initEvent(eventName, bubbles, true); // All events created as bubbling and cancelable.
+            //    var bubbles = eventName == "change" ? false : true;
+            //    event.initEvent(eventName, bubbles, true); // All events created as bubbling and cancelable.
 
-                event.synthetic = true; // allow detection of synthetic events
-                // The second parameter says go ahead with the default action
-                node.dispatchEvent(event, true);
-            } else if (node.fireEvent) {
-                // IE-old school style
-                var event = doc.createEventObject();
-                event.synthetic = true; // allow detection of synthetic events
-                node.fireEvent("on" + eventName, event);
-            }
+            //    event.synthetic = true; // allow detection of synthetic events
+            //    // The second parameter says go ahead with the default action
+            //    node.dispatchEvent(event, true);
+            //} else if (node.fireEvent) {
+            //    // IE-old school style
+            //    var event = doc.createEventObject();
+            //    event.synthetic = true; // allow detection of synthetic events
+            //    node.fireEvent("on" + eventName, event);
+            //}
         },
 
         index: function( el ){

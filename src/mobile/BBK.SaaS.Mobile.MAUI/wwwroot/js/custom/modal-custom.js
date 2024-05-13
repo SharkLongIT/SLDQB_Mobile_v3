@@ -24,12 +24,19 @@ var ModalCustomManagerService = function () {
             var iframes = document.querySelectorAll('iframe');
             iframes.forEach(el => { var hrefer = el.getAttribute('src'); el.setAttribute('newSrc', hrefer); el.setAttribute('src', ''); var newSrc = el.getAttribute('newSrc'); el.setAttribute('src', newSrc) });
         }));
+
+
+        window.history.pushState('backPressed', null, null);
+        window.addEventListener("popstate", function (e) {
+            const activeMenu = document.querySelectorAll('.menu-active');
+            for (let i = 0; i < activeMenu.length; i++) { activeMenu[i].classList.remove('menu-active'); }
+        }, true)
     }
 
     var hide = function (id) {
         //$("#" + id).modal('hide')
         //Closing Menus
-      
+
 
         const activeMenu = document.querySelectorAll('.menu-active');
         for (let i = 0; i < activeMenu.length; i++) { activeMenu[i].classList.remove('menu-active'); }

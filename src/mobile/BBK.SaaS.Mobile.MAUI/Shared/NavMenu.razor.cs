@@ -1,16 +1,16 @@
-﻿using Microsoft.JSInterop;
-using BBK.SaaS.ApiClient;
+﻿using BBK.SaaS.ApiClient;
 using BBK.SaaS.Core.Dependency;
-using BBK.SaaS.Mobile.MAUI.Services.UI;
-using BBK.SaaS.Mobile.MAUI.Services.User;
-using BBK.SaaS.Models.NavigationMenu;
-using BBK.SaaS.Services.Navigation;
-using BBK.SaaS.Mdls.Cms.Categories.Dto;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
 using BBK.SaaS.Core.Threading;
 using BBK.SaaS.Mdls.Cms.Articles.MDto;
 using BBK.SaaS.Mdls.Cms.Categories;
+using BBK.SaaS.Mdls.Cms.Categories.Dto;
+using BBK.SaaS.Mobile.MAUI.Services.UI;
+using BBK.SaaS.Mobile.MAUI.Services.User;
+using BBK.SaaS.Models.NavigationMenu;
 using BBK.SaaS.Services.Account;
+using BBK.SaaS.Services.Navigation;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
+using Microsoft.JSInterop;
 
 namespace BBK.SaaS.Mobile.MAUI.Shared
 {
@@ -31,6 +31,8 @@ namespace BBK.SaaS.Mobile.MAUI.Shared
         protected IUserProfileService UserProfileService { get; set; }
 
         protected List<NavigationMenuItem> MenuItems;
+
+        protected List<CmsCatDto> cmsCatDtos;
 
         private bool HasUserInfo => AccessTokenManager != null &&
             AccessTokenManager.IsUserLoggedIn &&
@@ -60,6 +62,7 @@ namespace BBK.SaaS.Mobile.MAUI.Shared
 
             BuildMenuItems();
             await GetUserPhoto();
+            await GetCatDtosAsync();
         }
 
         public void BuildMenuItems()
@@ -132,13 +135,31 @@ namespace BBK.SaaS.Mobile.MAUI.Shared
 
             return cmsCatDto;
         }
+
+        private async Task<List<CmsCatDto>> GetCatDtosAsync()
+        {
+            await UserDialogsService.Block();
+
+            await WebRequestExecuter.Execute(
+            async () => await cmsCatsAppService.GetCmsCats(),
+            async (result) =>
+            {
+                var articlesFilter = result.Items.ToList();
+                cmsCatDtos = articlesFilter;
+                await UserDialogsService.UnBlock();
+            }
+        );
+
+            return cmsCatDtos;
+
+        }
         #endregion
 
         public async Task GetArticleByCategory(CmsCatDto cmsCatDto)
         {
             navigationService.NavigateTo($"ListArticle?CategoryId={cmsCatDto.Id}&CategoryName={cmsCatDto.DisplayName}");
             //await LoadCategories(new ItemsProviderRequest());
-            StateHasChanged();
+            //StateHasChanged();
         }
         public async Task Logout()
         {

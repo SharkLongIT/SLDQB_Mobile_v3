@@ -235,7 +235,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
         private Virtualize<NTDDatLichModel> JobApplicationContainer { get; set; }
         private async ValueTask<ItemsProviderResult<NTDDatLichModel>> LoadJobApplication(ItemsProviderRequest request)
         {
-            //_Initialized = false;
             _filter.LiteracyId = _LiteracyId;
             _filter.Gender = _Gender;
             _filter.ExperiencesId = _ExperiencesId;

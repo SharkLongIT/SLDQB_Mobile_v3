@@ -198,10 +198,6 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
             IsOpenSideBar = true;
             await JS.InvokeVoidAsync("menuSideBar");
         }
-        public async Task CloseSideBar()
-        {
-            IsOpenSideBar = false;
-        }
         #endregion
         #region Category
 
