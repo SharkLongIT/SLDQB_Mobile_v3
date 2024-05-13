@@ -35,7 +35,7 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
         private async Task SetLayout()
         {
             var dom = DependencyResolver.Resolve<DomManipulatorService>();
-            // await dom.ClearAllAttributes(JS, "body");
+            await dom.ClearAllAttributes(JS, "body");
             await dom.SetAttribute(JS, "body", "id", "kt_body");
             await dom.SetAttribute(JS, "body", "class", "app-blank");
         }

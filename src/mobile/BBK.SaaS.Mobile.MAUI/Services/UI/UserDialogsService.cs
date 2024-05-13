@@ -32,7 +32,7 @@ namespace BBK.SaaS.Mobile.MAUI.Services.UI
         {
             if (string.IsNullOrWhiteSpace(confirmButtonText))
             {
-                confirmButtonText = L.Localize("Ok");
+                confirmButtonText = "Ok";
             }
 
             await JS.InvokeVoidAsync("BlazorUserDialogService.alertSuccess", message, confirmButtonText);
@@ -42,7 +42,7 @@ namespace BBK.SaaS.Mobile.MAUI.Services.UI
         {
             if (string.IsNullOrWhiteSpace(confirmButtonText))
             {
-                confirmButtonText = L.Localize("Ok");
+                confirmButtonText = "Ok";
             }
 
             await JS.InvokeVoidAsync("BlazorUserDialogService.alertInfo", message, confirmButtonText);
@@ -52,7 +52,7 @@ namespace BBK.SaaS.Mobile.MAUI.Services.UI
         {
             if (string.IsNullOrWhiteSpace(confirmButtonText))
             {
-                confirmButtonText = L.Localize("Ok");
+                confirmButtonText = "Ok";
             }
 
             await JS.InvokeVoidAsync("BlazorUserDialogService.alertError", message, confirmButtonText);
@@ -62,7 +62,7 @@ namespace BBK.SaaS.Mobile.MAUI.Services.UI
         {
             if (string.IsNullOrWhiteSpace(confirmButtonText))
             {
-                confirmButtonText = L.Localize("Ok");
+                confirmButtonText = "Ok";
             }
 
             await JS.InvokeVoidAsync("BlazorUserDialogService.alertWarn", message, confirmButtonText);
@@ -72,12 +72,12 @@ namespace BBK.SaaS.Mobile.MAUI.Services.UI
         {
             if (string.IsNullOrWhiteSpace(confirmButtonText))
             {
-                confirmButtonText = L.Localize("Ok");
+                confirmButtonText = "Ok";
             }
 
             if (string.IsNullOrWhiteSpace(cancelButtonText))
             {
-                cancelButtonText = L.Localize("Không");
+                cancelButtonText = "Không";
             }
 
             return await JS.InvokeAsync<bool>("BlazorUserDialogService.confirm", message, title, confirmButtonText, cancelButtonText);

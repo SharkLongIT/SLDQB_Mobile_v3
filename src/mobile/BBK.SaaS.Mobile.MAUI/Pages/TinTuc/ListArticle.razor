@@ -2,39 +2,54 @@
 @inherits SaaSMainLayoutPageComponentBase
 @attribute [Route("/" + NavigationUrlConsts.ListArticle)]
 
-
-<div class="card card-style">
-    <div class="content">
-        <div class="d-flex">
-            <div class="align-self-center">
-                <span class=" badge bg-green-dark text-uppercase font-12" style=" margin-left: 5px;">@categoryName</span>
-            </div>
-        </div>
-        <div class="divider bg-green-dark mb-2 mt-2"></div>
-        <Virtualize @ref="ArticlesContainer" Context="articles" ItemsProvider="@LoadArticlesByCategory" ItemSize="100">
-
-            <a href="javascript:;" @onclick="(() => ViewArticle(articles))" class="pb-3">
-                <div class="d-flex">
-                    <div>
-                        <img src="@articles.PrimaryImageUrl" class="rounded-sm me-3" width="80">
-                    </div>
-                    <div class="w-100">
-
-                        <p class="mt-n2 mb-2">
-                            <strong>
-                                @articles.Title
-                            </strong>
-                        </p>
-                        <p>
-                            @articles.Author - @articles.LastModificationTime.ToShortDateString()<span class="d-block float-end color-blue-dark font-11">
-                                Chi
-                                tiết
-                            </span>
-                        </p>
-                    </div>
+@if (isNoArticle == true)
+{
+    <div class="card card-style">
+        <div class="content">
+            <div class="d-flex">
+                <div class="align-self-center">
+                    <span class=" badge bg-green-dark text-uppercase font-12" style=" margin-left: 5px;">@categoryName</span>
                 </div>
-            </a>
-            <div class="divider mb-2 mt-2"></div>
-        </Virtualize>
+            </div>
+            <h3>Không có bài viết nào thuộc chuyên mục</h3>
+        </div>
     </div>
-</div>
+}
+else
+{
+    <div class="card card-style">
+        <div class="content">
+            <div class="d-flex">
+                <div class="align-self-center">
+                    <span class=" badge bg-green-dark text-uppercase font-12" style=" margin-left: 5px;">@categoryName</span>
+                </div>
+            </div>
+            <div class="divider bg-green-dark mb-2 mt-2"></div>
+            <Virtualize @ref="ArticlesContainer" Context="articles" ItemsProvider="@LoadArticlesByCategory" ItemSize="100">
+
+                <a href="javascript:;" @onclick="(() => ViewArticle(articles))" class="pb-3">
+                    <div class="d-flex">
+                        <div>
+                            <img src="@articles.PrimaryImageUrl" alt="" class="rounded-sm me-3" width="80">
+                        </div>
+                        <div class="w-100">
+
+                            <p class="mt-n2 mb-2">
+                                <strong>
+                                    @articles.Title
+                                </strong>
+                            </p>
+                            <p>
+                                @articles.Author - @articles.LastModificationTime.ToShortDateString()<span class="d-block float-end color-blue-dark font-11">
+                                    Chi
+                                    tiết
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                <div class="divider mb-2 mt-2"></div>
+            </Virtualize>
+        </div>
+    </div>
+}

@@ -63,6 +63,7 @@ namespace BBK.SaaS.Mobile.MAUI.Shared
             BuildMenuItems();
             await GetUserPhoto();
             await GetCatDtosAsync();
+            //await LoadCategories(new ItemsProviderRequest());
         }
 
         public void BuildMenuItems()
@@ -114,7 +115,7 @@ namespace BBK.SaaS.Mobile.MAUI.Shared
             StateHasChanged();
         }
         #region Category
-
+        long CategoryCount;
         private async ValueTask<ItemsProviderResult<CmsCatDto>> LoadCategories(ItemsProviderRequest request)
         {
             _filter.MaxResultCount = Math.Clamp(request.Count, 1, 1000);
@@ -128,6 +129,7 @@ namespace BBK.SaaS.Mobile.MAUI.Shared
             async (result) =>
             {
                 var articlesFilter = result.Items.ToList();
+                CategoryCount = articlesFilter.Count;
                 cmsCatDto = new ItemsProviderResult<CmsCatDto>(articlesFilter, articlesFilter.Count);
                 await UserDialogsService.UnBlock();
             }

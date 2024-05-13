@@ -30,11 +30,10 @@
     </div>
     <div class="row">
         <div class="col-6">
-            <a href="#" @onclick="ForgotPasswordButton" data-menu="menu-forgot-1" class="font-10">Quên mật khẩu?</a>
+            <a @onclick="EmailActivationButton" class="font-10">Kích hoạt email</a>
         </div>
         <div class="col-6">
-            <a data-menu="menu-register-1" href="/Register" class="float-end font-10">Đăng ký tài khoản mới</a>
-            <div class="clearfix"></div>
+            <a @onclick="ForgotPasswordButton" data-menu="menu-forgot-1" class="font-10 float-end">Quên mật khẩu?</a>
         </div>
     </div>
     <a href="#" @onclick="LoginUser" class="btn btn-full btn-m shadow-l rounded-s text-uppercase font-900 bg-green-dark mt-n2">Đăng nhập</a>
@@ -48,10 +47,10 @@
 
     </p>
     <div class="d-flex justify-content-center">
-        <a href="/TrangChu">Trải nghiệm không cần đăng nhập</a>
+        <a href="/TrangChu">Trải nghiệm không cần đăng nhập</a> 
+        <a href="/Register" class="">Đăng ký tài khoản mới</a>
     </div>
 </div>
-
 
 
 

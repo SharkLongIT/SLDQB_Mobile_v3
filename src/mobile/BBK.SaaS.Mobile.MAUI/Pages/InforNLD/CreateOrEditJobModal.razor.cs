@@ -305,7 +305,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
                    );
                 }
 
-                navigationService.NavigateTo($"ChiTietBUT?Id={Model.Id}");
+                //navigationService.NavigateTo($"ChiTietBUT?Id={Model.Id}");
             });
 
 

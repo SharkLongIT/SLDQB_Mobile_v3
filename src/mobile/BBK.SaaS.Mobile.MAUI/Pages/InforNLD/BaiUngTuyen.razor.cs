@@ -71,15 +71,18 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
                 async () => await jobApplicationAppService.GetListJobAppOfCandidate(_filter),
                 async (result) =>
                 {
-                    var jobFilter = ObjectMapper.Map<List<CreateOrEditJobModel>>(result.Items);
+                    var jobFilter = ObjectMapper.Map<List<CreateOrEditJobModel>>(result.Items.OrderByDescending(q => q.CreationTime));
                     _userImage = await UserProfileService.GetProfilePicture(ApplicationContext.LoginInfo.User.Id);
-                    if (jobFilter.Count == 0)
+                    if (_SearchText != "")
                     {
-                        isError = true;
-                    }
-                    else
-                    {
-                        isError = false;
+                        if (jobFilter.Count == 0)
+                        {
+                            isError = true;
+                        }
+                        else
+                        {
+                            isError = false;
+                        }
                     }
                     jobApplicationDto = new ItemsProviderResult<CreateOrEditJobModel>(jobFilter, jobFilter.Count);
                     await UserDialogsService.UnBlock();

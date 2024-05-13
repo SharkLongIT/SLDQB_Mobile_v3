@@ -28,7 +28,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
         private int categoryId;
         private string categoryName;
         private string _SearchText = "";
-        private bool isError = false;
+        private bool isNoArticle;
 
 
         private ItemsProviderResult<ArticleModel> articleDto;
@@ -56,6 +56,8 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
             {
                 categoryName = (q1["CategoryName"]);
             }
+            await LoadArticlesByCategory(new ItemsProviderRequest());
+
         }
         private async Task RefreshList()
         {
@@ -83,6 +85,10 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
                     model.PrimaryImageUrl = AsyncHelper.RunSync(async () => await articleService.GetPicture(model.PrimaryImageUrl));
                     var modifed = await articlesFrontendAppService.GetArticleDetail(new EntityDto<long> { Id = model.Id.Value });
                     model.LastModificationTime = modifed.Modified;
+                }
+                if (articlesFilter.Count == 0)
+                {
+                    isNoArticle = true;
                 }
                 articleDto = new ItemsProviderResult<ArticleModel>(articlesFilter, articlesFilter.Count);
                 await UserDialogsService.UnBlock();
