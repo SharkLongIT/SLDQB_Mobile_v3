@@ -15,6 +15,7 @@ using BBK.SaaS.Mdls.Cms.Articles.MDto;
 using BBK.SaaS.Mdls.Cms.Categories;
 using BBK.SaaS.Mobile.MAUI.Services.User;
 using BBK.SaaS.Services.Account;
+using Plugin.LocalNotification;
 
 
 
@@ -248,6 +249,24 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
             StateHasChanged();
 
 
+        }
+        private void  showNotifi()
+        {
+            var request = new NotificationRequest
+            {
+                NotificationId = 1337,
+                Title = "Subscribe to my channel",
+                Subtitle = "Hello",
+                Description = "It's me",
+                BadgeNumber = 42,
+                Schedule = new NotificationRequestSchedule
+                {
+                    NotifyTime = DateTime.Now.AddSeconds(5),
+                    NotifyRepeatInterval = TimeSpan.FromDays(1),
+                    //RepeatType = 
+                }
+            };
+            LocalNotificationCenter.Current.Show(request);
         }
     }
 }

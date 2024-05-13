@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Reflection;
 using BBK.SaaS.Core;
+using Plugin.LocalNotification;
 
 namespace BBK.SaaS.Mobile.MAUI
 {
@@ -11,6 +12,7 @@ namespace BBK.SaaS.Mobile.MAUI
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseLocalNotification()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

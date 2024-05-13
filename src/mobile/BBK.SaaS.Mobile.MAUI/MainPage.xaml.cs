@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using Plugin.LocalNotification;
 
 namespace BBK.SaaS.Mobile.MAUI
 {
@@ -8,6 +9,20 @@ namespace BBK.SaaS.Mobile.MAUI
         public MainPage()
         {
             InitializeComponent();
+           
+
+            LocalNotificationCenter.Current.NotificationActionTapped += Current_NotificationActionTapped;
         }
+
+        private void Current_NotificationActionTapped(Plugin.LocalNotification.EventArgs.NotificationActionEventArgs e)
+        {
+            //throw new NotImplementedException();
+            if (e.IsDismissed) { }
+            else if (e.IsTapped)
+            {
+
+            }
+        }
+
     }
 }

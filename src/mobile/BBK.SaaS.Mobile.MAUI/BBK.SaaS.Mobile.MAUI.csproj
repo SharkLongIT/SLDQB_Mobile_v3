@@ -85,6 +85,7 @@
       <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
       <PackageReference Include="Microsoft.Maui.Controls.Maps" Version="8.0.14" />
+      <PackageReference Include="Plugin.LocalNotification" Version="10.1.8" />
       <PackageReference Include="Xam.Plugin.Connectivity" Version="4.0.0.190-beta" />
       <PackageReference Include="Xam.Plugins.Settings" Version="4.1.0-beta" />
     </ItemGroup>
