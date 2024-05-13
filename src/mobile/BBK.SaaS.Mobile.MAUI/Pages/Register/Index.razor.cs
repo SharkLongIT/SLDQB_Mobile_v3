@@ -2,6 +2,7 @@
 using BBK.SaaS.ApiClient;
 using BBK.SaaS.Authorization.Accounts;
 using BBK.SaaS.Authorization.Accounts.Dto;
+using BBK.SaaS.Authorization.Users;
 using BBK.SaaS.Authorization.Users.Dto;
 using BBK.SaaS.Core.Dependency;
 using BBK.SaaS.Core.Threading;
@@ -16,48 +17,40 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.Register
 {
     public partial class Index : SaaSComponentBase
     {
-        public string UserName
-        {
-            get => _accountService.AbpAuthenticateModel.UserNameOrEmailAddress;
-            set
-            {
-                _accountService.AbpAuthenticateModel.UserNameOrEmailAddress = value;
-            }
-        }
+        //protected UserCreateOrUpdateModel Model = new();
+     protected RegisterInput Model = new RegisterInput();
 
-        public string Password
-        {
-            get => _accountService.AbpAuthenticateModel.Password;
-            set
-            {
-                _accountService.AbpAuthenticateModel.Password = value;
-            }
-        }
-        protected UserEditModel Model = new UserEditModel();
-        private IAccountService _accountService;
-        private IAccountAppService _accountAppService;
-        private IApplicationContext _applicationContext;
-
-        private IUserTypeAppService userTypeAppService;
-       
-
-        public string CurrentTenancyNameOrDefault => _applicationContext.CurrentTenant != null
-        ? _applicationContext.CurrentTenant.TenancyName
-        : L("Chưa chọn");
-
-        int tenantId;
+        protected UserEditDto UserInput = new UserEditDto();
+        protected IUserAppService UserAppService;
+        protected ProxyAccountAppService ProxyAccountAppService;
+        protected IUserTypeAppService UserTypeAppService;
         public Index()
         {
-            _accountService = DependencyResolver.Resolve<IAccountService>();
-            _accountAppService = DependencyResolver.Resolve<IAccountAppService>();
-            _applicationContext = DependencyResolver.Resolve<IApplicationContext>();
+            UserAppService = DependencyResolver.Resolve<IUserAppService>();
+            ProxyAccountAppService = DependencyResolver.Resolve<ProxyAccountAppService>();
+            UserTypeAppService = DependencyResolver.Resolve<IUserTypeAppService>();
         }
-      
+        public async Task IsUserType1()
+        {
+            //Model.User.UserType = UserTypeEnum.Type1;
+        }
+        public async Task IsUserType2()
+        {
+            //Model.User.UserType = UserTypeEnum.Type2;
+        }
+        int tenantId;
         private async Task RegisterUser()
         {
             try
             {
                 tenantId = 1;
+                UserInput.Name = "Pham Van Dong";
+                UserInput.UserType = UserTypeEnum.Type1;
+                UserInput.Password = "123qwe";
+                UserInput.EmailAddress = "dongpham@gmail.com";
+
+                //Model.UserName = Model.EmailAddress;
+                //Model.Surname = "Phạm";
                 await SetBusyAsync(async () =>
                 {
                     //if (!await ValidateInput())
@@ -65,7 +58,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.Register
                     //    return;
                     //}
                     await WebRequestExecuter.Execute(
-                      async () => await userTypeAppService.Register(tenantId ,Model),
+                      async () => await UserTypeAppService.Register(tenantId, UserInput),
                       async () =>
                       {
                           //Model = new ContactModel();

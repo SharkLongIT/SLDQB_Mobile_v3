@@ -13,7 +13,7 @@
 <div class="content mb-0">
     <div class="input-style no-borders has-icon validate-field mb-4">
         <i class="fa fa-user"></i>
-        <input type="text" @bind-value="Model.Name" class="form-control validate-name" id="form1a" placeholder="Tên đầy đủ">
+        <input type="text" @* @bind="Model.Name" *@ class="form-control validate-name" id="form1a" placeholder="Tên đầy đủ">
         <label for="form1a" class="color-blue-dark">Name</label>
         <i class="fa fa-times disabled invalid color-red-dark"></i>
         <i class="fa fa-check disabled valid color-green-dark"></i>
@@ -21,7 +21,7 @@
     </div>
     <div class="input-style no-borders has-icon validate-field mb-4">
         <i class="fa fa-envelope"></i>
-        <input type="text" @bind="Model.EmailAddress" class="form-control validate-name" id="form1a" placeholder="Email">
+        <input type="text" @* @bind="Model.EmailAddress" *@ class="form-control validate-name" id="form1a" placeholder="Email">
         <label for="form1a" class="color-blue-dark">Email</label>
         <i class="fa fa-times disabled invalid color-red-dark"></i>
         <i class="fa fa-check disabled valid color-green-dark"></i>
@@ -29,7 +29,7 @@
     </div>
     <div class="input-style no-borders has-icon validate-field mb-4">
         <i class="fa fa-lock"></i>
-        <input type="password" @bind-value="Model.Password" class="form-control validate-text" id="form3a" placeholder="Mật khẩu">
+        <input type="password"@*  @bind="Model.Password" *@ class="form-control validate-text" id="form3a" placeholder="Mật khẩu">
         <label for="form3a" class="color-blue-dark">Password</label>
         <i class="fa fa-times disabled invalid color-red-dark"></i>
         <i class="fa fa-check disabled valid color-green-dark"></i>
@@ -40,13 +40,13 @@
             <p class="m-b-5">Bạn là</p>
         </div>
         <div class="col-6 form-check icon-check">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio5">
+            <input class="form-check-input" type="radio" value="2" @oninput="IsUserType2" name="inlineRadioOptions" id="radio5">
             <label class="form-check-label" for="radio5">Người lao động</label>
             <i class="icon-check-1 fa fa-thumbs-down color-gray-dark font-16"></i>
             <i class="icon-check-2 fa fa-thumbs-up font-16 color-highlight"></i>
         </div>
         <div class="col-6 form-check icon-check">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radio6">
+            <input class="form-check-input" type="radio" value="1" @oninput="IsUserType1" name="inlineRadioOptions" id="radio6">
             <label class="form-check-label" for="radio6">Nhà tuyển dụng</label>
             <i class="icon-check-1 far fa-frown color-gray-dark font-16"></i>
             <i class="icon-check-2 far fa-smile font-16 color-highlight"></i>
