@@ -1,0 +1,34 @@
+﻿@inherits ModalBase
+
+<div id="@ModalId" class="menu menu-box-modal rounded-m" data-menu-width="330">
+    <div class="content">
+        <div class="d-flex">
+            <h1>@L("Ứng tuyển công việc")</h1>
+            <div class="ms-auto">
+                <a class="close-menu" @onclick="Hide"><i class="fa fa-times"></i></a>
+            </div>
+        </div>
+        @if (_isInitialized)
+        {
+            <h5>@L("Chọn hồ sơ phỏng vấn")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <select required="required" class="form-control" @bind="Model.JobApplicationId">
+                    <option value="0">@L("Chọn hồ ứng tuyển")</option>
+                    @foreach (var item in JobApplicationEditDto)
+                    {
+                        <option value="@item.Id">
+                            @item.Title
+                        </option>
+                    }
+                </select>
+            </div>
+            <h5>  @L("Nội dung gửi đến nhà tuyển dụng")</h5>
+            <div class="input-style has-borders no-icon mb-4">
+                <textarea id="form7" @bind="Model.Content"></textarea>
+                <label for="form7" class="color-highlight"> @L("Nội dung gửi đến nhà tuyển dụng")</label>
+                <em class="mt-n3">(bắt buộc)</em>
+            </div>
+            <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveBookJob">Ứng tuyển</a>
+        }
+    </div>
+</div>

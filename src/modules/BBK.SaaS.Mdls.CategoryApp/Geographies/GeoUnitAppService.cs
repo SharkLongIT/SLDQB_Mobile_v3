@@ -604,32 +604,55 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var ag = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "An Giang").FirstOrDefaultAsync();
 			if (ag != null)
 			{
-				var LX = await CreateAndSaveGeoUnit(geoUnits, tenant, "Long Xuyên", ag);
-				var CD = await CreateAndSaveGeoUnit(geoUnits, tenant, "Châu Đốc", ag);
-				var AP = await CreateAndSaveGeoUnit(geoUnits, tenant, "An Phú", ag);
-				var TC = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tân Châu", ag);
-				var PT = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phú Tân", ag);
-				var CP = await CreateAndSaveGeoUnit(geoUnits, tenant, "Châu Phú", ag);
-				var TB = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tịnh Biên", ag);
-				var TT = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tri Tôn", ag);
-				var CT = await CreateAndSaveGeoUnit(geoUnits, tenant, "Châu Thành", ag);
-				var CM = await CreateAndSaveGeoUnit(geoUnits, tenant, "Chợ Mới", ag);
-				var TS = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thoại Sơn", ag);
-			}
-			#endregion
-			#region brvt
-			var i2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bà Rịa - Vũng Tàu");
+				var LX = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Long Xuyên", ag);
+				var CD = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Châu Đốc", ag);
+				var AP = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện An Phú", ag);
+				var TC = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tân Châu", ag);
+				var PT1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phú Tân", ag);
+				var CP = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Châu Phú", ag);
+				var TB1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tịnh Biên", ag);
+				var TT = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tri Tôn", ag);
+				var CT = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Châu Thành", ag);
+				var CM = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Chợ Mới", ag);
+				var TS = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thoại Sơn", ag);
+
+
+                #region Long Xuyen
+                var dataLongXuyen = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Long Xuyên").FirstOrDefaultAsync();
+                if (dataLongXuyen != null)
+                {
+                    var dataLX1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phường Mỹ Bình", dataLongXuyen);
+                    var dataLX2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phường Mỹ Long", dataLongXuyen);
+                    var dataLX3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phường Đông Xuyên", dataLongXuyen);
+                    var dataLX4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phường Mỹ Xuyên", dataLongXuyen);
+                    var dataLX5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phường Bình Đức", dataLongXuyen);
+					var dataLX6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phường Bình Khánh", dataLongXuyen);
+                    var dataLX7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phường Mỹ Phước", dataLongXuyen);
+                    var dataLX8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phường Mỹ Quý", dataLongXuyen);
+                    var dataLX9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phường Mỹ Thới", dataLongXuyen);
+                    var dataLX10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phường Mỹ Thạnh", dataLongXuyen);
+                    var dataLX11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phường Mỹ Hòa", dataLongXuyen);
+                    var dataLX12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Xã Mỹ Khánh", dataLongXuyen);
+                    var dataLX13 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Xã Mỹ Hòa Hưng", dataLongXuyen);
+                }
+                #endregion
+
+            }
+            #endregion
+            #region brvt
+            var i2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bà Rịa - Vũng Tàu");
 			var BRVT = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Bà Rịa - Vũng Tàu").FirstOrDefaultAsync();
 			if (BRVT != null)
 			{
-				var VT = await CreateAndSaveGeoUnit(geoUnits, tenant, "Vũng Tàu", BRVT);
-				var BR = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bà Rịa", BRVT);
-				var CDBV = await CreateAndSaveGeoUnit(geoUnits, tenant, "Châu Đức", BRVT);
-				var XMB = await CreateAndSaveGeoUnit(geoUnits, tenant, "Xuyên Mộc", BRVT);
-				var LDB = await CreateAndSaveGeoUnit(geoUnits, tenant, "Long Điền", BRVT);
-				var ĐDB = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đất Đỏ", BRVT);
-				var TTB = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tân Thành", BRVT);
-				var CDB = await CreateAndSaveGeoUnit(geoUnits, tenant, "Côn Đảo", BRVT);
+				var VT = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Vũng Tàu", BRVT);
+				var BR = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Bà Rịa", BRVT);
+				var CDBV = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Châu Đức", BRVT);
+				var XMB = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Xuyên Mộc", BRVT);
+				var LDB = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Long Điền", BRVT);
+				var ĐDB = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đất Đỏ", BRVT);
+				var TTB = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tân Thành", BRVT);
+				var CDB = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Côn Đảo", BRVT);
+				var txpm = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Phú Mỹ", BRVT);
 			}
 			#endregion
 
@@ -638,13 +661,14 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var BiD = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Bình Dương").FirstOrDefaultAsync();
 			if (BiD != null)
 			{
-				var TD1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thủ Dầu Một", BiD);
-				var DT = await CreateAndSaveGeoUnit(geoUnits, tenant, "Dầu Tiếng", BiD);
-				var BC = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bến Cát", BiD);
-				var PG = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phú Giáo", BiD);
-				var TU = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tân Uyên", BiD);
-				var DA = await CreateAndSaveGeoUnit(geoUnits, tenant, "Dĩ An", BiD);
-				var TA = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thuận An", BiD);
+				var TD1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Thủ Dầu Một", BiD);
+				var DT1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Dầu Tiếng", BiD);
+				var BC = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Bến Cát", BiD);
+				var PG = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phú Giáo", BiD);
+				var TU = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Tân Uyên", BiD);
+				var DA = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Dĩ An", BiD);
+				var TA = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Thuận An", BiD);
+				var HBTU = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bắc Tân Uyên", BiD);
 			}
 			#endregion
 
@@ -653,15 +677,17 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var BP = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Bình Phước").FirstOrDefaultAsync();
 			if (BP != null)
 			{
-				var BP1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đồng Xoài", BP);
-				var BP2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phước Long", BP);
-				var BP3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bình Long", BP);
-				var BP4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bù Gia Mập", BP);
-				var BP5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lộc Ninh", BP);
-				var BP6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bù Đốp", BP);
-				var BP7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đồng Phú", BP);
-				var BP8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bù Đăng", BP);
-				var BP9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Chơn Thành", BP);
+				var BP1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Đồng Xoài", BP);
+				var BP2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Phước Long", BP);
+				var BP3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã  Bình Long", BP);
+				var BP4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bù Gia Mập", BP);
+				var BP5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lộc Ninh", BP);
+				var BP6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bù Đốp", BP);
+				var BP7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đồng Phú", BP);
+				var BP8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bù Đăng", BP);
+				var BP9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Chơn Thành", BP);
+				var BP10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hớn Quản", BP);
+				var BP11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phú Riềng", BP);
 			}
 			#endregion
 
@@ -671,14 +697,16 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var BT = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Bình Thuận").FirstOrDefaultAsync();
 			if (BT != null)
 			{
-				var VT = await CreateAndSaveGeoUnit(geoUnits, tenant, "Vũng Tàu", BT);
-				var BR = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bà Rịa", BT);
-				var CDBV = await CreateAndSaveGeoUnit(geoUnits, tenant, "Châu Đức", BT);
-				var XMB = await CreateAndSaveGeoUnit(geoUnits, tenant, "Xuyên Mộc", BT);
-				var LDB = await CreateAndSaveGeoUnit(geoUnits, tenant, "Long Điền", BT);
-				var ĐDB = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đất Đỏ", BT);
-				var TTB = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tân Thành", BT);
-				var CDB = await CreateAndSaveGeoUnit(geoUnits, tenant, "Côn Đảo", BT);
+				var BT1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Phan Thiết", BT);
+				var BT2= await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã La Gi", BT);
+				var BT3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tuy Phong", BT);
+				var BT4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bắc Bình", BT);
+				var BT5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hàm Thuận Bắc", BT);
+				var BT6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hàm Thuận Nam", BT);
+				var BT7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tánh Linh", BT);
+				var BT8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đức Linh", BT);
+				var BT9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hàm Tân", BT);
+				var BT10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phú Quí", BT);
 			}
 			#endregion
 
@@ -687,17 +715,17 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var BDI = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Bình Định").FirstOrDefaultAsync();
 			if (BDI != null)
 			{
-				var BDI1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quy Nhơn", BDI);
-				var BDI2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "An Lão", BDI);
-				var BDI3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hoài Nhơn", BDI);
-				var BDI4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hoài Ân", BDI);
-				var BDI5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phù Mỹ", BDI);
-				var BDI6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Vĩnh Thạnh", BDI);
-				var BDI7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tây Sơn", BDI);
-				var BDI8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phù Cát", BDI);
-				var BDI9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "An Nhơn", BDI);
-				var BDI10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tuy Phước", BDI);
-				var BDI11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Vân Canh", BDI);
+				var BDI1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Quy Nhơn", BDI);
+				var BDI2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện An Lão", BDI);
+				var BDI3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã  Hoài Nhơn", BDI);
+				var BDI4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hoài Ân", BDI);
+				var BDI5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phù Mỹ", BDI);
+				var BDI6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vĩnh Thạnh", BDI);
+				var BDI7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tây Sơn", BDI);
+				var BDI8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phù Cát", BDI);
+				var BDI9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã An Nhơn", BDI);
+				var BDI10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tuy Phước", BDI);
+				var BDI11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vân Canh", BDI);
 			}
 			#endregion
 
@@ -706,12 +734,13 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var BL = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Bạc Liêu").FirstOrDefaultAsync();
 			if (BL != null)
 			{
-				var BL2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hồng Dân", BL);
-				var BL3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phước Long", BL);
-				var BL4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Vĩnh Lợi", BL);
-				var BL5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Giá Rai", BL);
-				var BL6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đông Hải", BL);
-				var BL7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hòa Bình", BL);
+				var BL1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Bạc Liêu", BL);
+				var BL2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hồng Dân", BL);
+				var BL3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phước Long", BL);
+				var BL4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vĩnh Lợi", BL);
+				var BL5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Giá Rai", BL);
+				var BL6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đông Hải", BL);
+				var BL7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hòa Bình", BL);
 			}
 			#endregion
 
@@ -720,14 +749,16 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var BG = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Bắc Giang").FirstOrDefaultAsync();
 			if (BG != null)
 			{
-				var BG1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Yên Thế", BG);
-				var BG2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tân Yên", BG);
-				var BG3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lạng Giang", BG);
-				var BG4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lục Nam", BG);
-				var BG5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lục Ngạn", BG);
-				var BG6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Yên Dũng", BG);
-				var BG7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Việt Yên", BG);
-				var BG8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hiệp Hoà", BG);
+				var BG0 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Bắc Giang", BG);
+				var BG1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Yên Thế", BG);
+				var BG2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tân Yên", BG);
+				var BG3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lạng Giang", BG);
+				var BG4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lục Nam", BG);
+				var BG5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lục Ngạn", BG);
+				var BG6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Yên Dũng", BG);
+				var BG7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Việt Yên", BG);
+				var BG8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hiệp Hoà", BG);
+				var BG9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Sơn Động", BG);
 			}
 			#endregion
 
@@ -737,13 +768,14 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var BK = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Bắc Kạn").FirstOrDefaultAsync();
 			if (BK != null)
 			{
-				var BK1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Pắc Nạm", BK);
-				var BK2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Ba Bể", BK);
-				var BK3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Ngân Sơn", BK);
-				var BK4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bạch Thông", BK);
-				var BK5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Chợ Đồn", BK);
-				var BK6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Chợ Mới", BK);
-				var BK7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Na Rì", BK);
+				var BK0 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành Phố Bắc Kạn", BK);
+				var BK1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Pắc Nạm", BK);
+				var BK2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ba Bể", BK);
+				var BK3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ngân Sơn", BK);
+				var BK4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bạch Thông", BK);
+				var BK5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Chợ Đồn", BK);
+				var BK6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Chợ Mới", BK);
+				var BK7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Na Rì", BK);
 			}
 			#endregion
 
@@ -752,12 +784,14 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var BN = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Bắc Ninh").FirstOrDefaultAsync();
 			if (BN != null)
 			{
-				var BN1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Yên Phong", BN);
-				var BN2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quế Võ", BN);
-				var BN3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tiên Du", BN);
-				var BN4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thuận Thành", BN);
-				var BN5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Gia Bình", BN);
-				var BN6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lương Tài", BN);
+				var BN0 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Bắc Ninh", BN);
+				var BN1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Yên Phong", BN);
+				var BN2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Quế Võ", BN);
+				var BN3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tiên Du", BN);
+				var BN4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thuận Thành", BN);
+				var BN5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Gia Bình", BN);
+				var BN6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lương Tài", BN);
+				var BN7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Từ Sơn", BN);
 			}
 			#endregion
 
@@ -766,32 +800,33 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var BTR = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Bến Tre").FirstOrDefaultAsync();
 			if (BTR != null)
 			{
-				var BTR1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Châu Thành", BTR);
-				var BTR2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Chợ Lách", BTR);
-				var BTR3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Mỏ Cày", BTR);
-				var BTR4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Giồng Trôm", BTR);
-				var BTR5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bình Đại", BTR);
-				var BTR6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Ba Tri", BTR);
-				var BTR7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thạch Phú", BTR);
-			}
-			#endregion
+				var BTR0 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Bến Tre", BTR);
+				var BTR1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Châu Thành", BTR);
+				var BTR2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Chợ Lách", BTR);
+				var BTR3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mỏ Cày Bắc", BTR);
+				var BTR4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Giồng Trôm", BTR);
+				var BTR5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bình Đại", BTR);
+				var BTR6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ba Tri", BTR);
+				var BTR7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thạch Phú", BTR);
+                var BTR8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mỏ Cày Nam", BTR);
+            }
+            #endregion
 
-			#region Cao Bằng
-			var i12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Cao Bằng");
+            #region Cao Bằng
+            var i12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Cao Bằng");
 			var CB = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Cao Bằng").FirstOrDefaultAsync();
 			if (CB != null)
 			{
-				var CB1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bảo Lâm", CB);
-				var CB2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bảo Lạc", CB);
-				var CB3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thông Nông", CB);
-				var CB4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hà Quảng", CB);
-				var CB5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Trà Lĩnh", CB);
-				var CB6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Trùng Khánh", CB);
-				var CB7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hạ Lang", CB);
-				var CB8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quảng Uyên", CB);
-				var CB9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phục Hòa", CB);
-				var CB10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Nguyên Bình", CB);
-				var CB11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thạch An", CB);
+				var CB0 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Cao Bằng", CB);
+				var CB1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bảo Lâm", CB);
+				var CB2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bảo Lạc", CB);
+				var CB4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hà Quảng", CB);
+				var CB6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Trùng Khánh", CB);
+				var CB7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hạ Lang", CB);
+				var CB8 = await CreateAndSaveGeoUnit(geoUnits, tenant, " Huyện Quảng Hòa", CB);
+				var CB10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nguyên Bình", CB);
+				var CB11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thạch An", CB);
+				var CB12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hoà An", CB);
 			}
 			#endregion
 
@@ -801,15 +836,15 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var CMI = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Cà Mau").FirstOrDefaultAsync();
 			if (CMI != null)
 			{
-				var CM1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Cà Mau", CMI);
-				var CM2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "U Minh", CMI);
-				var CM3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thới Bình", CMI);
-				var CM4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Trần Văn Thời", CMI);
-				var CM5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Cái Nước", CMI);
-				var CM6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đầm Dơi", CMI);
-				var CM7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Năm Căn", CMI);
-				var CM8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phú Tân", CMI);
-				var CM9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Ngọc Hiển", CMI);
+				var CM1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Cà Mau", CMI);
+				var CM2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện U Minh", CMI);
+				var CM3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thới Bình", CMI);
+				var CM4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Trần Văn Thời", CMI);
+				var CM5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cái Nước", CMI);
+				var CM6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đầm Dơi", CMI);
+				var CM7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Năm Căn", CMI);
+				var CM8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phú Tân", CMI);
+				var CM9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ngọc Hiển", CMI);
 			}
 			#endregion
 
@@ -818,15 +853,15 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var CTI = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Cần Thơ").FirstOrDefaultAsync();
 			if (CTI != null)
 			{
-				var CTI1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Ninh Kiều", CTI);
-				var CTI2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Ô Môn", CTI);
-				var CTI3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bình Thuỷ", CTI);
-				var CTI4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Cái Răng", CTI);
-				var CTI5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thốt Nốt", CTI);
-				var CTI6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Vĩnh Thạch", CTI);
-				var CTI7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Cờ Đỏ", CTI);
-				var CTI8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phong Điền", CTI);
-				var CTI9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thới Lai", CTI);
+				var CTI1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Ninh Kiều", CTI);
+				var CTI2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Ô Môn", CTI);
+				var CTI3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Bình Thuỷ", CTI);
+				var CTI4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Cái Răng", CTI);
+				var CTI5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Thốt Nốt", CTI);
+				var CTI6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vĩnh Thạch", CTI);
+				var CTI7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cờ Đỏ", CTI);
+				var CTI8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phong Điền", CTI);
+				var CTI9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thới Lai", CTI);
 			}
 			#endregion
 
@@ -835,19 +870,23 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var GL = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Gia Lai").FirstOrDefaultAsync();
 			if (GL != null)
 			{
-				var GL1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Pleiku", GL);
-				var GL2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "An Khê", GL);
-				var GL3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Ayun Pa", GL);
-				var GL4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Kbang", GL);
-				var GL5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đak Đoa", CTI);
-				var GL6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Chư Păh", GL);
-				var GL7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Ia Grai", GL);
-				var GL8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Mang Yang", GL);
-				var GL9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Kông Chro", GL);
-				var GL10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đức Cơ", GL);
-				var GL11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Chư Prông", GL);
-				var GL12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Chư Sê", GL);
-				var GL13 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đak Pơ", GL);
+				var GL1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Pleiku", GL);
+				var GL2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã An Khê", GL);
+				var GL3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Ayun Pa", GL);
+				var GL4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Kbang", GL);
+				var GL5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đak Đoa", CTI);
+				var GL6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Chư Păh", GL);
+				var GL7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ia Grai", GL);
+				var GL8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mang Yang", GL);
+				var GL9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Kông Chro", GL);
+				var GL10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đức Cơ", GL);
+				var GL11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Chư Prông", GL);
+				var GL12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Chư Sê", GL);
+				var GL13 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đak Pơ", GL);
+				var GL14 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ia Pa", GL);
+				var GL15 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Krông Pa", GL);
+				var GL16 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phú Thiện", GL);
+				var GL17 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Chư Pưh", GL);
 			}
 			#endregion
 
@@ -856,16 +895,17 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var HG = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Hà Giang").FirstOrDefaultAsync();
 			if (HG != null)
 			{
-				var HG1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đồng Văn", HG);
-				var HG2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Mèo Vạc", HG);
-				var HG3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Yên Minh", HG);
-				var HG4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quản Bạ", HG);
-				var HG5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Vị Xuyên", HG);
-				var HG6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bắc Mê", HG);
-				var HG7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hoàng Su Phì", HG);
-				var HG8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Xín Mần", HG);
-				var HG9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bắc Quang", HG);
-				var HG10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quang Bình", HG);
+				var HG0 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Hà Giang", HG);
+				var HG1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đồng Văn", HG);
+				var HG2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mèo Vạc", HG);
+				var HG3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Yên Minh", HG);
+				var HG4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Quản Bạ", HG);
+				var HG5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vị Xuyên", HG);
+				var HG6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bắc Mê", HG);
+				var HG7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hoàng Su Phì", HG);
+				var HG8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Xín Mần", HG);
+				var HG9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bắc Quang", HG);
+				var HG10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Quang Bình", HG);
 			}
 			#endregion
 			#region Hà Nam
@@ -874,12 +914,12 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var HNA = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Hà Nam").FirstOrDefaultAsync();
 			if (HNA != null)
 			{
-				var HNA1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phủ Lý", HNA);
-				var HNA2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Duy Tiên", HNA);
-				var HNA3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Kim Bảng", HNA);
-				var HNA4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thanh Liêm", HNA);
-				var HNA5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bình Lục", HNA);
-				var HNA6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lý Nhân", HNA);
+				var HNA1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Phủ Lý", HNA);
+				var HNA2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Duy Tiên", HNA);
+				var HNA3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Kim Bảng", HNA);
+				var HNA4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thanh Liêm", HNA);
+				var HNA5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bình Lục", HNA);
+				var HNA6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lý Nhân", HNA);
 			}
 			#endregion
 
@@ -890,7 +930,7 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			{
 				var BD = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Ba Đình", hn);
 				var HK = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Hoàn Kiếm", hn);
-				var TH = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Tây Hồ", hn);
+				var TH1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Tây Hồ", hn);
 				var LB = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Long Biên", hn);
 				var CG = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Cầu Giấy", hn);
 				var DD = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Đống Đa", hn);
@@ -905,9 +945,9 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 				var BTL = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Bắc Từ Liêm", hn);
 				var ML = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mê Linh", hn);
 				var HD = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Hà Đông", hn);
-				var ST = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Sơn Tây", hn);
+				var ST1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Sơn Tây", hn);
 				var BV = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ba Vì", hn);
-				var PT = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phúc Thọ", hn);
+				var PT1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phúc Thọ", hn);
 				var DP = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đan Phượng", hn);
 				var HHD = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hoài Đức", hn);
 				var QO = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Quốc Oai", hn);
@@ -952,18 +992,19 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var HT = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Hà Tĩnh").FirstOrDefaultAsync();
 			if (HT != null)
 			{
-				var HT1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hà Tĩnh", HT);
-				var HT2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hồng Lĩnh", HT);
-				var HT3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hương Sơn", HT);
-				var HT4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đức Thọ", HT);
-				var HT5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Vũ Quang", HT);
-				var HT6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Nghi Xuân", HT);
-				var HT7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Can Lộc", HT);
-				var HT8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hương Khê", HT);
-				var HT9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thạch Hà", HT);
-				var HT10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Cẩm Xuyên", HT);
-				var HT11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Kỳ Anh", HT);
-				var HT12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lộc Hà", HT);
+				var HT1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Hà Tĩnh", HT);
+				var HT2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Hồng Lĩnh", HT);
+				var HT3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hương Sơn", HT);
+				var HT4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đức Thọ", HT);
+				var HT5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vũ Quang", HT);
+				var HT6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nghi Xuân", HT);
+				var HT7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Can Lộc", HT);
+				var HT8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hương Khê", HT);
+				var HT9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thạch Hà", HT);
+				var HT10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cẩm Xuyên", HT);
+				var HT11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Kỳ Anh", HT);
+				var HT12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Kỳ Anh", HT);
+				var HT13 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lộc Hà", HT);
 			}
 			#endregion
 
@@ -973,17 +1014,17 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var HB = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Hòa Bình").FirstOrDefaultAsync();
 			if (HB != null)
 			{
-				var HB1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hoà Bình", HB);
-				var HB2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đà Bắc", HB);
-				var HB3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Kỳ Sơn", HB);
-				var HB4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lương Sơn", HB);
-				var HB5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Kim Bôi", HB);
-				var HB6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Cao Phong", HB);
-				var HB7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tân Lạc", HB);
-				var HB8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Mai Châu", HB);
-				var HB9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lạc Sơn", HB);
-				var HB10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Yên Thuỷ", HB);
-				var HB11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lạc Thuỷ", HB);
+				var HB1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Hoà Bình", HB);
+				var HB2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đà Bắc", HB);
+				var HB3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Kỳ Sơn", HB);
+				var HB4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lương Sơn", HB);
+				var HB5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Kim Bôi", HB);
+				var HB6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cao Phong", HB);
+				var HB7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tân Lạc", HB);
+				var HB8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mai Châu", HB);
+				var HB9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lạc Sơn", HB);
+				var HB10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Yên Thuỷ", HB);
+				var HB11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lạc Thuỷ", HB);
 			}
 
 			#endregion
@@ -993,16 +1034,16 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var HY = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Hưng Yên").FirstOrDefaultAsync();
 			if (HY != null)
 			{
-				var HY1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hưng Yên", HY);
-				var HY2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Văn Lâm", HY);
-				var HY3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Văn Giang", HY);
-				var HY4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Yên Mỹ", HY);
-				var HY5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Mỹ Hào", HY);
-				var HY6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Ân Thi", HY);
-				var HY7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Khoái Châu", HY);
-				var HY8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Kim Động", HY);
-				var HY9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tiên Lữ", HY);
-				var HY10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phù Cư", HY);
+				var HY1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Hưng Yên", HY);
+				var HY2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Văn Lâm", HY);
+				var HY3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Văn Giang", HY);
+				var HY4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Yên Mỹ", HY);
+				var HY5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Mỹ Hào", HY);
+				var HY6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ân Thi", HY);
+				var HY7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Khoái Châu", HY);
+				var HY8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Kim Động", HY);
+				var HY9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tiên Lữ", HY);
+				var HY10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phù Cư", HY);
 			}
 			#endregion
 
@@ -1011,18 +1052,18 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var HDI = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Hải Dương").FirstOrDefaultAsync();
 			if (HDI != null)
 			{
-				var HD1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hải Dương", HDI);
-				var HD2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Chí Linh", HDI);
-				var HD3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Nam Sách", HDI);
-				var HD4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Kinh Môn", HDI);
-				var HD5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Kim Thành", HDI);
-				var HD6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thanh Hà", HDI);
-				var HD7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Cẩm Giàng", HDI);
-				var HD8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bình Giang", HDI);
-				var HD9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Gia Lộc", HDI);
-				var HD10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tứ Kỳ", HDI);
-				var HD11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Ninh Giang", HDI);
-				var HD12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thanh Miện", HDI);
+				var HD1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Hải Dương", HDI);
+				var HD2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Chí Linh", HDI);
+				var HD3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nam Sách", HDI);
+				var HD4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Kinh Môn", HDI);
+				var HD5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Kim Thành", HDI);
+				var HD6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thanh Hà", HDI);
+				var HD7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cẩm Giàng", HDI);
+				var HD8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bình Giang", HDI);
+				var HD9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Gia Lộc", HDI);
+				var HD10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tứ Kỳ", HDI);
+				var HD11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ninh Giang", HDI);
+				var HD12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thanh Miện", HDI);
 			}
 			#endregion
 
@@ -1031,21 +1072,21 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var HP = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Hải Phòng").FirstOrDefaultAsync();
 			if (HP != null)
 			{
-				var Hp1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hồng Bàng", HP);
-				var Hp2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Ngô Quyền", HP);
-				var Hp3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lê Chân", HP);
-				var Hp4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hải An", HP);
-				var Hp5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Kiến An", HP);
-				var Hp6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đồ Sơn", HP);
-				var Hp7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Dương Kinh", HP);
-				var Hp8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thuỷ Nguyên", HP);
-				var Hp9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "An Dương", HP);
-				var Hp10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "An Lão", HP);
-				var Hp11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Kiến Thuỵ", HP);
-				var Hp12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tiên Lãng", HP);
-				var Hp13 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Vĩnh Bảo", HP);
-				var Hp14 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Cát Hải", HP);
-				var Hp15 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bạch Long Vĩ", HP);
+				var Hp1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Hồng Bàng", HP);
+				var Hp2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Ngô Quyền", HP);
+				var Hp3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Lê Chân", HP);
+				var Hp4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Hải An", HP);
+				var Hp5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Kiến An", HP);
+				var Hp6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Đồ Sơn", HP);
+				var Hp7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Dương Kinh", HP);
+				var Hp8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thuỷ Nguyên", HP);
+				var Hp9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện An Dương", HP);
+				var Hp10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện An Lão", HP);
+				var Hp11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Kiến Thuỵ", HP);
+				var Hp12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tiên Lãng", HP);
+				var Hp13 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vĩnh Bảo", HP);
+				var Hp14 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cát Hải", HP);
+				var Hp15 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bạch Long Vĩ", HP);
 			}
 			#endregion
 
@@ -1054,69 +1095,762 @@ namespace BBK.SaaS.Mdls.Category.Geographies
 			var HAUG = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Hậu Giang").FirstOrDefaultAsync();
 			if (HAUG != null)
 			{
-				var Hp1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hồng Bàng", HAUG);
-				var Hp2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Ngô Quyền", HAUG);
-				var Hp3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lê Chân", HAUG);
-				var Hp4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Hải An", HAUG);
-				var Hp5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Kiến An", HAUG);
-				var Hp6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đồ Sơn", HAUG);
-				var Hp7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Dương Kinh", HAUG);
-				var Hp8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thuỷ Nguyên", HAUG);
-				var Hp9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "An Dương", HAUG);
-				var Hp10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "An Lão", HAUG);
-				var Hp11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Kiến Thuỵ", HAUG);
-				var Hp12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tiên Lãng", HAUG);
-				var Hp13 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Vĩnh Bảo", HAUG);
-				var Hp14 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Cát Hải", HAUG);
-				var Hp15 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Bạch Long Vĩ", HAUG);
+				var HAUG1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Vị Thanh", HAUG);
+				var HAUG2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Ngã Bảy", HAUG);
+				var HAUG3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Châu Thành A", HAUG);
+				var HAUG9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Châu Thành", HAUG);
+				var HAUG4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phụng Hiệp", HAUG);
+				var HAUG5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vị Thuỷ", HAUG);
+				var HAUG6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Long Mỹ", HAUG);
+				var HAUG7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Long Mỹ", HAUG);
+				var HAUG8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thuỷ Nguyên", HAUG);
 			}
-			#endregion
-			var i25 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Khánh Hòa");
-			var i26 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Kiên Giang");
-			var i27 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Kon Tum");
-			var i28 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lai Châu");
-			var i29 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Long An");
-			var i30 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lào Cai");
-			var i31 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lâm Đồng");
-			var i32 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lạng Sơn");
-			var i33 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Nam Định");
-			var i34 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Nghệ An");
-			var i35 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Ninh Bình");
-			var i36 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Ninh Thuận");
-			var i37 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phú Thọ");
-			var i38 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phú Yên");
+            #endregion
+
+            #region Khánh Hoà
+            var i25 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Khánh Hòa");
+            var KH = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Khánh Hòa").FirstOrDefaultAsync();
+            if (KH != null)
+            {
+                var Kh1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Nha Trang", KH);
+                var Kh2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Cam Ranh", KH);
+                var Kh3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cam Lâm", KH);
+                var Kh4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vạn Ninh", KH);
+                var Kh5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Ninh Hoà", KH);
+                var Kh6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Khánh Vĩnh", KH);
+                var Kh7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Diên Khánh", KH);
+                var Kh8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Khánh Sơn", KH);
+                var Kh9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Trường Sa", KH);
+            }
+            #endregion
+
+            #region Kiên Giang
+            var i26 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Kiên Giang");
+            var KG = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Kiên Giang").FirstOrDefaultAsync();
+            if (KG != null)
+            {
+                var KG1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Rạch Giá", KG);
+                var KG2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Hà Tiên", KG);
+                var KG3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Kiên Lương", KG);
+                var KG4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hòn Đất", KG);
+                var KG5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tân Hiệp", KG);
+                var KG6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Châu Thành", KG);
+                var KG7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Giồng Riềng", KG);
+                var KG8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Gò Quao", KG);
+                var KG9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện An Biên", KG);
+                var KG10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện An Minh", KG);
+                var KG11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vĩnh Thuận", KG);
+                var KG12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Phú Quốc", KG);
+                var KG13 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Kiên Hải", KG);
+                var KG14 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện U Minh Thượng", KG);
+                var KG15 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Giang Thành", KG);
+            }
+            #endregion
+
+            #region Kon Tum
+            var i27 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Kon Tum");
+            var KT = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Kon Tum").FirstOrDefaultAsync();
+            if (KT != null)
+            {
+                var KT1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Kon Tum", KT);
+                var KT2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đak Glêi", KT);
+                var KT3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ngọc Hồi", KT);
+                var KT4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đak Tô", KT);
+                var KT5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Kon Plông", KT);
+                var KT6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Kon Rẫy", KT);
+                var KT7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đak Hà", KT);
+                var KT8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Sa Thầy", KT);
+                var KT9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tu Mơ Rông", KT);
+                var KT10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ia H' Drai", KT);
+            }
+            #endregion
 
 
+            #region Lai Châu
+            var i28 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lai Châu");
+            var LCH = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Lai Châu").FirstOrDefaultAsync();
+            if (LCH != null)
+            {
+                var LCH1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Lai Châu", LCH);
+                var LCH2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tam Đường", LCH);
+                var LCH3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mường Tè", LCH);
+                var LCH4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Sìn Hồ", LCH);
+				var LCH5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phong Thổ", LCH);
+                var LCH6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Than Uyên", LCH);
+                var LCH7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tân Uyên", LCH);
+                var LCH8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nậm Nhùn", LCH);
+            }
+            #endregion
 
-			var i40 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quảng Nam");
-			var i41 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quảng Ngãi");
-			var i42 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quảng Ninh");
-			var i43 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quảng Trị");
-			var i44 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Sóc Trăng");
-			var i45 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Sơn La");
-			var i46 = await CreateAndSaveGeoUnit(geoUnits, tenant, "TP. Hồ Chí Minh");
-			var i47 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thanh Hóa");
-			var i48 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thái Bình");
-			var i49 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thái Nguyên");
-			var i50 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thừa Thiên Huế");
-			var i51 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tiền Giang");
-			var i52 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Trà Vinh");
-			var i53 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tuyên Quang");
-			var i54 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tây Ninh");
-			var i55 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Vĩnh Long");
-			var i56 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Vĩnh Phúc");
-			var i57 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Yên Bái");
-			var i58 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Điện Biên");
-			var i59 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đà Nẵng");
-			var i60 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đắk Lắk");
-			var i61 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đắk Nông");
-			var i62 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đồng Nai");
-			var i63 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đồng Tháp");
+            #region Long An
+            var i29 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Long An");
+            var LA = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Long An").FirstOrDefaultAsync();
+            if (LA != null)
+            {
+                var LA1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Tân An", LA);
+                var LA15 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Kiến Tường", LA);
+                var LA2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tân Hưng", LA);
+                var LA3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vĩnh Hưng", LA);
+                var LA4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mộc Hóa", LA);
+                var LA5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tân Thạnh", LA);
+                var LA6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thạnh Hóa", LA);
+                var LA7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đức Huệ", LA);
+                var LA8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đức Hòa", LA);
+                var LA9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bến Lức", LA);
+                var LA10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thủ Thừa", LA);
+                var LA11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tân Trụ", LA);
+                var LA12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cần Đước", LA);
+                var LA13 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cần Giuộc", LA);
+                var LA14 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Châu Thành", LA);
+            }
+            #endregion
 
+            #region Lào Cai
+            var i30 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lào Cai");
+            var LCA = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Lào Cai").FirstOrDefaultAsync();
+            if (LCA != null)
+            {
+                var LCA1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Lào Cai", LCA);
+                var LCA2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bát Xát", LCA);
+                var LCA3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mường Khương", LCA);
+                var LCA4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Si Ma Cai", LCA);
+                var LCA5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bắc Hà", LCA);
+                var LCA6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bảo Thắng", LCA);
+                var LCA7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bảo Yên", LCA);
+                var LCA8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Sa Pa", LCA);
+                var LCA9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Văn Bàn", LCA);
+            }
+            #endregion
 
-		}
+            #region Lâm Đồng
+            var i31 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lâm Đồng");
 
-		private async Task<GeoUnitDto> CreateGeoUnitDto(GeoUnit GeoUnit)
+            var LD = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Lâm Đồng").FirstOrDefaultAsync();
+            if (LD != null)
+            {
+                var LD1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Đà Lạt", LD);
+                var LD2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Bảo Lộc", LD);
+                var LD3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đam Rông", LD);
+                var LD4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lạc Dương", LD);
+                var LD5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lâm Hà", LD);
+                var LD6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đơn Dương", LD);
+                var LD7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đức Trọng", LD);
+                var LD8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Di Linh", LD);
+                var LD9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bảo Lâm", LD);
+                var LD10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đạ Huoai", LD);
+                var LD11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đạ Tẻh", LD);
+                var LD12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cát Tiên", LD);
+            }
+
+            #endregion
+
+            #region Lạng Sơn
+            var i32 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Lạng Sơn");
+            var LS = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Lạng Sơn").FirstOrDefaultAsync();
+            if (LS != null)
+            {
+                var LS1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Lạng Sơn", LS);
+                var LS2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tràng Định", LS);
+                var LS3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bình Gia", LS);
+                var LS4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Văn Lãng", LS);
+                var LS5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cao Lộc", LS);
+                var LS6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Văn Quan", LS);
+                var LS7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bắc Sơn", LS);
+                var LS8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hữu Lũng", LS);
+                var LS9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Chi Lăng", LS);
+                var LS10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lộc Bình", LS);
+                var LS11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đình Lập", LS);
+            }
+            #endregion
+
+            #region Nam Định
+            var i33 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Nam Định");
+            var ND = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Nam Định").FirstOrDefaultAsync();
+            if (ND != null)
+            {
+                var ND1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Nam Định", ND);
+                var ND2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mỹ Lộc", ND);
+                var ND3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vụ Bản", ND);
+                var ND4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ý Yên", ND);
+                var ND5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nghĩa Hưng", ND);
+                var ND6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nam Trực", ND);
+                var ND7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Trực Ninh", ND);
+                var ND8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Xuân Trường", ND);
+                var ND9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Giao Thủy", ND);
+                var ND10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hải Hậu", ND);
+            }
+            #endregion
+
+            #region Nghệ An
+            var i34 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Nghệ An");
+            var NA = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Nghệ An").FirstOrDefaultAsync();
+            if (NA != null)
+            {
+                var NA1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Vinh", NA);
+                var NA2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Cửa Lò", NA);
+                var NA3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Thái Hòa", NA);
+                var NA4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Quế Phong", NA);
+                var NA5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Quỳ Châu", NA);
+                var NA6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Kỳ Sơn", NA);
+                var NA7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tương Dương", NA);
+                var NA8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nghĩa Đàn", NA);
+                var NA9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Quỳ Hợp", NA);
+                var NA10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Quỳnh Lưu", NA);
+                var NA11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Con Cuông", NA);
+                var NA12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tân Kỳ", NA);
+                var NA13 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Anh Sơn", NA);
+                var NA14 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Diễn Châu", NA);
+                var NA15 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Yên Thành", NA);
+                var NA16 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đô Lương", NA);
+                var NA17 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thanh Chương", NA);
+                var NA18 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nghi Lộc", NA);
+                var NA19 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nam Đàn", NA);
+                var NA20 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hưng Nguyên", NA);
+                var NA21 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Hoàng Mai", NA);
+
+            }
+            #endregion
+            #region Ninh Bình
+            var i35 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Ninh Bình");
+            var NB = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Ninh Bình").FirstOrDefaultAsync();
+            if (NB != null)
+            {
+                var NB1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Ninh Bình", NB);
+                var NB2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Tam Điệp", NB);
+                var NB3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nho Quan", NB);
+                var NB4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Gia Viễn", NB);
+                var NB5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hoa Lư", NB);
+                var NB6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Yên Khánh", NB);
+                var NB7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Kim Sơn", NB);
+                var NB8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Yên Mô", NB);
+            }
+            #endregion
+            #region Ninh Thuận
+            var i36 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Ninh Thuận");
+
+            var NT = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Ninh Thuận").FirstOrDefaultAsync();
+            if (NT != null)
+            {
+                var NT1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Phan Rang-Tháp Chàm", NT);
+                var NT2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bác Ái", NT);
+                var NT3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ninh Sơn", NT);
+                var NT4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ninh Hải", NT);
+                var NT5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ninh Phước", NT);
+                var NT6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thuận Bắc", NT);
+                var NT7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thuận Nam", NT);
+            }
+            #endregion
+            #region Phú Thọ
+            var i37 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phú Thọ");
+            var PT = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Phú Thọ").FirstOrDefaultAsync();
+            if (PT != null)
+            {
+                var PT1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Việt Trì", PT);
+                var PT2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Phú Thọ", PT);
+                var PT3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đoan Hùng", PT);
+                var PT4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hạ Hòa", PT);
+                var PT5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thanh Ba", PT);
+                var PT6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phù Ninh", PT);
+                var PT7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Yên Lập", PT);
+                var PT8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cẩm Khê", PT);
+                var PT9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tam Nông", PT);
+                var PT10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lâm Thao", PT);
+                var PT11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thanh Sơn", PT);
+                var PT12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thanh Thủy", PT);
+                var PT13 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tân Sơn", PT);
+            }
+            #endregion
+            #region Phú Yên
+            var i38 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Phú Yên");
+            var PY = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Phú Yên").FirstOrDefaultAsync();
+            if (PY != null)
+            {
+                var PY1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Tuy Hòa", PY);
+                var PY2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Sông Cầu", PY);
+                var PY3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đồng Xuân", PY);
+                var PY4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tuy An", PY);
+                var PY5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Sơn Hòa", PY);
+                var PY6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Sông Hinh", PY);
+                var PY7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tây Hòa", PY);
+                var PY8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phú Hòa", PY);
+                var PY9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Đông Hòa", PY);
+            }
+            #endregion
+
+            #region Quảng Nam
+            var i40 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quảng Nam");
+            var QNA = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Quảng Nam").FirstOrDefaultAsync();
+            if (QNA != null)
+            {
+                var QNA1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Tam Kỳ", QNA);
+                var QNA2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Hội An", QNA);
+                var QNA3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tây Giang", QNA);
+                var QNA4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đông Giang", QNA);
+                var QNA5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đại Lộc", QNA);
+                var QNA6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Điện Bàn", QNA);
+                var QNA7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Duy Xuyên", QNA);
+                var QNA8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Quế Sơn", QNA);
+                var QNA9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nam Giang", QNA);
+                var QNA10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phước Sơn", QNA);
+                var QNA11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hiệp Đức", QNA);
+                var QNA12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thăng Bình", QNA);
+                var QNA13 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tiên Phước", QNA);
+                var QNA14 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bắc Trà My", QNA);
+                var QNA15 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nam Trà My", QNA);
+                var QNA16 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Núi Thành", QNA);
+                var QNA17 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phú Ninh", QNA);
+                var QNA18 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nông Sơn", QNA);
+            }
+            #endregion
+
+            #region Quảng Ngãi
+            var i41 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quảng Ngãi");
+            var QNG = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Quảng Ngãi").FirstOrDefaultAsync();
+            if (QNG != null)
+            {
+                var QNG1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Quảng Ngãi", QNG);
+                var QNG2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bình Sơn", QNG);
+                var QNG3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Trà Bồng", QNG);
+                var QNG4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tây Trà", QNG);
+                var QNG5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Sơn Tịnh", QNG);
+                var QNG6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tư Nghĩa", QNG);
+                var QNG7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Sơn Hà", QNG);
+                var QNG8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Sơn Tây", QNG);
+                var QNG9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Minh Long", QNG);
+                var QNG10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nghĩa Hành", QNG);
+                var QNG11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mộ Đức", QNG);
+                var QNG12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Đức Phổ", QNG);
+                var QNG13 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ba Tơ", QNG);
+                var QNG14 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lý Sơn", QNG);
+            }
+            #endregion
+
+            #region Quảng Ninh
+            var i42 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quảng Ninh");
+            var QNI = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Quảng Ninh").FirstOrDefaultAsync();
+            if (QNI != null)
+            {
+                var QNI1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Hạ Long", QNI);
+                var QNI2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Móng Cái", QNI);
+                var QNI3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Cẩm Phả", QNI);
+                var QNI4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Uông Bí", QNI);
+                var QNI5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bình Liêu", QNI);
+                var QNI6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tiên Yên", QNI);
+                var QNI7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đầm Hà", QNI);
+                var QNI8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hải Hà", QNI);
+                var QNI9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ba Chẽ", QNI);
+                var QNI10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vân Đồn", QNI);
+                var QNI11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hoành Bồ", QNI);
+                var QNI12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Đông Triều", QNI);
+                var QNI14 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cô Tô", QNI);
+                var QNI15 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Quảng Yên", QNI);
+            }
+            #endregion
+
+            #region Quảng Trị
+            var i43 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quảng Trị");
+            var QT = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Quảng Trị").FirstOrDefaultAsync();
+            if (QT != null)
+            {
+                var QT1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Đông Hà", QT);
+                var QT2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Quảng Trị", QT);
+                var QT3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vĩnh Linh", QT);
+                var QT4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hướng Hóa", QT);
+                var QT5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Gio Linh", QT);
+                var QT6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đakrông", QT);
+                var QT7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cam Lộ", QT);
+                var QT8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Triệu Phong", QT);
+                var QT9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hải Lăng", QT);
+                var QT10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cồn Cỏ", QT);
+            }
+            #endregion
+            #region Sóc Trăng
+            var i44 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Sóc Trăng");
+            var ST = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Sóc Trăng").FirstOrDefaultAsync();
+            if (ST != null)
+            {
+                var ST1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Sóc Trăng", ST);
+                var ST2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Châu Thành", ST);
+                var ST3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Kế Sách", ST);
+                var ST4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mỹ Tú", ST);
+                var ST5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cù Lao Dung", ST);
+                var ST6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Long Phú", ST);
+                var ST7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mỹ Xuyên", ST);
+                var ST8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Ngã Năm", ST);
+                var ST9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thạnh Trị", ST);
+                var ST10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Vĩnh Châu", ST);
+                var ST11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Trần Đề", ST);
+            }
+            #endregion
+
+            #region Sơn La
+            var i45 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Sơn La");
+            var SL = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Sơn La").FirstOrDefaultAsync();
+            if (SL != null)
+            {
+                var SL1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Sơn La", SL);
+                var SL2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Quỳnh Nhai", SL);
+                var SL3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thuận Châu", SL);
+                var SL4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mường La", SL);
+                var SL5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bắc Yên", SL);
+                var SL6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phù Yên", SL);
+                var SL7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mộc Châu", SL);
+                var SL8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Yên Châu", SL);
+                var SL9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mai Sơn", SL);
+                var SL10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Sông Mã", SL);
+                var SL11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Sốp Cộp", SL);
+            }
+            #endregion
+
+          
+
+            #region Thanh Hoá
+            var i47 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thanh Hóa");
+            var TH = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Thanh Hóa").FirstOrDefaultAsync();
+            if (TH != null)
+            {
+                var TH1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Thanh Hóa", TH);
+                var TH2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Bỉm Sơn", TH);
+                var TH3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Sầm Sơn", TH);
+                var TH4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mường Lát", TH);
+                var TH5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Quan Hóa", TH);
+                var TH6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bá Thước", TH);
+                var TH7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Quan Sơn", TH);
+                var TH8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lang Chánh", TH);
+                var TH9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ngọc Lặc", TH);
+                var TH10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cẩm Thủy", TH);
+                var TH11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thạch Thành", TH);
+                var TH12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hà Trung", TH);
+                var TH13 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vĩnh Lộc", TH);
+                var TH14 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Yên Định", TH);
+                var TH15 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thọ Xuân", TH);
+                var TH16 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thường Xuân", TH);
+                var TH17 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Triệu Sơn", TH);
+                var TH18 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thiệu Hóa", TH);
+                var TH19 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hoằng Hóa", TH);
+                var TH20 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hậu Lộc", TH);
+                var TH21 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nga Sơn", TH);
+                var TH22 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Như Xuân", TH);
+                var TH23 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Như Thanh", TH);
+                var TH24 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nông Cống", TH);
+                var TH25 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đông Sơn", TH);
+                var TH26 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Quảng Xương", TH);
+                var TH27 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tĩnh Gia", TH);
+                var TH28 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Nghi Sơn", TH);
+            }
+            #endregion
+            #region Thái Bình
+            var i48 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thái Bình");
+            var TB = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Thái Bình").FirstOrDefaultAsync();
+            if (TB != null)
+            {
+                var TB1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Thái Bình", TB);
+                var TB2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Quỳnh Phụ", TB);
+                var TB3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hưng Hà", TB);
+                var TB4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đông Hưng", TB);
+                var TB5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thái Thụy", TB);
+                var TB6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tiền Hải", TB);
+                var TB7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Kiến Xương", TB);
+                var TB8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vũ Thư", TB);
+            }
+            #endregion
+            #region Thái Nguyên
+            var i49 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thái Nguyên");
+            var TNG = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Thái Nguyên").FirstOrDefaultAsync();
+            if (TNG != null)
+            {
+                var TNG1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Thái Nguyên", TNG);
+                var TNG2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Sông Công", TNG);
+                var TNG3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Định Hóa", TNG);
+                var TNG4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phú Lương", TNG);
+                var TNG5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đồng Hỷ", TNG);
+                var TNG6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Võ Nhai", TNG);
+                var TNG7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đại Từ", TNG);
+                var TNG8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Phổ Yên", TNG);
+                var TNG9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phú Bình", TNG);
+            }
+            #endregion
+
+            #region Thừa thiên Huế
+            var i50 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thừa Thiên Huế");
+            var TTH = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Thừa Thiên Huế").FirstOrDefaultAsync();
+            if (TTH != null)
+            {
+                var TTH1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Huế", TTH);
+                var TTH2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phong Điền", TTH);
+                var TTH3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Quảng Điền", TTH);
+                var TTH4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phú Vang", TTH);
+                var TTH5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Hương Thủy", TTH);
+                var TTH6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Hương Trà", TTH);
+                var TTH7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện A Lưới", TTH);
+                var TTH8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Phú Lộc", TTH);
+                var TTH9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nam Đông", TTH);
+            }
+            #endregion
+
+            #region Tiền Giang
+            var i51 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tiền Giang");
+            var TG = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Tiền Giang").FirstOrDefaultAsync();
+            if (TG != null)
+            {
+                var TG1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Mỹ Tho", TG);
+                var TG2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Gò Công", TG);
+                var TG3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tân Phước", TG);
+                var TG4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cái Bè", TG);
+                var TG5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Cai Lậy", TG);
+                var TG6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Châu Thành", TG);
+                var TG7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Chợ Gạo", TG);
+                var TG8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Gò Công Tây", TG);
+                var TG9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Gò Công Đông", TG);
+                var TG10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tân Phú Đông", TG);
+            }
+            #endregion
+
+            #region Trà Vinh
+            var i52 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Trà Vinh");
+            var TV = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Trà Vinh").FirstOrDefaultAsync();
+            if (TV != null)
+            {
+                var TV1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Trà Vinh", TV);
+                var TV2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Càng Long", TV);
+                var TV3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cầu Kè", TV);
+                var TV4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tiểu Cần", TV);
+                var TV5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Châu Thành", TV);
+                var TV6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cầu Ngang", TV);
+                var TV7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Trà Cú", TV);
+                var TV8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Duyên Hải", TV);
+                var TV9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Duyên Hải", TV);
+            }
+            #endregion
+
+            #region Tuyên Quang
+            var i53 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tuyên Quang");
+            var TQ = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Tuyên Quang").FirstOrDefaultAsync();
+            if (TQ != null)
+            {
+                var TQ1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Tuyên Quang", TQ);
+                var TQ2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Na Hang", TQ);
+                var TQ3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Chiêm Hóa", TQ);
+                var TQ4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hàm Yên", TQ);
+                var TQ5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Yên Sơn", TQ);
+                var TQ6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Sơn Dương", TQ);
+                var TQ7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lâm Bình", TQ);
+            }
+            #endregion
+            #region Tây Ninh
+            var i54 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Tây Ninh");
+            var TNI = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Tây Ninh").FirstOrDefaultAsync();
+            if (TNI != null)
+            {
+                var TNI1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Tây Ninh", TNI);
+                var TNI2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tân Biên", TNI);
+                var TNI3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tân Châu", TNI);
+                var TNI4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Dương Minh Châu", TNI);
+                var TNI5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Châu Thành", TNI);
+                var TNI6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Hòa Thành", TNI);
+                var TNI7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Gò Dầu", TNI);
+                var TNI8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bến Cầu", TNI);
+                var TNI9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Trảng Bàng", TNI);
+            }
+            #endregion
+
+            #region Vĩnh Long
+            var i55 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Vĩnh Long");
+
+            var VL = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Vĩnh Long").FirstOrDefaultAsync();
+            if (VL != null)
+            {
+                var VL1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Vĩnh Long", VL);
+                var VL2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Long Hồ", VL);
+                var VL3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mang Thít", VL);
+                var VL4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vũng Liêm", VL);
+                var VL5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tam Bình", VL);
+                var VL6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Bình Minh", VL);
+                var VL7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Trà Ôn", VL);
+                var VL8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bình Tân", VL);
+            }
+            #endregion
+
+            #region Vĩnh Phúc
+            var i56 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Vĩnh Phúc");
+            var VP = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Vĩnh Phúc").FirstOrDefaultAsync();
+            if (VP != null)
+            {
+                var VP1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Vĩnh Yên", VP);
+                var VP2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Phúc Yên", VP);
+                var VP3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lập Thạch", VP);
+                var VP4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tam Dương", VP);
+                var VP5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tam Đảo", VP);
+                var VP6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bình Xuyên", VP);
+                var VP7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Yên Lạc", VP);
+                var VP8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vĩnh Tường", VP);
+                var VP9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Sông Lô", VP);
+            }
+            #endregion
+
+          
+
+            #region Yên Bái
+            var i57 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Yên Bái");
+            var YB = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Yên Bái").FirstOrDefaultAsync();
+            if (YB != null)
+            {
+                var YB1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Yên Bái", YB);
+                var YB2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị xã Nghĩa Lộ", YB);
+                var YB3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lục Yên", YB);
+                var YB4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Văn Yên", YB);
+                var YB5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mù Cang Chải", YB);
+                var YB6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Trấn Yên", YB);
+                var YB7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Trạm Tấu", YB);
+                var YB8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Văn Chấn", YB);
+                var YB9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Yên Bình", YB);
+            }
+            #endregion
+
+            #region TP Hồ Chí Minh
+            var i46 = await CreateAndSaveGeoUnit(geoUnits, tenant, "TP. Hồ Chí Minh");
+            var TPHCM = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "TP. Hồ Chí Minh").FirstOrDefaultAsync();
+            if (TPHCM != null)
+            {
+                var TPHCM1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận 1", TPHCM);
+                var TPHCM2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận 12", TPHCM);
+                var TPHCM3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Thủ Đức", TPHCM);
+                var TPHCM4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận 9", TPHCM);
+                var TPHCM5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Gò Vấp", TPHCM);
+                var TPHCM6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Bình Thạnh", TPHCM);
+                var TPHCM7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Tân Bình", TPHCM);
+                var TPHCM8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Tân Phú", TPHCM);
+                var TPHCM9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Phú Nhuận", TPHCM);
+                var TPHCM10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận 2", TPHCM);
+                var TPHCM11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận 3", TPHCM);
+                var TPHCM12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận 10", TPHCM);
+                var TPHCM13 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận 11", TPHCM);
+                var TPHCM14 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận 4", TPHCM);
+                var TPHCM15 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận 5", TPHCM);
+                var TPHCM16 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận 6", TPHCM);
+                var TPHCM17 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận 7", TPHCM);
+                var TPHCM18 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận 8", TPHCM);
+                var TPHCM19 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Bình Tân", TPHCM);
+                var TPHCM20 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Củ Chi", TPHCM);
+                var TPHCM21 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hóc Môn", TPHCM);
+                var TPHCM22 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Bình Chánh", TPHCM);
+                var TPHCM23 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nhà Bè", TPHCM);
+                var TPHCM24 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cần Giờ", TPHCM);
+            }
+            #endregion
+
+            #region Điện Biên
+            var i58 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Điện Biên");
+            var DB = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Điện Biên").FirstOrDefaultAsync();
+            if (DB != null)
+            {
+                var DB0 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Điện Biên Phủ", DB);
+                var DB1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị Xã Mường Lay", DB);
+                var DB2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Huyện Mường Nhé", DB);
+                var DB3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mường Chà", DB);
+                var DB4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tủa Chùa", DB);
+                var DB5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tuần Giáo", DB);
+                var DB6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Điện Biên", DB);
+                var DB7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Điện Biên Đông", DB);
+                var DB8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Mường Ảng", DB);
+                var DB9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nậm Pồ", DB);
+            }
+            #endregion
+
+            #region Đà Nẵng
+            var i59 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đà Nẵng");
+            var DNG = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Đà Nẵng").FirstOrDefaultAsync();
+            if (DNG != null)
+            {
+                var DNG1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Liên Chiểu", DNG);
+                var DNG2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Thanh Khê", DNG);
+                var DNG3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Hải Châu", DNG);
+                var DNG4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Sơn Trà", DNG);
+                var DNG5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Ngũ Hành Sơn", DNG);
+                var DNG6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Quận Cẩm Lệ", DNG);
+                var DNG7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hòa Vang", DNG);
+                var DNG8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Hoàng Sa", DNG);
+            }
+            #endregion
+            #region Đắk Lắk
+            var i60 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đắk Lắk");
+            var DLA = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Đắk Lắk").FirstOrDefaultAsync();
+            if (DLA != null)
+            {
+                var DLA1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Buôn Ma Thuột", DLA);
+                var DLA2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thị Xã Buôn Hồ", DLA);
+                var DLA3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ea H'leo", DLA);
+                var DLA4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ea Súp", DLA);
+                var DLA5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Buôn Đôn", DLA);
+                var DLA6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cư M'gar", DLA);
+                var DLA7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Krông Búk", DLA);
+                var DLA8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Krông Năng", DLA);
+                var DLA9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Ea Kar", DLA);
+                var DLA10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện M'Đrắk", DLA);
+                var DLA11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Krông Bông", DLA);
+                var DLA12 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Krông Pắc", DLA);
+                var DLA13 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Krông A Na", DLA);
+                var DLA14 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lắk", DLA);
+                var DLA15 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cư Kuin", DLA);
+            }
+            #endregion
+
+            #region Đắk Nông
+            var i61 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đắk Nông");
+            var DNOG = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Đắk Nông").FirstOrDefaultAsync();
+            if (DNOG != null)
+            {
+                var DNOG1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Gia Nghĩa", DNOG);
+                var DNOG2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đăk Glong", DNOG);
+                var DNOG3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cư Jút", DNOG);
+                var DNOG4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đắk Mil", DNOG);
+                var DNOG5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Krông Nô", DNOG);
+                var DNOG6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đắk Song", DNOG);
+                var DNOG7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Đắk R'Lấp", DNOG);
+                var DNOG8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tuy Đức", DNOG);
+            }
+            #endregion
+
+            #region Đồng Nai
+            var i62 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đồng Nai");
+            var DNAI = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Đồng Nai").FirstOrDefaultAsync();
+            if (DNAI != null)
+            {
+                var DNAI1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Biên Hòa", DNAI);
+                var DNAI2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Long Khánh", DNAI);
+                var DNAI3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tân Phú", DNAI);
+                var DNAI4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Vĩnh Cửu", DNAI);
+                var DNAI5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Định Quán", DNAI);
+                var DNAI6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Trảng Bom", DNAI);
+                var DNAI7 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thống Nhất", DNAI);
+                var DNAI8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Cẩm Mỹ", DNAI);
+                var DNAI9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Long Thành", DNAI);
+                var DNAI10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Xuân Lộc", DNAI);
+                var DNAI11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Nhơn Trạch", DNAI);
+            }
+            #endregion
+
+            #region Đồng Tháp
+            var i63 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Đồng Tháp");
+            var DT = await _geoUnitRepository.GetAll().Where(x => x.DisplayName == "Đồng Tháp").FirstOrDefaultAsync();
+            if (DT != null)
+            {
+                var DT1 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Cao Lãnh", DT);
+                var DT2 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Sa Đéc", DT);
+                var DT3 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Thành phố Hồng Ngự", DT);
+                var DT4 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tân Hồng", DT);
+                var DT5 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tam Nông", DT);
+                var DT6 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Tháp Mười", DT);
+                var DT8 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Thanh Bình", DT);
+                var DT9 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lấp Vò", DT);
+                var DT10 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Lai Vung", DT);
+                var DT11 = await CreateAndSaveGeoUnit(geoUnits, tenant, "Huyện Châu Thành", DT);
+            }
+            #endregion
+
+        }
+
+        private async Task<GeoUnitDto> CreateGeoUnitDto(GeoUnit GeoUnit)
 		{
 			var dto = ObjectMapper.Map<GeoUnitDto>(GeoUnit);
 			//dto.MemberCount =

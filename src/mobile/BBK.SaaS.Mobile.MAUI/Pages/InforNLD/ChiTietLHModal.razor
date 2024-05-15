@@ -1,104 +1,139 @@
 ﻿@inherits ModalBase
-
-<div id="@ModalId" class="menu menu-box-modal rounded-m" data-menu-width="330">
-    <div class="content">
-        @if (_isInitialized)
-        {
-            <div class="d-flex">
-                @if (IsView == true)
-                {
-                    <h1>@L("Chi tiết lịch hẹn phỏng vấn ")</h1>
-
-                }
-                @if (IsAgree == true)
-                {
-                    <h1>@L("Xác nhận lịch hẹn phỏng vấn ")</h1>
-                }
-                @if (IsReject == true)
-                {
-                    <h1>@L("Từ chối lịch hẹn phỏng vấn ")</h1>
-                }
-                <div class="ms-auto">
-                    <a class="close-menu" @onclick="Hide"><i class="fa fa-times"></i></a>
+<div class="modal fade" id="@ModalId" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded">
+            <div class="modal-body scroll-y pt-10 pb-10">
+                <div class="btn btn-sm btn-icon btn-active-color-primary position-absolute" style="top:20px;right:20px" data-bs-dismiss="modal">
+                    <span class="svg-icon svg-icon-1">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+                            <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
+                        </svg>
+                    </span>
                 </div>
-            </div>
-            <h5>@L("Công việc được phỏng vấn")</h5>
-            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
-                <input type="text" class="form-control validate-text" id="form1" @bind="UserInput.Recruitment.Title" disabled>
-            </div>
-            <h5>@L("Nhập hình thức phỏng vấn")</h5>
-            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
-                <input type="text" class="form-control validate-text" id="form1" @bind="UserInput.TypeInterview" disabled>
-            </div>
-            <h5>@L("Nhập địa chỉ phỏng vấn")</h5>
-            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
-                <input type="text" class="form-control validate-text" id="form1" @bind="UserInput.Address" disabled>
-            </div>
-            <h5>@L("Vị trí phỏng vấn")</h5>
-            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
-                <input type="text" class="form-control validate-text" id="form1" @bind="UserInput.Recruitment.Ranks.DisplayName" disabled>
-            </div>
-            <h5> @L("Ngày phỏng vấn")</h5>
-            <div class="input-style has-borders no-icon mb-4">
-                <input type="date" class="validate-text" id="form6" @bind="UserInput.InterviewTime" disabled>
-                <label for="form6" class="color-highlight">Select Date</label>
-            </div>
-            <h5>@L("Thời gian phỏng vấn")</h5>
-            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
-                <input type="text" class="form-control validate-text" id="form1" @bind="InterviewTime" disabled>
-            </div>
-            <h5> @L("Lời nhắn")</h5>
-            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
-                <input type="text" class="form-control validate-text" id="form1" @bind="UserInput.Message" disabled>
-            </div>
-            @if (IsAgree == true)
-            {
-                <h5>@L("Nội dung gửi đến nhà tuyển dụng") </h5>
-            }
-            @if (IsReject == true)
-            {
-                <h5> @L("Lý do từ chối") </h5>
-            }
-            @if (IsView == true)
-            {
-                <h5>@L("Nội dung") </h5>
-            }
-            <div class="input-style has-borders no-icon mb-4">
-                @if (IsView == true)
+                @if (_isInitialized)
                 {
-                    <textarea id="form7" disabled @bind="UserInput.ReasonForRefusal"></textarea>
-                }
-                else
-                {
-                    <textarea id="form7" @bind="UserInput.ReasonForRefusal"></textarea>
-                }
-                <label for="form7" class="color-highlight">
-                    @if (IsAgree == true)
-                    {
-                        @L("Nội dung gửi đến nhà tuyển dụng")
-                        <em class="mt-n3">(bắt buộc)</em>
-                    }
-                    @if (IsReject == true)
-                    {
-                        @L("Lý do từ chối")
-                        <em class="mt-n3">(bắt buộc)</em>
-                    }
-                    @if (IsView == true)
-                    {
-                        @L("Nội dung")
-                    }
-                </label>
+                    <div class="mb-13 text-center">
+                        @if (IsView == true)
+                        {
+                            <h1 class="mb-3">@L("Chi tiết lịch hẹn phỏng vấn ")</h1>
 
+                        }
+                        @if (IsAgree == true)
+                        {
+                            <h1 class="mb-3">@L("Xác nhận lịch hẹn phỏng vấn ")</h1>
+                        }
+                        @if (IsReject == true)
+                        {
+                            <h1 class="mb-3">@L("Từ chối lịch hẹn phỏng vấn ")</h1>
+                        }
+                    </div>
+                    <div class="card shadow-sm p-0 m-0">
+                        <div class="card-body d-flex flex-column py-10 m-0">
+                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container ">
+                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">
+                                        @L("Công việc được phỏng vấn")
+                                    </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" @bind="UserInput.Recruitment.Title" disabled />
+                            </div>
+                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">
+                                        @L("Nhập hình thức phỏng vấn")
+                                    </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" @bind="UserInput.TypeInterview" disabled />
+                            </div>
+                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">
+                                        @L("Nhập địa chỉ phỏng vấn")
+                                    </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" @bind="UserInput.Address" disabled />
+                            </div>
+                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">
+                                        @L("Vị trí phỏng vấn")
+                                    </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" @bind="UserInput.Recruitment.Ranks.DisplayName" disabled />
+                            </div>
+                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">
+                                        @L("Ngày phỏng vấn")
+                                    </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                                </label>
+                                <input type="date" class="form-control form-control-solid" @bind="UserInput.InterviewTime" disabled />
+                            </div>
+                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">
+                                        @L("Thời gian phỏng vấn")
+                                    </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                                </label>
+                                <input class="form-control form-control-solid" @bind="InterviewTime" disabled />
+                            </div>
+                            <div class="d-flex flex-column fv-row fv-plugins-icon-container min-w-90">
+                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">
+                                        @L("Lời nhắn")
+                                    </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" @bind="UserInput.Message" disabled />
+                            </div>
+                            <div class="d-flex flex-column fv-row fv-plugins-icon-container min-w-90">
+                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">
+                                        @if (IsAgree == true)
+                                        {
+                                            @L("Nội dung gửi đến nhà tuyển dụng")
+                                        }
+                                        @if (IsReject == true)
+                                        {
+                                            @L("Lý do từ chối")
+                                        }
+                                        @if (IsView == true)
+                                        {
+                                            @L("Nội dung")
+                                        }
+                                    </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                                </label>
+                                @if (IsView == true)
+                                {
+                                    <textarea rows="3" type="text" class="form-control form-control-solid" disabled @bind="UserInput.ReasonForRefusal" />
+                                }
+                                else
+                                {
+                                    <textarea rows="3" type="text" class="form-control form-control-solid"  @bind="UserInput.ReasonForRefusal" />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-8">
+                        <button type="reset" data-dismiss="modal" class="btn btn-light me-3" @onclick="Hide">@L("Đóng")</button>
+                        @if (IsView == false)
+                        {
+                            <button type="button" class="btn btn-primary" @onclick="SaveExpWork">
+                                <span class="indicator-label">@L("Gửi")</span>
+                            </button>
+                        }
+
+                    </div>
+                }
             </div>
-            @* <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Hủy</a> *@
-            @if (IsView == false)
-            {
-                <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveExpWork">Gửi</a>
-            }
-            else
-            {
-                <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Đóng</a>
-            }
-        }
+        </div>
     </div>
 </div>

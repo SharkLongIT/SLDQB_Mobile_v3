@@ -1,0 +1,50 @@
+﻿@using BBK.SaaS.Mdls.Cms.Introduces.Dto
+@model IntroduceEditDto
+@{
+    Layout = null;
+}
+<div class="modal-body user-edit-modal">
+    <div class="page-body">
+        <!-- Container-fluid starts-->
+        <div class="container-fluid">
+            <div class="row">
+                <form name="CreateIntroduceForm" role="form" novalidate class="form-validation">
+                    <input type="hidden" value="@ViewBag.ArticleId" name="ArticleId" />
+                    <h2>Giới thiệu</h2></br>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label class="form-label">Họ và tên</label>
+                            <input type="text" name="FullName" value="@Model.Name" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="Email" value="@Model.Email" required class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label class="form-label">Số điện thoại</label>
+                            <div class="d-flex">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">+84</span>
+                                </div>
+                                <input type="text" id="PhoneNumber" name="Phone" maxlength="9" required class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label class="form-label">Nội dung</label>
+                            <textarea required id="Description" class="form-control" rows="4" cols="50" name="Description"></textarea>
+                        </div>
+                    </div>
+                    <a href="#"><u>Chính sách giới thiệu</u></a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancelVN.cshtml")

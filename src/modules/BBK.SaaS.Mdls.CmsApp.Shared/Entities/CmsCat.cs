@@ -91,6 +91,8 @@ namespace BBK.SaaS.Mdls.Cms.Entities
 
 		public virtual long ViewedCount { get; set; }
 
+    public virtual int OrderIndex { get; set; }
+
 		[MaxLength(SaaSConsts.MaxShortLineLength)]
 		/// <summary>
 		/// Gets or sets the meta keywords

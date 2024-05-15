@@ -1,0 +1,57 @@
+﻿@using Abp.Localization
+@using BBK.SaaS.Web.Areas.App.Startup
+@section Scripts
+{
+    <script abp-src="/view-resources/Views/Contact/Index.js" asp-append-version="true"></script>
+}
+<div class="page-body">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-xl-12">
+                        <div id="panel-1" class="panel">
+                            <div class="panel-hdr">
+                                <h5>Chúng tôi mong muốn lắng nghe ý kiến của quý khách.
+                                    Vui lòng gửi mọi yêu cầu , thắc mắc theo thông tin bên dưới, 
+                                    chúng tôi sẽ liên lạc với bạn sớm nhất có thể.</h5>
+                            </div>
+                        </div>
+                        <form name="FormContact" role="form" novalidate class="form-validation mt-5">
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <label for="Title" class="form-label">@L("Họ và tên")</label><span class="text-danger">*</span>
+                                    <input id="FullName" class="form-control" type="text" name="FullName" placeholder="Nhập họ và tên" required >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <label for="Title" class="form-label">@L("Email")</label><span class="text-danger">*</span>
+                                    <input id="Email" class="form-control" type="email"  name="Email" placeholder="Nhập Email" required >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <label for="Title" class="form-label">@L("Số điện thoại")</label><span class="text-danger">*</span>
+                                    <input id="Phone" class="form-control" type="number" name="Phone" placeholder="Nhập số điện thoại" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 mb-3">
+                                    <label for="JobDesc" class="form-label">@L("Nội dung")</label><span class="text-danger">*</span>
+                                    <textarea required id="Description" class="form-control" rows="4" cols="50" name="Description"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-end">
+                                    <button class="btn btn-primary m-1" type="button" id="btnCreate">Gửi</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

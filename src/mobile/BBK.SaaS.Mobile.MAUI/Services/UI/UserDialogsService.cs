@@ -32,7 +32,7 @@ namespace BBK.SaaS.Mobile.MAUI.Services.UI
         {
             if (string.IsNullOrWhiteSpace(confirmButtonText))
             {
-                confirmButtonText = "Ok";
+                confirmButtonText = L.Localize("Ok");
             }
 
             await JS.InvokeVoidAsync("BlazorUserDialogService.alertSuccess", message, confirmButtonText);
@@ -42,7 +42,7 @@ namespace BBK.SaaS.Mobile.MAUI.Services.UI
         {
             if (string.IsNullOrWhiteSpace(confirmButtonText))
             {
-                confirmButtonText = "Ok";
+                confirmButtonText = L.Localize("Ok");
             }
 
             await JS.InvokeVoidAsync("BlazorUserDialogService.alertInfo", message, confirmButtonText);
@@ -52,7 +52,7 @@ namespace BBK.SaaS.Mobile.MAUI.Services.UI
         {
             if (string.IsNullOrWhiteSpace(confirmButtonText))
             {
-                confirmButtonText = "Ok";
+                confirmButtonText = L.Localize("Ok");
             }
 
             await JS.InvokeVoidAsync("BlazorUserDialogService.alertError", message, confirmButtonText);
@@ -62,7 +62,7 @@ namespace BBK.SaaS.Mobile.MAUI.Services.UI
         {
             if (string.IsNullOrWhiteSpace(confirmButtonText))
             {
-                confirmButtonText = "Ok";
+                confirmButtonText = L.Localize("Ok");
             }
 
             await JS.InvokeVoidAsync("BlazorUserDialogService.alertWarn", message, confirmButtonText);
@@ -72,12 +72,12 @@ namespace BBK.SaaS.Mobile.MAUI.Services.UI
         {
             if (string.IsNullOrWhiteSpace(confirmButtonText))
             {
-                confirmButtonText = "Ok";
+                confirmButtonText = L.Localize("Ok");
             }
 
             if (string.IsNullOrWhiteSpace(cancelButtonText))
             {
-                cancelButtonText = "Không";
+                cancelButtonText = L.Localize("Không");
             }
 
             return await JS.InvokeAsync<bool>("BlazorUserDialogService.confirm", message, title, confirmButtonText, cancelButtonText);
@@ -96,20 +96,6 @@ namespace BBK.SaaS.Mobile.MAUI.Services.UI
             }
 
             return await JS.InvokeAsync<string>("BlazorUserDialogService.prompt", message, title, confirmButtonText, showCancelButton, cancelButtonText, allowOutsideClick);
-        }
-
-        public async Task<bool> ConfirmLogout(string message, string title = "",  string confirmButtonText = "", string cancelButtonText = "")
-        {
-          
-            if (string.IsNullOrWhiteSpace(confirmButtonText))
-            {
-                confirmButtonText = "Đăng xuất";
-            }
-            if (string.IsNullOrWhiteSpace(cancelButtonText))
-            {
-                cancelButtonText = "Huỷ";
-            }
-            return await JS.InvokeAsync<bool>("BlazorUserDialogService.logout", message, title, confirmButtonText, cancelButtonText);
         }
     }
 }

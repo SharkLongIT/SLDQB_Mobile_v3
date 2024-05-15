@@ -1,0 +1,55 @@
+﻿@using Abp.Application.Services.Dto
+@using BBK.SaaS.Authorization
+@using BBK.SaaS.Web.Areas.App.Startup
+@using BBK.SaaS.Web.Areas.Profile.Models.UsersType0;
+
+@model UsersType0ViewModel
+@{
+	ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+	ViewBag.PageTitle = @L("Users");
+	ViewBag.PageDescription = @L("UsersHeaderInfo");
+}
+
+@section Styles
+	{
+	<link rel="stylesheet" abp-href="/view-resources/App/Users/index.css" asp-append-version="true" />
+}
+
+@section Scripts
+	{
+	@*<script abp-src="/view-resources/App/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+	<script abp-src="/view-resources/App/_Bundles/user-list.js" asp-append-version="true"></script>*@
+	@*<script abp-src="/view-resources/App/UsersType0/_CreateOrEditModal.js" asp-append-version="true"></script>*@
+	<script abp-src="/view-resources/Profile/Users/Index.js" asp-append-version="true"></script>
+}
+
+<div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card">					
+					<div class="card-body">
+						<div class="table-responsive theme-scrollbar">
+							<table id="UsersTable" class="table align-middle table-row-dashed dataTable dtr-inline no-footer table-responsive theme-scrollbar user-datatable">
+								<thead>
+									<tr>
+										<th>@(new FixedLocalizableString("Xử lý"))</th>
+										<th>@L("UserName")</th>
+										<th>@L("FirstName")</th>
+										<th>@L("Surname")</th>
+										<th>@L("Roles")</th>
+										<th>@L("EmailAddress")</th>
+										<th>@L("EmailConfirm")</th>
+										<th>@L("Active")</th>
+										<th>@L("CreationTime")</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

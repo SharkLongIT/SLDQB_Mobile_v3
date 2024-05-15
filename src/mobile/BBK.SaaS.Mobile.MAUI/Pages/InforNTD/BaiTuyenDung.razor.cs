@@ -7,7 +7,6 @@ using BBK.SaaS.Mobile.MAUI.Services.Article;
 using BBK.SaaS.Mobile.MAUI.Services.User;
 using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.Services.Navigation;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
@@ -39,10 +38,10 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
         protected override async Task OnInitializedAsync()
         {
 
-            //await SetPageHeader(L("Danh sách tin tuyển dụng của tôi"), new List<Services.UI.PageHeaderButton>()
-            //{
-            //    new Services.UI.PageHeaderButton(L("Thêm mới tin"), OpenCreateModal)
-            //});
+            await SetPageHeader(L("Danh sách tin tuyển dụng của tôi"), new List<Services.UI.PageHeaderButton>()
+            {
+                //new Services.UI.PageHeaderButton(L("Thêm mới tin"), OpenCreateModal)
+            });
 
 
             IsUserLoggedIn = navigationService.IsUserLoggedIn();
@@ -54,14 +53,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
             await RecruitmentContrainer.RefreshDataAsync();
             StateHasChanged();
             await LoadRecruitmentPost(new ItemsProviderRequest());
-        }
-        public async void selectedValue(ChangeEventArgs args)
-        {
-            string select = Convert.ToString(args.Value);
-            _SearchText = select;
-            await RecruitmentContrainer.RefreshDataAsync();
-            StateHasChanged();
-
         }
         private async ValueTask<ItemsProviderResult<RecruitmentDto>> LoadRecruitmentPost(ItemsProviderRequest request)
         {
@@ -83,16 +74,13 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
                     {
                         item.Recruiter.AvatarUrl = await articleService.GetPicture(item.Recruiter.AvatarUrl);
                     }
-                    if (_SearchText != "")
+                    if (recruitmentPost.Count == 0)
                     {
-                        if (recruitmentPost.Count == 0)
-                        {
-                            isError = true;
-                        }
-                        else
-                        {
-                            isError = false;
-                        }
+                        isError = true;
+                    }
+                    else
+                    {
+                        isError = false;
                     }
                     recruitmentDto = new ItemsProviderResult<RecruitmentDto>(recruitmentPost, recruitmentPost.Count);
                     await UserDialogsService.UnBlock();
@@ -105,7 +93,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
         }
         public async Task ViewRecruitment(RecruitmentDto recruitment)
         {
-            navigationService.NavigateTo($"ThongTinVTN?Id={recruitment.Id}&Experiences={recruitment.Experiences.DisplayName}&JobCatUnitName={recruitment.JobCatUnitName}&HumanResSizeCat={recruitment.Recruiter.HumanResSizeCat.DisplayName}");
+            navigationService.NavigateTo($"ChiTietBTD?Id={recruitment.Id}&Experiences={recruitment.Experiences.DisplayName}&JobCatUnitName={recruitment.JobCatUnitName}&HumanResSizeCat={recruitment.Recruiter.HumanResSizeCat.DisplayName}");
         }
 
 
@@ -132,18 +120,9 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
         }
         public async Task DeletePost(RecruitmentDto recruitmentDto)
         {
-            var Isdelete = await UserDialogsService.Confirm("Bạn chắc muốn xoá tin tuyển dụng?", "Xóa", "Huỷ");
-            if (Isdelete == true)
-            {
-                await iRecruitmentAppService.DeleteDoc(recruitmentDto.Id);
-                await UserDialogsService.AlertSuccess(L("Xoá thành công " + recruitmentDto.Title));
-                await RecruitmentContrainer.RefreshDataAsync();
-                await RefeshList();
-            }
-            else
-            {
-
-            }
+            await iRecruitmentAppService.DeleteDoc(recruitmentDto.Id);
+            await UserDialogsService.AlertSuccess(L("Xoá thành công " + recruitmentDto.Title));
+            await RefeshList();
 
         }
         private async void DisPlayAction(RecruitmentDto recruitmentDto)

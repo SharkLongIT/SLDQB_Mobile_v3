@@ -1,0 +1,183 @@
+﻿@using System.IO
+@using BBK.SaaS.Web.Views.Shared.Components.CmsFooter
+@using BBK.SaaS.Web.Navigation;
+
+@model CmsFooterViewModel
+
+@if (Model.IsUseCustomFooter)
+{
+	@Html.Raw(Model.FooterHtml);
+}
+else
+{
+	<footer id="footer" class="dark" style="background-color: #1f2024;">
+
+		<div class="container">
+
+			<!-- Footer Widgets
+				============================================= -->
+			<div class="footer-widgets-wrap row">
+
+
+				<div class="col-lg-6">
+
+					<div class="widget">
+
+						<img src="/themes/BeThems/SanViecLamQB/Trungtam_100.png" alt="Image" class="footer-logo">
+
+						<p><strong>42 Trần Quang Khải, Đồng Phú, Đồng Hới, Quảng Bình</strong></p>
+
+						<div class="py-2" style="background: url('images/world-map.png') no-repeat center center;">
+							<div class="row col-mb-30">
+								<div class="col-4">
+									<address class="mb-0">
+										<strong>Hotline:</strong><br>
+										091 322 27 35<br>
+									</address>
+								</div>
+								<div class="col-8">
+									<strong>Điện thoại:</strong> 02323 7979898<br>
+									<strong>Fax:</strong> 02323 7979898<br>
+									<strong>Email:</strong> vieclamthanhnienquangbinh@gmail.com
+								</div>
+							</div>
+						</div>
+
+						@* <div class="d-flex mt-4">
+							<a href="https://www.facebook.com/vieclamthanhnienquangbinh/"
+							   class="social-icon si-small rounded-circle text-white bg-facebook">
+								<i class="fa-brands fa-facebook-f"></i>
+								<i class="fa-brands fa-facebook-f"></i>
+							</a>
+
+							<a href="https://www.facebook.com/vieclamthanhnienquangbinh/"
+							   class="social-icon si-small rounded-circle text-white bg-x-twitter">
+								<i class="fa-brands fa-x-twitter"></i>
+								<i class="fa-brands fa-x-twitter"></i>
+							</a>
+
+							<a href="https://www.facebook.com/vieclamthanhnienquangbinh/"
+							   class="social-icon si-small rounded-circle text-white bg-google">
+								<i class="fa-brands fa-google"></i>
+								<i class="fa-brands fa-google"></i>
+							</a>
+						</div> *@
+					</div>
+
+				</div>
+
+
+				<!-- Footer Widget 3
+					============================================= -->
+				<div class="col-lg-3 col-sm-6 mb-5 mb-sm-0">
+					<div class="widget widget_links">
+						<h4 class="mb-3 mb-sm-4">Danh mục</h4>
+						<ul>
+							<li><a href="\">Trang chủ</a></li>
+							<li><a href="/JobUser/Search">Việc tìm người</a> </li>
+							<li><a href="/UserJob">Người tìm việc</a></li>
+							<li><a href="/Contact">Hỏi đáp</a></li>
+							<li><a href="/TradingSession">Phiên giao dịch</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Footer Widget 4
+					============================================= -->
+				<div class="col-lg-3 col-sm-6 mb-0">
+					<div class="widget widget_links">
+						<h4 class="mb-3 mb-sm-4">Facebook Fanpage</h4>
+						<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fvieclamthanhnienquangbinh&tabs=timeline&width=340&height=250&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+								width="340" height="250" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+								allowfullscreen="true"
+								allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Copyrights
+			============================================= -->
+		<div id="copyrights">
+
+			<div class="container">
+
+				<div class="row justify-content-center">
+					<div class="col-md-6 align-self-center">
+						Copyrights &copy; 2023 All Rights Reserved by BBK Solution.<br>
+						<div class="copyright-links">
+						</div>
+					</div>
+
+					<div class="col-md-6 align-self-center">
+						<div class="copyrights-menu text-end copyright-links m-0">
+							<a href="#">Điều khoản sử dụng</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div><!-- #copyrights end -->
+
+	</footer>
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="uil uil-angle-up"></div>
+
+	#region code cu
+	@* <footer class="footer bg-primary text-white">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12 mb-3">
+					<ul class="fw-bold list-group list-group-horizontal-xxl">
+						<li class="list-group-item border-left-info">Quảng cáo tuyển dụng</li>
+						<li class="list-group-item">Liện hệ quảng cáo</li>
+						<li class="list-group-item">Đây là MENU Footer</li>
+					</ul>
+				</div>
+				<div class="col-md-3">
+					TRUNG TÂM DỊCH VỤ VIỆC LÀM <br> <span class="f-48 fw-bolder">QUẢNG BÌNH</span>
+				</div>
+				<div class="col-md-5">
+					<div class="footer-content footer-size">
+						<p class="mb-0">Giấy phép số 305/GP-BTTTT cấp ngày 15/6/2022 của Bộ Thông tin và Truyền thông</p>
+						<p class="mb-0">Địa chỉ: Nhà tranh vách đất - Tầng 30</p>
+						<p class="mb-0">Điện thoại: (0232).xxxxxx - (0232).xxxx xxx - Fax: (0232).xxxx xxx</p>
+						<p class="mb-0">Email: quangbinhdientu@gmail.com; toasoanqb@gmail.com</p><a href="">
+							<p class="toggle_textlink mb-0" style="color: white;">Bản quyền thuộc về BBK Solutions. Cấm sao chép dưới mọi hình thức nếu không có sự chấp thuận bằng văn bản.</p>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-4 footer-size">
+					<p class="mb-2">Tổng biên tập: TRẦN NHẬT TÂM</p>
+					<p class="mb-2">Phó Tổng biên tập: NGUYỄN THỊ MY - TRUNG</p>
+					<p class="mb-2">HOTLINE:  091 xxxxxxx</p>
+					<p class="mb-2">QUẢNG CÁO: 0888 xxx xxx</p>
+					<div class="d-flex align-items-end footer-social mt-0">
+				<ul class="list-inline mb-0 mt-2">
+				<li class="list-inline-item">
+				<a href="https://gmail.com" target="_blank">
+				<img src="/common/v3/images/ic-gmail.png" alt="icon gmail">
+				</a>
+				</li>
+				<li class="list-inline-item">
+				<a href="https://facebook.com" target="_blank">
+				<img src="/common/v3/images/ic-facebook-square.png" alt="icon facebook">
+				</a>
+				</li>
+				<li class="list-inline-item">
+				<a href="https://youtube.com" target="_blank">
+				<img src="/common/v3/images/ic-youtube.png" alt="icon youtube">
+				</a>
+				</li>
+				</ul>
+				</div>
+				</div>
+			</div>
+		</div>
+	</footer> *@
+	#endregion
+}

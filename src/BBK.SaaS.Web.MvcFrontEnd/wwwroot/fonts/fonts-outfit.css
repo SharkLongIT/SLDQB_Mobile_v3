@@ -1,0 +1,27 @@
+﻿/* Outfit-400 -  */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 400;
+  src:  url('./Outfit/Outfit-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+        url('./Outfit/Outfit-Regular.ttf') format('truetype'), /* Safari, Android, iOS */
+}
+/* Outfit-500 -  */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 500;
+  src:  url('./Outfit/Outfit-Medium.woff2') format('woff2'), /* Super Modern Browsers */
+        url('./Outfit/Outfit-Medium.ttf') format('truetype'), /* Safari, Android, iOS */
+}
+/* Outfit-700 -  */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 700;
+  src:  url('./Outfit/Outfit-Bold.woff2') format('woff2'), /* Super Modern Browsers */
+        url('./Outfit/Outfit-Bold.ttf') format('truetype'), /* Safari, Android, iOS */
+}

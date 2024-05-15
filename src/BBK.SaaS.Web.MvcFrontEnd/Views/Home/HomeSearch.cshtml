@@ -1,0 +1,33 @@
+﻿<div class="row widget-grid mt-3">
+    <div class="card background-light quick-jobs-search">
+        <div class="card-body">
+            @using (Html.BeginForm("Search", "JobUser", FormMethod.Get))
+            {
+                <div class="row d-flex justify-content-center">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="mb-3 m-form__group">
+                            <div class="input-group">
+                                <span class="input-group-text list-light-primary">
+                                    <i class="icofont icofont-pencil-alt-5 txt-primary"></i>
+                                </span>
+                                <input class="form-control" name="Filtered" type="text" placeholder="Nhập vị trí tuyển dụng">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <select class="js-example-basic-multiple" style="height: 38px;" multiple="multiple" data-placeholder="Tất cả địa điểm" id="WorkSite" name="WorkSite" asp-items="@ViewBag.listItemsTinhThanh">
+                        </select>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <select required class="form-control form-select" id="Job" name="job" asp-items="@ViewBag.listItemsKyThuat">
+                            <option value="0" selected>Tất cả ngành nghề</option>
+                        </select>
+                    </div>
+                    <div class="col-xl-2 col-md-6">
+                        <button type="submit" class="btn btn-primary btn-lg" style="float: left;">Tìm Kiếm</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -141,13 +141,21 @@
 
 	<ItemGroup>
 		<None Remove="Pages\GioiThieu\Index.razor.css" />
+		<None Remove="Pages\InforNTD\InforNTD.razor.css" />
 		<None Remove="Pages\NguoiTimViec\FilterModal.razor.css" />
 		<None Remove="Pages\NguoiTimViec\FilterModal.razor.js" />
+		<None Remove="Pages\NguoiTimViec\ThongTinNTV.razor.css" />
+		<None Remove="Pages\TrangChu\Index.razor.css" />
+		<None Remove="Pages\ViecTimNguoi\Index.razor.css" />
 		<None Remove="Platforms\Android\Resources\xml\network_security_config.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Content Include="Pages\GioiThieu\Index.razor.css" />
+	  <Content Include="Pages\InforNTD\InforNTD.razor.css" />
+	  <Content Include="Pages\NguoiTimViec\ThongTinNTV.razor.css" />
+	  <Content Include="Pages\TrangChu\Index.razor.css" />
+	  <Content Include="Pages\ViecTimNguoi\Index.razor.css" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -178,22 +186,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="wwwroot\plugins\global\fonts\%40fortawesome\fa-brands-400.woff2" />
-	  <None Include="wwwroot\plugins\global\fonts\%40fortawesome\fa-regular-400.woff2" />
-	  <None Include="wwwroot\plugins\global\fonts\%40fortawesome\fa-solid-900.woff2" />
-	  <None Include="wwwroot\plugins\global\fonts\%40fortawesome\fa-v4compatibility.woff2" />
-	  <None Include="wwwroot\plugins\global\fonts\bootstrap-icons\bootstrap-icons.woff2" />
-	  <None Include="wwwroot\plugins\global\fonts\fonticon\fonticon.scss" />
-	  <None Include="wwwroot\plugins\global\fonts\fonticon\fonticon.svg" />
-	  <None Include="wwwroot\plugins\global\fonts\fonticon\fonticon.woff2" />
-	  <None Include="wwwroot\plugins\global\fonts\line-awesome\la-brands-400.svg" />
-	  <None Include="wwwroot\plugins\global\fonts\line-awesome\la-brands-400.woff2" />
-	  <None Include="wwwroot\plugins\global\fonts\line-awesome\la-regular-400.svg" />
-	  <None Include="wwwroot\plugins\global\fonts\line-awesome\la-regular-400.woff2" />
-	  <None Include="wwwroot\plugins\global\fonts\line-awesome\la-solid-900.svg" />
-	  <None Include="wwwroot\plugins\global\fonts\line-awesome\la-solid-900.woff2" />
-	  <None Include="wwwroot\plugins\global\plugins.bundle.js" />
-	  <None Include="wwwroot\plugins\global\sourcemaps\tiny-slider.css.map" />
+	  <None Include="wwwroot\images\flags\__all_flags.zip" />
+	  <None Include="wwwroot\images\undraw\1.svg" />
+	  <None Include="wwwroot\images\undraw\2.svg" />
+	  <None Include="wwwroot\images\undraw\3.svg" />
+	  <None Include="wwwroot\images\undraw\4.svg" />
+	  <None Include="wwwroot\images\undraw\5.svg" />
+	  <None Include="wwwroot\images\undraw\6.svg" />
+	  <None Include="wwwroot\images\undraw\7.svg" />
+	  <None Include="wwwroot\images\undraw\_license_and_link.rtf" />
 	</ItemGroup>
 
 </Project>

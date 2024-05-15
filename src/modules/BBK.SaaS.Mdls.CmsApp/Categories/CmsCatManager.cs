@@ -10,6 +10,7 @@ using Abp.Linq;
 using Abp.UI;
 using Abp.Zero;
 using BBK.SaaS.Mdls.Cms.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BBK.SaaS.Mdls.Cms.Categories
 {
@@ -79,6 +80,22 @@ namespace BBK.SaaS.Mdls.Cms.Categories
 			ValidateCmsCat(contentCategory);
 			CmsCatRepository.Update(contentCategory);
 		}
+
+		public virtual async Task UpdateOrderIndexAsync(long? parentId, IReadOnlyList<long> sortedIds)
+        {
+            await UnitOfWorkManager.WithUnitOfWorkAsync(async () =>
+            {
+                var items = await CmsCatRepository.GetAll()
+                    .Where(ou => ou.ParentId == parentId).OrderBy(x => x.OrderIndex).ToListAsync();
+
+                for (int i = 0; i < sortedIds.Count; i++)
+                {
+                    var item = items.FirstOrDefault(x => x.Id == sortedIds[i]);
+                    if (item != null)
+                        item.OrderIndex = i;
+                }
+            });
+        }
 
 		public virtual async Task<string> GetNextChildCodeAsync(long? parentId)
 		{

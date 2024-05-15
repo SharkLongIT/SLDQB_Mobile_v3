@@ -1,0 +1,116 @@
+﻿/*.header {
+    background-color: #2093d0;
+    color: white;
+    width: 100%;
+    height: 60px;
+}*/
+body {
+    font-family: "Roboto",Arial, helvetica neue, Helvetica, sans-serif;
+}
+
+.icon-right {
+    margin-bottom: 11px;
+    margin-right: 4px;
+    margin-left: 4px;
+}
+a{
+    color:#000;
+}
+.header {
+    display: flex;
+    align-items: center;
+}
+
+span {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.progress-bar {
+    height: 10px;
+    display: block;
+    background-color: #4CAF50;
+}
+
+.infor {
+    margin-bottom: 4px;
+    
+}
+.description {
+    white-space: pre-line;
+}
+
+.infor1 {
+    margin-bottom: -7px;
+}
+
+.progress-bar-container {
+    margin-top: 5px;
+}
+
+hr {
+    border: dashed;
+}
+
+.card-header {
+    background-color: #2bb5cf;
+    height: 30px;
+    width: 100%;
+}
+
+.icon {
+    font-size: 18px;
+    margin-right: 7px;
+    /* color: #fff;
+    text-align: center;*/
+}
+
+.skill-bar {
+    width: 211px;
+    height: 10px;
+    background-color: #e0e0e0;
+    margin-top: 3px;
+}
+
+    .skill-bar .progress {
+        height: 100%;
+        background-color: #4caf50;
+    }
+
+.point {
+    margin-left: 4px;
+}
+
+.infor-lock {
+    margin-left: 4px;
+}
+
+.fa-lock {
+    margin-top: 2px;
+}
+/*.information-user {
+    border-left: 1px solid #2bb5cf;
+    padding-left: 15px;
+    margin-left: 15px;
+}
+
+.bg-information {
+    position: relative;
+    background-color: #2bb5cf;
+    width: 36px;
+    text-align:center;
+    height: 35px;
+    margin-right: 5px;
+}*/
+.add-exp {
+    margin-left: auto;
+    margin-top: -6px;
+}
+.fa-plus-circle {
+    margin-top: -8px;
+    font-size: 15px;
+}
+.add-process {
+    margin-left: auto;
+    margin-top: -6px;
+}

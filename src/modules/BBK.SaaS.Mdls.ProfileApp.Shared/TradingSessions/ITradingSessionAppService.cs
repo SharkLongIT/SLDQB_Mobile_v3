@@ -16,5 +16,6 @@ namespace BBK.SaaS.Mdls.Profile.TradingSessions
         Task Delete(long? Id);
 
         Task<TradingSessionEditDto> GetById(NullableIdDto<long> input);
+        Task<PagedResultDto<TradingSessionEditDto>> GetAllUnitOfWork();
     }
 }

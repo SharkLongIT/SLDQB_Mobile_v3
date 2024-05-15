@@ -7,6 +7,7 @@ using BBK.SaaS.Mdls.Cms.Entities;
 using BBK.SaaS.Mdls.Profile.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using static BBK.SaaS.Mdls.Profile.Reports.Dto.ReportDto;
@@ -55,10 +56,47 @@ namespace BBK.SaaS.Mdls.Profile.Reports
             for (int i = 1; i <= day; i++)
             {
                 ReportList reportList = new ReportList();
-                reportList.Date = i + "/" + month + "/" + year;
+                reportList.Date = i.ToString();
                 reportList.CountRecruiment = UserList.Where(x => x.UserType.Equals(UserTypeEnum.Type1) && x.CreationTime.Day == i && x.CreationTime.Month == month && x.CreationTime.Year == year).Count();
                 reportList.CountCandidate = UserList.Where(x => x.UserType.Equals(UserTypeEnum.Type2) && x.CreationTime.Day == i && x.CreationTime.Month == month && x.CreationTime.Year == year).Count();
                 returnObject.ListReport.Add(reportList);
+            }
+            return returnObject;
+        }
+
+        /// <summary>
+        /// biểu đồ hoạt động theo năm
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <returns></returns>
+        public async Task<ReportArray> GetReportWebsiteByYear(int ToYear, int FromYear)
+        {
+            ReportArray returnObject = new ReportArray();
+
+            if(ToYear == FromYear) 
+            {
+                var UserList = (await _User.GetAllListAsync()).Where(x => x.CreationTime.Year == ToYear).ToList();
+                for (int i = 1; i <= 12; i++)
+                {
+                    ReportList reportList = new ReportList();
+                    reportList.Date = i + "/" + ToYear;
+                    reportList.CountRecruiment = UserList.Where(x => x.UserType.Equals(UserTypeEnum.Type1) &&x.CreationTime.Month == i && x.CreationTime.Year == ToYear).Count();
+                    reportList.CountCandidate = UserList.Where(x => x.UserType.Equals(UserTypeEnum.Type2) && x.CreationTime.Month == i && x.CreationTime.Year == ToYear).Count();
+                    returnObject.ListReport.Add(reportList);
+                }
+            }
+            else
+            {
+                var UserList = (await _User.GetAllListAsync()).Where(x => x.CreationTime.Year >= ToYear && x.CreationTime.Year <= FromYear).ToList();
+                for (int i = ToYear; i <= FromYear; i++)
+                {
+                    ReportList reportList = new ReportList();
+                    reportList.Date = i.ToString();
+                    reportList.CountRecruiment = UserList.Where(x => x.UserType.Equals(UserTypeEnum.Type1) &&  x.CreationTime.Year == i).Count();
+                    reportList.CountCandidate = UserList.Where(x => x.UserType.Equals(UserTypeEnum.Type2) && x.CreationTime.Year == i).Count();
+                    returnObject.ListReport.Add(reportList);
+                }
             }
             return returnObject;
         }
@@ -246,6 +284,19 @@ namespace BBK.SaaS.Mdls.Profile.Reports
 
         }
 
+
+        /// <summary>
+        /// export excel bieu do hoat dong website theo năm
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <returns></returns>
+        public async Task<FileDto> ExportReportWebsiteByYear(int ToYear, int FromYear)
+        {
+            var res = await GetReportWebsiteByYear(ToYear, FromYear);
+            return await _exportAppService.ExportForReportWebsiteByYear(ToYear, FromYear, res);
+        }
+
         /// <summary>
         /// export excel bieu do so luong tin tuc
         /// </summary>
@@ -283,11 +334,38 @@ namespace BBK.SaaS.Mdls.Profile.Reports
         {
             var res = await GetReportArticleApex(StartTime, EndTime);
             return await _exportAppService.ExportForReportArticleApex(StartTime, EndTime, res);
-
         }
         #endregion
 
 
+
+
+        public async Task<ReportArray> GetAllReportArticle()
+        {
+            using var uow = UnitOfWorkManager.Begin();
+
+            using (CurrentUnitOfWork.SetTenantId(AbpSession.TenantId ?? 1))
+            {
+
+                ReportArray returnObject = new ReportArray();
+
+                var CatArticle = _CmsCatArticle.GetAll().Include(x => x.Article).ToList();
+
+                var ArrayCat = (await _CmsCat.GetAllListAsync()).ToList();
+
+                foreach (var CmsCat in ArrayCat)
+                {
+                    ReportListArticle reportListArticle = new ReportListArticle();
+                    reportListArticle.Cat = CmsCat.DisplayName;
+                    reportListArticle.CountArticle = CatArticle.Where(x => x.CmsCatId == CmsCat.Id).Select(x => x.ArticleId).Count();
+                    reportListArticle.Slug = CmsCat.Slug;
+                    returnObject.ReportListArticle.Add(reportListArticle);
+                }
+
+                return returnObject;
+
+            }
+        }
 
     }
 }

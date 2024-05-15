@@ -1,0 +1,97 @@
+﻿@using BBK.SaaS.Mobile.MAUI.Services.UI
+@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/" + NavigationUrlConsts.DSCauHoi)]
+
+@* <div class="row align-items-center mt-1 m-0 ">
+    <div class="col-xl-12">
+        <div class="align-items-center">
+            <div class="card">
+                <div class="card-body filter">
+                    <input type="search" id="searchInput" @bind="_filter.Search" class="form-control input-filter" placeholder="@L("Nhập từ khoá cần tìm kiếm")">
+                    <br />
+                    <select class="form-select" @onchange="selectStatus" id="Status" name="Status">
+                        <option value="0" selected="">Trạng thái</option>
+                        <option value="1">Đã trả lời</option>
+                        <option value="2">Chưa trả lời</option>
+                    </select>
+                    <div class="mt-3  d-flex justify-content-center">
+                        <button @onclick="RefeshList" class="btn btn-filter" type="button">
+                            <i class="fa fa-search" style="color: white" aria-label="Search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div> *@
+
+<div class="content mt-2  search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important; ">
+    <i class="fa fa-search"></i>
+    <input type="search" class="border-0" @bind="_filter.Search" placeholder="Tìm kiếm thông tin" @oninput="selectedValue">
+</div>
+
+@if (isError)
+{
+    <div class="card card-style">
+        <div class="content">
+            <div class="text-error">
+                <h3>Không tìm thấy kết quả!!!</h3>
+                <span class="mt-2">Thử tìm kiếm với từ khoá khác.</span>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+
+    <Virtualize @ref="contactContainer" Context="contact" ItemsProvider="@LoadContact" ItemSize="100">
+        <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3" style="background-color:#FFF !important; ">
+            <div class="d-flex">
+                <div>
+                    <h5 class="font-700 text-uppercase">
+                        Nội dung:  @contact.Description
+                    </h5>
+                    <div>
+                        <span class="font-12">
+                            Ngày gửi: @contact.CreationTime
+                        </span>
+                    </div>
+                    <div>
+                        <span class="font-12">
+                            Ngày trả lời: @contact.LastModificationTime
+                        </span>
+                    </div>
+                    @if (contact.Status == true)
+                    {
+                        <div>
+                            <span class="badge bg-blue-dark text-uppercase font-12 ml-3">
+                                Đã trả lời
+                            </span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <span class="badge bg-gray-dark text-uppercase font-12 ml-3">
+                                Chưa trả lời
+                            </span>
+                        </div>
+                    }
+                </div>
+                <div class="ms-auto">
+                    @* <i class="fa-solid fa-caret-down float-end" @onclick="(() => DisPlayAction(contact))"></i> *@
+                    <a data-bs-toggle="dropdown" class="icon icon-m color-theme"><i class="fa fa-ellipsis-h float-end" style="margin-top: -10px"></i></a>
+                    <div class="dropdown-menu border-0 bg-theme rounded-m shadow-xl px-2 mt-n4">
+                        <div class="list-group list-custom-small mt-n2 mb-n2">
+                            <a @onclick="(() => ViewContact(contact))" data-menu="menu-archive"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Xem chi tiết<i class="fa"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </Virtualize>
+}
+<BBK.SaaS.Mobile.MAUI.Pages.InforNLD.ViewContactModal OnSave="RefeshList" @ref=contactModal></BBK.SaaS.Mobile.MAUI.Pages.InforNLD.ViewContactModal>
+

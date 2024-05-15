@@ -1,0 +1,103 @@
+﻿@section Scripts
+{
+    <script src="/view-resources/Views/UserJob/UserJob.js" asp-append-version="true"></script>
+}
+<link rel="stylesheet" href="~/view-resources/Profile/Candidate/UserJob.min.css">
+<div class="page-body">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="user-profile">
+            <div class="row">
+                <!-- user profile first-style start-->
+                <nav>
+                    <ol class="breadcrumb justify-content-sm-start align-items-center mb-0"
+                        style="margin-bottom: 32px !important;">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                     stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item f-w-400 active">Trang chủ</li>
+                        <li class="breadcrumb-item f-w-400">Người tìm việc</li>
+                    </ol>
+                </nav>
+                <div class="col-sm-12">
+                    <div class="card hovercard text-center">
+                        <!-- xóa thẻ div user profile-->
+                        <div class="info" name="filterAdvanced">
+                            <div class="row d-flex justify-content-end">
+                                <div class="col-sm-3 col-lg-3 order-sm-0 order-xl-1 mb-2">
+                                    <select class="form-select" id="Gender">
+                                        <option value="" selected="">Giới tính</option>
+                                        <option value="1">@L("Male")</option>
+                                        <option value="2">@L("Female")</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3 col-lg-3 order-sm-0 order-xl-1 mb-2">
+                                    <select class="form-select" id="WorkSite" name="location">
+                                        <option value="" selected="">Tất cả địa điểm</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3 col-lg-3 order-sm-2 order-xl-2 mb-2">
+                                    <select required class="form-control" id="ExperiencesId" name="ExperiencesId" asp-items="@ViewBag.Experiences">
+                                        <option value="0" selected>Tất cả kinh nghiệm</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2 col-lg-2 order-sm-2 order-xl-2">
+                                </div>
+                                <!-- xóa thẻ div social media-->
+                                <!-- xóa thẻ follower và following-->
+                            </div>
+                            <div class="row d-flex justify-content-end">
+                                <div class="col-sm-3 col-lg-3 order-sm-1 order-xl-0 mb-2">
+                                    <select required class="form-control" id="LiteracyId" name="LiteracyId" asp-items="@ViewBag.listItemsCatUnitLiteracy">
+                                        <option value="0" selected>Tất cả bằng cấp</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3 col-lg-3 order-sm-0 order-xl-1 mb-2">
+                                    <select required class="form-control" id="OccupationId" name="OccupationId" asp-items="@ViewBag.listItemsKyThuat">
+                                        <option value="0" selected>Tất cả ngành nghề</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3 col-lg-3 order-sm-2 order-xl-2 mb-2">
+                                    <select disabled class="form-select" id="selectToastPlacement">
+                                        <option value="">Tất cả mức lương</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-sm-3 col-lg-2 order-sm-2 order-xl-2">
+                                    <button type="button" class="btn btn-primary btn-lg"> @L("Search")</button>
+                                </div>
+                                <!-- xóa thẻ div social media-->
+                                <!-- xóa thẻ follower và following-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- user profile first-style end-->
+                    <!-- user profile second-style start-->
+                    <div class="col-sm-6">
+                        <!-- icon in heading -->
+
+                    </div>
+                </div>
+                <h3 style="color:#7a70ba;" :"violet"><b>Người tìm việc</b></h3>
+                <hr>
+                <div class="job-apps row">
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <div class="job-pagination">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination pagination-primary">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

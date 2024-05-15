@@ -1,0 +1,95 @@
+﻿@using BBK.SaaS
+@using BBK.SaaS.Web.Areas.App.Startup
+
+@section Scripts
+{
+    <script abp-src="/assets/Charts/google-chart-loader.min.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Profile/Report/LineChart.js" asp-append-version="true"></script>
+}
+
+<div class="page-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 box-col-12">
+                <div class="card">
+                    <div class="card-header" style="text-transform:none">
+                        <h4>Hoạt động của website</h4>
+                    </div>
+                    <div class="card-body chart-block">
+                        <div class="row">
+                            <div class="col-md-4">
+                            Hiển thị biểu đồ theo :
+                            <select class="form-control form-select mt-auto" id="Type" name="Type">
+                                    <option value="0" selected>Tháng</option>
+                                    <option value="1">Năm</option>
+                            </select>
+                            </div>
+                        </div>
+                      
+                        <!--Tim kiem theo thang-->
+                        <div class="row mt-5"  id="ReportMonth">
+                            <div class="col-md-4">
+                                <input id="Year" name="Year" value="@DateTime.Now.Year" class="form-control" type="number" placeholder="Nhập năm" />
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control form-select" id="Month" name="Month">
+                                    <option value="1">Tháng 1</option>
+                                    <option value="2">Tháng 2</option>
+                                    <option value="3">Tháng 3</option>
+                                    <option value="4">Tháng 4</option>
+                                    <option value="5">Tháng 5</option>
+                                    <option value="6">Tháng 6</option>
+                                    <option value="7">Tháng 7</option>
+                                    <option value="8">Tháng 8</option>
+                                    <option value="9">Tháng 9</option>
+                                    <option value="10">Tháng 10</option>
+                                    <option value="11">Tháng 11</option>
+                                    <option value="12">Tháng 12</option>
+                                </select>
+                            </div>
+                         <div class="col-md-2">
+                            <button class="btn btn-primary" id="btnSearch">
+                                    <i class="fas fa-search mr-1"></i>
+                                @L("Tìm kiếm")
+                            </button>
+                         </div>
+                        <div class="col-md-2">
+                                <button class="btn btn-success" id="btnExcel">
+                                <i class="fas fa-file-export mr-1"></i>
+                                @L("Xuất Excel")
+                            </button>
+                        </div>
+                        </div>
+
+
+                          <!--Tim kiem theo nam-->
+                        <div class="row mt-5" id="ReportYear">
+                             <div class="col-md-4">
+                                <input id="ToYear" class="form-control" value="@DateTime.Now.Year" type="number" placeholder="Nhập năm"/>
+                            </div>
+                             <div class="col-md-4">
+                                <input id="FromYear" class="form-control" type="number" value="@DateTime.Now.Year" placeholder="Nhập năm"/>
+                            </div>
+                         <div class="col-md-2">
+                            <button class="btn btn-primary" id="btnSearchYear">
+                                    <i class="fas fa-search mr-1"></i>
+                                @L("Tìm kiếm")
+                            </button>
+                         </div>
+                        <div class="col-md-2">
+                                <button class="btn btn-success" id="btnExcelYear">
+                                <i class="fas fa-file-export mr-1"></i>
+                                @L("Xuất Excel")
+                            </button>
+                        </div>
+                        </div>
+                        <input type="hidden" value="@ViewBag.Year" id="YearNow" />
+                        <input type="hidden" value="@ViewBag.Month" id="MonthNow" />
+                        <div class="chart-overflow mt-3" id="line-chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+    </div>
+</div>

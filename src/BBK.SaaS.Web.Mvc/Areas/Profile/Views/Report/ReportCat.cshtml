@@ -1,0 +1,56 @@
+﻿@using BBK.SaaS
+@using BBK.SaaS.Web.Areas.App.Startup
+
+@section Scripts
+{
+    <script abp-src="/assets/Charts/google-chart-loader.min.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Profile/Report/FieldChart.js" asp-append-version="true"></script>
+}
+
+<div class="page-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 box-col-12">
+                <div class="card">
+                    <div class="card-header" style="text-transform:none">
+                        <h4>Thống kê theo lĩnh vực</h4>
+                    </div>
+                    <div class="card-body chart-block">
+                         <div class="row">
+                            <div class="col-md-4">
+                            Hiển thị biểu đồ theo :
+                            <select required class="form-control form-select" id="Type">
+                                    <option value="1" selected>Tin tuyển dụng</option>
+                                    <option value="2">Người lao động</option>
+                                </select>
+                            </div>
+                        </div>
+                         <div class="row mt-5">
+                            <div class="col-md-4">
+                                <label for="Title" class="form-label">@L("Từ ngày")</label>
+                                <input id="StartTime" class="form-control"  value="@DateTime.Now.AddDays(-30).ToString("yyyy-MM-dd")" type="date">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="Title" class="form-label">@L("Đến ngày")</label>
+                                <input id="EndTime" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="date">
+                            </div>
+                            <div class="col-md-2 mt-auto">
+                                <button class="btn btn-primary" id="btnSearchArticle">
+                                    <i class="fas fa-search mr-1"></i>
+                                    @L("Tìm kiếm")
+                                </button>
+                            </div>
+                            <div class="col-md-2 mt-auto">
+                                <button class="btn btn-success" id="btnExcelCat">
+                                    <i class="fas fa-file-export mr-1"></i>
+                                    @L("Xuất Excel")
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart-overflow" id="column-chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

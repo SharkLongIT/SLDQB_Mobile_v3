@@ -7,7 +7,6 @@ using BBK.SaaS.Mdls.Profile.Recruiters.Dto;
 using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.Services.Navigation;
 using Castle.MicroKernel.Registration;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System;
 using System.Collections.Generic;
@@ -41,6 +40,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
         }
         protected override async Task OnInitializedAsync()
         {
+            await SetPageHeader(L("Danh sách tin giới thiệu của tôi"));
         }
         private async Task RefeshList()
         {
@@ -52,13 +52,14 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
             StateHasChanged();
             await LoadIntroduce(new ItemsProviderRequest());
         }
-        public async void selectedValue(ChangeEventArgs args)
+        private async Task CancelList()
         {
-            string select = Convert.ToString(args.Value);
-            _Search = select;
+            _Search = "";
+            _Status = null;
+            _IsCancelList = false;
             await IntroduceContainer.RefreshDataAsync();
             StateHasChanged();
-
+            await LoadIntroduce(new ItemsProviderRequest());
         }
         private async ValueTask<ItemsProviderResult<IntroduceEditDto>> LoadIntroduce(ItemsProviderRequest request)
         {
@@ -103,7 +104,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
         }
         public async Task ViewArticle(IntroduceEditDto introduceEditDto)
         {
-            navigationService.NavigateTo($"ArticleDetail?Id={introduceEditDto.Article.Id}");
+            navigationService.NavigateTo($"ArticleDetailHome?Id={introduceEditDto.Article.Id}&PrimaryImageUrl={introduceEditDto.Article.PrimaryImageUrl}");
 
         }
         private async void DisPlayAction(IntroduceEditDto introduceEditDto)

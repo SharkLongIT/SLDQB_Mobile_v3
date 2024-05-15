@@ -1,81 +1,143 @@
-﻿using Abp.UI;
-using BBK.SaaS.ApiClient;
+﻿using BBK.SaaS.ApiClient;
 using BBK.SaaS.Authorization.Accounts;
 using BBK.SaaS.Authorization.Accounts.Dto;
-using BBK.SaaS.Authorization.Users;
-using BBK.SaaS.Authorization.Users.Dto;
 using BBK.SaaS.Core.Dependency;
 using BBK.SaaS.Core.Threading;
-using BBK.SaaS.LienHeHoiDap;
-using BBK.SaaS.Mobile.MAUI.Models.User;
 using BBK.SaaS.Mobile.MAUI.Services.UI;
 using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.Services.Account;
-using Microsoft.AspNetCore.Components;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.Register
 {
     public partial class Index : SaaSComponentBase
     {
-        //protected UserCreateOrUpdateModel Model = new();
-     protected RegisterInput Model = new RegisterInput();
+        public string UserName
+        {
+            get => _accountService.AbpAuthenticateModel.UserNameOrEmailAddress;
+            set
+            {
+                _accountService.AbpAuthenticateModel.UserNameOrEmailAddress = value;
+            }
+        }
 
-        protected UserEditDto UserInput = new UserEditDto();
-        protected IUserAppService UserAppService;
-        protected ProxyAccountAppService ProxyAccountAppService;
-        protected IUserTypeAppService UserTypeAppService;
+        public string Password
+        {
+            get => _accountService.AbpAuthenticateModel.Password;
+            set
+            {
+                _accountService.AbpAuthenticateModel.Password = value;
+            }
+        }
+
+        private IAccountService _accountService;
+        private IAccountAppService _accountAppService;
+        private IApplicationContext _applicationContext;
+
+        //SwitchTenantModal switchTenantModal;
+        //EmailActivationModal emailActivationModal;
+        //ForgotPasswordModal forgotPasswordModal;
+
+        public string CurrentTenancyNameOrDefault => _applicationContext.CurrentTenant != null
+        ? _applicationContext.CurrentTenant.TenancyName
+        : L("Chưa chọn");
+
+
         public Index()
         {
-            UserAppService = DependencyResolver.Resolve<IUserAppService>();
-            ProxyAccountAppService = DependencyResolver.Resolve<ProxyAccountAppService>();
-            UserTypeAppService = DependencyResolver.Resolve<IUserTypeAppService>();
+            _accountService = DependencyResolver.Resolve<IAccountService>();
+            _accountAppService = DependencyResolver.Resolve<IAccountAppService>();
+            _applicationContext = DependencyResolver.Resolve<IApplicationContext>();
         }
-        public async Task IsUserType1()
+
+        protected override async Task OnInitializedAsync()
         {
-            //Model.User.UserType = UserTypeEnum.Type1;
+            await _accountService.LogoutAsync();
+            _accountService.AbpAuthenticateModel.TwoFactorVerificationCode = "";
         }
-        public async Task IsUserType2()
+
+        private async Task LoginUser()
         {
-            //Model.User.UserType = UserTypeEnum.Type2;
+            await _accountService.LoginUserAsync();
         }
-        int tenantId;
-        private async Task RegisterUser()
+
+        //private async Task SwitchTenantButton()
+        //{
+        //    await switchTenantModal.Show();
+        //}
+
+        //private async Task EmailActivationButton()
+        //{
+        //    await emailActivationModal.Show();
+        //}
+
+        //private async Task ForgotPasswordButton()
+        //{
+        //    await forgotPasswordModal.Show();
+        //}
+
+        public async Task OnSwitchTenantSave(string tenantName)
         {
-            try
+            if (string.IsNullOrEmpty(tenantName))
             {
-                tenantId = 1;
-                UserInput.Name = "Pham Van Dong";
-                UserInput.UserType = UserTypeEnum.Type1;
-                UserInput.Password = "123qwe";
-                UserInput.EmailAddress = "dongpham@gmail.com";
-
-                //Model.UserName = Model.EmailAddress;
-                //Model.Surname = "Phạm";
-                await SetBusyAsync(async () =>
-                {
-                    //if (!await ValidateInput())
-                    //{
-                    //    return;
-                    //}
-                    await WebRequestExecuter.Execute(
-                      async () => await UserTypeAppService.Register(tenantId, UserInput),
-                      async () =>
-                      {
-                          //Model = new ContactModel();
-                          await UserDialogsService.AlertSuccess(L("Đăng ký tài khoản thành công!"));
-                          //await Hide();
-                          //await OnSave.InvokeAsync();
-                      }
-                   ); ;
-                });
-
-
+                _applicationContext.SetAsHost();
+                ApiUrlConfig.ResetBaseUrl();
             }
-            catch (Exception ex)
+            else
             {
-
-                throw new UserFriendlyException(ex.Message);
+                await SetTenantAsync(tenantName);
             }
+        }
+
+        private async Task SetTenantAsync(string tenancyName)
+        {
+            await SetBusyAsync(async () =>
+            {
+                await WebRequestExecuter.Execute(
+                    async () => await _accountAppService.IsTenantAvailable(
+                        new IsTenantAvailableInput { TenancyName = tenancyName }),
+                    result => IsTenantAvailableExecuted(result, tenancyName)
+                );
+            });
+        }
+
+        private async Task IsTenantAvailableExecuted(IsTenantAvailableOutput result, string tenancyName)
+        {
+            var tenantAvailableResult = result;
+
+            switch (tenantAvailableResult.State)
+            {
+                case TenantAvailabilityState.Available:
+                    _applicationContext.SetAsTenant(tenancyName, tenantAvailableResult.TenantId.Value);
+                    ApiUrlConfig.ChangeBaseUrl(tenantAvailableResult.ServerRootAddress);
+                    break;
+                case TenantAvailabilityState.InActive:
+                    await UserDialogsService.UnBlock();
+                    await UserDialogsService.AlertError(L("TenantIsNotActive", tenancyName));
+                    break;
+                case TenantAvailabilityState.NotFound:
+                    await UserDialogsService.UnBlock();
+                    await UserDialogsService.AlertError(L("ThereIsNoTenantDefinedWithName{0}", tenancyName));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        //public async Task OnEmailActivation()
+        //{
+        //    await emailActivationModal.Hide();
+        //    await UserDialogsService.AlertSuccess(L("SendEmailActivationLink_Information"));
+        //}
+
+        //public async Task OnForgotPassword()
+        //{
+        //    await forgotPasswordModal.Hide();
+        //    await UserDialogsService.AlertSuccess(L("PasswordResetMailSentMessage"));
+        //}
+
+        private void OnLanguageSwitchAsync()
+        {
+            StateHasChanged();
         }
     }
 }

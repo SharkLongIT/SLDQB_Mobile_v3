@@ -3,67 +3,26 @@
 @attribute [Route("/" + NavigationUrlConsts.TinTuc)]
 
 
-<div class="card card-style">
-    <div class="content">
-        <div class="d-flex" style=" overflow-x: auto;
-    white-space: nowrap;">
-            <Virtualize @ref="CmsContainer" Context="cmsCats" ItemsProvider="@LoadCategories">
-                <a href="javascript:;" @onclick="(() => GetArticleByCategory(cmsCats))">
-                    <span class=" badge bg-green-dark text-uppercase font-12" style=" margin-left: 5px;">@cmsCats.DisplayName</span>
-                </a>
-            </Virtualize>
-        </div>
-    </div>
-</div>
-
-
-
-<div class="content mt-n4  search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important">
-    <i class="fa fa-search" @* @onclick="RefeshList" *@></i>
-    <input type="search" class="border-0" @bind="_filterArticle.Filter" placeholder="Tìm kiếm thông tin" @oninput="selectedValue">
-    <a href="#" class="clear-search disabled mt-0"><i class="fa fa-times color-red-dark"></i></a>
-</div>
-@if (isError == true)
-{
-    <div class="card card-style">
-        <div class="content">
-            <div class="text-error">
-                <h3>Không tìm thấy kết quả!!!</h3>
-                <span class="mt-2">Thử tìm kiếm với từ khoá khác.</span>
+<Virtualize @ref="ArticlesContainer" Context="articles" ItemsProvider="@LoadArticles" ItemSize="100">
+    <a href="javascript:;" @onclick="(() => ViewArticle(articles))">
+        <div class="card article">
+            <div class="d-flex">
+                <div>
+                    <img class="card-img-top" src="@articles.PrimaryImageUrl" />
+                </div>
+                <div class="ms-3">
+                    <div class="title">
+                        <h4>@articles.Title</h4>
+                    </div>
+                    <div class="author">
+                        <span>@articles.Author</span>
+                    </div>
+                    <div class="short-desc">
+                        <span>@articles.ShortDesc</span>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-}
-else
-{
-    <div class="card card-style">
-        <div class="content">
-            <div class="mt-4">
-                <Virtualize @ref="ArticlesContainer" Context="articles" ItemsProvider="@LoadArticles" ItemSize="100">
-                    <a href="javascript:;" @onclick="(() => ViewArticle(articles))" class="pb-3">
-                        <div class="d-flex">
-                            <div>
-                                <img src="@articles.PrimaryImageUrl" class="rounded-sm me-3" width="80">
-                            </div>
-                            <div class="w-100">
+    </a>
+</Virtualize>
 
-                                <p class="mt-n2 mb-2">
-                                    <strong>
-                                        @articles.Title
-                                    </strong>
-                                </p>
-                                <p>
-                                    @articles.Author - @articles.Modified.ToShortDateString()<span class="d-block float-end color-blue-dark font-11">
-                                        Chi
-                                        tiết
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="divider mb-2 mt-2"></div>
-                </Virtualize>
-            </div>
-        </div>
-    </div>
-}

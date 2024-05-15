@@ -825,6 +825,26 @@ namespace BBK.SaaS.Mdls.Profile.Candidates
             return jobApplication;
         }
 
+        public async Task<int> CountJob()
+        {
+            using var uow = UnitOfWorkManager.Begin();
+
+            using (CurrentUnitOfWork.SetTenantId(1))
+            {
+                try
+                {
+                    var List = (await _jobApplicationRepo.GetAllListAsync()).Where(x => x.IsPublished == true).ToList();
+                    return List.Count();
+                }
+                catch (Exception) {return 0; }
+                finally
+                {
+                    await uow.CompleteAsync();
+                }
+               
+            }
+        }
+
         #region Mobile/Frontend
         public async Task<PagedResultDto<GetJobApplicationForEditOutput>> GetAllJobAppsMobile(JobAppSearch input)
         {

@@ -14,7 +14,7 @@ namespace BBK.SaaS.Mdls.Cms.Introduces
         Task<long> Create(IntroduceEditDto input);
         Task<long> Update(IntroduceEditDto input);
         Task Delete(long? Id);
-        int GetCountByUserId();
+        Task<int> GetCountByUserId();
         Task<PagedResultDto<IntroduceEditDto>> GetAllByUserType(IntroduceSearch input);
 
 

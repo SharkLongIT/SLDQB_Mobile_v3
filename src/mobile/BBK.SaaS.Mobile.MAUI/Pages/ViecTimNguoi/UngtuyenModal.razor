@@ -1,34 +1,50 @@
 ﻿@inherits ModalBase
-
-<div id="@ModalId" class="menu menu-box-modal rounded-m" data-menu-width="330">
-    <div class="content">
-        <div class="d-flex">
-            <h1>@L("Ứng tuyển công việc")</h1>
-            <div class="ms-auto">
-                <a class="close-menu" @onclick="Hide"><i class="fa fa-times"></i></a>
+<div class="modal fade" id="@ModalId" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded">
+            <div class="modal-body scroll-y pt-10 pb-10">
+                @if (_isInitialized)
+                {
+                    <div class="mb-13 text-center">
+                        <h1 class="mb-3">@L("Ứng tuyển công việc")</h1>
+                    </div>
+                    <div class="card shadow-sm p-0 m-0">
+                        <div class="card-body d-flex flex-column py-10 m-0">
+                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container ">
+                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">
+                                        @L("Chọn hồ sơ phỏng vấn")
+                                    </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                                </label>
+                                <select required="required" class="form-control" @bind="Model.JobApplicationId" >
+                                    <option value="0">@L("Chọn hồ ứng tuyển")</option>
+                                    @foreach (var item in JobApplicationEditDto)
+                                    {
+                                        <option value="@item.Id">
+                                            @item.Title
+                                        </option>
+                                    }</select>
+                            </div>
+                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">
+                                        @L("Nội dung gửi đến nhà tuyển dụng")
+                                    </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                                </label>
+                                <textarea rows="3" class="form-control form-control-solid" @bind="Model.Content"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-8">
+                        <button type="reset" data-dismiss="modal" class="btn btn-light me-3" @onclick="Hide">@L("Đóng")</button>
+                        <button type="button" class="btn" style="background-color: #00b14f;" @onclick="SaveBookJob">
+                            <span class="indicator-label" style="color: white">@L("Ứng tuyển")</span>
+                        </button>
+                    </div>
+                }
             </div>
         </div>
-        @if (_isInitialized)
-        {
-            <h5>@L("Chọn hồ sơ phỏng vấn")</h5>
-            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
-                <select required="required" class="form-control" @bind="Model.JobApplicationId">
-                    <option value="0">@L("Chọn hồ ứng tuyển")</option>
-                    @foreach (var item in JobApplicationEditDto)
-                    {
-                        <option value="@item.Id">
-                            @item.Title
-                        </option>
-                    }
-                </select>
-            </div>
-            <h5>  @L("Nội dung gửi đến nhà tuyển dụng")</h5>
-            <div class="input-style has-borders no-icon mb-4">
-                <textarea id="form7" @bind="Model.Content"></textarea>
-                <label for="form7" class="color-highlight"> @L("Nội dung gửi đến nhà tuyển dụng")</label>
-                <em class="mt-n3">(bắt buộc)</em>
-            </div>
-            <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveBookJob">Ứng tuyển</a>
-        }
     </div>
 </div>

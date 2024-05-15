@@ -1,0 +1,179 @@
+﻿@using BBK.SaaS.Authorization.Delegation
+@using Abp.Timing
+@model BBK.SaaS.Web.Areas.App.Models.Layout.UserMenuViewModel
+@inject IUserDelegationConfiguration UserDelegationConfiguration
+
+@if (Model != null && Model.LoginInformations != null && Model.LoginInformations.User != null)
+{
+    <nav class="primary-menu with-arrows  ">
+        <ul class="menu-container">
+
+            <li class="menu-item">
+
+                <div class="d-flex profile-media align-items-center">
+                    <div id="top-search" class="header-misc-icon">
+                        <a href="#" id="top-search-trigger">
+                            <i class="uil uil-search"></i><i class="bi-x-lg"></i>
+                        </a>
+                    </div><!-- #top-search end -->
+                    @if (Model.RenderOnlyIcon)
+                    {
+                        <div href="#" class="@Model.AnchorCssClass" id="kt_quick_user_toggle" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                            <span class="symbol symbol-30px">
+                                <!--begin::Svg Icon | path: /var/www/preview.keenthemes.com/kt-products/docs/metronic/html/releases/2022-09-15-053640/core/html/src/media/icons/duotune/communication/com013.svg-->
+                                <span class="svg-icon svg-icon-muted svg-icon-2">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6.28548 15.0861C7.34369 13.1814 9.35142 12 11.5304 12H12.4696C14.6486 12 16.6563 13.1814 17.7145 15.0861L19.3493 18.0287C20.0899 19.3618 19.1259 21 17.601 21H6.39903C4.87406 21 3.91012 19.3618 4.65071 18.0287L6.28548 15.0861Z" fill="currentColor" />
+                                        <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="currentColor" />
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </span>
+                        </div>
+                    }
+                    else
+                    {
+                        <img class="img-30 @Model.ProfileImageCssClass" src="@Url.Action("GetProfilePicture", "Profile", new {area = string.Empty})?t=@Clock.Now.Ticks.ToString()" style="max-width:10%" alt="user">
+                    }
+
+                    <div class="flex-grow-1">
+                        <span>@Html.Raw(Model.GetShownLoginName())</span>
+                        <p class="mb-0 font-outfit">@Model.LoginInformations.User.EmailAddress<i class="fa fa-angle-down"></i></p>
+                    </div>
+                </div>
+                <ul class="sub-menu-container">
+                    @if (Model.LoginInformations.User.UserType == BBK.SaaS.Authorization.Users.UserTypeEnum.Type1)
+                    {
+                        <li class="menu-item">
+                            <a href="@Url.Action("RecruiterInfo", "Recruiters", new {area = "Profile"})" class="menu-link">
+                                <span class="menu-icon">
+                                    <span class="svg-icon svg-icon-muted svg-icon-1">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z"
+                                                  fill="currentColor" />
+                                            <path opacity="0.3"
+                                                  d="M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z"
+                                                  fill="currentColor" />
+                                        </svg>
+                                    </span>
+                                </span>
+                                @(new FixedLocalizableString("Tài khoản"))
+                            </a>
+                        </li>
+                    }
+                    @if (Model.LoginInformations.User.UserType == BBK.SaaS.Authorization.Users.UserTypeEnum.Type2)
+                    {
+                        <li class="menu-item">
+                            <a href="@Url.Action("Detail", "Candidate", new {area = "Profile"})" class="menu-link">
+                                <span class="menu-icon">
+                                    <span class="svg-icon svg-icon-muted svg-icon-1">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z"
+                                                  fill="currentColor" />
+                                            <path opacity="0.3"
+                                                  d="M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z"
+                                                  fill="currentColor" />
+                                        </svg>
+                                    </span>
+                                </span>
+                                @(new FixedLocalizableString("Tài khoản"))
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="@Url.Action("MakeAnAppointment", "Candidate", new {area = "Profile"})" class="menu-link">
+                                <span class="menu-icon">
+                                    <span class="svg-icon svg-icon-muted svg-icon-1">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M17.5 11H6.5C4 11 2 9 2 6.5C2 4 4 2 6.5 2H17.5C20 2 22 4 22 6.5C22 9 20 11 17.5 11ZM15 6.5C15 7.9 16.1 9 17.5 9C18.9 9 20 7.9 20 6.5C20 5.1 18.9 4 17.5 4C16.1 4 15 5.1 15 6.5Z"
+                                                  fill="currentColor" />
+                                            <path opacity="0.3"
+                                                  d="M17.5 22H6.5C4 22 2 20 2 17.5C2 15 4 13 6.5 13H17.5C20 13 22 15 22 17.5C22 20 20 22 17.5 22ZM4 17.5C4 18.9 5.1 20 6.5 20C7.9 20 9 18.9 9 17.5C9 16.1 7.9 15 6.5 15C5.1 15 4 16.1 4 17.5Z"
+                                                  fill="currentColor" />
+                                        </svg>
+                                    </span>
+                                </span>
+                                @(new FixedLocalizableString("Lịch hẹn phỏng vấn"))
+                            </a>
+                        </li>
+                    }
+                  @*   <li class="menu-item">
+                        <a href="#" class="menu-link" id="UserDownloadCollectedDataLink">
+                            <span class="menu-icon">
+                                <span class="svg-icon svg-icon-muted svg-icon-1">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path opacity="0.3" d="M10 4H21C21.6 4 22 4.4 22 5V7H10V4Z" fill="currentColor" />
+                                        <path opacity="0.3"
+                                              d="M13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H13Z"
+                                              fill="currentColor" />
+                                        <path d="M10.4 3.60001L12 6H21C21.6 6 22 6.4 22 7V19C22 19.6 21.6 20 21 20H3C2.4 20 2 19.6 2 19V4C2 3.4 2.4 3 3 3H9.20001C9.70001 3 10.2 3.20001 10.4 3.60001ZM13 14.4V9C13 8.4 12.6 8 12 8C11.4 8 11 8.4 11 9V14.4H8L11.3 17.7C11.7 18.1 12.3 18.1 12.7 17.7L16 14.4H13Z"
+                                              fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                            @L("DownloadCollectedData")
+                        </a>
+                    </li> *@
+                    <li class="menu-item">
+                        <a href="@Url.Action("Logout", "Account", new {area = string.Empty})" class="menu-link">
+                            <span class="menu-icon">
+                                <span class="svg-icon svg-icon-muted svg-icon-1">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect opacity="0.3" x="8.5" y="11" width="12" height="2" rx="1" fill="currentColor" />
+                                        <path d="M10.3687 11.6927L12.1244 10.2297C12.5946 9.83785 12.6268 9.12683 12.194 8.69401C11.8043 8.3043 11.1784 8.28591 10.7664 8.65206L7.84084 11.2526C7.39332 11.6504 7.39332 12.3496 7.84084 12.7474L10.7664 15.3479C11.1784 15.7141 11.8043 15.6957 12.194 15.306C12.6268 14.8732 12.5946 14.1621 12.1244 13.7703L10.3687 12.3073C10.1768 12.1474 10.1768 11.8526 10.3687 11.6927Z"
+                                              fill="currentColor" />
+                                        <path opacity="0.5"
+                                              d="M16 5V6C16 6.55228 15.5523 7 15 7C14.4477 7 14 6.55228 14 6C14 5.44772 13.5523 5 13 5H6C5.44771 5 5 5.44772 5 6V18C5 18.5523 5.44771 19 6 19H13C13.5523 19 14 18.5523 14 18C14 17.4477 14.4477 17 15 17C15.5523 17 16 17.4477 16 18V19C16 20.1046 15.1046 21 14 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H14C15.1046 3 16 3.89543 16 5Z"
+                                              fill="currentColor" />
+                                    </svg>
+                                </span>
+                            </span>
+                            @L("Logout")
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+
+
+
+    <script id="linkedAccountsSubMenuTemplate" type="x-tmpl-mustache">
+        <div class="separator my-2"></div>
+        {{#items}}
+        <div class="menu-item px-5">
+            <a href="javascript;" data-user-id="{{id}}" data-tenant-id="{{tenantId}}" class="menu-link px-5 recently-linked-user">
+                {{shownUserName}}
+            </a>
+        </div>
+        {{/items}}
+
+    </script>
+}
+else
+{
+    <nav class="primary-menu with-arrows">
+        <ul class="nav align-items-center justify-content-center justify-content-sm-end">
+            <li class="nav-item">
+                <!-- Top Search
+                ============================================= -->
+                <div id="top-search" class="header-misc-icon">
+                    <a href="#" id="top-search-trigger">
+                        <i class="uil uil-search"></i><i class="bi-x-lg"></i>
+                    </a>
+                </div><!-- #top-search end -->
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-uppercase fw-medium" href="/Account/Register">Đăng ký</a>
+            </li>
+            <li class="nav-item">
+                <a class="text-uppercase badge bg-dark rounded-pill py-2 px-3 fw-medium" href="/Account/Login">
+                    Đăng
+                    nhập
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+}
+

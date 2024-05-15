@@ -1,0 +1,142 @@
+﻿@model BBK.SaaS.Web.Models.Account.RegisterViewModel
+@using Abp.Json
+@using BBK.SaaS.Localization
+@using BBK.SaaS.Web.Security.Recaptcha
+@addTagHelper *, Owl.reCAPTCHA
+
+@{
+    Layout = "_LayoutRegister.cshtml";
+}
+
+@section Scripts
+{
+    <script>
+        window.passwordComplexitySetting = @Html.Raw(Model.PasswordComplexitySetting.ToJsonString(indented: true));
+    </script>
+
+    @if (ViewBag.UseCaptcha)
+    {
+        <recaptcha-script-v3/>
+        <recaptcha-script-v3-js action="register" execute="false"/>
+    }
+
+    @*<script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/account-register.min.js" asp-append-version="true"></script>*@
+    <script abp-src="/view-resources/_bundles/account-register.min.js" asp-append-version="true"></script>
+
+}
+
+<form class="theme-form form register-form" asp-action="Register" method="post">
+    @if (@ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger">
+                <div class="alert-icon">
+                    <i class="fa fa-exclamation-triangle"></i>
+                </div>
+                <div class="alert-text">@ViewBag.ErrorMessage</div>
+            </div>
+        }
+
+        <input type="hidden" name="IsExternalLogin" value="@Model.IsExternalLogin.ToString()"/>
+        <input type="hidden" name="ExternalLoginAuthSchema" value="@Model.ExternalLoginAuthSchema"/>
+        <input type="hidden" name="SingleSignOn" value="@Model.SingleSignIn"/>
+        <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl"/>
+        @if (ViewBag.UseCaptcha)
+        {
+            <input type="hidden" name="@RecaptchaValidator.RecaptchaResponseKey" id="recaptchaResponse"/>
+        }
+
+    <h4>@L("SignUp")</h4>
+    <p>Enter your personal details to create account</p>
+    <div class="form-group">
+    <label class="col-form-label pt-0">Your Name</label>
+    <div class="row g-2">
+        <div class="col-6">
+        <input class="form-control" type="text" placeholder="@L("Name")" name="Name" required value="@Model.Name" maxlength="@BBK.SaaS.Authorization.Users.User.MaxNameLength"/>
+        </div>
+        <div class="col-6">
+        <input class="form-control" type="text" placeholder="@L("Surname")" name="Surname" required value="@Model.Surname" maxlength="@BBK.SaaS.Authorization.Users.User.MaxSurnameLength"/>
+        </div>
+    </div>
+    </div>
+    <div class="form-group">
+    <label class="col-form-label">Email Address</label>
+    <input class="form-control" type="email" placeholder="@L("EmailAddress")" name="EmailAddress" required value="@Model.EmailAddress" maxlength="@BBK.SaaS.Authorization.Users.User.MaxEmailAddressLength"/>
+    </div>
+    <div class="form-group">
+    <label class="col-form-label">Password</label>
+    <div class="form-input position-relative">
+        <input class="form-control" type="password" autocomplete="new-password" id="RegisterPassword" placeholder="@L("Password")" name="Password" required/>
+        <div class="show-hide"><span class="show"></span></div>
+    </div>
+    </div>
+    <div class="row g-2">
+    <div class="col-sm-12">
+        <p class="mega-title m-b-5">Buying Option</p>
+    </div>
+    <div class="col-sm-6">
+        <div class="card mb-0">
+        <div class="d-flex p-10">
+            <div class="form-check radio radio-warning m-0 w-100">
+            <input class="form-check-input" id="radio26" type="radio" name="UserType" value="@BBK.SaaS.Authorization.Users.UserTypeEnum.Type1" checked="">
+            <label class="form-check-label mb-0 w-100" for="radio26"><span class="flex-grow-1"><span class="mt-0 mega-title-badge no-wrap">@L("Người dùng")</span></span></label>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card mb-0">
+        <div class="d-flex p-10">
+            <div class="form-check radio radio-danger m-0 w-100">
+            <input class="form-check-input" id="radio27" type="radio" name="UserType" value="@BBK.SaaS.Authorization.Users.UserTypeEnum.Type2">
+            <label class="form-check-label mb-0 w-100" for="radio27"><span class="flex-grow-1"><span class="mt-0 mega-title-badge no-wrap">@L("Doanh Nghiệp")</span></span></label>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div class="form-group mb-0">
+    <div class="checkbox p-0">
+        <input id="checkbox1" type="checkbox">
+        <label class="text-muted" for="checkbox1">Agree with<a class="ms-2" href="#">Privacy Policy</a></label>
+    </div>
+    <button class="btn btn-primary btn-block w-100" type="submit" id="register-submit-btn" >@L("Submit")</button>
+    </div>
+    <h6 class="text-muted mt-4 or">Or signup with</h6>
+    <div class="social mt-4">
+    <div class="btn-showcase"><a class="btn btn-light" href="https://www.linkedin.com/login" target="_blank"><i class="txt-linkedin" data-feather="linkedin"></i> LinkedIn </a><a class="btn btn-light" href="https://twitter.com/login?lang=en" target="_blank"><i class="txt-twitter" data-feather="twitter"></i>twitter</a><a class="btn btn-light" href="https://www.facebook.com/" target="_blank"><i class="txt-fb" data-feather="facebook"></i>facebook</a></div>
+    </div>
+    <p class="mt-4 mb-0 text-center">Already have an account?<a asp-action="Login" class="ms-2" >@L("SignIn")</a></p>
+</form>
+@*
+<div class="login-form">
+    <div class="pb-13 pt-lg-0 pt-5">
+        <h3 class="fw-bolder text-dark fs-4 fs-1-lg">@L("SignUp")</h3>
+    </div>
+    <form class="form register-form" asp-action="Register" method="post">
+
+        
+
+        <div class="mb-5">
+            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg fs-6" type="text" placeholder="@L("Name")" name="Name" required value="@Model.Name" maxlength="@BBK.SaaS.Authorization.Users.User.MaxNameLength"/>
+        </div>
+        <div class="mb-5 ">
+            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg fs-6" type="text" placeholder="@L("Surname")" name="Surname" required value="@Model.Surname" maxlength="@BBK.SaaS.Authorization.Users.User.MaxSurnameLength"/>
+        </div>
+        <div class="mb-5 ">
+            <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg fs-6" type="email" placeholder="@L("EmailAddress")" name="EmailAddress" required value="@Model.EmailAddress" maxlength="@BBK.SaaS.Authorization.Users.User.MaxEmailAddressLength"/>
+        </div>
+
+        @if (!Model.IsExternalLogin)
+        {
+            <div class="mb-5">
+                <input class="form-control input-ltr form-control-solid h-auto py-7 px-6 rounded-lg fs-6" type="text" autocomplete="new-password" placeholder="@L("UserName")" name="UserName" value="@Model.UserName" required maxlength="@BBK.SaaS.Authorization.Users.User.MaxUserNameLength"/>
+            </div>
+            <div class="mb-5 pwstrength-div">
+                <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg fs-6" type="password" autocomplete="new-password" id="RegisterPassword" placeholder="@L("Password")" name="Password" required/>
+            </div>
+            <div class="mb-5 ">
+                <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg fs-6" type="password" autocomplete="new-password" placeholder="@L("PasswordRepeat")" name="PasswordRepeat" required/>
+            </div>
+        }
+    </form>
+</div>*@

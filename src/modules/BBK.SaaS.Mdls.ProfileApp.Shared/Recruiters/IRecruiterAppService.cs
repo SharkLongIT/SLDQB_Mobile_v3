@@ -16,7 +16,7 @@ namespace BBK.SaaS.Mdls.Profile.Recruiters
 		Task<long> Update(RecruiterEditDto input);
 		Task<long> GetCrurrentUserId();
 		Task<PagedResultDto<RecruiterEditDto>> GetAll();
-
+		Task<int> CountRecruiter();
         #region Mobile
         Task<long> UpdateRecruiterForMobile(RecruiterEditDto input);
 

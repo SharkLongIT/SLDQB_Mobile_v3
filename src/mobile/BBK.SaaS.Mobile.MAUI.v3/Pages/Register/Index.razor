@@ -1,0 +1,111 @@
+﻿@using BBK.SaaS.Services.Navigation
+@layout LoginLayout
+@inherits SaaSComponentBase
+@attribute [Route("/" + NavigationUrlConsts.Register)]
+
+
+<div class="menu-title mt-n1">
+    <h1>Đăng ký tài khoản </h1>
+    <p class="color-theme opacity-50">
+        Vui lòng nhập thông tin đăng ký của bạn bên dưới
+    </p>
+</div>
+    <div class="content mb-0">
+        <div class="input-style no-borders has-icon validate-field mb-4">
+            <i class="fa fa-user ms-2"></i>
+            <input type="text" @bind="Model.Name " class="form-control validate-name" id="form1a" placeholder="Tên đầy đủ">
+            <label for="form1a" class="color-blue-dark">Tên đầy đủ</label>
+            <i class="fa fa-times disabled invalid color-red-dark"></i>
+            <i class="fa fa-check disabled valid color-green-dark"></i>
+            <em>(bắt buộc)</em>
+        </div>
+        <div class="input-style no-borders has-icon validate-field mb-4">
+            <i class="fa fa-envelope ms-2"></i>
+            <input type="text" @bind="Model.EmailAddress" class="form-control validate-name" id="form1a" placeholder="Email">
+            <label for="form1a" class="color-blue-dark">Email</label>
+            <i class="fa fa-times disabled invalid color-red-dark"></i>
+            <i class="fa fa-check disabled valid color-green-dark"></i>
+            <em>(bắt buộc)</em>
+        </div>
+        <div class="input-style no-borders has-icon validate-field mb-4 password-field">
+            <i class="fa fa-lock ms-2"></i>
+            <input type="password" @bind="Model.Password" class="form-control validate-text" id="form3a" placeholder="Mật khẩu">
+            <label for="form3a" class="color-blue-dark">Mật khẩu</label>
+            <i class="fa fa-times disabled invalid color-red-dark"></i>
+            <i class="fa fa-check disabled valid color-green-dark"></i>
+            <em>(bắt buộc)</em>
+        @* <div id="password-strength" class="progress mt-2" style="height: 6px;">
+        </div> *@
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="m-b-5">Bạn là</p>
+            </div>
+            <div class="col-6 form-check icon-check ms-3">
+                <input class="form-check-input" type="radio" value="2" name="inlineRadioOptions" id="radio5">
+                <label class="form-check-label" for="radio5">Người lao động</label>
+                <i class="icon-check-1 fa fa-thumbs-down color-gray-dark font-16"></i>
+                <i class="icon-check-2 fa fa-thumbs-up font-16 color-highlight"></i>
+            </div>
+            <div class="col-6 form-check icon-check">
+                <input class="form-check-input" type="radio" value="1" name="inlineRadioOptions" id="radio6">
+                <label class="form-check-label" for="radio6">Nhà tuyển dụng</label>
+                <i class="icon-check-1 far fa-frown color-gray-dark font-16"></i>
+                <i class="icon-check-2 far fa-smile font-16 color-highlight"></i>
+            </div>
+        </div>
+        <div class="form-check icon-check mb-3">
+            <input class="form-check-input" type="checkbox" value="" id="check3" checked="">
+            <label class="form-check-label" for="check3">Đồng ý với <a style="color: lightgreen">Điều khoản sử dụng</a></label>
+            <i class="icon-check-1 far fa-square color-gray-dark font-16"></i>
+            <i class="icon-check-2 far fa-check-square font-16 color-highlight"></i>
+        </div>
+        <a @onclick="RegisterUser" class="btn btn-full btn-m shadow-l rounded-s text-uppercase font-900 bg-green-dark mt-n2">Đăng ký</a>
+        <div class="divider divider-margins mt-4 mb-4"></div>
+        <p class=" mb-2">
+            <a href="https://facebook.com" class="btn btn-icon btn-m rounded-sm btn-full shadow-l bg-facebook text-uppercase font-900 text-start"><i class="fab bg-transparent fa-facebook-f text-center"></i>Đăng ký bằng Facebook</a>
+            <a href="https://google.com" class="btn btn-icon btn-m rounded-sm mt-2 btn-full shadow-l bg-google text-uppercase font-900 text-start"><i class="fab bg-transparent fa-google text-center"></i>Đăng ký bằng Google</a>
+        </p>
+        <div class="d-flex justify-content-center">
+            <p>Bạn đã có tài khoản? <a href="/Login">Đăng nhập</a></p>
+        </div>
+    </div>
+    
+
+<style>
+    .password-field {
+        display: inline-block;
+        width: 100%
+    }
+        .password-field:after {
+            content: '';
+            display: block;
+            height: 6px;
+            width: 0;
+            margin-top: 3px;
+        }
+
+        .password-field.level0:after {
+            width: 15%;
+            background: red;
+        }
+
+        .password-field.level2:after {
+            width: 30%;
+            background: red;
+        }
+
+        .password-field.level2:after {
+            width: 65%;
+            background: gold;
+        }
+        .password-field.level2:after {
+            width: 75%;
+            background: gold;
+        }
+
+        .password-field.level3:after {
+            width: 100%;
+            background: green;
+        }
+</style>

@@ -1,0 +1,168 @@
+﻿@using Abp.UI;
+@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/CompanyDetail")]
+
+@if (Model.Recruiter != null)
+{
+
+	<div class="card card-style">
+		<div class="card card-style mt-2 me-2 ms-2">
+			<img src="@Model.Recruiter.ImageCoverUrl" alt="img" class="img-fluid">
+		</div>
+		<div class="content position-relative" style="margin-top:-70px; z-index:2;">
+			<div class="d-flex mx-2">
+				<div class="me-3">
+					<img src="@Model.AvatarUrl" class="rounded-l shadow-xl" alt="img" width="100" height="100">
+				</div>
+				<div class="align-self-end">
+					<h4 class="font-24 mb-0">@Model.Recruiter.CompanyName</h4>
+					<span><i class="fa fa-map-marker font-10 pe-2"></i><span class="font-12 opacity-70">@Model.Recruiter.Address, @Model.Village, @Model.District, @Model.Province</span></span>
+				</div>
+			</div>
+		</div>
+		<div class="divider mb-0"></div>
+		<div class="content">
+			<div class="d-flex text-center justify-content-center">
+				<div class="m-auto">
+					<h1 class="mb-n1 font-30">@Count</h1>
+					<p class="font-10 mb-n2">Việc làm</p>
+				</div>
+				@* <div class="m-auto">
+					<h1 class="mb-n1 font-30">35</h1>
+					<p class="font-10 mb-n2">Vị trí</p>
+				</div>
+				<div class="m-auto">
+					<h1 class="mb-n2 font-30">76</h1>
+					<p class="font-10 mb-n2">Hồ sơ</p>
+				</div> *@
+			</div>
+		</div>
+	</div>
+
+	<div class="card card-style">
+		<div class="content">
+			<h3 class="mb-0">Thành tích công ty</h3>
+			<div @onclick='ChangeDes'>
+				@if (IsShowDes == false)
+				{
+					<p>
+						<span>@Description </span>
+						<span class="view-all-des">Xem thêm</span>
+					</p>
+				}
+			</div>
+			<div @onclick="Collaspe">
+				@if (IsShowDes == true)
+				{
+					<p>@Model.Recruiter.Description</p>
+					<div class="collaspe">Thu gọn</div>
+				}
+			</div>
+			<div class="d-flex text-center">
+				<div class="m-auto">
+					<span class="icon icon-xxl bg-yellow-dark rounded-m"><i class="fa fa-star font-24"></i></span>
+					<p class="font-12 line-height-xs pt-2 font-500">Nơi làm việc<br> Tốt nhất</p>
+				</div>
+				<div class="m-auto">
+					<span class="icon icon-xxl bg-green-dark rounded-m"><i class="fa fa-eye font-24"></i></span>
+					<p class="font-12 line-height-xs pt-2 font-500">Phê duyệt <br> Nhanh</p>
+				</div>
+				<div class="m-auto">
+					<span class="icon icon-xxl bg-red-dark rounded-m"><i class="fa fa-trophy font-24"></i></span>
+					<p class="font-12 line-height-xs pt-2 font-500">Top 10 <br> Quốc gia</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card card-style">
+		<div class="content">
+			<h2 class="vcard-title color-highlight mb-1">Thông tin chung</h2>
+			<div class="divider my-3"></div>
+			<a href="tel:+@Model.Recruiter.ContactPhone" class="default-link d-flex">
+				<div>
+					<span class="font-11 d-block mb-n2 opacity-50 color-theme">Số điện thoại</span>
+					<span class="default-link d-block color-theme font-15 font-400">@Model.Recruiter.ContactPhone</span>
+				</div>
+				<div class="ms-auto">
+					<i class="fa fa-phone color-theme opacity-30 pt-3 mt-1"></i>
+				</div>
+			</a>
+			<div class="divider my-3"></div>
+			<a class="default-link d-flex">
+				<div>
+					<span class="font-11 d-block mb-n2 opacity-50 color-theme">Ngày thành lập</span>
+					<span class="default-link d-block color-theme font-15 font-400"> @date.ToShortDateString()</span>
+				</div>
+				<div class="ms-auto">
+					<i class="fa fa-calendar color-theme opacity-30 pt-3 mt-1"></i>
+				</div>
+			</a>
+			<div class="divider my-3"></div>
+			<a href="https://maps.app.goo.gl/ScCr1uuKsxUUgWeXA" class="default-link d-flex">
+				<div>
+					<span class="font-11 d-block mb-n2 opacity-50 color-theme">Địa chỉ</span>
+					<span class="default-link d-block color-theme font-15 font-400">@Model.Recruiter.Address, <br> @Model.Village, @Model.District, @Model.Province</span>
+				</div>
+				<div class="ms-auto">
+					<i class="fa fa-map-marker color-theme opacity-30 pt-4 mt-3"></i>
+				</div>
+			</a>
+			<div class="divider my-3"></div>
+			<a href="mailto:home@domain.com" class="default-link d-flex">
+				<div>
+					<span class="font-11 d-block mb-n2 opacity-50 color-theme">Website</span>
+					<span class="default-link d-block color-theme font-15 font-400">@Model.Recruiter.WebSite</span>
+				</div>
+				<div class="ms-auto">
+					<i class="fa fa-globe color-theme opacity-30 pt-3 mt-1"></i>
+				</div>
+			</a>
+
+		</div>
+	</div>
+	<div class="card card-style">
+		<div class="content">
+			<h2 class="vcard-title color-highlight mb-1">Việc làm của công ty</h2>
+			@* <p class="mb-3">
+				Tap a field below to call the numbers.
+			</p> *@
+			<div class="divider my-3"></div>
+			<Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
+
+				<a href="javascript:;" @onclick="(() => ViewRecruitment(recruitment))">
+					<div class="d-flex">
+						<div>
+							<img src="@recruitment.Recruiter.AvatarUrl" class="me-3 rounded-m" width="110">
+						</div>
+						<div>
+							<h5 class="font-700 text-uppercase">  @recruitment.Title</h5>
+							<h1 class="font-500 font-15 line-height-m">
+								@recruitment.Recruiter.CompanyName
+							</h1>
+							<span class="badge bg-green-dark text-uppercase font-12">
+								<i class="fa-solid fa-dollar-sign pe-1"></i>
+								@{
+									var minSalaryInMillion = Math.Truncate(recruitment.MinSalary / 1000000);
+									var maxSalaryInMillion = Math.Truncate(recruitment.MaxSalary / 1000000);
+								}
+								@minSalaryInMillion - @maxSalaryInMillion triệu
+							</span>
+							<span class="badge bg-blue-dark text-uppercase font-12">
+								<i class="fa-solid fa-city pe-1"></i>
+								@recruitment.WorkAddress
+							</span>
+							<span class="badge bg-gray-dark text-uppercase font-12">
+								<i class="fa-regular fa-star pe-1"></i>
+								@recruitment.Experiences.DisplayName
+							</span>
+						</div>
+					</div>
+				</a>
+				<div class="divider mt-3 mb-3"></div>
+			</Virtualize>
+		</div>
+	</div>
+
+}

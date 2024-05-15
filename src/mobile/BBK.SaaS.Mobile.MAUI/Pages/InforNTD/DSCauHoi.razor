@@ -2,8 +2,19 @@
 @using BBK.SaaS.Services.Navigation
 @inherits SaaSMainLayoutPageComponentBase
 @attribute [Route("/" + NavigationUrlConsts.DSCauHoi)]
-
-@* <div class="row align-items-center mt-1 m-0 ">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<div class="row align-items-center mt-1 m-0 ">
     <div class="col-xl-12">
         <div class="align-items-center">
             <div class="card">
@@ -19,79 +30,78 @@
                         <button @onclick="RefeshList" class="btn btn-filter" type="button">
                             <i class="fa fa-search" style="color: white" aria-label="Search"></i>
                         </button>
+                        @if (_IsCancelList == true)
+                        {
+                            <button @onclick="CancelList" class="btn btn-secondary ml-2" type="button">
+                                Huỷ
+                            </button>
+                        }
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
-</div> *@
-
-<div class="content mt-2  search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important; ">
-    <i class="fa fa-search"></i>
-    <input type="search" class="border-0" @bind="_filter.Search" placeholder="Tìm kiếm thông tin" @oninput="selectedValue">
 </div>
 
-@if (isError)
-{
-    <div class="card card-style">
-        <div class="content">
-            <div class="text-error">
-                <h3>Không tìm thấy kết quả!!!</h3>
-                <span class="mt-2">Thử tìm kiếm với từ khoá khác.</span>
+<Virtualize @ref="contactContainer" Context="contact" ItemsProvider="@LoadContact" ItemSize="100">
+    <div class="row  align-items-center mt-1 m-0">
+        <div class="col-xl-12">
+            <div class="align-items-center mt-2">
+                <div class="card contact-list">
+                    <div class="row vieclam p-3">
+                        <div class="d-flex">
+                            <h5 class="descrip">
+                                Nội dung:  @contact.Description
+                            </h5>
+                            <span class="ml-auto more_vert">
+                                <i class="material-icons" @onclick="(() => DisPlayAction(contact))">more_vert</i>
+                            </span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="name">
+                                Ngày gửi:
+                            </span>
+                            <span>
+                                @contact.CreationTime
+                            </span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="name">
+                                Ngày trả lời:
+                            </span>
+                            <span>
+                                @contact.LastModificationTime
+                            </span>
+                        </div>
+                        @if (contact.Status == true)
+                        {
+                            <div class="mb-2">
+                                <span class="name">
+                                    Trạng thái:
+                                </span>
+                                <span class="asked">
+                                    Đã trả lời
+                                </span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="mb-2">
+                                <span class="name">
+                                    Trạng thái:
+                                </span>
+                                <span class="no-asked">
+                                    Chưa trả lời
+                                </span>
+                            </div>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-}
-else
-{
+</Virtualize>
 
-    <Virtualize @ref="contactContainer" Context="contact" ItemsProvider="@LoadContact" ItemSize="100">
-        <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3" style="background-color:#FFF !important; ">
-            <div class="d-flex">
-                <div>
-                    <h5 class="font-700 text-uppercase">
-                        Nội dung:  @contact.Description
-                    </h5>
-                    <div>
-                        <span class="font-12">
-                            Ngày gửi: @contact.CreationTime
-                        </span>
-                    </div>
-                    <div>
-                        <span class="font-12">
-                            Ngày trả lời: @contact.LastModificationTime
-                        </span>
-                    </div>
-                    @if (contact.Status == true)
-                    {
-                        <div>
-                            <span class="badge bg-blue-dark text-uppercase font-12 ml-3">
-                                Đã trả lời
-                            </span>
-                        </div>
-                    }
-                    else
-                    {
-                        <div>
-                            <span class="badge bg-gray-dark text-uppercase font-12 ml-3">
-                                Chưa trả lời
-                            </span>
-                        </div>
-                    }
-                </div>
-                <div class="ms-auto">
-                    @* <i class="fa-solid fa-caret-down float-end" @onclick="(() => DisPlayAction(contact))"></i> *@
-                    <a data-bs-toggle="dropdown" class="icon icon-m color-theme"><i class="fa fa-ellipsis-h float-end" style="margin-top: -10px"></i></a>
-                    <div class="dropdown-menu border-0 bg-theme rounded-m shadow-xl px-2 mt-n4">
-                        <div class="list-group list-custom-small mt-n2 mb-n2">
-                            <a @onclick="(() => ViewContact(contact))" data-menu="menu-archive"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Xem chi tiết<i class="fa"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </Virtualize>
-}
 <BBK.SaaS.Mobile.MAUI.Pages.InforNLD.ViewContactModal OnSave="RefeshList" @ref=contactModal></BBK.SaaS.Mobile.MAUI.Pages.InforNLD.ViewContactModal>
 

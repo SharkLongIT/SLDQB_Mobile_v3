@@ -11,7 +11,6 @@ using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.Services.Navigation;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.JSInterop;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
 {
@@ -53,7 +52,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
         }
         protected override async Task OnInitializedAsync()
         {
-
             try
             {
                 if (ApplicationContext.LoginInfo == null || ApplicationContext.LoginInfo.User.UserType == Authorization.Users.UserTypeEnum.Type2)
@@ -77,6 +75,10 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                 {
                     Experiences = (q1["Experiences"]);
                 }
+                if (q1["SphereOfActivity"] != null)
+                {
+                    SphereOfActivity = (q1["SphereOfActivity"]);
+                }
                 if (q1["WorkAddress"] != null)
                 {
                     WorkAddress = (q1["WorkAddress"]);
@@ -94,10 +96,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                 //company
                 Model.CompanyName = recruitment.Recruiter.CompanyName;
 
-                if (HumanResSizeCat != "" || HumanResSizeCat != null)
-                {
-                      Model.HumanResSizeCat = HumanResSizeCat; // Quy mô nhân sự
-                }
+                Model.HumanResSizeCat = HumanResSizeCat; // Quy mô nhân sự
                 if (WorkAddress == null)
                 {
                     Model.AddressForWork = recruitment.AddressName;
@@ -107,7 +106,14 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                     Model.AddressForWork = WorkAddress;// địa chỉ làm việc
                 }
                 Model.AvatarUrl = recruitment.Recruiter.AvatarUrl;
-                Model.ImageCoverUrl = recruitment.Recruiter.ImageCoverUrl;
+                if (SphereOfActivity == null)
+                {
+                    Model.SphereOfActivity = recruitment.Recruiter.SphereOfActivity.DisplayName;
+                }
+                else
+                {
+                    Model.SphereOfActivity = SphereOfActivity;
+                }
                 Model.AddressCompany = recruitment.Recruiter.Address; //địa chỉ công ty
                 Model.Website = recruitment.Recruiter.WebSite;
                 //Thông tin tuyển dụng:
@@ -115,7 +121,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                 Model.AddressName = recruitment.AddressName;
                 Model.NecessarySkills = recruitment.NecessarySkills;
                 Model.Experience = Experiences; // kinh nghiệm
-               
                 Model.FormOfWork = recruitment.FormOfWork; // Hình thức làm việc
                 Model.FormOfWorkName = recruitment.FormOfWorks.DisplayName;
                 Model.NumberOfRecruits = recruitment.NumberOfRecruits; // số lượng
@@ -132,7 +137,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                 Model.PhoneNumber = recruitment.PhoneNumber;
                 Model.Address = recruitment.Address;
                 await UpdateImage();
-                await JS.InvokeVoidAsync("scroll");
             }
             catch (Exception ex )
             {
@@ -146,7 +150,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
         public Task UpdateImage()
         {
             Model.AvatarUrl = AsyncHelper.RunSync(async () => await articleService.GetPicture(Model.AvatarUrl));
-            Model.ImageCoverUrl = AsyncHelper.RunSync(async () => await articleService.GetPicture(Model.ImageCoverUrl));
             return Task.CompletedTask;
         }
         public async Task ViewCompany(ViecTimNguoiModel recruitmentDto)

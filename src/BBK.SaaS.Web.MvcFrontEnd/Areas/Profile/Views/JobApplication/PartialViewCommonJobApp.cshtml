@@ -1,0 +1,132 @@
+﻿@using BBK.SaaS.Web.Areas.Profile.Models.JobApplication
+@model JobAppPartialView
+
+@section Scripts
+{
+    <script src="/view-resources/profile/Candidate/JobAppPartialView.js" asp-append-version="true"></script>
+}
+
+<div class="col-md-12 col-lg-12 mt-2" id="jobapplication">
+    <div class="col-12">
+        <div class="col-12 d-flex" style="justify-content: space-between;">
+            <h5 class="mb-4"><strong>Thông tin chung</strong></h5>
+        @*      @if (Model.Id.HasValue == true)
+    {
+                <button class="btn btn-primary m-5 edit"> @L("Sửa")</button>
+    }    *@
+        </div>
+    </div>
+        <form class="row g-3" name="JobAppInfoForm">
+            <input name="Id" id="JobApplicationId"  value="@Model.Id" hidden>
+            <div class="col-md-12 col-lg-12">
+                <label class="form-label" for="Title">Tiều đề <span class="txt-danger">*</span></label>
+                <input class="form-control" id="Title" name="Title" type="text" required="required" placeholder="Tiêu đề">
+            </div>
+            <div class="col-md-12 col-lg-12">
+                <label class="form-label" for="0">Cấp bậc mong muốn<span class="txt-danger">*</span></label>
+            <select required="required" class="form-select" id="PositionsId" name="PositionsId" asp-items="@Model.Positions">
+                    <option value="-1">Chọn cấp bậc mong muốn</option>
+                </select>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <label class="form-label" for="Occupations">Nghề nghiệp<span class="txt-danger">*</span></label>
+            <select required class="form-select" id="OccupationId" name="OccupationId" asp-items="@Model.Occupations">
+                    <option value="-1">Chọn nghề nghiệp mong muốn</option>
+                </select>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <label class="form-label" for="DesiredSalary">Mức lương mong muốn</label>
+                <input class="form-control" id="DesiredSalary" name="DesiredSalary" type="number" placeholder="Mức lương mong muốn">
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <label class="form-label" for="LiteracyId">Bằng cấp<span class="txt-danger">*</span></label>
+                <select required class="form-select" id="LiteracyId" name="LiteracyId" asp-items="@Model.Literacy">
+                    <option value="-1">Chọn bằng cấp mong muốn</option>
+                </select>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <label class="form-label" for="FormOfWorkId">Hình thức làm việc<span class="txt-danger">*</span></label>
+                <select required class="form-select" id="FormOfWorkId" name="FormOfWorkId" asp-items="@Model.FormOfWork">
+                    <option value="-1">Chọn hình thức làm việc mong muốn</option>
+                </select>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <label class="form-label" for="ExperiencesId">Số năm kinh nghiệm<span class="txt-danger">*</span></label>
+                <select required class="form-select" id="ExperiencesId" name="ExperiencesId" asp-items="@Model.Experiences">
+                    <option value="-1">Chọn số năm kinh nghiệm mong muốn</option>
+                </select>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <label class="form-label" for="WorkSite">Nơi muốn làm việc<span class="txt-danger">*</span></label>
+                <select required class="form-select" id="WorkSite" name="WorkSite" asp-items="@Model.WorkSite">
+                    <option value="-1">Chọn nơi muốn làm việc mong muốn</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <label class="form-label" for="Career">Mục tiêu<span class="txt-danger">*</span></label>
+                <textarea class="form-control" id="Career" name="Career" type="text" required="required" placeholder="Mục tiêu"></textarea>
+            </div>
+            <div class="col-12">
+
+                      <div class="form-check checkbox checkbox-primary mb-0">
+                            <input class="form-check-input" id="Pushlish" type="checkbox" name="IsPublished" value="true">
+                            <label class="" for="Pushlish">Đặt làm hồ sơ chính</label>
+                          </div>
+                          </div>
+            <div class="col-lg-12 col-md-12" id="fileView">
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <label class="form-label" for="FileCV">Hồ sơ cá nhân</label>
+                <input class="form-control" id="formFile1" name="FileCV" type="file" row="3">
+            </div>
+        <input class="form-control" id="FileName" name="FileName" hidden>
+            <div class="col-12 d-flex justify-content-end">
+                <button class="btn btn-light m-2" type="reset">Hủy bỏ</button>
+                <button class="btn btn-danger m-2 submit" type="button">Lưu thông tin</button>
+            </div>
+        </form>
+   @*  }
+    else
+    {
+        <div class="row mb-3 mt-3">
+            <input hidden id="JobApplicationId" value="@Model.Id.Value">
+            <div class="col-xl-4 col-md-6 mb-3">
+                <p><strong>@L("Tiêu đề")</strong></p>
+                <p id="Title"></p>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-3">
+                <p><strong>@L("Cấp bậc mong muốn")</strong></p>
+                <p id="Positions"></p>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-3">
+                <p><strong>@L("Mức lương mong muốn")</strong></p>
+                <p id="DesiredSalary"></p>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-3">
+                <p><strong>@L("Bằng cấp")</strong></p>
+                <p id="LiteracyId"></p>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-3">
+                <p><strong>@L("Số năm kinh nghiệm")</strong></p>
+                <p id="ExperiencesId"></p>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-3">
+                <p><strong>@L("Hình thức làm việc")</strong></p>
+                <p id="FormOfWork"></p>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-3">
+                <p><strong>@L("Nghề nghiệp")</strong></p>
+                <p id="Occupations"></p>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-3">
+                <p><strong>@L("Địa điểm làm việc")</strong></p>
+                <p id="WorkSite"></p>
+            </div>
+            <div class="col-xl-4 col-md-6 mb-3">
+                <p><strong>@L("Mục tiêu")</strong></p>
+                <p id="Career"></p>
+            </div>
+        </div>
+    } *@
+
+</div>

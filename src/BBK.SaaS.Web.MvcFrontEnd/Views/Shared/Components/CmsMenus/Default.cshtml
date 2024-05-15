@@ -1,0 +1,140 @@
+﻿@using System.IO
+@using BBK.SaaS.Web.Views.Shared.Components.CmsMenus
+@using BBK.SaaS.Web.Navigation;
+
+@model CmsMenusViewModel
+
+
+<ul class="menu-container">
+    @foreach (var group in Model.TopMenu.Items.Where(x => x.IsVisible))
+    {
+        @if (group.Items.Any())
+        {
+            <li class="menu-item  menu-color-home">
+                <a class="menu-link" href="@(!string.IsNullOrEmpty(group.Url) ? group.Url : "javascript:void(0)")">
+                    @if (!string.IsNullOrEmpty(group.Icon))
+                    {
+                        <use href="@group.Icon"></use>
+                    }
+                    <div>@(Html.Raw($"{group.DisplayName}"))</div>
+                </a>
+                <ul class="sub-menu-container">
+                    @foreach (var item in group.Items)
+                    {
+                        var items = item.Items?.Select(x => System.IO.Path.GetFileNameWithoutExtension(x.Url)).Where(x => x != "javascript:void(0);").ToList();
+
+                        if (items?.Any() != true)
+                        {
+                            <text>
+                            <li class="menu-item"><a class="menu-link" href="@item.Url" class="@((ViewBag.CurrentPageName != null && ViewBag.CurrentPageName.Contains(item.Name)) ? " active" : "" )">@item.DisplayName</a></li>
+                            </text>
+                        }
+                    }
+                </ul>
+            </li>
+        }
+        else
+        {
+            <li class="menu-item  menu-color-home">
+                <a class="menu-link" href="@group.Url">
+                    @if (!string.IsNullOrEmpty(group.Icon))
+                    {
+                        <use href="@group.Icon"></use>
+                    }
+                    <div>@(Html.Raw($"{group.DisplayName}"))</div>
+                </a>
+            </li>
+        }
+    }
+</ul>
+@* <ul class="menu-container">
+    @foreach (var group in Model.TopMenu.Items.Where(x => x.IsVisible))
+    {
+        @if (group.Items.Any())
+        {
+            <li class=" menu-item">
+                <a class="menu-link" href="@(!string.IsNullOrEmpty(group.Url) ? group.Url : "javascript:void(0)")">
+                    @if (!string.IsNullOrEmpty(group.Icon))
+                    {
+                        <svg class="stroke-icon">
+                            <use href="@group.Icon"></use>
+                        </svg>
+                    }
+                    <span>@(Html.Raw($"{group.DisplayName}"))</span>
+                </a>
+                <ul class="sub-menu-container">
+                    @foreach (var item in group.Items)
+                    {
+                        var items = item.Items?.Select(x => System.IO.Path.GetFileNameWithoutExtension(x.Url)).Where(x => x != "javascript:void(0);").ToList();
+
+                        if (items?.Any() != true)
+                        {
+                            <text>
+                            <li class="menu-item"><a href="@item.Url" class="@((ViewBag.CurrentPageName != null && ViewBag.CurrentPageName.Contains(item.Name)) ? " active" : "" )">@item.DisplayName</a></li>
+                            </text>
+                        }
+                    }
+
+                </ul>
+            </li>
+        }
+        else
+        {
+            <li class="menu-item menu-color-tech">
+                <a class="menu-link" href="@group.Url">
+                    @if (!string.IsNullOrEmpty(group.Icon))
+                    {
+                        <svg class="stroke-icon">
+                            <use href="@group.Icon"></use>
+                        </svg>
+                    }
+                    <span>@(Html.Raw($"{group.DisplayName}"))</span>
+                </a>
+            </li>
+        }
+    }
+
+</ul> *@
+
+@* @if (Model.Menus != null && Model.Menus.Count > 0)
+{
+    foreach (var menu in Model.Menus)
+    {
+        <li class="sidebar-main-title">
+            <div>
+                <h6 class="">@menu.DisplayName</h6>
+            </div>
+        </li>
+
+        @foreach (var group in menu.Items.Where(x => x.IsVisible))
+        {
+            @if (group.Items.Any())
+            {
+                <li class="sidebar-list">
+                    <i class="fa fa-thumb-tack"></i>
+                    <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                        <svg class="stroke-icon">
+                            <use href="@group.Icon"></use>
+                        </svg>
+                        <span>@(Html.Raw($"{group.DisplayName}"))</span>
+                    </a>
+                    <ul class="sidebar-submenu">
+
+                        @foreach (var item in group.Items)
+                        {
+                            var items = item.Items?.Select(x => System.IO.Path.GetFileNameWithoutExtension(x.Url)).Where(x => x != "javascript:void(0);").ToList();
+
+                            if (items?.Any() != true)
+                            {
+                                <text>
+                                <li><a href="@item.Url" class="@((ViewBag.CurrentPageName != null && ViewBag.CurrentPageName.Contains(item.Name)) ? " active" : "" )">@item.DisplayName</a></li>
+                                </text>
+                            }
+                        }
+
+                    </ul>
+                </li>
+            }
+        }
+    }
+} *@

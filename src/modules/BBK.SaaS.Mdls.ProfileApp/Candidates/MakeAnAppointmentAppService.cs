@@ -137,7 +137,7 @@ namespace BBK.SaaS.Mdls.Profile.Candidates
 
                 newItemId.JobApplicationId = input.JobApplicationId;
                 var newId = await _MakeAnAppointmentRepo.InsertAndGetIdAsync(newItemId);
-                var application = _ApplicationRequestRepo.GetAll().Where(x => x.JobApplicationId == newItemId.JobApplicationId).FirstOrDefault();
+                var application = (await _ApplicationRequestRepo.GetAllListAsync()).OrderByDescending(x=>x.CreationTime).Where(x => x.JobApplicationId == newItemId.JobApplicationId && x.RecruitmentId == newItemId.ApplicationRequestId).FirstOrDefault();
 
                 if (application != null)
                 {

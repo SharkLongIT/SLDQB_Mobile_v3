@@ -8,20 +8,6 @@ using BBK.SaaS.Mobile.MAUI.Services.Account;
 using BBK.SaaS.Mobile.MAUI.Services.UI;
 using Microsoft.JSInterop;
 using BBK.SaaS.Mobile.MAUI.Services.Tenants;
-using BBK.SaaS.Mdls.Cms.Categories.Dto;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-using BBK.SaaS.Core.Threading;
-using BBK.SaaS.Mdls.Cms.Articles.MDto;
-using BBK.SaaS.Mdls.Cms.Categories;
-using BBK.SaaS.Mobile.MAUI.Services.User;
-using BBK.SaaS.Services.Account;
-
-
-
-
-
-
-
 
 #if ANDROID
 using BBK.SaaS.Mobile.MAUI.Platforms.Android.HttpClient;
@@ -31,18 +17,6 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
 {
     public partial class MainLayout
     {
-
-        private ItemsProviderResult<CmsCatDto> cmsCatDto;
-        private Virtualize<CmsCatDto> CmsContainer { get; set; }
-        private readonly GetArticlesByCatInput _filter = new GetArticlesByCatInput();
-        protected ICmsCatsAppService cmsCatsAppService { get; set; }
-        protected INavigationService navigationService { get; set; }
-        protected IApplicationContext ApplicationContext { get; set; }
-        protected IAccountService AccountService { get; set; }
-        protected IAccessTokenManager AccessTokenManager { get; set; }
-
-        protected UserProfileService userProfileService { get; set; }   
-
         [Inject]
         protected NavigationManager NavigationManager { get; set; }
 
@@ -53,26 +27,7 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
 
         private bool IsConfigurationsInitialized { get; set; }
 
-
-        private bool HasUserInfo => AccessTokenManager != null &&
-          AccessTokenManager.IsUserLoggedIn &&
-          ApplicationContext != null &&
-          ApplicationContext.LoginInfo != null &&
-          ApplicationContext?.LoginInfo?.User != null;
-
         private string _logoURL;
-        private string _userImage;
-
-        public MainLayout()
-        {
-            cmsCatsAppService = DependencyResolver.Resolve<ICmsCatsAppService>();
-            navigationService = DependencyResolver.Resolve<INavigationService>();
-            ApplicationContext = DependencyResolver.Resolve<IApplicationContext>();
-            userProfileService = DependencyResolver.Resolve<UserProfileService>();
-            AccountService = DependencyResolver.Resolve<IAccountService>();
-            AccessTokenManager = DependencyResolver.Resolve<IAccessTokenManager>();
-
-        }
 
         protected override async Task OnInitializedAsync()
         {
@@ -85,26 +40,18 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
 
             var navigationService = DependencyResolver.Resolve<INavigationService>();
             navigationService.Initialize(NavigationManager);
-            await SetLayout();
-            await GetUserPhoto();
-        }
-        private async Task GetUserPhoto()
-        {
-            if (!HasUserInfo)
-            {
-                return;
-            }
 
-            _userImage = await userProfileService.GetProfilePicture(ApplicationContext.LoginInfo.User.Id);
-            StateHasChanged();
+            _logoURL = await DependencyResolver.Resolve<TenantCustomizationService>().GetTenantLogo();
+
+            await SetLayout();
         }
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
                 await Task.Delay(200);
                 await JS.InvokeVoidAsync("KTMenu.init");
-                //await JS.InvokeVoidAsync("footerBar");
             }
         }
 
@@ -116,7 +63,7 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
             }
             else
             {
-                var isTryAgain = await UserDialogsService.Instance.Confirm(Localization.L.Localize("Không có kết nối mạng"));
+                var isTryAgain = await UserDialogsService.Instance.Confirm(Localization.L.Localize("NoInternet"));
                 if (!isTryAgain)
                 {
                     Application.Current.Quit();
@@ -179,75 +126,12 @@ namespace BBK.SaaS.Mobile.MAUI.Shared.Layout
         {
             var dom = DependencyResolver.Resolve<DomManipulatorService>();
             await dom.ClearAllAttributes(JS, "body");
-            //await dom.SetAttribute(JS, "body", "id", "kt_app_body");
-            //await dom.SetAttribute(JS, "body", "data-kt-app-layout", "light-sidebar");
-            //await dom.SetAttribute(JS, "body", "data-kt-app-sidebar-enabled", "true");
-            //await dom.SetAttribute(JS, "body", "data-kt-app-sidebar-fixed", "true");
-            //await dom.SetAttribute(JS, "body", "data-kt-app-toolbar-enabled", "true");
-            //await dom.SetAttribute(JS, "body", "class", "app-default");
-            await dom.SetAttribute(JS, "body", "class", "theme-light");
-            await dom.SetAttribute(JS, "body", "data-highlight", "red");
-            await dom.SetAttribute(JS, "body", "data-gradient", "body-default");
-        }
-
-
-        #region open side bar
-        bool IsOpenSideBar;
-        public async Task OpenSideBar()
-        {
-            IsOpenSideBar = true;
-            await JS.InvokeVoidAsync("menuSideBar");
-        }
-        #endregion
-        #region Category
-
-        private async ValueTask<ItemsProviderResult<CmsCatDto>> LoadCategories(ItemsProviderRequest request)
-        {
-            _filter.MaxResultCount = Math.Clamp(request.Count, 1, 1000);
-            _filter.SkipCount = request.StartIndex;
-            //_filter.Take = Math.Clamp(request.Count, 1, 1000);
-
-            await UserDialogsService.Block();
-
-            await WebRequestExecuter.Execute(
-            async () => await cmsCatsAppService.GetCmsCats(),
-            async (result) =>
-            {
-                var articlesFilter = result.Items.ToList();
-                cmsCatDto = new ItemsProviderResult<CmsCatDto>(articlesFilter, articlesFilter.Count);
-                await UserDialogsService.UnBlock();
-            }
-        );
-
-            return cmsCatDto;
-        }
-        #endregion
-
-
-        public async Task GetArticleByCategory(CmsCatDto cmsCatDto)
-        {
-            navigationService.NavigateTo($"ListArticle?CategoryId={cmsCatDto.Id}&CategoryName={cmsCatDto.DisplayName}");
-            await LoadCategories(new ItemsProviderRequest());
-            StateHasChanged();
-        }
-        public async Task Logout()
-        {
-
-            var notLogout = await UserDialogsService.ConfirmLogout("Đăng xuất khỏi tài khoản của bạn?", "Đăng xuất");
-            if (notLogout == false)
-            {
-                await AccountService.LogoutAsync();
-                AccountService.AbpAuthenticateModel.UserNameOrEmailAddress = null;
-                await UserDialogsService.AlertSuccess("Đăng xuất thành công");
-                navigationService.NavigateTo(NavigationUrlConsts.TrangChu);
-            }
-            else
-            {
-            }
-
-            StateHasChanged();
-
-
+            await dom.SetAttribute(JS, "body", "id", "kt_app_body");
+            await dom.SetAttribute(JS, "body", "data-kt-app-layout", "light-sidebar");
+            await dom.SetAttribute(JS, "body", "data-kt-app-sidebar-enabled", "true");
+            await dom.SetAttribute(JS, "body", "data-kt-app-sidebar-fixed", "true");
+            await dom.SetAttribute(JS, "body", "data-kt-app-toolbar-enabled", "true");
+            await dom.SetAttribute(JS, "body", "class", "app-default");
         }
     }
 }

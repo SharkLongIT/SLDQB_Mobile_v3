@@ -181,16 +181,15 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
         }
         private async Task CancelModal()
         {
-            //var IsCancel = await UserDialogsService.Confirm("Bạn có chắc chắn rời khỏi?", "");
-            //if (IsCancel == true)
-            //{
-            //    await Hide();
-            //}
-            //else
-            //{
+            var IsCancel = await UserDialogsService.Confirm("Bạn có chắc chắn rời khỏi?", "");
+            if (IsCancel == true)
+            {
+                await Hide();
+            }
+            else
+            {
 
-            //}
-            await Hide();
+            }
         }
     }
 }

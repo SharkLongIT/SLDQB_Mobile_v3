@@ -1,0 +1,126 @@
+﻿@using Abp.Application.Services.Dto
+@using BBK.SaaS.Authorization
+@using BBK.SaaS.Authorization.Users;
+@using BBK.SaaS.Web.Areas.App.Startup
+@using BBK.SaaS;
+@using BBK.SaaS.Web.Areas.Profile.Models.UsersType1
+
+@model UsersType1ViewModel
+@{
+    ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+    ViewBag.PageTitle = "Hồ sơ cá nhân";
+    ViewBag.PageDescription = @L("UsersHeaderInfo");
+}
+
+@section Styles
+{
+    <link rel="stylesheet" abp-href="/view-resources/App/Users/index.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/App/Users/index.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/view-resources/Profile/Candidate/JobAppCrud.min.css" />
+}
+
+@section Scripts
+{
+    <script abp-src="/view-resources/Profile/Candidate/Detail.js" asp-append-version="true"></script>
+    <script src="~/view-resources/Profile/Users/CurriculumVitaeDetail.js" asp-append-version="true"></script>
+    <script src="/view-resources/profile/Candidate/JobAppCrud.js" asp-append-version="true"></script>
+    <script src="/view-resources/profile/Candidate/JobAppPartialView.js" asp-append-version="true"></script>
+    @* <script abp-src="/view-resources/Profile/Candidate/JobAppCrud.js" asp-append-version="true"></script> *@
+
+}
+
+<div class="page-body">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+                <nav>
+                <ol class="breadcrumb justify-content-sm-start align-items-center mb-0" style="margin-bottom: 32px !important;">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item f-w-400 active"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item f-w-400 active">@Html.ActionLink("Danh sách hồ sơ ứng tuyển", "CurriculumVitaeJobApplication", "UsersType1", new { Area = "Profile" }, null)</li>
+                    <li class="breadcrumb-item f-w-400">Chi tiết hồ sơ</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card card-jobapplication">
+                <div class="card-header ">
+                    <h4>Hồ sơ ứng tuyển</h4>
+                    <div class="card-header-right">
+                    </div>
+                </div>
+                <div class="card-body card-wrapper">
+                    <input hidden="" name="CandidateId" value="@Model.Candidate.Id">
+                    <div class="card-body custom-input tab-content" id="JobApplication">
+                        <input id="JobApplicationId" name="JobApplication" hidden value="@Model.JobApplication.JobApplication.Id">
+                        @await Html.PartialAsync("~/Areas/Profile/Views/JobApplication/ViewJobApp.cshtml")
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="workexperience">
+                <div class="card-header ">
+                    <h4>Kinh nghiệm làm việc</h4>
+                    <div class="card-header-right">
+                        <a class="addworkexp" href="javascript:void(0)">
+                            <span class="fa fa-plus-square"> Thêm </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body card-wrapper">
+                    <div class="card-body custom-input tab-content">
+                        <div class="col-md-12 col-lg-12 mt-2 partialview">
+                            @* @await Html.PartialAsync("PartialViewWorkExp") *@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="learningprocess">
+                <div class="card-header ">
+                    <h4>Trình độ học vấn</h4>
+                    <div class="card-header-right">
+                        <a class="addlearnprocess" href="javascript:void(0)">
+                            <span class="fa fa-plus-square"> Thêm </span>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body card-wrapper">
+                    <div class="card-body custom-input tab-content">
+                        <div class="col-md-12 col-lg-12 mt-2 partialviewlearn">
+                            @* @await Html.PartialAsync("PartialViewLearnProcess") *@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="icon-hover-bottom p-fixed fa-fa-icon-show-div" style="display: block;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="icon-popup justify-content-end">
+                    <div class="icon-class">
+                    </div>
+                    <div class="icon-last icon-last">
+                        <div class="form-inline">
+                            <div class="form-group">
+                              @*   <button class="btn btn-primary notification Deletecandidate" data-userId="@Model.Candidate.UserId">@L("Delete")</button> *@
+                                <button class="btn btn-primary notification DeleteJobApplication" data-jobapp="@Model.JobApplication.JobApplication.Id">Xoá</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

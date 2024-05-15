@@ -1,0 +1,35 @@
+﻿@using BBK.SaaS.Web.Models.Cms.Articles
+
+@model ListArticlesViewModel
+
+<div class="row">
+
+	@for (int i = 0; i < Model.Articles.Count; i++)
+	{
+		@* <div class="col-md-3 md-50 box-col-6">
+			<div class="card border-0 bg-transparent shadow-0 shadow-none">
+				<div class="blog-box blog-grid product-box">
+					<div class="product-img">
+						<a href="/@Model.Articles[i].Slug"><img class="img-fluid top-radius-blog" src="/file/get?c=@Model.Articles[i].PrimaryImageUrl" alt=""></a>
+					</div>
+					<div class="blog-details-main mt-3">
+						<a href="/@Model.Articles[i].Slug" class=""><span class="f-w-700">@Model.Articles[i].Title</span></a>
+					</div>
+				</div>
+			</div>
+		</div> *@
+
+		<div class="card">
+			<div class="blog-box blog-grid text-center">
+				<a href="/@Model.Articles[i].Slug"><img class="img-fluid top-radius-blog" src="/file/get?c=@Model.Articles[i].PrimaryImageUrl" alt="@Model.Articles[i].Title"></a>
+				<div class="blog-details-main">
+					<a href="/@Model.Articles[i].Slug" class=""><span class="f-w-700">@Model.Articles[i].Title</span></a>
+					<p class="blog-bottom-details">
+						@Model.Articles[i].ShortDesc
+					</p>
+				</div>
+			</div>
+		</div>
+	}
+
+</div>

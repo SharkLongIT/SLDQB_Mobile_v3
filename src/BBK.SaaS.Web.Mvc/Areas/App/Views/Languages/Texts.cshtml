@@ -1,0 +1,112 @@
+﻿@using System.Threading.Tasks
+@using BBK.SaaS.Web.Areas.App.Models.Languages
+@using BBK.SaaS.Web.Areas.App.Startup
+@using BBK.SaaS.Web.Startup
+@model LanguageTextsViewModel
+@{
+    ViewBag.CurrentPageName = AppPageNames.Administrators.Languages;
+    ViewBag.PageTitle = @L("LanguageTexts");
+}
+
+@section Scripts
+{
+    <script abp-src="/view-resources/App/_Bundles/language-texts.js" asp-append-version="true"></script>
+}
+
+<div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card">
+					@*<div class="card-header">
+						<h4>@L("LanguageTexts")</h4>
+						<div class="card-header-right">
+							<ul class="list-unstyled card-option">
+								<li><i class="icon-more-alt"></i></li>
+								<li><i class="view-html fa fa-code"></i></li>
+								<li><i class="icofont icofont-maximize full-card"></i></li>
+								<li><i class="icofont icofont-minus minimize-card"></i></li>
+								<li><i class="icofont icofont-refresh reload-card"></i></li>
+								<li><i class="icofont icofont-error close-card"></i></li>
+							</ul>
+						</div>
+						<span>@L("LanguageTextsHeaderInfo")</span>
+					</div>*@
+					<div class="card-body">
+						<!-- Put actions here -->
+            <div class="row align-items-center">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="mb-3">
+                            <label for="TextBaseLanguageSelectionCombobox" class="form-label">@L("BaseLanguage")</label>
+                            <select id="TextBaseLanguageSelectionCombobox" name="BaseLanguage" class="form-control select2">
+                                @foreach (var language in Model.Languages)
+                                {
+                                    <option data-icon="@language.Icon" value="@language.Name" selected="@(language.Name == Model.BaseLanguageName)">
+                                        <i class="@language.Icon"></i>@language.DisplayName
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="mb-3">
+                            <label for="TextTargetLanguageSelectionCombobox" class="form-label">@L("TargetLanguage")</label>
+                            <select id="TextTargetLanguageSelectionCombobox" name="TargetLanguage"
+                                    class="form-control select2">
+                                @foreach (var language in Model.Languages)
+                                {
+                                    <option data-icon="@language.Icon" value="@language.Name" selected="@(language.Name == Model.LanguageName)">
+                                        <i class="@language.Icon"></i>@language.DisplayName
+                                    </option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="mb-3">
+                            <label for="TextSourceSelectionCombobox" class="form-label">@L("Source")</label>
+                            @Html.DropDownList("SourceName", Model.Sources, new {@class = "form-control select2", id = "TextSourceSelectionCombobox"})
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="mb-3">
+                            <label for="TargetValueFilterSelectionCombobox" class="form-label">@L("TargetValue")</label>
+                            <select id="TargetValueFilterSelectionCombobox" class="form-select select2" name="TargetValue" data-control="select2">
+                                <option value="ALL" selected="@(Model.TargetValueFilter == "ALL")">@L("All")</option>
+                                <option value="EMPTY" selected="@(Model.TargetValueFilter == "EMPTY")">@L("EmptyOnes")</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-center mb-3">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <input id="TextFilter" value="@Model.FilterText" class="form-control" placeholder="@L("SearchWithThreeDot")" type="text">
+                            <button id="RefreshTextsButton" class="btn btn-primary" type="submit">
+                                <i class="icon-refresh"></i> @L("Refresh")
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive theme-scrollbar">
+							<!-- Put table here -->
+                <table id="TextsTable" class="table align-middle table-row-dashed dataTable dtr-inline no-footer table-responsive theme-scrollbar user-datatable">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>@L("Key")</th>
+                        <th>@L("BaseValue")</th>
+                        <th>@L("TargetValue")</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                </table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

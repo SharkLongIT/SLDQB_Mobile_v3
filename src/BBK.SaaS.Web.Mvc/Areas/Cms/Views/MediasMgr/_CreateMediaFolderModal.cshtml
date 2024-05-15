@@ -1,0 +1,20 @@
+﻿@using Abp.Organizations
+@using BBK.SaaS
+@using BBK.SaaS.Web.Areas.App.Models.Common.Modals
+@using BBK.SaaS.Web.Areas.App.Models.MediaFolders
+
+@model CreateMediaFolderModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("NewMediaFolder")))
+
+<div class="modal-body">
+    <form name="MediaFolderForm" role="form" novalidate class="form-validation">
+        <input type="hidden" name="ParentId" value="@Model.ParentId" />
+        <div class="mb-3">
+            <label for="DisplayName" class="form-label">@L("Name")</label>
+            <input id="DisplayName" class="form-control" type="text" name="DisplayName" required maxlength="@SaaSConsts.MaxShortLineLength">
+        </div>
+    </form>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

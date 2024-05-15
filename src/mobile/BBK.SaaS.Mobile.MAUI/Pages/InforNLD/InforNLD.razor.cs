@@ -150,7 +150,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
         }
 
         #region Create/Edit
-        private UpdateInfoModal UpdateInfoModal { get; set; }
+        private  UpdateInfoModal UpdateInfoModal { get; set; }
         public async Task EditUser()
         {
             await UpdateInfoModal.OpenFor(Model);
@@ -208,13 +208,5 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
         }
         #endregion
 
-        #region show Modal
-        private TestModal TestModal { get; set; }
-        private async Task ShowModal()
-        {
-            await TestModal.OpenFor(Model);
-            // JS.InvokeAsync()
-        }
-		#endregion
-	}
+    }
 }

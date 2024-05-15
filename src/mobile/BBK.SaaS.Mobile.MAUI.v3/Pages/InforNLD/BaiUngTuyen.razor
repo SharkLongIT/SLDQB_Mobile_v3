@@ -1,0 +1,87 @@
+﻿@using BBK.SaaS.Mobile.MAUI.Services.UI
+@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/" + NavigationUrlConsts.BaiUngTuyen)]
+
+<div class="content mt-3"></div>
+<div class="content">
+    <div class="d-flex justify-content-end">
+        <a href="javascript:;" class="btn btn-m btn-full bg-highlight rounded-m text-uppercase font-700 under-slider-btn" @onclick="(()=>OpenCreateModal())">
+            Thêm mới hồ sơ
+        </a>
+    </div>
+</div>
+
+<div class="content search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important; ">
+    <i class="fa fa-search"></i>
+    <input type="search" class="border-0" @bind="_filter.Search" placeholder="Tìm kiếm thông tin" @oninput="selectedValue">
+</div>
+
+        @if (isError == true)
+{
+    <div class="card card-style">
+        <div class="content">
+            <div class="text-error">
+                <h3>Không tìm thấy kết quả!!!</h3>
+                <span class="mt-2">Thử tìm kiếm với từ khoá khác!!!</span>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <Virtualize @ref="JobApplicationContainer" Context="job" ItemsProvider="@LoadJobApplication" ItemSize="20">
+        <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3" style="background-color:#FFF !important; ">
+
+            <div class="d-flex">
+                <div>
+                    <img src="@_userImage" class="me-3 rounded-circle shadow-l"
+                         width="100">
+                </div>
+                <div>
+                    <h5 class="font-700 text-uppercase" @onclick="(() => ViewUser(job))">@job.Title</h5>
+
+                    <h1 class="font-700 font-15 line-height-m pb-2">@job.Occupations.DisplayName</h1>
+                    <span class="badge bg-green-dark text-uppercase font-12">
+                        <i class="fa-solid fa-dollar-sign pe-1"></i>
+                        @if (job.DesiredSalary.HasValue)
+                        {
+                            <span>
+                                @{
+                                    var minSalaryInMillion = Math.Truncate(job.DesiredSalary.Value / 1000000);
+                                }
+                                @minSalaryInMillion triệu
+                            </span>
+                        }
+                        else
+                        {
+                            <span>Lương thoả thuận</span>
+                        }
+                    </span>
+                    <span class="badge bg-gray-dark text-uppercase font-12">
+                        <i class="fa-solid fa-graduation-cap pe-1"></i>
+                        @job.Experiences.DisplayName
+                    </span>
+                    <span class="badge bg-teal-dark text-uppercase font-12">
+                        <i class="fa-solid fa-comment pe-1"></i>
+                        @job.Province.DisplayName
+                    </span>
+                </div>
+                <div class="ms-auto">
+                    @* <i class="fa-solid fa-caret-down float-end " @onclick="(() => DisPlayAction(job))"></i> *@
+                    <a data-bs-toggle="dropdown" class="icon icon-m color-theme"><i class="fa fa-ellipsis-h float-end" style="margin-top: -10px"></i></a>
+                    <div class="dropdown-menu border-0 bg-theme rounded-m shadow-xl px-2 mt-n4">
+                        <div class="list-group list-custom-small mt-n2 mb-n2">
+                            <a @onclick="(() => ViewUser(job))" data-menu="menu-archive"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Xem hồ sơ<i class="fa"></i></a>
+                            <a @onclick="(() => EditUser(job))" data-menu="menu-download"><i class="fa font-14 fa-pencil color-blue-dark opacity-60"></i>Sửa hồ sơ<i class="fa"></i></a>
+                            <a @onclick="(() => DeleteJobApplication(job))" data-menu="menu-delete"><i class="fa font-14 fa-trash color-red-dark opacity-60"></i>Xoá hồ sơ<i class="fa"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </Virtualize>
+}
+
+
+<CreateOrEditJobModal OnSave="RefeshList" @ref="createOrEditJobModal"></CreateOrEditJobModal>

@@ -1,0 +1,119 @@
+﻿@using BBK.SaaS
+@using BBK.SaaS.Mdls.Profile
+@using BBK.SaaS.Mdls.Profile.TradingSessions.Dto
+@using BBK.SaaS.Web.Areas.App.Startup
+@model TradingSessionEditDto
+@{
+    Layout = null;
+}
+<div class="modal-body user-edit-modal">
+    <div class="modal-header">
+        <h4 class="modal-title">Chi tiết phiên giao dịch</h4>
+        <button class="btn-close py-0" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="page-body">
+        <!-- Container-fluid starts-->
+        <div class="container-fluid">
+            <div class="row">
+                <form name="CreateTradingForm" role="form" novalidate class="form-validation">
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <input type="hidden" id="ProvinceId" value="@Model.ProvinceId" />
+                    <input type="hidden" id="DistrictId" value="@Model.DistrictId" />
+                    <input type="hidden" id="VillageId" value="@Model.VillageId" />
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="no-hint form-group">
+                                <label for="ShortDesc" class="form-label">@(new FixedLocalizableString("Ảnh đại diện"))</label>
+                            </div>
+                            <div class="card">
+                                <div class="blog-box blog-grid text-center product-box">
+                                    <div class="product-img">
+                                        @if (!string.IsNullOrEmpty(Model.ImgUrl))
+                                        {
+                                            <img class="img-fluid preview-primaryimg" src="/file/get?p=@Model.ImgUrl" alt="">
+                                        }
+                                        else
+                                        {
+                                            <img class="img-fluid preview-primaryimg" src="/themes/mofi/assets/images/blog/blog.jpg" alt="">
+                                        }
+                                      @*   <div class="product-hover">
+                                            <button id="ChoseAvatarButton" type="button" class="btn btn-primary form-control">
+                                                <i class="fa fa-save btn-md-icon"></i>
+                                                <span class="d-none d-md-inline-block">
+                                                    @(new FixedLocalizableString("Chọn ảnh đại diện"))
+                                                </span>
+                                            </button>
+                                        </div> *@
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="mb-3">
+                                <label for="TypeInterview" class="form-label">Tên phiên giao dịch</label><span class="text-danger">*</span>
+                                <input id="NameTrading" class="form-control" required placeholder="Phiên giao dịch việc làm" type="text" name="NameTrading" value="@Model.NameTrading" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Time" class="form-label">Mô tả phiên</label>
+                                <textarea disabled id="Describe" class="form-control" rows="4" cols="50" name="Describe" maxlength="@SaaSConsts.MaxDescription">@Model.Describe</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Tỉnh/Thành phố</label>
+                            <select  class="form-control Province" id="Province" name="ProvinceId" asp-for="@Model.ProvinceId" disabled>
+                                <option value="" selected disabled>Chọn Tinh/Thành phố</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Quận/Huyện</label>
+                            <select  class="form-control District" id="District" name="DistrictId" asp-for="@Model.DistrictId" disabled>
+                                <option value="" selected disabled>Chọn Quận/Huyện</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Phường/Xã</label>
+                            <select  class="form-control" id="Village" name="VillageId" asp-for="@Model.VillageId" disabled>
+                                <option value="" selected disabled>Chọn Phường/Xã</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Adress" class="form-label">Địa chỉ</label>
+                            <input id="Adress" type="text" name="Address"  class="form-control" value="@Model.Address" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="Time" class="form-label">Thời gian bắt đầu</label><span class="text-danger">*</span>
+                            <input id="StartTime" type="datetime-local" disabled required name="StartTime" class="form-control" asp-for="@Model.StartTime">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="Time" class="form-label">Thời gian kết thúc</label><span class="text-danger">*</span>
+                            <input id="EndTime" type="datetime-local" disabled required name="EndTime" class="form-control" asp-for="@Model.EndTime">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Số lượng tối đa</label><span class="text-danger">*</span>
+                            <input id="CountRecruiterMax" class="form-control" disabled required placeholder="Nhà tuyển dụng" type="number" value="@Model.CountRecruiterMax" name="CountRecruiterMax">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Số lượng tối đa</label><span class="text-danger">*</span>
+                            <input id="CountCandidateMax" class="form-control" disabled required placeholder="Người lao động" value="@Model.CountCandidateMax" type="number" name="CountCandidateMax">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Time" class="form-label">Nội dung</label>
+                            <textarea disabled id="Description" class="form-control" rows="4" cols="50" name="Description" maxlength="@SaaSConsts.MaxDescription">@Model.Description</textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

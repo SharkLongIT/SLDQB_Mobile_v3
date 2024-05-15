@@ -1,0 +1,35 @@
+﻿@using BBK.SaaS.Mdls.Profile.Candidates.Dto
+@{
+    Layout = null;
+}
+<div class="modal-body user-edit-modal ApplicationRequest">
+    <div class="modal-header">
+        <h4 class="modal-title">Ứng tuyển - tên công việc</h4>
+        <button class="btn-close py-0" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="page-body">
+        <!-- Container-fluid starts-->
+        <div class="container-fluid">
+            <div class="row">
+                <form name="ApplicationRequest" role="form" novalidate class="form-validation">
+                    <input hidden name="RecruitmentId" value="@ViewBag.RecruitmentId">
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="JobApplication" class="form-label">Chọn hồ sơ ứng tuyển</label>
+                            <select required class="form-control" id="JobApplicationId" asp-items="@ViewBag.ListJobAppOrCandidate" name="JobApplicationId">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Content" class="form-label">Nội dung gửi đến nhà tuyển dụng</label>
+                            <textarea rows="3" id="Content" class="form-control"  type="text" name="Content" required></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

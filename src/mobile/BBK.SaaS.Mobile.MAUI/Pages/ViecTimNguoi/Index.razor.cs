@@ -21,7 +21,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
         protected NavMenu NavMenu { get; set; }
         protected IRecruitmentAppService recruitmentAppService { get; set; }
         protected INavigationService navigationService { get; set; }
-        public event EventHandler CloseRequested = default!;
         private string _SearchText = "";
         private decimal? _SalaryMin;
         private decimal? _SalaryMax;
@@ -40,8 +39,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
         private decimal? SalaryMin;
         private decimal? SalaryMax;
 
-        private int RecruitmentCount;
-        bool IsRecruitmentCount;
         protected IGeoUnitAppService geoUnitAppService { get; set; }
         private ItemsProviderResult<GeoUnitDto> geoUnitDto;
         private Virtualize<GeoUnitDto> GeoUnitContainer { get; set; }
@@ -116,7 +113,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
 
         private ItemsProviderResult<RecruitmentDto> recruitmentDto;
         private Virtualize<RecruitmentDto> RecruitmentContainer { get; set; }
-        private RecruimentInput _filter = new RecruimentInput();
+        private readonly RecruimentInput _filter = new RecruimentInput();
         [Inject]
         protected NavigationManager NavigationManager { get; set; }
 
@@ -132,8 +129,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
             ApplicationContext = DependencyResolver.Resolve<IApplicationContext>();
 
         }
-
-        //protected override 
         protected override async Task OnInitializedAsync()
         {
 
@@ -148,9 +143,9 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
             {
                 Job = int.Parse(q1["Job"]);
             }
-            if (q1["Worksite"] != null)
+            if (q1["WorkSite"] != null)
             {
-                Worksite = int.Parse(q1["Worksite"]);
+                Worksite = int.Parse(q1["WorkSite"]);
             }
             if (q1["Experience"] != null)
             {
@@ -170,28 +165,15 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
             }
             else
             {
-                SalaryMax = null;
+                SalaryMax =null;
             }
             await ReloadList();
         }
-        public async void selectedValue(ChangeEventArgs args)
-        {
-            string select = Convert.ToString(args.Value);
-            _SearchText = select;
-            //IsFilter = true;
-            //if (_SearchText == "")
-            //{
-            //    IsFilter = false;
-            //}
-            await RecruitmentContainer.RefreshDataAsync();
-            StateHasChanged();
-            //await LoadRecruitment(new ItemsProviderRequest());
 
-        }
         private async Task ReloadList()
         {
             #region InPage
-
+          
             if (Filter == null)
             {
                 _SearchText = _filter.Filtered;
@@ -223,39 +205,26 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
             await LoadRecruitment(new ItemsProviderRequest());
         }
         private bool IsCancel;
-       
-        private async Task RefeshListAfterFillter()
+        private async Task RefeshList()
         {
             IsCancel = true;
-            IsRecruitmentCount = true;
+
             #region InPage
-            _filter = fillterModal._filter;
             _SearchText = _filter.Filtered;
             if (_filter.Salary.HasValue)
             {
 
-                _SalaryMin = _filter.Salary.Value;
-            }
-            else
-            {
-                _SalaryMin = null;
-            }
+            _SalaryMin = _filter.Salary.Value;
+            } 
             if (_filter.SalaryMax.HasValue)
             {
 
-                _SalaryMax = _filter.SalaryMax.Value;
-            }
-            else
-            {
-                _SalaryMax = null;
-            }
-            if (_filter.Experience.HasValue) { _Experience = _filter.Experience.Value; }
-            if (_filter.Degree.HasValue) { _Degree = _filter.Degree.Value; }
-
-            if (_filter.Job.HasValue) { _Job = _filter.Job.Value; }
-
-            if (_filter.WorkSiteId.HasValue) { _WorkSite = _filter.WorkSiteId.Value; }
-
+            _SalaryMax = _filter.SalaryMax.Value;
+            }   
+            _Experience = _filter.Experience.Value;
+            _Degree = _filter.Degree.Value;
+            _Job = _filter.Job.Value;
+            _WorkSite = _filter.WorkSiteId.Value;
             #endregion
 
             await RecruitmentContainer.RefreshDataAsync();
@@ -285,7 +254,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
         {
             await WebRequestExecuter.Execute(
              async () => await CatUnitAppService.GetFilterList(),
-
+           
              async (catUnit) =>
              {
                  _degree = catUnit.Degree;
@@ -301,7 +270,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                      Experience = _experience,
                      FormOfWork = _formOfWork,
                      Rank = _rank
-
+                    
                  };
 
                  CatFilterListDto = new ItemsProviderResult<CatFilterList>(
@@ -309,7 +278,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                      totalItemCount: 1
                  );
              });
-
+         
             await UserDialogsService.UnBlock();
             return CatFilterListDto;
 
@@ -346,6 +315,9 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
         #endregion
         private async ValueTask<ItemsProviderResult<RecruitmentDto>> LoadRecruitment(ItemsProviderRequest request)
         {
+            //_filter.MaxResultCount = Math.Clamp(request.Count, 1, 1000);
+            //_filter.SkipCount = request.StartIndex;
+            //_filter.Take = Math.Clamp(request.Count, 1, 1000);
             _filter.Filtered = _SearchText;
             _filter.Job = _Job;
             _filter.SalaryMax = _SalaryMax;
@@ -355,6 +327,9 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
             _filter.WorkSiteId = _WorkSite;
 
             await UserDialogsService.Block();
+
+            //var catuint = await CatUnitAppService.GetFilterList();
+
 
             await WebRequestExecuter.Execute(
                 async () => await recruitmentAppService.GetAllUser(_filter),
@@ -366,19 +341,17 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                     {
                         model.Recruiter.AvatarUrl = AsyncHelper.RunSync(async () => await articleService.GetPicture(model.Recruiter.AvatarUrl));
                     }
-                    RecruitmentCount = jobFilter.Count;
-                    if (_SearchText != "" || _Job != 0 || _SalaryMax != null || _SalaryMin != null || _SalaryMax != null || _Experience != 0 || _Degree != 0 || _WorkSite != 0)
+                    if (jobFilter.Count == 0)
                     {
-                        if (jobFilter.Count == 0)
-                        {
-                            isError = true;
-                        }
-                        else
-                        {
-                            isError = false;
-                        }
+                        isError = true;
+                    }
+                    else
+                    {
+                        isError = false;
                     }
                     recruitmentDto = new ItemsProviderResult<RecruitmentDto>(jobFilter, jobFilter.Count);
+
+
                     await UserDialogsService.UnBlock();
 
                 }
@@ -389,15 +362,13 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
 
         public async Task ViewRecruitment(RecruitmentDto recruitment)
         {
-            navigationService.NavigateTo($"ThongTinVTN?Id={recruitment.Id}&WorkAddress={recruitment.WorkAddress}&HumanResSizeCat={recruitment.Recruiter.HumanResSizeCat.DisplayName}&Experiences={recruitment.Experiences.DisplayName}");
+            navigationService.NavigateTo($"ThongTinVTN?Id={recruitment.Id}&WorkAddress={recruitment.WorkAddress}&HumanResSizeCat={recruitment.Recruiter.HumanResSizeCat.DisplayName}&Experiences={recruitment.Experiences.DisplayName}&SphereOfActivity={recruitment.Recruiter.SphereOfActivity.DisplayName}");
         }
 
-        FillterModal fillterModal = new FillterModal();
-        public async Task OpenFilter()
-        {
-            //IsOpenFilter = true;
-            await fillterModal.OpenFor();
-        }
+      
+
+
+
 
     }
 }

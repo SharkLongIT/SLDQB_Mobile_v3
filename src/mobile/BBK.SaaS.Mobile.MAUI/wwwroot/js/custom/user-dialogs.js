@@ -43,11 +43,8 @@ var BlazorUserDialogService = function () {
             buttonsStyling: false,
             confirmButtonText: confirmButtonText,
             customClass: {
-                confirmButton: "btn btn-success btn-white-text"
-            },
-            background: "white",
-            //iconHtml: '<i style="color: #50cd89;"></i>'
-
+                confirmButton: "btn btn-success"
+            }
         });
     }
 
@@ -58,9 +55,8 @@ var BlazorUserDialogService = function () {
             buttonsStyling: false,
             confirmButtonText: confirmButtonText,
             customClass: {
-                confirmButton: "btn btn-primary btn-white-text"
-            },
-            background: "white"
+                confirmButton: "btn btn-primary"
+            }
         });
     }
 
@@ -71,9 +67,8 @@ var BlazorUserDialogService = function () {
             buttonsStyling: false,
             confirmButtonText: confirmButtonText,
             customClass: {
-                confirmButton: "btn btn-danger btn-white-text"
-            },
-            background: "white"
+                confirmButton: "btn btn-danger"
+            }
         });
     }
 
@@ -84,10 +79,8 @@ var BlazorUserDialogService = function () {
             buttonsStyling: false,
             confirmButtonText: confirmButtonText,
             customClass: {
-                confirmButton: "btn btn-warning btn-white-text"
-            },
-            background: "white",
-            //iconHtml: '<i class="fa fa-exclamation-circle" style="color: #f1bc00;"></i>'
+                confirmButton: "btn btn-warning"
+            }
         });
     }
 
@@ -99,27 +92,8 @@ var BlazorUserDialogService = function () {
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: confirmButtonText,
-                cancelButtonText: cancelButtonText,
-            }
-            ).then((result) => {
-                resolve(result.isConfirmed);
-            });
-        });
-
-        let result = await promise;
-        return result;
-    }
-    var logout = async function (text, title, cancelButtonText, confirmButtonText) {
-        let promise = new Promise((resolve, reject) => {
-            Swal.fire({
-                title: title,
-                text: text,
-                icon: 'warning',
-                showCancelButton: true,
-                cancelButtonText: cancelButtonText,
-                confirmButtonText: confirmButtonText,
-            }
-            ).then((result) => {
+                cancelButtonText: cancelButtonText
+            }).then((result) => {
                 resolve(result.isConfirmed);
             });
         });
@@ -151,7 +125,6 @@ var BlazorUserDialogService = function () {
         alertError: alertError,
         alertWarn: alertWarn,
         confirm: confirm,
-        prompt: prompt,
-        logout: logout
+        prompt: prompt
     };
 }();

@@ -1,0 +1,36 @@
+﻿@inherits ModalBase
+<div id="@ModalId" class="menu menu-box-modal rounded-m" data-menu-width="330">
+    <div class="content">
+        <div class="d-flex">
+            <h1>@L("Giới thiệu")</h1>
+            <div class="ms-auto">
+                <a class="close-menu" @onclick="Hide"><i class="fa fa-times"></i></a>
+            </div>
+        </div>
+        <h5> @L("Họ và tên")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control validate-text" id="form1" @bind="Model.FullName">
+            <em>(bắt buộc)</em>
+        </div>
+        <h5>  @L("Email")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control validate-text" id="form1" @bind="Model.Email">
+            <em>(bắt buộc)</em>
+        </div>
+        <h5>@L("Số điện thoại")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control validate-text" id="form1" @bind="Model.Phone">
+            <em>(bắt buộc)</em>
+        </div>
+        <h5>@L("Nội dung")</h5>
+        <div class="input-style has-borders no-icon mb-4">
+            <textarea id="form7" @bind="Model.Description"></textarea>
+            <label for="form7" class="color-highlight">@L("Nội dung")</label>
+            <em class="mt-n3">(bắt buộc)</em>
+        </div>
+        <div mt-3>
+            <p style="color:red; text-decoration:underline;">Chính sách giới thiệu</p>
+        </div>
+        <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="CreateIntroduce">Gửi</a>
+    </div>
+</div>

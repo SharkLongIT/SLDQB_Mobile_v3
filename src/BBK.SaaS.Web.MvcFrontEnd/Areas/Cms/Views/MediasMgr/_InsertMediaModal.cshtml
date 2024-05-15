@@ -1,0 +1,58 @@
+﻿@using BBK.SaaS.Web.Areas.App.Models.Common.Modals
+@model LookupModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(new FixedLocalizableString("Lựa chọn").FixedString))
+
+<div class="modal-body p-0">
+	<div class="card card-stretch" id="ouMembersCard">
+		<div class="card-header align-items-center">
+			<form asp-area="cms" asp-controller="MediasMgr" autocomplete="off" class="dropzone dropzone-secondary bg-light-secondary"
+				  id="multiFileUpload" enctype="multipart/form-data" asp-action="UploadFiles" method="post">
+				<div class="dz-message needsclick">
+					<i class="icon-cloud-up"></i>
+					<h6 class="f-w-600">Kéo & thả file tại đây để tải tệp lên.</h6><span class="note needsclick">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
+				</div>
+			</form>
+			<ol id="mediafolderbreadcrumb" class="breadcrumb bg-white p-l-0 p-t-10">
+				<li class="breadcrumb-item"><a href="#" class="mediaFolderRootLink"><i class="fa fa-home"></i></a></li>
+				@* <li class="breadcrumb-item">Bonus Ui</li> *@
+				<li class="breadcrumb-item active">
+					<div class="btn-group" role="group">
+						<button class="btn btn-square btn-outline-secondary btn-xs btn-line-0 dropdown-toggle" id="btnGroupVerticalDrop1" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Thư mục con</button>
+						<div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1">
+							<a class="dropdown-item" href="#">Events 2024</a>
+							<a class="dropdown-item" href="#">Tet 2024</a>
+						</div>
+					</div>
+				</li>
+			</ol>
+			<div class="input-group">
+				<input type="text" id="MediaFilter" class="form-control insert-media-filter-text" placeholder="Tìm kiếm..." value="">
+				<button id="SearchButton" class="btn btn-primary insert-media-filter-button" type="button">
+					<i class="flaticon-search-1" aria-label="Search"></i>
+				</button>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="card-scroll">
+				<div id="FolderMediasTable">
+					<table class="folder-medias-table table align-middle table-row-dashed fs-6 gy-5 dataTable dtr-inline no-footer">
+						<thead>
+							<tr>
+								<th>@L("Delete")</th>
+								<th>@L("Name")</th>
+								<th>@L("Type")</th>
+								<th>@L("Size")</th>
+								<th>@L("Modified")</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-light-primary fw-bold close-button" data-bs-dismiss="modal">@L("Cancel")</button>
+</div>

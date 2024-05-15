@@ -94,6 +94,8 @@ namespace BBK.SaaS.Mdls.Category.Indexings
 
 		public virtual long UsedCount { get; set; }
 
+    public virtual int OrderIndex { get; set; }
+
 		/// <summary>
 		/// Children of this OU.
 		/// </summary>

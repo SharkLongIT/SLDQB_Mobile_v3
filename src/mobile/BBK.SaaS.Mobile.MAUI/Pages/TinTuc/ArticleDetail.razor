@@ -3,93 +3,132 @@
 @inherits SaaSMainLayoutPageComponentBase
 @attribute [Route("/ArticleDetail")]
 
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/test1.css">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<div class="body">
     @if (_IsInitialication == true)
-{
-
-    <!--Chi tiết bài viết-->
-    <div class="card card-style">
-            <img class="mt-2 mb-3" src="@Model.PrimaryImageUrl" width="100%" height="220px" />
-        <div class="content mb-0">
-            <div class="float-start">
-                <h4 class="font-24 mb-0 mt-3">@Model.Title</h4>
-            </div>
-            <a href="javascript:;" class="float-end btn btn-xs bg-highlight rounded-xl shadow-xl text-uppercase font-900 mt-2 font-11" @onclick="Introduce">
-                Giới thiệu
-            </a>
-            <div class="clearfix"></div>
-            <div class="divider mt-2 mb-3"></div>
+    {
+        <div class="container">
             <div class="row">
-                <div class="col-4">
-                    <p class="text-start mb-0 pb-3"><i class="fa-regular fa-user color-blue-dark me-2"></i>@Model.Author</p>
-                </div>
-                <div class="col-4">
-                    <p class="text-center mb-0 pb-3"><i class="fa-solid fa-eye me-2 color-yellow-dark"></i>@Model.ViewedCount lượt xem</p>
-                </div>
-                <div class="col-4">
-                    <p class="text-end mb-0 pb-3"><i class="fa fa-calendar-alt me-2 color-green-dark"></i>@Model.LastModificationTime.ToString("dd/MM/yyyy")</p>
-                </div>
-            </div>
-            <p class="mb-3">@Model.ShortDesc</p>
-        </div>
-    </div>
-    <div class="card card-style">
-        <div class="content">
-            @htmlContent1
-        </div>
-    </div>
-
-
-
-    <!--Bài viết cùng chuyên mục-->
-    <div class="card card-style">
-        <div class="content">
-            @* <a href="/TinTuc"> *@
-            <div class="d-flex">
-                <div class="align-self-center">
-                    <h1 class="font-22 text-uppercase">Tin cùng chuyên mục</h1>
-                </div>
-                @*   <div class="ms-auto align-self-center">
-            <i class="fa fa-newspaper color-aqua-dark fa-2x mb-4 me-1"></i>
-            </div> *@
-            </div>
-            @* </a> *@
-            <div class="divider bg-green-dark mb-2 mt-2"></div>
-            <Virtualize @ref="ArticlesContainer" Context="articles" ItemsProvider="@LoadOtherArticles" ItemSize="100">
-
-                <a href="javascript:;" @onclick="(() => ViewArticle(articles))" class="pb-3">
-                    <div class="d-flex">
+                <!--Chi tiết bài viết-->
+                <div class="post-detail">
+                    <img class="mt-2 mb-3" src="@Model.PrimaryImageUrl" width="100%" height="250px" />
+                    <h4>@Model.Title</h4>
+                    <div class="user-img">
                         <div>
-                            <img src="@articles.PrimaryImageUrl" class="rounded-sm me-3" width="80">
+                            <div class="d-flex">
+                                <div>
+                                    <span class="tacgia">
+                                        @Model.Author
+                                    </span>
+                                </div>
+                                <div>
+                                    <div class="d-flex">
+                                        <span class="ml-4 mt-1" style="font-size: 0.8rem">@Model.ViewedCount lượt xem</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <span style="font-size: 0.8rem"> @Model.LastModificationTime.ToString("dd/MM/yyyy HH:mm") </span>
+                            </div>
                         </div>
-                        <div class="w-100">
 
-                            <p class="mt-n2 mb-2">
-                                <strong>
-                                    @articles.Title
-                                </strong>
-                            </p>
-                            <p>
-                                @articles.Author - @articles.Modified.ToString("dd/MM/yyyy")<span class="d-block float-end color-blue-dark font-11">
-                                    Chi
-                                    tiết
-                                </span>
-                            </p>
-                        </div>
                     </div>
-                </a>
-                <div class="divider mb-2 mt-2"></div>
-            </Virtualize>
-            <a @onclick="GetArticleByCategory"
-               class="btn btn-full border-blue-dark rounded-sm color-blue-dark btn-sm font-700 text-uppercase mt-4">
-                Xem
-                thêm
-            </a>
+                    <a class="view-detail btn btn-danger" @onclick="Introduce">
+                        Giới thiệu
+                    </a>
+                    <h2 class="mt-4">@Model.MetaDescription</h2>
+                    <div class="body-sumernote mt-3">
+                        @htmlContent1
+                    </div>
+                </div>
+                <!--Bài viết cùng chuyên mục-->
+                <div class="post-category mt-3">
+
+                    <h4>Tin cùng chuyên mục</h4>
+                    @if (_IsInitLoadOther == true)
+                    {
+                        <Virtualize @ref="ArticlesContainer" Context="articles" ItemsProvider="@LoadOtherArticles" ItemSize="100">
+                            <a href="javascript:;" @onclick="(() => ViewArticle(articles))">
+                                <div class="card article">
+                                    <div class="d-flex">
+                                        <div>
+                                            <img class="card-img-top" src="@articles.PrimaryImageUrl" />
+                                        </div>
+                                        <div class="ms-3">
+                                            <div class="title">
+                                                <h4>@articles.Title</h4>
+                                            </div>
+                                            <div class="author">
+                                                <span>@articles.Author</span>
+                                            </div>
+                                            <div class="short-desc">
+                                                <span>@articles.ShortDesc</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </Virtualize>
+                        <div class="view-all">
+                            <a class="btn" @onclick="RedirectOtherArticles">Xem thêm</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <p style="font-size: 15px;"> Không có tin nào cùng chuyên mục</p>
+                    }
+
+                </div>
+
+
+                <!--Bài mới nhất-->
+                <div class="mt-3">
+                    <h4>Tin tức mới nhất</h4>
+                    <Virtualize @ref="ArticlesContainer" Context="articles" ItemsProvider="@LoadNewArticles" ItemSize="100">
+                        <a href="javascript:;" @onclick="(() => ViewArticle(articles))">
+                            <div class="card article">
+                                <div class="d-flex">
+                                    <div>
+                                        <img class="card-img-top" src="@articles.PrimaryImageUrl" />
+                                    </div>
+                                    <div class="ms-3">
+                                        <div class="title">
+                                            <h4>@articles.Title</h4>
+                                        </div>
+                                        <div class="author">
+                                            <span>@articles.Author</span>
+                                        </div>
+                                        <div class="short-desc">
+                                            <span>@articles.ShortDesc</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </Virtualize>
+                </div>
+            </div>
         </div>
-    </div>
-}
-else
-{
+    }
+    else
+    {
 
-}
+    }
 
+</div>
 <IntroduceModal OnSave="RefeshList" @ref="introduceModal"></IntroduceModal>

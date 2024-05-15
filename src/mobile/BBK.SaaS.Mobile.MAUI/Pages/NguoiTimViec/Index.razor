@@ -2,83 +2,180 @@
 @inherits SaaSMainLayoutPageComponentBase
 @attribute [Route("/" + NavigationUrlConsts.NguoiTimViec)]
 
-
-
-<div class="content mt-5"></div>
-<!-- Tìm kiếm thông tin -->
-@* <div class="content mt-n4  search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important">
-	<i class="fa fa-search" @onclick="RefeshList"></i>
-	<input type="search" class="border-0" placeholder="Tìm kiếm thông tin">
-	<a href="#" class="clear-search disabled mt-0"><i class="fa fa-times color-red-dark"></i></a>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+@* <div class="filter-icon justify-content-end">
+    <div class="col-xl-12">
+        <button id="filter-uplevel" class=" d-flex " style="background-color: none">
+            <i class="fa fa-sliders mt-2" aria-hidden="true">  </i>
+            <p class="ml-2 filter-up ">Bộ lọc nâng cao</p>
+        </button>
+    </div>
 </div> *@
-<div class="content mt-0">
-    <a data-menu="menu-filter" @onclick="OpenFilter">
-        <h4 class="text-uppercase color-highlight">
-            <i class="fa font-14 fa-search color-yellow-dark px-2"></i>Bộ lọc nâng cao
-        </h4>
-    </a>
-</div>
 
-@* @if (IsJobAppCount == true)
-{
-    <div class="content mt-0">
-        <h4 class="font-700">Đã tìm thấy @JobAppCount kết quả </h4>
-    </div>
-} *@
+<div class="row align-items-center mt-2 m-0">
+    <div class="col-xl-12">
+        <form id="btn-filter">
+            <div class="row align-items-center mt-2 m-0">
+                <div class="card">
+                    <a href="/FilterNTV" class=" mt-4 mb-2">
+                        <div class="container">
+                            <div class="d-flex justify-content-end">
+                                <i class="fa fa-sliders icon-filter-list"></i>
+                                <span>Bộ lọc nâng cao</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="row align-items-center m-0">
+                        <div class="col-xl-12">
+                            <div class="align-items-center">
+                                <div class="input-group d-flex">
+                                    <select class="form-control" @bind="_filter.Gender">
+                                        <option value="">Giới tính</option>
+                                        <option value="1">Nam</option>
+                                        <option value="2">Nữ</option>
+                                    </select>
+                                </div>
+                                <Virtualize @ref="GeoUnitContainer" Context="geounit" ItemsProvider="@LoadGeoUnit" ItemSize="1">
+                                    <div class="input-group d-flex mt-2">
+                                        <select required="required" class="form-control" @bind="_filter.WorkSiteId">
+                                            <option value="0" selected>Tất cả địa điểm</option>
 
-        @if (isError == true)
-{
-    <div class="card card-style">
-        <div class="content">
-            <div class="text-error">
-                <h3>Không tìm thấy kết quả!!!</h3>
-                <span class="mt-2">Thử tìm kiếm với từ khoá khác.</span>
-            </div>
-        </div>
-    </div>
-}
-else
-{
-    <Virtualize @ref="JobApplicationContainer" Context="job" ItemsProvider="@LoadJobApplication" ItemSize="20">
-        <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3" style="background-color:#FFF !important; ">
-            <a href="javascript:;" @onclick="(() => ViewUser(job))">
-                <div class="d-flex">
-                    <div>
-                        <img src="@job.Candidate.AvatarUrl" class="me-3 rounded-circle shadow-l"
-                             width="100">
-                    </div>
-                    <div>
-                        <h5 class="font-700 text-uppercase">@job.User.Name</h5>
-                        <h1 class="font-700 font-15 line-height-m pb-2">@job.JobApplication.Positions.DisplayName</h1>
-                        <span class="badge bg-green-dark text-uppercase font-12">
-                            <i class="fa-solid fa-dollar-sign pe-1"></i>
-                            @if (job.JobApplication.DesiredSalary.HasValue)
-                            {
-                                <span>
-                                    @{
-                                        var minSalaryInMillion = Math.Truncate(job.JobApplication.DesiredSalary.Value / 1000000);
-                                    }
-                                    @minSalaryInMillion triệu
-                                </span>
-                            }
-                            else
-                            {
-                                <span>Lương thoả thuận</span>
-                            }
-                        </span>
-                        <span class="badge bg-gray-dark text-uppercase font-12">
-                            <i class="fa-solid fa-graduation-cap pe-1"></i>
-                            @job.JobApplication.Literacy.DisplayName
-                        </span>
-                        <span class="badge bg-teal-dark text-uppercase font-12">
-                            <i class="fa-solid fa-comment pe-1"></i>
-                            @job.JobApplication.Province.DisplayName
-                        </span>
+                                            @foreach (var item in WorkSite)
+                                            {
+                                                <option value="@item.Id">@item.DisplayName</option>
+                                            }
+
+                                        </select>
+                                    </div>
+                                </Virtualize>
+                            </div>
+                           @*  <div class="d-flex mt-3">
+                                <input type="search" @bind="_filter.SalaryMin" class="form-control input-filter" placeholder="Nhập mức lương tối thiểu" />
+                                <input type="search" @bind="_filter.SalaryMax" class="form-control input-filter ml-3" placeholder="Nhập mức lương tối đa" />
+                            </div> *@
+                            <div class="d-flex justify-content-center mt-4 mb-4">
+                                <button @onclick="RefeshList" id="search" class="btn btn-search" type="button">
+                                    <i class="fa fa-search i-search" aria-label="Search"></i>
+                                </button>
+                                    <button @onclick="CancelList" id="cancel" class="btn btn-secondary ml-3" type="button">
+                                        Làm mới
+                                    </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </a>
-        </div>
-    </Virtualize>
-}
+            </div>
+        </form>
+        <div class="justify-content-center">
 
-<FilterModalNTV OnSave="RefeshList" @ref="FilterModalNTV"></FilterModalNTV>
+            @if (isError)
+            {
+                <div class="text-error">
+                    <i class='fas fa-search search-icon'></i>
+                    <h3>Không tìm thấy kết quả!!!</h3>
+                    <span class="mt-2">Thử tìm kiếm với từ khoá khác.</span>
+                </div>
+
+            }
+            else
+            {
+
+                <Virtualize @ref="JobApplicationContainer" Context="job" ItemsProvider="@LoadJobApplication" ItemSize="100">
+                    <div class="card form-infor mt-2">
+                        <div class="align-items-center">
+                            <div class="row">
+                                <div class="col-2 p-2">
+                                    <img class="ml-4 social-img" src="@job.Candidate.AvatarUrl" />
+                                </div>
+                                <div class="col-10">
+                                    <div class="d-flex">
+                                        <div class="p-2 mr-auto">
+                                            <div class="user-infor">
+                                                <a href="javascript:;" @onclick="(() => ViewUser(job))">
+                                                    <span class="user">@job.User.Name</span>
+                                                </a>
+                                                @* <span class="age"> (@(DateTime.Now.Year - job.Candidate.DateOfBirth.Year) tuổi) </span> *@
+                                            </div>
+                                            <div class="job">
+                                                <span> @job.JobApplication.Positions.DisplayName </span>
+                                            </div>
+                                            <div class="exp">
+                                                <span>
+                                                    <i class="fas fa-money-bill-wave"></i>
+                                                    @if (job.JobApplication.DesiredSalary.HasValue)
+                                                    {
+                                                        <span>
+                                                            @{
+                                                                var minSalaryInMillion = Math.Truncate(job.JobApplication.DesiredSalary.Value / 1000000);
+                                                            }
+                                                            @minSalaryInMillion triệu
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>Lương thoả thuận</span>
+                                                    }
+                                                </span>
+                                                @*   <span class="address">
+                                            <i class='fas fa-building ml-1'></i>
+                                            @job.Candidate.Address
+                                            </span> *@
+                                                <span>
+                                                    <i class="fas fa-briefcase ml-1"></i>
+                                                    @job.JobApplication.Experiences.DisplayName
+                                                </span>
+                                            </div>
+                                            <div class="time-update d-flex">
+                                                <i class="fas fa-sync"></i>
+                                                <span>@GetTimeSince(job.JobApplication.CreationTime) </span>
+                                                @*  @if (job.JobApplication.LastModificationTime == null)
+                                            {
+                                            <span>Thời gian cập nhật : @job.JobApplication.CreationTime.ToString("dd/MM/yyyy") </span>
+                                            }
+                                            else if (job.JobApplication.LastModificationTime.HasValue)
+                                            {
+                                            <span>Thời gian cập nhật: @job.JobApplication.LastModificationTime.Value.ToString("dd/MM/yyyy") </span>
+                                            }
+                                            else
+                                            {
+                                            <span>Thời gian cập nhật:</span>
+                                            } *@
+
+                                            </div>
+                                        </div>
+                                       @*  <div class="p-2 ml-auto">
+                                            @if (IsDefault1 == true)
+                                            {
+                                                <div class="d-flex justify-content-center">
+                                                    <a href="javascript:;" class="book-job btn mt-1" @onclick="(() => BookUser(job))">
+                                                        Đặt lịch
+                                                    </a>
+                                                </div>
+                                            }
+
+                                        </div> *@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Virtualize>
+            }
+
+        </div>
+
+    </div>
+</div>
+@* <DatLichPVModal OnSave="RefeshList" @ref="datLichPVModal"></DatLichPVModal>
+ *@

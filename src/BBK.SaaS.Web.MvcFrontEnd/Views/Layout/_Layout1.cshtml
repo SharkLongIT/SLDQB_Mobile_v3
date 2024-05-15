@@ -1,0 +1,316 @@
+﻿@using System.Globalization
+@using Abp.AspNetCore.Mvc.Caching
+@using Abp.Timing;
+@using BBK.SaaS.Mdls.Cms.Configuration
+@using BBK.SaaS.Timing
+@using Abp.CachedUniqueKeys
+@using Abp.Configuration
+@using Abp.MultiTenancy
+@using Abp.Web.Mvc.Alerts
+@using BBK.SaaS.Features
+@using BBK.SaaS.Web.Areas.App.Views.Shared.Components.AppUserMenu;
+@using BBK.SaaS.Web.Resources
+@using Abp.Web.Security.AntiForgery
+@using BBK.SaaS.Configuration
+@using BBK.SaaS.UiCustomization
+@using BBK.SaaS.UiCustomization.Dto
+@using BBK.SaaS.Url
+@using BBK.SaaS.Web.Areas.App.Models.Layout
+@using BBK.SaaS.Web.Session
+@using BBK.SaaS.Web.Views.Shared.Components.CmsFooter
+@using BBK.SaaS.Web.Views.Shared.Components.UserByTypeMenu
+@using CultureHelper = BBK.SaaS.Localization.CultureHelper
+@inject ScriptPaths ScriptPaths
+@inject AppTimes AppTimes
+@inject IAbpAntiForgeryManager AbpAntiForgeryManager
+@inject IWebUrlService WebUrlService
+@inject IPerRequestSessionCache SessionCache
+@inject IAlertManager AlertManager
+@inject ICachedUniqueKeyPerUser CachedUniqueKeyPerUser
+@inject IGetScriptsResponsePerUserConfiguration GetScriptsResponsePerUserConfiguration
+@inject IUiThemeCustomizerFactory ThemeCustomizerFactory
+@{
+    AbpAntiForgeryManager.SetCookie(Context);
+
+    var isChatEnabled = AbpSession.MultiTenancySide == MultiTenancySides.Host || IsFeatureEnabled(AppFeatures.ChatFeature);
+    var headerViewModel = new HeaderViewModel();
+    var theme = await GetTheme();
+    var themeCustomizer = await ThemeCustomizerFactory.GetCurrentUiCustomizer();
+}
+
+<!DOCTYPE html>
+<html lang="en" dir="@(CultureHelper.IsRtl ? "rtl" : "")"  data-theme="@(theme.BaseSettings.Layout.DarkMode ? "dark" : "light" )">
+<head prefix="og: http://ogp.me/ns#">
+   @*  <title>@(await SettingManager.GetSettingValueAsync(CmsAppSettings.General.MetaTitle))</title> *@
+    <title>Sàn lao động việc làm Quảng Bình</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    @* <meta content="width=device-width, initial-scale=1" name="viewport" /> *@
+    <meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <meta content="" name="copyright" />
+    <meta name="GENERATOR" content="" />
+    <meta name="robots" content="index,follow,noarchive" />
+    <meta name="GOOGLEBOT" content="index,follow,noarchive" />
+
+    <meta property="og:title" content="@(await SettingManager.GetSettingValueAsync(CmsAppSettings.General.MetaTitle))" />
+    <meta property="og:image" content="/android-chrome-192x192.png" />
+    <meta property="og:description" content="Base solution for your next web application" />
+    @* <meta property="og:url" content="@($" {Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")"> *@
+    <link rel="shortcut icon" href="/QB.ico" />
+
+    <link rel="stylesheet" abp-href="/view-resources/App/_Bundles/vendors.bundle.css" asp-append-version="true" />
+    <link rel="stylesheet" abp-href="/view-resources/App/_Bundles/app-layout-libs.css" asp-append-version="true" />
+    @* <link rel="stylesheet" abp-href="/view-resources/App/_Bundles/common-styles.css" asp-append-version="true" /> *@
+    <link rel="stylesheet" abp-href="/Common/Scripts/Datatables/datatables@(CultureHelper.IsRtl ? "-rtl" : "").css" asp-append-version="true" />
+
+    <!-- Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    @*<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">*@
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    @*<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">*@
+    @*<link href="/fonts/fonts-outfit.css" rel="stylesheet">*@
+
+    <link rel="stylesheet" type="text/css" href="/themes/BeThems/style.css">
+
+    <link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/icofont.css">
+    <link rel="stylesheet" type="text/css" href="/themes/BeThems/css/icons/font-awesome.css">
+   
+    <!-- bootstrap-icon-->
+    <link rel="stylesheet" type="text/css" href="/themes/BeThems/css/icons/bootstrap-icons.css">
+    <!-- Feather icon-->
+    <link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/feather-icon.css">
+    <!-- unicons icon-->
+    @* <link rel="stylesheet" type="text/css" href="/themes/BeThems/css/icons/unicons-icons.css"> *@
+    <!-- font-icons-->
+    <link rel="stylesheet" type="text/css" href="/themes/BeThems/css/font-icons.css">
+    @* <!-- Feather icon-->
+    <link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/feather-icon.css"> *@
+    <link rel="stylesheet" href="/themes/BeThems/one-page/css/et-line.css">
+
+    <!-- Plugins/Components CSS -->
+    <link rel="stylesheet" href="/themes/BeThems/include/rs-plugin/css/settings.css" media="screen">
+    <link rel="stylesheet" href="/themes/BeThems/include/rs-plugin/css/layers.css">
+    <link rel="stylesheet" href="/themes/BeThems/include/rs-plugin/css/navigation.css">
+    <link rel="stylesheet" href="/themes/BeThems/demos/news/news.css">
+    <link rel="stylesheet" href="/themes/BeThems/css/swiper.css">
+    <link rel="stylesheet" href="/themes/BeThems/css/magnific-popup.css">
+    <link rel="stylesheet" href="/themes/BeThems/css/animate.css">
+    <link rel="stylesheet" href="/themes/BeThems/css/select2.css">
+    
+     <link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/flatpickr/flatpickr.min.css">
+
+
+  @*   <link rel="stylesheet" abp-href="/view-resources/Profile/Recruitments/Style.css" asp-append-version="true" /> *@
+
+   @*  @if (isChatEnabled)
+    {
+        <link rel="stylesheet" abp-href="/view-resources/App/Layout/_ChatBar.css" asp-append-version="true" />
+    } *@
+
+    @* <link rel="stylesheet" abp-href="/view-resources/Views/Shared/_Layout.css" asp-append-version="true" />
+    *@
+    @await RenderSectionAsync("Styles", false)
+
+    @{
+        var loginInfo = await SessionCache.GetCurrentLoginInformationsAsync();
+    }
+    @if (loginInfo?.Tenant?.CustomCssId != null)
+    {
+        <!-- id parameter is used to prevent caching -->
+        <link id="TenantCustomCss" rel="stylesheet" href="@Url.Action("GetCustomCss", "TenantCustomization", new {area = string.Empty, tenantId = loginInfo?.Tenant?.Id})" asp-append-version="true" />
+    }
+
+    <script type="text/javascript">
+        var abp = abp || {}; abp.appPath = '@ApplicationPath';
+    </script>
+</head>
+<!-- END HEAD -->
+<!-- begin::Body -->
+<body class="stretched">
+
+    <!-- tap on tap ends-->
+    @*     <div class="loader-wrapper">
+    <div class="loader loader-1">
+    <div class="loader-outter"></div>
+    <div class="loader-inner"></div>
+    <div class="loader-inner-1"></div>
+    </div>
+    </div>
+    <!-- loader ends-->
+    <!-- tap on top starts-->
+    <div class="tap-top"><i data-feather="chevrons-up"></i></div>
+    *@    <!-- tap on tap ends-->
+    <div id="wrapper">
+        <header id="header" class="header-size-sm" data-mobile-sticky="true">
+            <div class="container">
+                <div class="header-row">
+
+                    <!-- Logo
+                    ============================================= -->
+                    <div id="logo">
+                        <a href="\">
+                            <img class="logo-default" srcset="/themes/BeThems/SanViecLamQB/Trungtam_70.png, /themes/BeThems/SanViecLamQB/Trungtam_70.png 1x"
+                                 src="/themes/BeThems/SanViecLamQB/Trungtam_60.png" alt="Canvas Logo">
+                        </a>
+                    </div><!-- #logo end -->
+
+                    <div class="w-100 d-block d-md-none"></div>
+
+                    <div class="col-12 col-sm-6 col-md-4 order-md-3 mb-4 mb-md-0">
+                        @await Component.InvokeAsync(typeof(UserByTypeMenuViewComponent), new
+                            {
+                                togglerCssClass = "cursor-pointer symbol symbol-35px symbol-md-40px",
+                                textCssClass = "text-uppercase fw-medium",
+                                symbolCssClass = "symbol symbol-30px",
+                                symbolTextCssClas = "symbol-label fs-2 fw-bold bg-success text-inverse-success"
+                            })
+                    </div>
+                </div>
+            </div>
+            <partial name="~/Views/Layout/_SideBar1.cshtml" />
+            <div class="header-wrap-clone"></div>
+        </header>
+
+        <div class="page-body-wrapper">
+            @RenderBody()
+            @await Component.InvokeAsync(typeof(CmsFooterViewComponent))
+        </div>
+    </div>
+
+
+    <!-- begin::Chat Bar -->
+   @*  @if (isChatEnabled)
+    {
+        @await Html.PartialAsync("~/Areas/App/Views/Layout/_ChatBar.cshtml")
+    } *@
+    <!-- end::Chat Bar -->
+    <!-- begin::Theme Selection Panel -->
+    @* @if (await SettingManager.GetSettingValueAsync<bool>(AppSettings.UserManagement.IsQuickThemeSelectEnabled))
+    {
+    @await Html.PartialAsync("~/Areas/App/Views/Layout/_ThemeSelectionPanel.cshtml")
+    } *@
+    <!-- end::Theme Selection Panel -->
+    <!--begin::Base Scripts -->
+    @*<script abp-src="/view-resources/App/_Bundles/@theme.BaseSettings.Theme.ToLowerInvariant()-scripts.bundle.js" asp-append-version="true"></script>*@
+
+    <!-- latest jquery-->
+    <!--BeThem-->
+
+    <script src="/themes/BeThems/js/jquery.js"></script>
+    <script src="/themes/BeThems/js/functions.js"></script>
+    <script src="/themes/BeThems/js/plugins.min.js"></script>
+   @*  <script src="/themes/BeThems/js/functions.bundle.js"></script> *@
+
+
+    <script src="/themes/BeThems/js/serializeJson.js"></script>
+    <!-- Sidebar jquery-->
+    <script src="/themes/mofi/assets/js/config.js"></script>
+    <script abp-src="/view-resources/App/_Bundles/frontend-layout-libs.js" asp-append-version="true"></script>
+
+    @*  <script src="/themes/BeThems/js/plugins.infinitescroll.js"></script> *@
+    <script src="/themes/BeThems/include/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+    <script src="/themes/BeThems/include/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="/themes/BeThems/include/rs-plugin/js/extensions/revolution.extension.actions.min.js"></script>
+    <script src="/themes/BeThems/include/rs-plugin/js/extensions/revolution.extension.carousel.min.js"></script>
+    <script src="/themes/BeThems/include/rs-plugin/js/extensions/revolution.extension.kenburn.min.js"></script>
+    <script src="/themes/BeThems/include/rs-plugin/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script src="/themes/BeThems/include/rs-plugin/js/extensions/revolution.extension.migration.min.js"></script>
+    <script src="/themes/BeThems/include/rs-plugin/js/extensions/revolution.extension.navigation.min.js"></script>
+    <script src="/themes/BeThems/include/rs-plugin/js/extensions/revolution.extension.parallax.min.js"></script>
+    <script src="/themes/BeThems/include/rs-plugin/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script src="/themes/BeThems/include/rs-plugin/js/extensions/revolution.extension.video.min.js"></script>
+    <script src="/themes/BeThems/js/Custom.js"></script>
+    <script src="/themes/mofi/assets/js/flat-pickr/flatpickr.js"></script>
+
+
+    <script src="/themes/mofi/assets/js/select2/select2.full.min.js"></script>
+
+    <!-- Plugins JS Ends-->
+    <!-- Theme js-->
+    <script src="/themes/mofi/assets/js/script.js"></script>
+    @*  <script src="/themes/mofi/assets/js/theme-customizer/customizer.js"></script> *@
+    <!-- Plugin used-->
+    <!-- Dynamic scripts of ABP system (They are created on runtime and can not be bundled) -->
+    <script src="@(ApplicationPath)AbpServiceProxies/GetAll?v=@(AppTimes.StartupTime.Ticks)" type="text/javascript"></script>
+
+    @if (GetScriptsResponsePerUserConfiguration.IsEnabled)
+    {
+        <script src="@(ApplicationPath)AbpScripts/GetScripts?v=@(await CachedUniqueKeyPerUser.GetKeyAsync(GetScriptsResponsePerUserCache.CacheName))" type="text/javascript"></script>
+    }
+    else
+    {
+        <script src="@(ApplicationPath)AbpScripts/GetScripts?v=@(AppTimes.StartupTime.Ticks)" type="text/javascript"></script>
+    }
+
+    <script type="text/javascript">
+        abp.localization.currentCulture = $.extend({}, abp.localization.currentCulture, { displayNameEnglish: '@CultureInfo.CurrentUICulture.EnglishName' });
+        abp.localization.defaultSourceName = '@LocalizationSourceName';
+        moment.locale('@(GetMomentLocale())'); //Localizing moment.js
+    </script>
+
+
+    <script abp-src="/view-resources/App/_Bundles/common-scripts.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/App/_Bundles/app-common-scripts.js" asp-append-version="true"></script>
+    @*  <script abp-src="/view-resources/App/Layout/_Header.js" asp-append-version="true"></script> *@
+    <script abp-src="/view-resources/App/Layout/_Layout.js" asp-append-version="true"></script>
+    @if (await SettingManager.GetSettingValueAsync<bool>(AppSettings.UserManagement.IsQuickThemeSelectEnabled))
+    {
+        <script src="@(ApplicationPath)view-resources/Areas/App/Views/Layout/_ThemeSelectionPanel.js" asp-append-version="true"></script>
+    }
+
+    @if (isChatEnabled)
+    {
+       @*  <script src="@(ApplicationPath)view-resources/Areas/App/Views/Layout/_ChatBar.js" asp-append-version="true"></script> *@
+        <script src="@(ApplicationPath)Common/Scripts/Chat/chat.signalr.js" asp-append-version="true"></script>
+    }
+   @*  @if (await SettingManager.GetSettingValueAsync<bool>(AppSettings.UserManagementSessionTimeOut.IsEnabled) && AbpSession.UserId.HasValue)
+    {
+        <script src="@(ApplicationPath)view-resources/Areas/App/Views/_Bundles/InactivityController.min.js" asp-append-version="true"></script>
+    } *@
+    <script src="~@ScriptPaths.JQuery_Validation_Localization" asp-append-version="true"></script>
+    <script src="~@ScriptPaths.JQuery_Timeago_Localization" asp-append-version="true"></script>
+    <script src="~@ScriptPaths.Select2_Localization" asp-append-version="true"></script>
+
+    @* <script src="@(ApplicationPath)view-resources/Areas/App/Views/Layout/_ToggleDarkMode.js" asp-append-version="true"></script>
+    @if (theme.BaseSettings.Menu.SearchActive)
+    {
+    <script src="~/view-resources/App/Layout/_MenuSearchBar.min.js" asp-append-version="true"></script>
+    } *@
+
+    <!--end::Base Scripts -->
+    <!--begin::Page Snippets -->
+    @await RenderSectionAsync("Scripts", false)
+    <script>
+        app.supportsTenancyNameInUrl = @(WebUrlService.SupportsTenancyNameInUrl.ToString().ToLower());
+
+        abp.multiTenancy.tenantIdDefault = 1;
+        if (abp.multiTenancy.isEnabled && abp.session.tenantId == null) {
+            abp.multiTenancy.setTenantIdCookie(1);
+        }
+    </script>
+    <!--end::Page Snippets -->
+    <!--begin: svg symbols for alerts-->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+        </symbol>
+        <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+        </symbol>
+        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </symbol>
+        <symbol id="warning-icon" fill="none" viewBox="0 0 24 24">
+            <path opacity="0.3" d="M2 4V16C2 16.6 2.4 17 3 17H13L16.6 20.6C17.1 21.1 18 20.8 18 20V17H21C21.6 17 22 16.6 22 16V4C22 3.4 21.6 3 21 3H3C2.4 3 2 3.4 2 4Z" fill="black"></path>
+            <path d="M18 9H6C5.4 9 5 8.6 5 8C5 7.4 5.4 7 6 7H18C18.6 7 19 7.4 19 8C19 8.6 18.6 9 18 9ZM16 12C16 11.4 15.6 11 15 11H6C5.4 11 5 11.4 5 12C5 12.6 5.4 13 6 13H15C15.6 13 16 12.6 16 12Z" fill="black"></path>
+        </symbol>
+    </svg>
+    <!--end: svg symbols for alerts-->
+</body>
+<!-- end::Body -->
+</html>

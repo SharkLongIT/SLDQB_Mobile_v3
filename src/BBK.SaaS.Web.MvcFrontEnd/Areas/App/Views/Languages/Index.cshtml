@@ -1,0 +1,79 @@
+﻿@using Abp.MultiTenancy
+@using BBK.SaaS.Authorization
+@using BBK.SaaS.Web.Areas.App.Startup
+@model BBK.SaaS.Web.Areas.App.Models.Languages.LanguagesIndexViewModel
+@{
+    ViewBag.CurrentPageName = AppPageNames.Administrators.Languages;
+    ViewBag.PageTitle = @L("Languages");
+		ViewBag.PageDescription = @L("LanguagesHeaderInfo");
+}
+
+@section Scripts
+{
+    <script abp-src="/view-resources/App/_Bundles/language-list.js" asp-append-version="true"></script>
+}
+
+<div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card">
+					@*<div class="card-header">
+						<h4>@L("Roles")</h4>
+						<div class="card-header-right">
+							<ul class="list-unstyled card-option">
+								<li><i class="icon-more-alt"></i></li>
+								<li><i class="view-html fa fa-code"></i></li>
+								<li><i class="icofont icofont-maximize full-card"></i></li>
+								<li><i class="icofont icofont-minus minimize-card"></i></li>
+								<li><i class="icofont icofont-refresh reload-card"></i></li>
+								<li><i class="icofont icofont-error close-card"></i></li>
+							</ul>
+						</div>
+						<span>@L("UsersHeaderInfo")</span>
+					</div>*@
+					
+						@if (IsGranted(AppPermissions.Pages_Administration_Languages_Create) && AbpSession.MultiTenancySide == MultiTenancySides.Host)
+    {
+			<div class="card-body common-flex">
+        <button id="CreateNewLanguageButton" class="btn btn-primary">
+            <i class="fa fa-plus btn-md-icon"></i>
+            <span class="d-none d-md-inline-block">
+                @L("CreateNewLanguage")
+            </span>
+        </button>
+					</div>
+
+    }
+					<div class="card-body">
+
+
+						<div class="table-responsive theme-scrollbar">
+							<!-- Put table here -->
+								<table id="LanguagesTable" class="table align-middle table-row-dashed dataTable dtr-inline no-footer table-responsive theme-scrollbar user-datatable">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>@L("Actions")</th>
+                        <th>@L("Name")</th>
+                        <th>@L("Code")</th>
+                        <th>@L("Default")</th>
+                        <th>@L("IsEnabled")</th>
+                        <th>@L("CreationTime")</th>
+                    </tr>
+                    </thead>
+                </table>
+                @if (Model.IsTenantView)
+                {
+                    <p class="margin-top-20">
+                        @("* " + L("CanNotEditOrDeleteDefaultLanguages"))
+                    </p>
+                }
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

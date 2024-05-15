@@ -1,0 +1,275 @@
+﻿@using BBK.SaaS.Mdls.Cms.Configuration
+@using BBK.SaaS.Web.Models.RightSidebar
+@using BBK.SaaS.Web.Views.Shared.Components.Widget
+@model CmsCatViewModel
+<!-- Second Sidebar ============================================= -->
+<div class="col-lg-4 sticky-sidebar-wrap mt-5 mt-lg-0">
+    <div class="sticky-sidebar">
+        <!-- Sidebar truy cập nhanh hệ thống ============================================= -->
+        <div class="widget widget_links">
+            <h4 class="mb-2 ls-1 text-uppercase fw-bold">Truy cập nhanh</h4>
+            <div class="line line-xs line-sports"></div>
+            <ul>
+                @foreach(var item in Model.Categories)
+                {
+                    <li class="d-flex align-items-center">
+                        <a href="/@item.Slug" class="flex-fill">
+                           @item.Cat
+                        </a><span class="badge text-light bg-sports">@item.CountArticle</span>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <!-- Sidebar Widget Quảng cáo ============================================= -->
+        <div class="widget">
+           @*  <a href="https://bbksolution.com">
+                <img src="/themes/BeThems/images/magazine/dulich.jpg"
+                     class="img-responsive aligncenter">
+            </a> *@
+            @await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.HomePageRightTradingAdvertisings })
+        </div>
+
+        <!-- Sidebar Liên kết khác ============================================= -->
+        <div class="widget">
+            <h4 class="mb-2 ls-1 text-uppercase fw-bold">Liên kết khác</h4>
+            <div class="line line-xs line-home"></div>
+
+            <div class="posts-sm row col-mb-30">
+                <div id="portfolio"
+                     class="portfolio row grid-container gutter-20 text-center"
+                     data-layout="fitRows">
+                    <!-- Portfolio Item: Start -->
+                    <article class="portfolio-item col-12 pf-media pf-icons">
+                        <!-- Grid Inner: Start -->
+                        <div class="grid-inner">
+                            <!-- Image: Start -->
+                            <div class="portfolio-image">
+                                <a href="#">
+                                    <img src="/themes/BeThems/SanViecLamQB/lk_001.jpg"
+                                         alt="Open Imagination">
+                                </a>
+                                <!-- Overlay: Start -->
+                                <div class="bg-overlay">
+                                    <div class="bg-overlay-content dark flex-column"
+                                         data-hover-animate="fadeIn">
+                                        <!-- Decription: Start -->
+                                        <div class="portfolio-desc pt-0"
+                                             data-hover-animate="fadeInDownSmall"
+                                             data-hover-animate-out="fadeOutUpSmall"
+                                             data-hover-speed="350">
+                                            <h3>
+                                                <a href="#">
+                                                    Cổng thông tin điện tử Quảng
+                                                    Bình
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <!-- Description: End -->
+                                    </div>
+                                    <div class="bg-overlay-bg dark"
+                                         data-hover-animate="fadeIn"></div>
+                                </div>
+                                <!-- Overlay: End -->
+                            </div>
+                            <!-- Image: End -->
+                        </div>
+                        <!-- Grid Inner: End -->
+                    </article>
+                    <!-- Portfolio Item: End -->
+                    <!-- Portfolio Item: Start -->
+                    <article class="portfolio-item col-12 pf-media pf-icons">
+                        <!-- Grid Inner: Start -->
+                        <div class="grid-inner">
+                            <!-- Image: Start -->
+                            <div class="portfolio-image">
+                                <a href="#">
+                                    <img src="/themes/BeThems/SanViecLamQB/lk_002.jpg"
+                                         alt="Open Imagination">
+                                </a>
+                                <!-- Overlay: Start -->
+                                <div class="bg-overlay">
+                                    <div class="bg-overlay-content dark flex-column"
+                                         data-hover-animate="fadeIn">
+                                        <!-- Decription: Start -->
+                                        <div class="portfolio-desc pt-0"
+                                             data-hover-animate="fadeInDownSmall"
+                                             data-hover-animate-out="fadeOutUpSmall"
+                                             data-hover-speed="350">
+                                            <h3>
+                                                <a href="#">
+                                                    Sở lao động thương binh và xã
+                                                    hội Quảng
+                                                    Bình
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <!-- Description: End -->
+                                    </div>
+                                    <div class="bg-overlay-bg dark"
+                                         data-hover-animate="fadeIn"></div>
+                                </div>
+                                <!-- Overlay: End -->
+                            </div>
+                            <!-- Image: End -->
+                        </div>
+                        <!-- Grid Inner: End -->
+                    </article>
+                    <!-- Portfolio Item: End -->
+                    <!-- Portfolio Item: Start -->
+                    <article class="portfolio-item col-12 pf-media pf-icons">
+                        <!-- Grid Inner: Start -->
+                        <div class="grid-inner">
+                            <!-- Image: Start -->
+                            <div class="portfolio-image">
+                                <a href="#">
+                                    <img src="/themes/BeThems/SanViecLamQB/lk_003.jpg"
+                                         alt="Open Imagination">
+                                </a>
+                                <!-- Overlay: Start -->
+                                <div class="bg-overlay">
+                                    <div class="bg-overlay-content dark flex-column"
+                                         data-hover-animate="fadeIn">
+                                        <!-- Decription: Start -->
+                                        <div class="portfolio-desc pt-0"
+                                             data-hover-animate="fadeInDownSmall"
+                                             data-hover-animate-out="fadeOutUpSmall"
+                                             data-hover-speed="350">
+                                            <h3>
+                                                <a href="#">
+                                                    Trung tâm lao động nước
+                                                    ngoài
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <!-- Description: End -->
+                                    </div>
+                                    <div class="bg-overlay-bg dark"
+                                         data-hover-animate="fadeIn"></div>
+                                </div>
+                                <!-- Overlay: End -->
+                            </div>
+                            <!-- Image: End -->
+                        </div>
+                        <!-- Grid Inner: End -->
+                    </article>
+                    <!-- Portfolio Item: End -->
+                    <!-- Portfolio Item: Start -->
+                    <article class="portfolio-item col-12 pf-media pf-icons">
+                        <!-- Grid Inner: Start -->
+                        <div class="grid-inner">
+                            <!-- Image: Start -->
+                            <div class="portfolio-image">
+                                <a href="#">
+                                    <img src="/themes/BeThems/SanViecLamQB/lk_004.jpg"
+                                         alt="Open Imagination">
+                                </a>
+                                <!-- Overlay: Start -->
+                                <div class="bg-overlay">
+                                    <div class="bg-overlay-content dark flex-column"
+                                         data-hover-animate="fadeIn">
+                                        <!-- Decription: Start -->
+                                        <div class="portfolio-desc pt-0"
+                                             data-hover-animate="fadeInDownSmall"
+                                             data-hover-animate-out="fadeOutUpSmall"
+                                             data-hover-speed="350">
+                                            <h3><a href="#">Tra cứu hồ sơ EPS</a></h3>
+                                        </div>
+                                        <!-- Description: End -->
+                                    </div>
+                                    <div class="bg-overlay-bg dark"
+                                         data-hover-animate="fadeIn"></div>
+                                </div>
+                                <!-- Overlay: End -->
+                            </div>
+                            <!-- Image: End -->
+                        </div>
+                        <!-- Grid Inner: End -->
+                    </article>
+                    <!-- Portfolio Item: End -->
+                    <!-- Portfolio Item: Start -->
+                    <article class="portfolio-item col-12 pf-media pf-icons">
+                        <!-- Grid Inner: Start -->
+                        <div class="grid-inner">
+                            <!-- Image: Start -->
+                            <div class="portfolio-image">
+                                <a href="#">
+                                    <img src="/themes/BeThems/SanViecLamQB/lk_001.jpg"
+                                         alt="Open Imagination">
+                                </a>
+                                <!-- Overlay: Start -->
+                                <div class="bg-overlay">
+                                    <div class="bg-overlay-content dark flex-column"
+                                         data-hover-animate="fadeIn">
+                                        <!-- Decription: Start -->
+                                        <div class="portfolio-desc pt-0"
+                                             data-hover-animate="fadeInDownSmall"
+                                             data-hover-animate-out="fadeOutUpSmall"
+                                             data-hover-speed="350">
+                                            <h3>
+                                                <a href="#">
+                                                    Cổng thông tin điện tử Quảng
+                                                    Bình
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <!-- Description: End -->
+                                    </div>
+                                    <div class="bg-overlay-bg dark"
+                                         data-hover-animate="fadeIn"></div>
+                                </div>
+                                <!-- Overlay: End -->
+                            </div>
+                            <!-- Image: End -->
+                        </div>
+                        <!-- Grid Inner: End -->
+                    </article>
+                    <!-- Portfolio Item: End -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Widget 3 ============================================= -->
+        <div class="widget">
+            <h4 class="mb-2 ls-1 text-uppercase fw-bold">Video</h4>
+            <div class="line line-xs line-travel"></div>
+            <div class="owl-carousel fixed-nav carousel-widget posts-md" data-margin="0"
+                 data-nav="true" data-pagi="false" data-items="1">
+                <!-- Post Article -->
+                <div class="entry">
+                    <div class="entry-image mb-3">
+                        <iframe width="560" height="315"
+                                src="https://www.youtube.com/embed/wDWD2V2eydo?si=LeMe5Q5mlkyiAFa1"
+                                allowfullscreen style="border: 0;"></iframe>
+                    </div>
+                    <div class="entry-title title-sm text-transform-none">
+                        <h3 class="mb-0">
+                            <a href="#">20 năm đồng hành với thanh niên</a>
+                        </h3>
+                    </div>
+                    <div class="entry-meta">
+                        <ul>
+                            <li>
+                                <span>bởi</span> <a href="#">
+                                    Trung tâm DVVL Thanh niên Quảng
+                                    Bình
+                                </a>
+                            </li>
+                            <li><i class="bi-clock"></i><a href="#">03/04/2021</a></li>
+                        </ul>
+                    </div>
+                    <ul class="list-inline mt-2 mb-0">
+                    <li>
+                    <i class="bi-star-fill"></i>
+                    <i class="bi-star-fill"></i>
+                    <i class="bi-star-fill"></i>
+                    <i class="bi-star-fill"></i>
+                    <i class="bi-star-fill"></i>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

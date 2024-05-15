@@ -86,16 +86,9 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
             Model.Candidate.Address = candidate.Candidate.Address;
             Model.Candidate.AvatarUrl = candidate.Candidate.AvatarUrl;
             Model.Candidate.DateOfBirth = candidate.Candidate.DateOfBirth;
+            //Model.Candidate.PhoneNumber = candidate.Candidate.PhoneNumber;
             Model.Candidate.Marital = candidate.Candidate.Marital;
             Model.Candidate.Gender = candidate.Candidate.Gender;
-            if (candidate.Candidate.District != null)
-            {
-              Model.DistrictName = candidate.Candidate.District.DisplayName;
-            }
-            if (candidate.Candidate.Province != null)
-            {
-              Model.ProvinceName = candidate.Candidate.Province.DisplayName;
-            }
 
             //Thông tin Job
             Model.JobApplication.Id = candidateId;
@@ -106,7 +99,9 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
             Model.JobApplication.CurrencyUnit = candidate.JobApplication.CurrencyUnit;
             Model.JobApplication.DesiredSalary = candidate.JobApplication.DesiredSalary;
             Model.Literacy = candidate.JobApplication.Literacy.DisplayName;
+            //Model.JobApplication.WorkExperienceDtos = candidate.JobApplication.WorkExperienceDtos;
             Model.FormOfWork = candidate.JobApplication.FormOfWork.DisplayName;
+            //Model.JobApplication.LearningProcessDtos = candidate.JobApplication.LearningProcessDtos;
             Model.JobApplication.Word = candidate.JobApplication.Word;
             Model.JobApplication.PowerPoint = candidate.JobApplication.PowerPoint;
             Model.JobApplication.Excel = candidate.JobApplication.Excel;

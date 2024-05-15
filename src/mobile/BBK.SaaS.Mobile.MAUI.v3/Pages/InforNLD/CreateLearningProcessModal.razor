@@ -1,0 +1,51 @@
+﻿@inherits ModalBase
+
+<div id="@ModalId" class="menu menu-box-modal rounded-m" data-menu-width="330">
+    <div class="content">
+        <div class="d-flex">
+            @if (IsEdit == true)
+            {
+                <h1>@L("Cập nhật trình độ học vấn")</h1>
+
+            }
+            else
+            {
+                <h1>@L("Tạo mới trình độ học vấn")</h1>
+
+            }
+            <div class="ms-auto">
+                <a class="close-menu" @onclick="Hide"><i class="fa fa-times"></i></a>
+            </div>
+        </div>
+        <h5>@L("Tên trường học")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control validate-text" id="form1" @bind="Model.SchoolName">
+            <em>(bắt buộc)</em>
+        </div>
+        <h5> @L("Chuyên ngành học")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control validate-text" id="form1" @bind="Model.AcademicDiscipline">
+            <em>(bắt buộc)</em>
+        </div>
+        <h5> @L("Thời điểm bắt")</h5>
+        <div class="input-style has-borders no-icon mb-4">
+            <input type="date" class="validate-text" id="form6" @bind="Model.StartTime">
+            <label for="form6" class="color-highlight">Select Date</label>
+        </div>
+        <h5>  @L("Thời điểm kết thúc")</h5>
+        <div class="input-style has-borders no-icon mb-4">
+            <input type="date" class="validate-text" id="form6" @bind="Model.EndTime">
+            <label for="form6" class="color-highlight">Select Date</label>
+        </div>
+        <h5> @L("Mô tả")</h5>
+        <div class="input-style has-borders no-icon mb-4">
+            <textarea id="form7" @bind="Model.Description"></textarea>
+            <label for="form7" class="color-highlight">@L("Mô tả")</label>
+            <em class="mt-n3">(bắt buộc)</em>
+        </div>
+        @* <div class="d-flex justify-content-center"> *@
+            @* <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Đóng</a> *@
+            <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveExpWork">Lưu</a>
+        @* </div> *@
+    </div>
+</div>

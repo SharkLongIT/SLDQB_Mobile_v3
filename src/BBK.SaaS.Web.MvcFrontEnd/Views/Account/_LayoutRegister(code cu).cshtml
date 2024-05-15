@@ -1,0 +1,189 @@
+﻿@using System.Threading.Tasks
+@using BBK.SaaS.Timing
+@using Abp.Configuration.Startup
+@using Abp.Timing
+@using Abp.Web.Security.AntiForgery
+@using BBK.SaaS.Timing
+@using BBK.SaaS.UiCustomization.Dto
+@using BBK.SaaS.Url
+@using BBK.SaaS.Web.Resources
+@using CultureHelper = BBK.SaaS.Localization.CultureHelper
+@using Abp.CachedUniqueKeys
+@using Abp.AspNetCore.Mvc.Caching
+@using Abp.Configuration
+@using BBK.SaaS.Configuration
+@inject ScriptPaths ScriptPaths
+@inject AppTimes AppTimes
+@inject IAbpAntiForgeryManager AbpAntiForgeryManager
+@inject IMultiTenancyConfig MultiTenancyConfig
+@inject IWebResourceManager WebResourceManager
+@inject IWebUrlService WebUrlService
+@inject ICachedUniqueKeyPerUser CachedUniqueKeyPerUser
+@inject IGetScriptsResponsePerUserConfiguration GetScriptsResponsePerUserConfiguration
+@{
+	Layout = null;
+	AbpAntiForgeryManager.SetCookie(Context);
+	UiCustomizationSettingsDto theme = await GetTheme();
+}
+<!DOCTYPE html>
+<html lang="en" dir="@(CultureHelper.IsRtl ? "rtl" : "")" data-theme="@(theme.BaseSettings.Layout.DarkMode ? "dark" : "light")">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+	@* Fill these meta tags upon your project specification *@
+	<meta content="BBK SaaS" name="description" />
+	<meta content="BBK SaaS" name="keywords">
+	<meta content="BBK SaaS" name="author" />
+
+	<title>BBK SaaS</title>
+
+	<link rel="icon" href="~/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="~/favicon.ico" />
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+	@*<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">*@
+	<link href="/fonts/fonts-outfit.css" rel="stylesheet">
+
+	<link rel="stylesheet" abp-href="/view-resources/_Bundles/vendors.bundle.css" asp-append-version="true" />
+	@*<link rel="stylesheet" href="@(ApplicationPath)metronic/themes/default/css/style.bundle@(CultureHelper.IsRtl ? ".rtl" : "").css" asp-append-version="true" />
+	<link rel="stylesheet" href="@(ApplicationPath)metronic/themes/default/plugins/global/plugins.bundle.css" asp-append-version="true" />*@
+	<link rel="stylesheet" abp-href="/view-resources/_bundles/account-layout-libs.css" asp-append-version="true" />
+
+	<link rel="stylesheet" abp-href="/view-resources/_Bundles/common-styles.css" asp-append-version="true" />
+
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/font-awesome.css">
+	<!-- ico-font-->
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/icofont.css">
+	<!-- Themify icon-->
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/themify.css">
+	<!-- Flag icon-->
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/flag-icon.css">
+	<!-- Feather icon-->
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/feather-icon.css">
+	<!-- Plugins css start-->
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/slick.css">
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/slick-theme.css">
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/scrollbar.css">
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/animate.css">
+	<!-- Plugins css Ends-->
+	<!-- Bootstrap css-->
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/bootstrap.css">
+	<!-- App css-->
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/style.css">
+	<link id="color" rel="stylesheet" href="/themes/mofi/assets/css/color-3.css" media="screen">
+	<!-- Responsive css-->
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/responsive.css">
+
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/mofi-or1.css">
+
+
+	@await RenderSectionAsync("Styles", false)
+
+	<script type="text/javascript">
+		@* This is used to get the application's root path from javascript.
+			It's useful if you're running application in a virtual directory under IIS. *@
+								var abp = abp || {}; abp.appPath = '@ApplicationPath';
+	</script>
+
+</head>
+<body>
+
+	<div class="container-fluid p-0">
+		<div class="row m-0">
+			<div class="col-xl-7"><img class="bg-img-cover bg-center" src="/themes/mofi/assets/images/login/1.jpg" alt="looginpage"></div>
+			<div class="col-xl-5 p-0">
+				<div class="login-card login-dark">
+					<div>
+						<div><a class="logo text-start" href="/"><img class="img-fluid for-light" src="/TenantCustomization/GetTenantLogo?skin=light" alt="looginpage"><img class="img-fluid for-dark" src="/TenantCustomization/GetTenantLogo?skin=dark" alt="looginpage"></a></div>
+						<div class="login-main">
+
+							@* <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
+								<vc:account-logo skin="light"></vc:account-logo>
+								<div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+									@if (!(ViewBag.DisableTenantChange ?? false) && MultiTenancyConfig.IsEnabled && !WebUrlService.SupportsTenancyNameInUrl)
+									{
+										<div class="tenant-change-box">
+											<vc:tenant-change></vc:tenant-change>
+										</div>
+									}								
+								</div>
+							</div> *@
+
+						@RenderBody()
+
+						<div class="d-flex flex-center flex-column-auto p-10">
+							<div class="d-flex align-items-center fw-bold fs-6">
+								<vc:account-languages></vc:account-languages>
+							</div>
+						</div>
+
+						</div>
+
+						
+						
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="d-flex flex-column flex-root">
+		<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed"
+				 style="background-image: url(@(ApplicationPath)metronic/assets/media/svg/illustrations/login@(theme.BaseSettings.Layout.DarkMode ? "-dark": "").png)">
+			
+			
+		</div>
+	</div>
+	
+
+	<!-- latest jquery-->
+	<script src="/themes/mofi/assets/js/jquery.min.js"></script>
+	<!-- Bootstrap js-->
+	<script src="/themes/mofi/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+	<script abp-src="/view-resources/_bundles/account-layout-libs.js" asp-append-version="true"></script>
+	<!-- feather icon js-->
+	<script src="/themes/mofi/assets/js/icons/feather-icon/feather.min.js"></script>
+	<script src="/themes/mofi/assets/js/icons/feather-icon/feather-icon.js"></script>
+	<!-- scrollbar js-->
+	<!-- Sidebar jquery-->
+	<script src="/themes/mofi/assets/js/config.js"></script>
+	<!-- Plugins JS start-->
+	<!-- calendar js-->
+	<!-- Plugins JS Ends-->
+	<!-- Theme js-->
+	<script src="/themes/mofi/assets/js/script.js"></script>
+	<!-- Plugin used-->
+	<!-- Dynamic scripts of ABP system (They are created on runtime and can not be bundled) -->
+	<script src="~/AbpServiceProxies/GetAll?v=@(AppTimes.StartupTime.Ticks)" type="text/javascript"></script>
+	@if (GetScriptsResponsePerUserConfiguration.IsEnabled)
+	{
+		<script src="@(ApplicationPath)AbpScripts/GetScripts?v=@(await CachedUniqueKeyPerUser.GetKeyAsync(GetScriptsResponsePerUserCache.CacheName))" type="text/javascript"></script>
+	}
+	else
+	{
+		<script src="@(ApplicationPath)AbpScripts/GetScripts?v=@(AppTimes.StartupTime.Ticks)" type="text/javascript"></script>
+	}
+
+	<script abp-src="/view-resources/App/_Bundles/common-scripts.js" asp-append-version="true"></script>
+	<script src="~@ScriptPaths.JQuery_Validation_Localization" asp-append-version="true"></script>
+
+	@WebResourceManager.RenderScripts()
+
+	@await RenderSectionAsync("Scripts", false)
+	<script>
+		app.supportsTenancyNameInUrl = @(WebUrlService.SupportsTenancyNameInUrl.ToString().ToLower());
+
+		jQuery(document).ready(function () {
+			if (window.CurrentPage) {
+				CurrentPage.init();
+			}
+		});
+	</script>
+</body>
+</html>

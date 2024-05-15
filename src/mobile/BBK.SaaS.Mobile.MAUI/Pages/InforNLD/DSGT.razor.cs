@@ -17,7 +17,6 @@ using System.Text.RegularExpressions;
 using Abp.Application.Services.Dto;
 using BBK.SaaS.TinTuc;
 using BBK.SaaS.Mdls.Cms.Articles;
-using Microsoft.AspNetCore.Components;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
 {
@@ -54,13 +53,13 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
             StateHasChanged();
             await LoadIntroduce(new ItemsProviderRequest());
         }
-        public async void selectedValue(ChangeEventArgs args)
+        private async Task CancelList()
         {
-            string select = Convert.ToString(args.Value);
-            _Search = select;
+            _Search = "";
+            _IsCancelList = false;
             await IntroduceContainer.RefreshDataAsync();
             StateHasChanged();
-
+            await LoadIntroduce(new ItemsProviderRequest());
         }
         private async ValueTask<ItemsProviderResult<IntroduceEditDto>> LoadIntroduce(ItemsProviderRequest request)
         {
@@ -75,17 +74,14 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
                 async (result) =>
                 {
                     var jobFilter = ObjectMapper.Map<List<IntroduceEditDto>>(result.Items.OrderByDescending(x =>x.CreationTime));
-                    if (_Search != "")
+                    if (jobFilter.Count == 0)
                     {
-                        if (jobFilter.Count == 0)
-                        {
-                            isError = true;
-                        }
-                        else
-                        {
-                            isError = false;
+                        isError = true;
+                    }
+                    else
+                    {
+                        isError = false;
 
-                        }
                     }
                     introduceDto = new ItemsProviderResult<IntroduceEditDto>(jobFilter, jobFilter.Count);
                     await UserDialogsService.UnBlock();
@@ -103,7 +99,46 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
 
         public async Task ViewArticle(IntroduceEditDto introduceEditDto)
         {
-            navigationService.NavigateTo($"ArticleDetail?Id={introduceEditDto.Article.Id}");
+            var articleViewDto = await articleFrontEndService.GetArticleDetail(new EntityDto<long> { Id = introduceEditDto.Article.Id });
+            var category = articleViewDto.Categories.FirstOrDefault();
+            CategoryId = category.Id;
+            //navigationService.NavigateTo($"ArticleDetailHome?Id={introduceEditDto.Article.Id}&PrimaryImageUrl={introduceEditDto.Article.PrimaryImageUrl}");
+            #region Navi Arrticle Detail
+            if (CategoryId == 1)
+            {
+                navigationService.NavigateTo($"ArticleDetail?Id={introduceEditDto.Article.Id}");
+            }
+            else if (CategoryId == 2)
+            {
+                navigationService.NavigateTo($"Detail2?Id={introduceEditDto.Article.Id}");
+
+            }
+            else if (CategoryId == 3)
+            {
+                navigationService.NavigateTo($"Detail3?Id={introduceEditDto.Article.Id}");
+
+            }
+            else if (CategoryId == 4)
+            {
+                navigationService.NavigateTo($"Detail4?Id={introduceEditDto.Article.Id}");
+
+            }
+            else if (CategoryId == 5)
+            {
+                navigationService.NavigateTo($"Detail5?Id={introduceEditDto.Article.Id}");
+
+            }
+            else if (CategoryId == 6)
+            {
+                navigationService.NavigateTo($"Detail6?Id={introduceEditDto.Article.Id}");
+
+            }
+            else
+            {
+                navigationService.NavigateTo($"Detail7?Id={introduceEditDto.Article.Id}");
+
+            }
+            #endregion
         }
 
         private async void DisPlayAction(IntroduceEditDto introduceEditDto)

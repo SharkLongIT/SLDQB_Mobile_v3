@@ -32,10 +32,12 @@ namespace BBK.SaaS.Introduce
             return await ApiClient.GetAnonymousAsync<PagedResultDto<IntroduceEditDto>>(GetEndpoint(nameof(GetAll)), input);
         }
 
-        //public int GetCountByUserId()
-        //{
-        //    throw new NotImplementedException();
-        //}
+
+
+        public int GetCountByUserId()
+        {
+            throw new NotImplementedException();
+        }
 
         public Task<long> Update(IntroduceEditDto input)
         {
@@ -46,13 +48,6 @@ namespace BBK.SaaS.Introduce
         {
             return await ApiClient.GetAsync<int>(GetEndpoint(nameof(GetCountByUserIdForMobile)));
         }
-
-        public Task<int> GetCountByUserId()
-        {
-            throw new NotImplementedException();
-        }
-
-
         #endregion
     }
 }

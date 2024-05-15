@@ -1,0 +1,73 @@
+﻿@using BBK.SaaS.Mdls.Profile.Candidates.Dto
+@model MakeAnAppointmentDto
+@{
+    Layout = null;
+}
+
+<div class="modal-body user-edit-modal">
+    <div class="page-body">
+        <!-- Container-fluid starts-->
+        <div class="container-fluid">
+            <div class="row">
+                <form name="MakeAnAppointmentForm" role="form" novalidate class="form-validation">
+                    <input type="hidden" name="JobApplicationId" value="@Model.JobApplicationId" />
+                    <input type="hidden" name="CandidateId" value="@Model.CandidateId" />
+                    <input type="hidden" name="RecruiterId" value="@Model.RecruiterId" />
+                    @if (@Model.ApplicationRequestId != 0)
+                    {
+                        <input type="hidden" id="ApplicationId" value="@Model.ApplicationRequestId" />
+                    }
+                    <h2>Đặt lịch phỏng vấn</h2>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="TypeInterview" class="form-label">Chọn công việc mời phỏng vấn</label>
+                            <select required class="form-control" id="ApplicationRequestId" name="ApplicationRequestId" asp-for="@Model.ApplicationRequestId" asp-items="@ViewBag.listItemsKyThuat">
+                                <option value="" selected disabled>Chọn</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="TypeInterview" class="form-label">Nhập hình thức phỏng vấn</label>
+                            @* <input id="TypeInterview" class="form-control" placeholder="Trực tiếp" type="text" name="TypeInterview" required> *@
+                            <select required class="form-control" id="TypeInterview" name="TypeInterview">
+                                <option value="1">Online</option>
+                                <option value="2">Trực tiếp</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Adress" class="form-label">Nhập địa chỉ phỏng vấn</label>
+                            <input id="Adress" type="text" name="Address" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="TypeInterview" class="form-label">Vị trí phỏng vấn</label>
+                            <select required class="form-control" id="Rank" name="Rank" disabled asp-items="@ViewBag.listItemsCapBac">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Time" class="form-label">Thời gian phỏng vấn</label>
+                                @* <input id="Time" type="date" name="InterviewTime" min="<?=date('Y-m-d\Th:i')?>" class="form-control" required> *@
+                            <input id="Time" type="date" name="InterviewTime" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Message" class="form-label">Lời nhắn</label>
+                            <textarea id="Message" type="text" name="Message" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancelVN.cshtml")

@@ -1,0 +1,93 @@
+﻿@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/" + NavigationUrlConsts.DSGioiThieu)]
+
+<div class="content mt-2  search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important; ">
+    <i class="fa fa-search"></i>
+    <input type="search" class="border-0" @bind="_filter.Search" placeholder="Tìm kiếm thông tin" @oninput="selectedValue">
+</div>
+@if (isError)
+{
+    <div class="card card-style">
+        <div class="content">
+            <div class="text-error">
+                <h3>Không tìm thấy kết quả!!!</h3>
+                <span class="mt-2">Thử tìm kiếm với từ khoá khác.</span>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <Virtualize @ref="IntroduceContainer" Context="introduce" ItemsProvider="@LoadIntroduce" ItemSize="100">
+        <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3" style="background-color:#FFF !important; ">
+
+            <div class="d-flex">
+                <div>
+                    <h5 class="font-700 text-uppercase">
+                        @introduce.Article.Title
+                    </h5>
+                    <div class="font-12">
+                        <span class="fullname">
+                            Tên liên hệ:
+                        </span>
+                        @introduce.FullName
+                    </div>
+                    <div class="font-12">
+                        <span class="phone">
+                            Số điện thoại:
+                        </span>
+                        @introduce.Phone
+                    </div>
+                    <div class="font-12">
+                        <span class="gmail">
+                            Email:
+                        </span>
+                        @introduce.Email
+                    </div>
+                    <div class="font-12">
+                        <span class="date-introduce">
+                            Ngày giới thiệu:
+                        </span>
+                        @introduce.CreationTime.ToString("dd/MM/yyyy")
+                    </div>
+                    @if (introduce.Status == 1)
+                    {
+
+                        <span class="badge bg-gray-dark text-uppercase font-12 ml-3">
+                            Chờ xử lý
+                        </span>
+
+                    }
+                    else if (introduce.Status == 2)
+                    {
+
+                        <span class="badge bg-blue-dark text-uppercase font-12 ml-3">
+                            Đã xử lý
+                        </span>
+                    }
+                    else
+                    {
+
+                        <span class="badge bg-red-dark text-uppercase font-12 ml-3">
+                            Không liên lạc được
+                        </span>
+                    }
+                </div>
+                <div class="ms-auto">
+                    @* <i class="fa-solid fa-caret-down float-end" @onclick="(() => DisPlayAction(introduce))"></i> *@
+                    <a data-bs-toggle="dropdown" class="icon icon-m color-theme"><i class="fa fa-ellipsis-h" style="margin-top: -10px"></i></a>
+                    <div class="dropdown-menu border-0 bg-theme rounded-m shadow-xl px-2 mt-n4">
+                        <div class="list-group list-custom-small mt-n2 mb-n2">
+                            <a @onclick="(() => ViewIntroduce(introduce))" data-menu="menu-archive"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Chi tiết tin<i class="fa"></i></a>
+                            <a @onclick="(() => ViewArticle(introduce))" data-menu="menu-download"><i class="fa font-14 fa-link color-blue-dark opacity-60"></i>Tin liên kết<i class="fa"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </Virtualize>
+}
+<IntroduceDetailModal OnSave="RefeshList" @ref="introduceDetailModal"></IntroduceDetailModal>
+

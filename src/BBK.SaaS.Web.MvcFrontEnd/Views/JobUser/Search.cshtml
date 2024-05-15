@@ -1,0 +1,212 @@
+﻿@using BBK.SaaS.Web.Areas.Profile.Models.Recruiters
+@model GetAllJobOfUser
+@using Abp.Localization
+@using BBK.SaaS.Web.Areas.App.Startup
+@section Scripts
+{
+    <script abp-src="/view-resources/Views/JobUser/Search.js" asp-append-version="true"></script>
+}
+@section Styles
+{
+    <link rel="stylesheet" abp-href="/view-resources/Profile/Recruitments/Style.css" asp-append-version="true" />
+}
+
+<section id="content">
+	<div class="content-wrap pt-3">    <!-- Container-fluid starts-->
+    <div class="container">
+            <div class="row">
+                <!-- user profile first-style start-->
+                <nav>
+                    <ol class="breadcrumb justify-content-sm-start align-items-center mb-0" style="margin-bottom: 32px !important;">
+                        <li class="breadcrumb-item">
+                            <a href="index.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item f-w-400">Việc tìm người</li>
+                    </ol>
+                </nav>
+                <div class="col-sm-12">
+                    <div class="card">
+                        <!-- xóa thẻ div user profile-->
+                        <div class="info" name="filterAdvanced">
+                            @using (Html.BeginForm("Search", "JobUser", FormMethod.Get))
+                            {
+                            <div class="row mt-5 mx-2">
+                                    <div class="col-md-3 col-sm-3  mt-2">
+                                    @Html.TextBox("Filtered", "", new { @class = "form-control", @placeholder = "Nhập vị trí tuyển dụng" })
+                                </div>
+                                    <div class="col-md-3 col-sm-3  mt-2">
+                                    @Html.DropDownList("WorkSite", @ViewBag.listItemsTinhThanh, null, new { @multiple = "multiple", @class = "form-control js-example-basic-multiple-search"})
+                                </div>
+                                    <div class="col-md-3 col-sm-3  mt-2">
+                                    @Html.DropDownList("Experience", @ViewBag.Experiences, "Tất cả kinh nghiệm", new { @class = "form-control form-select select" })
+                                </div>
+                                    <div class="col-md-3 col-sm-3  mt-2">
+                                    @Html.DropDownList("Degree", @ViewBag.listItemsCatUnitLiteracy, "Tất cả bằng cấp", new { @class = "form-control form-select select" })
+                                </div>
+                                <!-- xóa thẻ div social media-->
+                                <!-- xóa thẻ follower và following-->
+                            </div>
+                            <div class="row mt-3 mx-2">
+                                    <div class="col-sm-3 mt-auto  mt-2">
+                                    @Html.DropDownList("Job", @ViewBag.listItemsKyThuat, "Tất cả ngành nghề", new { @class = "form-control form-select select" })
+                                </div>
+                                    <div class="col-md-3 col-sm-3 mt-2">
+                                        @Html.TextBox("Salary", "", new { @class = "form-control SalaryMin", @placeholder = "Mức lương tối thiểu" })
+                                </div>
+                                    <div class="col-md-3 col-sm-3 mt-2">
+                                       @Html.TextBox("SalaryMax", "", new { @class = "form-control SalaryMax", @placeholder = "Mức lương tối đa" })
+                                </div>
+                                    <div class="col-md-3 col-sm-3 mt-2">
+                                        <button type="submit" class="btn btn-danger ml-auto waves-effect waves-themed">Tìm kiếm</button>
+                                </div>
+                                <!-- xóa thẻ div social media-->
+                                <!-- xóa thẻ follower và following-->
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 mt-5">
+                    <div class="card">
+                        <div class="card-header" style="text-transform: none">
+                            <h4><i class="icofont icofont-job-search m-r-10"></i>Việc tìm người</h4>
+                        </div>
+                        <div class="card-body student">
+                            <div class="row g-sm-4 g-3">
+                                <input type="hidden" value="@Model.IsCandidate" id="Check" />
+                                @for (int i = 0; i < Model.Recruiment.Count; i++) { <div class="col-xxl-4 col-md-4">
+                                    <div class="prooduct-details-box widget-hover">
+                                        <div class="d-flex">
+                                            @if (Model.Recruiment[i].Recruiter.AvatarUrl != null)
+                                            {
+                                            <a href="../JobUser/ViewRecruitment/@Model.Recruiment[i].Id">
+                                                <img class="align-self-center img-fluid mt-3" width="90px" src="@Model.Recruiment[i].Recruiter.AvatarUrl" alt="#">
+                                            </a>
+                                            }
+                                            else
+                                            {
+                                            <a href="../JobUser/ViewRecruitment/@Model.Recruiment[i].Id">
+                                                <img class="align-self-center img-fluid img-90 mt-3" style="max-width:10%" src="/themes/mofi/assets/images/ecommerce/product-table-6.png" alt="#">
+                                            </a>
+                                            }
+                                            <div class="flex-grow-1 ms-3">
+                                                    <div class="product-name pb-2 recruiment">
+                                                    <h6><a href="../JobUser/ViewRecruitment/@Model.Recruiment[i].Id">@Model.Recruiment[i].Title</a></h6>
+                                                </div>
+                                                <small>
+                                                    <i class="fa fa-building font-awesome"></i> @Model.Recruiment[i].Recruiter.CompanyName
+                                                </small>
+                                                <hr class="my-1">
+                                                <div class="row recruiment">
+                                                    <div class="col-md-6">
+                                                        <small>
+                                                            <i class="fa-solid fa-money-bill-1"></i> @(Math.Floor(@Model.Recruiment[i].MinSalary) / 1000000)-@(Math.Floor(@Model.Recruiment[i].MaxSalary) / 1000000) Triệu
+                                                        </small>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <small>
+                                                            <i class="fa fa-map-marker font-awesome"></i> @Model.Recruiment[i].WorkAddress
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                                <div class="row recruiment">
+                                                    <div class="col-md-6">
+                                                        <small>
+                                                            <i class="fa fa-briefcase font-awesome"></i>
+                                                            @Model.Recruiment[i].Experiences.DisplayName
+
+                                                        </small>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <small>
+                                                            <i class="fa fa-calendar font-awesome"></i>
+                                                            @Model.Recruiment[i].DeadlineSubmission.ToShortDateString()
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-md-12">
+                 <div class="job-pagination">
+                <ul class="pagination pagination-primary justify-content-center">
+                            @{
+                                int numberPage = ViewBag.numberPage;
+                                int pageCurrent = ViewBag.pageCurrent;
+                                int offset = 12;//number display page
+                                var sa = "«";
+
+                    //config FirstLink
+                    if (pageCurrent > 1)
+                    {
+                    int prevPage = pageCurrent - 1;
+                    var PrevLink = new Dictionary<string, string> { { "page", prevPage.ToString() } };
+                        <li class="page-item first-page ">
+                            <a asp-controller="JobUser" asp-action="Search" asp-all-route-data="PrevLink" class="page-link"> @sa
+                            </a>
+                        </li>
+                        }
+
+                        int from = pageCurrent - offset;
+                        int to = pageCurrent + offset;
+                        if (from <= 0) { from=1; to=offset * 2; } if (to> numberPage)
+                            {
+                            to = numberPage;
+                            }
+
+                            int y;
+                            for (y = from; y <= to; y++) { var parms=new Dictionary<string, string>
+                                {
+                                { "page",y.ToString()}
+                                };
+                                if (pageCurrent == y)
+                                {
+                                <li class="page-item first-page active">
+                                    <a asp-controller="JobUser" asp-action="Search" asp-all-route-data="parms" class="page-link">@y</a>
+                                </li>
+                                }
+                                else
+                                {
+                                <li class="page-item first-page">
+                                    <a asp-controller="JobUser" asp-action="Search" asp-all-route-data="parms" class="page-link">@y</a>
+                                </li>
+
+                                }
+
+                                }
+
+                                if (pageCurrent < numberPage - (to / 2)) { <li><a>...</a></li>
+                                    var LastLink = new Dictionary<string, string> { { "page", numberPage.ToString() } };
+                                        }
+
+                                        if (pageCurrent < numberPage) { int nextPage=pageCurrent + 1; var NextLink=new Dictionary<string, string> { { "page", nextPage.ToString() } };
+                                            <li class="page-item first-page ">
+                                                <a asp-controller="JobUser" asp-action="Search" asp-all-route-data="NextLink" class="page-link">»</a>
+                                            </li>
+                                            }
+                                            }
+                </ul>
+            </div>
+            </div>
+        </div>
+</div>
+</div>
+</section>
+
+
+
+
+

@@ -1,0 +1,208 @@
+﻿ @using BBK.SaaS.Web.Areas.Profile.Models.ApplicationRequestModel
+@{
+    Layout = null;
+}
+
+@model ApplicationRequestModel
+
+
+<div class="modal-body user-edit-modal ApplicationRequest">
+    <div class="modal-header">
+        <h4 class="modal-title">Ứng tuyển - @Model.Recruitment.Title </h4>
+        <button class="btn-close py-0" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="page-body">
+        <!-- Container-fluid starts-->
+        <div class="container-fluid">
+            <div class="row">
+                <form name="ApplicationRequest" role="form" novalidate class="form-validation">
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Content" class="form-label">Nội dung gửi đến nhà tuyển dụng</label>
+                            @* <textarea rows="3" id="Content" class="form-control" type="text" name="Content" required></textarea> *@
+                            @Html.TextArea("myTextArea", Model.Content, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Content" class="form-label">Chi tiết CV</label>
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row mb-3 mt-3">
+                                                <div class="col-xl-6 col-md-12">
+                                                    <div class="profile-title">
+                                                        <div class="d-flex">
+                                                            @if (Model.User.Id > 0)
+                                                            {
+                                                                <img src="@Url.Action("GetProfilePictureByUser", "Profile", new {area = string.Empty})?userId=@(Model.User.Id)&&profilePictureId=@(Model.ProfilePictureId)" width="128" height="128" class="img-thumbnail img-rounded user-edit-dialog-profile-image m-r-10" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" width="128"
+                                                                     height="128"
+                                                                     class="img-thumbnail img-rounded user-edit-dialog-profile-image m-r-10" />
+                                                            }
+                                                            <div class="flex-grow-1">
+                                                                <h4 class="mb-1">@* @Model.User.Surname *@ @Model.User.Name</h4>
+                                                                <p>@Model.JobApplication.Positions.DisplayName</p>
+                                                                <p>Thời gian cập nhật: @Model.JobApplication.CreationTime.ToShortDateString()</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6 col-md-12">
+                                                    <p>CV đính kèm</p>
+                                                </div>
+                                                <hr>
+                                            </div>
+                                            <div class="row mb-3 mt-3">
+                                                <h5 class="mb-3"><strong>Thông tin cá nhân</strong> </h5>
+                                                <div class="col-xl-4 col-md-6 mb-3">
+                                                    <p><strong>Email</strong></p>
+                                                    <p>@Model.User.EmailAddress</p>
+                                                </div>
+                                                <div class="col-xl-4 col-md-6 mb-3">
+                                                    <p><strong>Số điện thoại</strong></p>
+                                                    <p>@Model.User.PhoneNumber</p>
+                                                </div>
+                                                @if (Model.JobApplication.Candidate.ProvinceId > 0)
+                                                {
+                                                    <div class="col-xl-4 col-md-6 mb-3">
+                                                        <p><strong>Tỉnh/Thành phố</strong></p>
+                                                        <p>@Model.JobApplication.Candidate.Province.DisplayName</p>
+                                                    </div>
+                                                }
+                                                <div class="col-xl-4 col-md-6 mb-3">
+                                                    <p><strong>Ngày sinh</strong></p>
+                                                    <p>@Model.JobApplication.Candidate.DateOfBirth?.ToShortDateString()</p>
+                                                </div>
+                                                <div class="col-xl-4 col-md-6 mb-3">
+                                                    <p><strong>Tình trạng hôn nhân</strong></p>
+                                                    <p>
+                                                        @if (Model.JobApplication.Candidate.Marital == true)
+                                                        {
+                                                            <span>
+                                                                Đã kết hôn
+                                                            </span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>
+                                                                Độc thân
+                                                            </span>
+                                                        }
+                                                    </p>
+                                                </div>
+                                                <div class="col-xl-4 col-md-6 mb-3">
+                                                    <p><strong>Địa chỉ</strong></p>
+                                                    <p>@Model.JobApplication.Candidate.Address</p>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row mb-3 mt-3">
+                                                <h5 class="mb-3"><strong>Thông tin chung</strong> </h5>
+                                                <div class="col-xl-4 col-md-6 mb-3">
+                                                    <p><strong>Cấp bậc mong muốn</strong></p>
+                                                    <p>@Model.JobApplication.Positions.DisplayName</p>
+                                                </div>
+                                                <div class="col-xl-4 col-md-6 mb-3">
+                                                    <p><strong>Mức lương mong muốn</strong></p>
+                                                    <p>
+                                                        @if (Model.JobApplication.DesiredSalary.HasValue)
+                                                        {
+                                                            @Model.JobApplication.DesiredSalary.Value
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>Lương thoả thuận</span>
+                                                        }
+                                                    </p>
+                                                </div>
+                                                <div class="col-xl-4 col-md-6 mb-3">
+                                                    <p><strong>Bằng cấp</strong></p>
+                                                    <p>@Model.JobApplication.Literacy.DisplayName</p>
+                                                </div>
+                                                <div class="col-xl-4 col-md-6 mb-3">
+                                                    <p><strong>Số năm kinh nghiệm</strong></p>
+                                                    <p>@Model.JobApplication.Experiences.DisplayName</p>
+                                                </div>
+                                                <div class="col-xl-4 col-md-6 mb-3">
+                                                    <p><strong>Hình thức làm việc</strong></p>
+                                                    <p>@Model.JobApplication.FormOfWork.DisplayName</p>
+                                                </div>
+                                                <div class="col-xl-4 col-md-6 mb-3">
+                                                    <p><strong>Nghề nghiệp</strong></p>
+                                                    <p>@Model.JobApplication.Occupations.DisplayName</p>
+                                                </div>
+                                                <div class="col-xl-4 col-md-6 mb-3">
+                                                    <p><strong>Địa điểm làm việc</strong></p>
+                                                    <p>@Model.JobApplication.Province.DisplayName</p>
+                                                </div>
+                                            </div>
+                                            @if (Model.JobApplication.WorkExperiences != null && Model.JobApplication.WorkExperiences.Count > 0)
+                                            {
+                                                <hr>
+                                                <div class="row mb-3 mt-3">
+                                                    <h5 class="mb-3"><strong>Kinh nghiệm làm việc</strong> </h5>
+                                                    @{
+                                                        int index = 0;
+                                                    }
+                                                    @foreach (var item in Model.JobApplication.WorkExperiences)
+                                                    {
+                                                        @if (index > 0)
+                                                        {
+                                                            <hr></hr>
+                                                        }
+                                                        <div class="col-xl-12 col-md-6 mb-3">
+                                                            <p>@item.StartTime.ToShortDateString() - @item.EndTime.ToShortDateString()  </p>
+                                                            <p>@item.Positions</p>
+                                                            <p>@item.CompanyName</p>
+                                                            <p class="description">@item.Description</p>
+                                                        </div>
+                                                        index++;
+
+
+                                                    }
+
+                                                </div>
+                                            }
+                                            @if (Model.JobApplication.LearningProcess != null && Model.JobApplication.LearningProcess.Count > 0)
+                                            {
+                                                <hr>
+                                                <div class="row mb-3 mt-3">
+                                                    <h5 class="mb-3"><strong>Quá trình học tập</strong> </h5>
+                                                    @{
+                                                        int index = 0;
+                                                    }
+                                                    @foreach (var item in Model.JobApplication.LearningProcess)
+                                                    {
+                                                        @if (index > 0)
+                                                        {
+                                                            <hr></hr>
+                                                        }
+                                                        <div class="col-xl-12 col-md-6 mb-3">
+                                                            <p>@item.StartTime.ToShortDateString() - @item.EndTime.ToShortDateString()  </p>
+                                                            <p>@item.AcademicDiscipline</p>
+                                                            <p>@item.SchoolName</p>
+                                                            <p class="description">@item.Description</p>
+                                                        </div>
+                                                        index++;
+
+                                                    }
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

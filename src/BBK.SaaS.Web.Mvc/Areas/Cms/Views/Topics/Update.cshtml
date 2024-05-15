@@ -1,0 +1,148 @@
+﻿@using Abp.Application.Services.Dto
+@using BBK.SaaS
+@using BBK.SaaS.Authorization
+@using BBK.SaaS.Mdls.Cms.Topics.Dto
+
+@model TopicEditDto
+@{
+	// ViewBag.CurrentTopicName = AppTopicNames.Administrators.Topics;
+	// ViewBag.TopicTitle = @L("Topics");
+	// ViewBag.TopicDescription = @L("TopicsHeaderInfo");
+}
+
+@section Styles {
+	<link rel="stylesheet" abp-href="/assets/summernote/summernote-lite.css" asp-append-version="true" />
+	@* <link rel="stylesheet" abp-href="/view-resources/App/Topics/index.css" asp-append-version="true" /> *@
+	<link rel="stylesheet" abp-href="/view-resources/App/_Bundles/dropzone.css" asp-append-version="true" />
+}
+
+@section Scripts {
+	<script abp-src="/assets/summernote/summernote-lite.js" asp-append-version="true"></script>
+	<script abp-src="/view-resources/Cms/Topics/Update.js" asp-append-version="true"></script>
+	<script abp-src="/view-resources/App/_Bundles/dropzone.js" asp-append-version="true"></script>
+}
+
+<div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card">
+					<div class="card-body">
+						<div id="SettingsTabPanel" class="tabbable-line">
+							<ul class="nav nav-tabs" role="tablist">
+								<li class="nav-item">
+									<a href="#SettingsGeneralTab" aria-expanded="true" class="nav-link active" data-bs-toggle="tab" role="tab">
+										@L("General")
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="#CreateTopicSEOTab" aria-expanded="true" class="nav-link" data-bs-toggle="tab" role="tab">
+										@L("SEO")
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="#CreateTopicSharingTab" aria-expanded="true" class="nav-link" data-bs-toggle="tab" role="tab">
+										@L("Sharing")
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="#CreateTopicAdvancedTab" aria-expanded="true" class="nav-link" data-bs-toggle="tab" role="tab">
+										@L("Advanced")
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="tab-content pt-3">
+							<div class="tab-pane active" id="SettingsGeneralTab">
+								<form name="GeneralInfoForm">
+									<input type="hidden" id="Id" name="Id" value="@ViewBag.DTO.Id" />
+									<div class="mb-3">
+										<label for="Title" class="form-label">@L("Title")</label>
+										<input id="Title" class="form-control" type="text" name="Title" value="@ViewBag.DTO.Title" required maxlength="@SaaSConsts.MaxShortDescLength">
+									</div>
+
+									@* <div class="mb-3">
+									<h5 class="mb-2">@L("Ảnh đại diện") </h5>
+									<div class="d-flex align-items-center m-t-10 fileUpload">
+									<input id="input-11" name="input11[]" type="file" class="" accept="image/png;application/jpg" data-show-preview="false">
+									</div>
+									</div> *@
+
+									<div class="mb-3 no-hint">
+										<label for="Body" class="form-label">@L("Body")</label>
+										<textarea id="Body" type="text" name="Body" class="form-control" required maxlength="@SaaSConsts.MaxDescription">@ViewBag.DTO.Body</textarea>
+									</div>
+
+									<div class="mb-3 no-hint">
+										<label for="Slug" class="form-label">@L("Slug")</label>
+										<input id="Slug" type="text" name="Slug" class="form-control" value="@ViewBag.DTO.Slug" required maxlength="@SaaSConsts.MaxShortDescLength">
+									</div>
+
+									<div class="mb-3 no-hint">
+										<label class="form-check form-check-custom form-check-solid">
+											<input type="checkbox"
+														 id="UseDefaultWidgets"
+														 name="UseDefaultWidgets"
+														 class="form-check-input"
+														 value="true">
+											<span class="form-check-label">
+												@L("UseDefaultWidgets")
+											</span>
+										</label>
+									</div>
+
+									<div class="mb-3 no-hint">
+										<label class="form-check form-check-custom form-check-solid">
+											<input type="checkbox"
+														 id="Published"
+														 name="Published"
+														 class="form-check-input" @((ViewBag.DTO.Published) ? "checked=\"checked\"" : "")
+														 value="true">
+											<span class="form-check-label">
+												@L("Published")
+											</span>
+										</label>
+									</div>
+								</form>
+							</div>
+							<div class="tab-pane" id="CreateTopicSEOTab">
+								<form name="SEOForm">
+									<div class="mb-3">
+										<label for="MetaTitle" class="form-label">@L("MetaTitle")</label>
+										<input id="MetaTitle" class="form-control" type="text" name="MetaTitle" value="@ViewBag.DTO.MetaTitle" required maxlength="@SaaSConsts.MaxShortDescLength">
+									</div>
+
+									<div class="mb-3 no-hint">
+										<label for="MetaDescription" class="form-label">@L("MetaDescription")</label>
+										<textarea id="MetaDescription" type="text" name="MetaDescription" class="form-control" value="@ViewBag.DTO.MetaDescription" required maxlength="@SaaSConsts.MaxDescription"></textarea>
+									</div>
+
+									<div class="mb-3 no-hint">
+										<label for="MetaKeywords" class="form-label">@L("MetaKeywords")</label>
+										<input id="MetaKeywords" type="text" name="MetaKeywords" class="form-control" required maxlength="@SaaSConsts.MaxShortDescLength">
+									</div>
+								</form>
+							</div>
+							<div class="tab-pane" id="CreateTopicSharingTab"></div>
+							<div class="tab-pane" id="CreateTopicAdvancedTab"></div>
+						</div>
+					</div>
+					<div class="card-footer">
+						<button id="UpdateButton" class="btn btn-primary">
+							<i class="fa fa-save btn-md-icon"></i>
+							<span class="d-none d-md-inline-block">
+								@L("Update")
+							</span>
+						</button>
+						<button id="BackToList" class="btn btn-light">
+							<span class="d-none d-md-inline-block">
+								@L("BackToList")
+							</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

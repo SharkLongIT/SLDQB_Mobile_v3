@@ -1,0 +1,141 @@
+﻿@using BBK.SaaS.Web.Areas.Lib.Models.Indexings;
+@model CatUnitsViewModel
+
+@{
+	ViewBag.CurrentPageName = "MediasMgr";
+	ViewBag.PageTitle = @L("MediasMgr");
+	ViewBag.PageDescription = @L("MediasMgrHeaderInfo");
+}
+
+@section Scripts
+{
+	<script abp-src="/view-resources/Cms/MediasMgr/Index.js" asp-append-version="true"></script>
+	<script abp-src="/view-resources/App/_Bundles/dropzone.js" asp-append-version="true"></script>
+	<script>
+		 Dropzone.autoDiscover = false;
+	</script>
+}
+
+@section Styles
+{
+	<link rel="stylesheet" abp-href="/view-resources/App/_Bundles/dropzone.css" asp-append-version="true" />
+	<style>
+		.dropdown-wrapper {
+			display: none;
+		}
+
+		.active a.addBtn {
+			color: #fff;
+		}
+	</style>
+}
+
+<div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+		<div class="row g-4">
+			<div class="col-sm-12 col-md-3">
+				<div class="card card-stretch" id="ouCard">
+					<div class="card-header align-items-center">
+
+						@*<div class="card-toolbar">
+						@if (IsGranted(AppPermissions.Pages_Administration_OrganizationUnits_ManageOrganizationTree))
+						{
+						<button type="button" id="AddRootUnitButton" class="btn btn-primary">
+						<i class="la la-plus btn-md-icon"></i>
+						<span class="d-none d-md-inline-block">
+						@L("AddRootUnit")
+						</span>
+						</button>
+						}
+						<button type="button" id="AddRootUnitButton" class="btn btn-primary">
+						<i class="la la-plus btn-md-icon"></i>
+						<span class="d-none d-md-inline-block">
+						@L("AddRootUnit")
+						</span>
+						</button>
+						</div>*@
+
+						<div class="d-md-flex d-sm-block">
+							<h3 class="card-title align-items-start flex-column">
+								<span class="fw-bolder text-dark">@L("Medias")</span>
+							</h3>
+							<div class="flex-grow-1 text-end">
+								<button type="button" id="AddRootUnitButton" class="btn btn-primary">
+									<i class="la la-plus btn-md-icon"></i>
+									<span class="d-none d-md-inline-block">
+										@L("AddFolder")
+									</span>
+								</button>
+							</div>
+						</div>
+
+					</div>
+					<div class="card-body">
+						<div class="card-scroll">
+							<button class="btn-default text-center btn-sm" type="button" id="MediaFolderRootBtn">[\...] Root</button>
+							<div id="MediaFolderEditTree"></div>
+							<div id="MediaFolderTreeEmptyInfo" ng-if="!vm.organizationTree.unitCount" class="text-muted">
+								@L("NoMediaFolderDefinedYet")
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-9 file-content">
+				<div class="card card-stretch" id="ouMembersCard">
+					<div class="card-header align-items-center">
+						@* <h3 class="card-title align-items-start flex-column">
+						<span class="fw-bolder text-dark" id="SelectedOuRightTitle"></span>
+						</h3> *@
+						@* <div class="d-md-flex d-sm-block">
+						<form class="form-inline" action="#" method="get">
+						<div class="form-group d-flex align-items-center mb-0">
+						<i class="fa fa-search"></i>
+						<input class="form-control-plaintext" type="text" placeholder="Search..." aria-autocomplete="list">
+						</div>
+						</form>
+						<div class="flex-grow-1 text-end">
+						<form class="d-inline-flex" action="#" method="POST" enctype="multipart/form-data" name="myForm">
+						<div class="btn btn-primary" onclick="getFile()"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>Add New</div>
+						<div style="height: 0px;width: 0px; overflow:hidden;">
+						<input id="upfile" type="file" onchange="sub(this)">
+						</div>
+						</form>
+						<div class="btn btn-outline-primary ms-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>Upload  </div>
+						</div>
+						</div> *@
+
+						@* <form class="dropzone dropzone-secondary bg-light-secondary" id="multiFileUpload" action="/CMS/MediasMgr/UploadFiles"> *@
+						<form asp-area="cms" asp-controller="MediasMgr" autocomplete="off" class="dropzone dropzone-secondary bg-light-secondary"
+							  id="multiFileUpload" enctype="multipart/form-data" asp-action="UploadFiles" method="post">
+							@* <form class="dropzone dropzone-secondary bg-light-secondary" id="multiFileUpload" action="/CMS/MediasMgr/UploadFiles"> *@
+							<div class="dz-message needsclick">
+								<i class="icon-cloud-up"></i>
+								<h6 class="f-w-600">Kéo & thả file tại đây để tải tệp lên.</h6><span class="note needsclick">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
+							</div>
+						</form>
+
+					</div>
+					<div class="card-body">
+						<div class="card-scroll">
+							<div id="FolderMediasTable">
+								<table class="folder-medias-table table align-middle table-row-dashed fs-6 gy-5 dataTable dtr-inline no-footer">
+									<thead>
+										<tr>
+											<th>@L("Delete")</th>
+											<th>@L("Name")</th>
+											<th>@L("Type")</th>
+											<th>@L("Size")</th>
+											<th>@L("Modified")</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

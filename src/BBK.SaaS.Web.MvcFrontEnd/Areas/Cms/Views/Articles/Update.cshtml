@@ -1,0 +1,227 @@
+﻿@using Abp.Application.Services.Dto
+@using BBK.SaaS
+@using BBK.SaaS.Authorization
+@using BBK.SaaS.Web.Areas.App.Models.Roles
+@using BBK.SaaS.Web.Areas.App.Startup
+@using BBK.SaaS.Web.Areas.Cms.Models.Articles
+
+@model EditArticleViewModel
+
+@{
+	//    ViewBag.CurrentPageName = AppPageNames.Administrators.Roles;
+	//    ViewBag.PageTitle = @L("Roles");
+	// ViewBag.PageDescription = @L("RolesHeaderInfo");
+}
+
+@section Styles
+{
+	<link rel="stylesheet" abp-href="/assets/summernote/summernote-lite.css" asp-append-version="true" />
+
+}
+
+@section Scripts
+{
+	<script abp-src="/assets/summernote/summernote-lite.js" asp-append-version="true"></script>
+	<script abp-src="/view-resources/Cms/Articles/Update.js" asp-append-version="true"></script>
+}
+
+<div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card">
+					<div class="card-body">
+						<div id="SettingsTabPanel" class="tabbable-line">
+							<ul class="nav nav-tabs" role="tablist">
+								<li class="nav-item">
+									<a href="#SettingsGeneralTab" aria-expanded="true" class="nav-link active" data-bs-toggle="tab" role="tab">
+										@L("General")
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="#CreateTopicSEOTab" aria-expanded="true" class="nav-link" data-bs-toggle="tab" role="tab">
+										@L("SEO")
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="#CreateTopicSharingTab" aria-expanded="true" class="nav-link" data-bs-toggle="tab" role="tab">
+										@L("Sharing")
+									</a>
+								</li>
+								<li class="nav-item">
+									<a href="#CreateTopicAdvancedTab" aria-expanded="true" class="nav-link" data-bs-toggle="tab" role="tab">
+										@L("Advanced")
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="tab-content pt-3">
+							<div class="tab-pane active" id="SettingsGeneralTab">
+								<form name="GeneralInfoForm">
+									<input type="hidden" id="Id" name="Id" value="@Model.Article.Id" />
+									<div class="mb-3">
+										<label for="Title" class="form-label">@L("Title")</label>
+										<input id="Title" class="form-control" type="text" name="Title" value="@Model.Article.Title" required maxlength="@SaaSConsts.MaxShortDescLength">
+									</div>
+
+									<div class="mb-3">
+										<h5 class="mb-2">@L("Ảnh đại diện") </h5>
+										<input type="hidden" id="PrimaryImageUrl" name="PrimaryImageUrl" @(Model.Article.PrimaryImage != null ? $"value={Model.Article.PrimaryImage.FilePath}" : "") />
+										<div class="input-group">
+											@if (Model.Article.PrimaryImage != null)
+											{
+												<div class="list-group m-r-10"><a class="list-group-item list-group-item-action list-light-info" href="@Model.Article.PrimaryImage.FileUrl" id="PrimaryImage" target="_blank">@Model.Article.PrimaryImage.FileName</a></div>
+												
+											}
+											else
+											{
+												<div class="list-group m-r-10"><a class="list-group-item list-group-item-action list-light-info" href="#" id="PrimaryImage">Chưa có ảnh</a></div>
+												
+											}
+											<div class="d-flex align-items-center fileUpload">
+												<input id="uploadPrimaryImg" name="uploadPrimaryImg[]" type="file" class="" accept="image/*" data-show-preview="false">
+											</div>
+										</div>
+									</div>
+
+									<div class="mb-3 no-hint">
+										<label for="ShortDesc" class="form-label">@L("ShortDescription")</label>
+										<textarea id="ShortDesc" type="text" name="ShortDesc" class="form-control" required maxlength="@SaaSConsts.MaxShortDescLength">@Model.Article.ShortDesc</textarea>
+									</div>
+
+									<div class="mb-3 no-hint">
+										<label for="Content" class="form-label">@L("Content")</label>
+										<textarea id="Content" type="text" name="Content" class="form-control" required maxlength="@SaaSConsts.MaxDescription">@Html.Raw(Model.Article.Content)</textarea>
+									</div>
+
+									<div class="mb-3 no-hint">
+										<label for="CmsCategory" class="form-label">@L("Category")</label>
+										<select id="CmsCategory" name="CategoryId" class="form-control select2">
+											@foreach (var category in Model.Categories)
+											{
+												<option value="@category.Id" selected="@(category.Id == Model.CategoryId)">
+													@category.DisplayName
+												</option>
+											}
+										</select>
+									</div>
+
+									<div class="mb-3 no-hint">
+										<label for="Author" class="form-label">@L("Author")</label>
+										<input id="Author" type="text" name="Author" class="form-control" value="@Model.Article.Author" maxlength="@SaaSConsts.MaxShortDescLength">
+									</div>
+
+									<div class="mb-3 no-hint">
+										<label for="Slug" class="form-label">@L("Slug")</label>
+										<input id="Slug" type="text" name="Slug" class="form-control" value="@Model.Article.Slug" maxlength="@SaaSConsts.MaxShortDescLength">
+									</div>
+
+									<div class="mb-3 no-hint">
+
+										<label for="StartDate" class="form-label">@L("StartDate")</label>
+										<div class="input-group">
+											<div class="input-group-text">
+												<input class="form-check-input mt-0" type="checkbox" value="@Model.Article.StartDate" aria-label="Checkbox for following text input">
+											</div>
+											<input id="StartDate" type="text" name="StartDate" class="form-control digits" disabled="disabled">
+										</div>
+									</div>
+
+									<div class="mb-3 no-hint">
+										<label for="EndDate" class="form-label">@L("EndDate")</label>
+										<div class="input-group">
+											<div class="input-group-text">
+												<input class="form-check-input mt-0" type="checkbox" value="@Model.Article.EndDate" aria-label="Checkbox for following text input">
+											</div>
+											<input id="EndDate" type="text" name="EndDate" class="form-control digits" disabled="disabled">
+										</div>
+									</div>
+
+									<div class="mb-3 no-hint">
+										<label class="form-check form-check-custom form-check-solid">
+											<input type="checkbox"
+												   id="AllowComments"
+												   name="AllowComments" @(Model.Article.AllowComments ? "checked=\"checked\"" : "")
+												   class="form-check-input"
+												   value="true">
+											<span class="form-check-label">
+												@L("AllowComments")
+											</span>
+										</label>
+									</div>
+
+									<div class="mb-3 no-hint">
+										<label class="form-check form-check-custom form-check-solid">
+											<input type="checkbox"
+												   id="Published"
+												   name="Published" @(Model.Article.Published ? "checked=\"checked\"" : "")
+												   class="form-check-input"
+												   value="true">
+											<span class="form-check-label">
+												@L("Published")
+											</span>
+										</label>
+									</div>
+								</form>
+							</div>
+							<div class="tab-pane" id="CreateTopicSEOTab">
+								<form id="SEOForm" name="SEOForm">
+									<div class="mb-3">
+										<label for="MetaTitle" class="form-label">@L("MetaTitle")</label>
+										<input id="MetaTitle" class="form-control" type="text" name="MetaTitle" value="@Model.Article.MetaTitle" required maxlength="@SaaSConsts.MaxShortDescLength">
+									</div>
+
+									<div class="mb-3 no-hint">
+										<label for="MetaDescription" class="form-label">@L("MetaDescription")</label>
+										<textarea id="MetaDescription" type="text" name="MetaDescription" class="form-control" value="@Model.Article.MetaDescription" required maxlength="@SaaSConsts.MaxDescription"></textarea>
+									</div>
+
+									<div class="mb-3 no-hint">
+										<label for="MetaKeywords" class="form-label">@L("MetaKeywords")</label>
+										<input id="MetaKeywords" type="text" name="MetaKeywords" class="form-control" value="@Model.Article.MetaKeywords" required maxlength="@SaaSConsts.MaxShortDescLength">
+									</div>
+								</form>
+							</div>
+							<div class="tab-pane" id="CreateTopicSharingTab">
+								<form id="SharingForm" name="SharingForm">
+									<div class="mb-3">
+										<label for="OgTitle" class="form-label">@L("OgTitle")</label>
+										<input id="OgTitle" class="form-control" type="text" name="OgTitle" required value="@Model.Article.OgTitle" maxlength="@SaaSConsts.MaxShortDescLength">
+									</div>
+
+									<div class="mb-3 no-hint">
+										<label for="OgDescription" class="form-label">@L("OgDescription")</label>
+										<textarea id="OgDescription" type="text" name="OgDescription" class="form-control" value="@Model.Article.OgDescription" required maxlength="@SaaSConsts.MaxDescription"></textarea>
+									</div>
+
+									<div class="mb-3 no-hint">
+										<label for="OgImageUrl" class="form-label">@L("OgImageUrl")</label>
+										<input id="OgImageUrl" type="text" name="OgImageUrl" class="form-control" required maxlength="@SaaSConsts.MaxShortDescLength">
+										<div class="d-flex align-items-center m-t-10 fileUpload">
+											<input id="uploadOgImage" name="uploadOgImage[]" type="file" class="" accept="image/*" data-show-preview="false">
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="tab-pane" id="CreateTopicAdvancedTab"></div>
+						</div>
+					</div>
+					<div class="card-footer">
+						<button id="UpdateButton" class="btn btn-primary">
+							<i class="fa fa-save btn-md-icon"></i>
+							<span class="d-none d-md-inline-block">
+								@L("Update")
+							</span>
+						</button>
+						<button id="BackToList" class="btn btn-light">
+							<span class="d-none d-md-inline-block">
+								@L("BackToList")
+							</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

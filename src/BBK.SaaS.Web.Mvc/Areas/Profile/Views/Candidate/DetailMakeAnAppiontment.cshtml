@@ -1,0 +1,68 @@
+﻿@using BBK.SaaS.Mdls.Profile.Candidates.Dto
+@model MakeAnAppointmentDto
+<div class="modal-body user-edit-modal InterviewConfirmationModal">
+    <div class="modal-header">
+        <h4 class="modal-title">@L("Chi tiết lịch hẹn phỏng vấn")</h4>
+        <button class="btn-close py-0" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="page-body">
+        <!-- Container-fluid starts-->
+        <div class="container-fluid">
+            <div class="row">
+                <form name="InterviewConfirmationModal" role="form" novalidate class="form-validation">
+                    <input name="Id" hidden value="@ViewBag.Id">
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="TypeInterview" class="form-label">@L("Công việc được phỏng vấn")</label>
+                            <input  type="text"  class="form-control" value="@Model.Recruitment.Title" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="TypeInterview" class="form-label">@L("Hình thức phỏng vấn")</label>
+                            <input id="TypeInterview" class="form-control" value="@Model.TypeInterview" type="text" name="TypeInterview" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Adress" class="form-label">@L("Địa chỉ phỏng vấn")</label>
+                            <input id="Adress" type="text" name="Address" value="@Model.Address" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="TypeInterview" class="form-label">@L("Vị trí phỏng vấn")</label>
+                            <input id="Adress" type="text" name="Address" value="@Model.Ranks.DisplayName" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Time" class="form-label">@L("Ngày phỏng vấn")</label>
+                            <input id="Time" disabled name="InterviewTime" value="@Model.InterviewTime.ToLongDateString()" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Time" class="form-label">@L("Thời gian phỏng vấn")</label>
+                            <input id="Time" disabled name="InterviewTime" value="@Model.InterviewTime.ToLongTimeString()" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Message" class="form-label">@L("Lời nhắn")</label>
+                            <input id="Message" type="text" name="Message" value="@Model.Message" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="ReasonForRefusal" class="form-label">@L("Nội dung gửi đến nhà tuyển dụng")</label>
+                            <textarea rows="3" required name="ReasonForRefusal" class="form-control" disabled>@Model.ReasonForRefusal</textarea>
+                        </div>
+                    </div>
+               
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithClose.cshtml")

@@ -2,99 +2,133 @@
 @inherits SaaSMainLayoutPageComponentBase
 @attribute [Route("/" + NavigationUrlConsts.InforNLD)]
 
-  @if (Model != null && Model.Candidate != null)
-{
-    <div class="card card-style">
-        <div class="d-flex content">
-            <div class="flex-grow-1">
-                <div>
-                    <h1 class="font-700 mb-1">@Model.User.Name</h1>
-                    <p class="mb-0 pb-1 pe-3">
-                        <div class="desc"><a @onclick="EditUser"><i class="fa fa-pencil me-1" aria-hidden="true"></i>Cập nhật thông tin cá nhân</a></div>
-						@* <div class="desc"><a @onclick="ShowModal" ><i class="fa fa-pencil me-1" aria-hidden="true"></i>Cập nhật thông tin cá nhân</a></div> *@
-                    </p>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+    @if (Model != null && Model.Candidate != null)
+    {
+    
+            <div class="header ">
+            <div class="user-profile">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card hovercard text-center">
+                            <div class="cardheader"></div>
+                            <div class="user-image">
+                                <div class="avatar" style="margin-top:-80px;"><img src="@_userImage" width="70px" height="70px" style="border-radius: 50%"></div>
+
+                                <div class="icon-wrapper"><i class="icofont icofont-pencil-alt-5"></i></div>
+                                <div class="icon-wrapper"> <i class="fa fa-camera camera" aria-hidden="true" @onclick="ChangeAvatar"></i></div>
+                            </div>
+                            <div class="info">
+                                <div class="row">
+                                    <div class="col-sm-12 col-lg-4 order-sm-0 order-xl-1">
+                                        <div class="user-designation">
+                                            <div class="title">@Model.User.Name</div>
+                                            <div class="desc"><a @onclick="EditUser"><i class="fa fa-pencil me-1" aria-hidden="true"></i>Cập nhật thông tin cá nhân</a></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-4 order-sm-2 order-xl-2">
+                                        <div>
+                                            <div class="d-flex">
+                                                <div class="mr-auto p-2"><h2>THÔNG TIN</h2></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="d-flex me-2 mb-3 box-info">
+                                                <div class="p-2 ms-4">
+                                                    <h5><strong><i class="fa fa-envelope" aria-hidden="true"></i></strong></h5>
+                                                </div>
+                                                <div class="p-2">
+                                                    <h5><strong>Email</strong></h5>
+                                                </div>
+                                                <div class="ml-auto p-2 me-4"><h5><small>@Model.User.EmailAddress</small></h5></div>
+                                            </div>
+                                            <div class="d-flex me-2  mb-3 box-info">
+                                                <div class="p-2 ms-4">
+                                                    <h5><strong><i class="fa fa-phone" aria-hidden="true"></i></strong></h5>
+                                                </div>
+                                                <div class="p-2">
+                                                    <h5><strong>Số điện thoại</strong></h5>
+                                                </div>
+                                                <div class="ml-auto p-2 me-4"><h5><small>@Model.User.PhoneNumber</small></h5></div>
+                                            </div>
+                                            <div class="d-flex me-2  mb-3 box-info">
+                                                <div class="p-2 ms-4">
+                                                    <h5><strong><i class="fa fa-heart" aria-hidden="true"></i></strong></h5>
+                                                </div>
+                                                <div class="p-2">
+                                                    <h5><strong>Tình trạng hôn nhân</strong></h5>
+                                                </div>
+                                                @if (Model.Candidate.Marital == false)
+                                                {
+                                                    <div class="ml-auto p-2 me-4"><h5><small>Đã kết hôn</small></h5></div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="ml-auto p-2 me-4"><h5><small>Độc thân</small></h5></div>
+
+                                                }
+                                            </div>
+                                            <div class="d-flex me-2 mb-3 box-info">
+                                                <div class="p-2 ms-4">
+                                                    <h5><strong><i class="fa fa-user" aria-hidden="true"></i></strong></h5>
+                                                </div>
+                                                <div class="p-2">
+                                                    <h5><strong>Giới tính</strong></h5>
+                                                </div>
+                                                @if (Model.Candidate.Gender == Mdls.Profile.Candidates.Dto.GenderEnum.Male)
+                                                {
+                                                    <div class="ml-auto p-2 me-4"><h5><small>Nam</small></h5></div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="ml-auto p-2 me-4"><h5><small>Nữ</small></h5></div>
+                                                }
+                                            </div>
+                                            <div class="d-flex me-2 mb-3 box-info">
+                                                <div class="p-2 ms-4">
+                                                    <h5><strong><i class="fa fa-calendar" aria-hidden="true"></i></strong></h5>
+                                                </div>
+                                                <div class="p-2">
+                                                    <h5><strong>Ngày sinh</strong></h5>
+                                                </div>
+                                                <div class="ml-auto p-2 me-4"><h5><small>@Model.Candidate.DateOfBirth?.ToShortDateString()</small></h5></div>
+                                            </div>
+                                            <div class="d-flex me-2">
+                                                <div class="p-2 ms-4">
+                                                    <h5><strong><i class="fa fa-map-marker" aria-hidden="true"></i></strong></h5>
+                                                </div>
+                                                <div class="p-2">
+                                                    <h5><strong>Địa chỉ</strong></h5>
+                                                </div>
+                                                <div class="ml-auto p-2 me-4"><h5 class="address-user"><small>@Model.Candidate.Address, @Model.Candidate.District.DisplayName, @Model.Candidate.Province.DisplayName</small></h5></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div>
-               @*  <img src="@_userImage" width="80" class="rounded-circle mt- shadow-xl preload-img">
-                <i class="fa-solid fa-camera" @onclick="ChangeAvatar"></i> *@
-
-                <a class="card card-style rounded-l rounded-circle shadow-xl preload-img" style="background-image: url('@_userImage'); height: 80px; width: 80px" @onclick="(() => ChangeAvatar())">
-                    <div class="card-bottom  px-2 bg-black">
-                        <h5 class="color-white font-500 text-center">
-                            <i class="fa-solid fa-camera"></i>
-                        </h5>
-                    </div>
-                    <div class="card-overlay bg-gray opacity-20"></div>
-                </a>
-            </div>
         </div>
-    </div>
-    <div class="card card-style">
-        <div class="list-group list-custom-small  list-icon-0  ps-3 pe-4">
-            <a data-bs-toggle="collapse" class="no-effect" href="#collapse-2">
-                <span class="font-20 fw-700 color-highlight">Thông tin</span>
-                <i class="fa fa-angle-down"></i>
-            </a>
-        </div>
-        <div class="collapse ps-2 pe-4 show" id="collapse-2">
-            <div>
-                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Email</span>
-                <span class="default-link d-block color-theme font-15 font-400">@Model.User.EmailAddress</span>
-            </div>
-            <div class="divider my-3"></div>
-            <div>
-                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Số điện thoại</span>
-                <span class="default-link d-block color-theme font-15 font-400">@Model.User.PhoneNumber</span>
-            </div>
-            <div class="divider my-3"></div>
-            <div>
-                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Tình trạng hôn nhân</span>
-                @if (Model.Candidate.Marital == false)
-                {
-                    <span class="default-link d-block color-theme font-15 font-400">Đã kết hôn</span>
-                    <div class="divider my-3"></div>
-                }
-                else
-                {
-                    <span class="default-link d-block color-theme font-15 font-400">Độc thân</span>
-                    <div class="divider my-3"></div>
-                }
-            </div>
-            <div>
-                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Giới tính</span>
-                @if (Model.Candidate.Gender == Mdls.Profile.Candidates.Dto.GenderEnum.Male)
-                {
-                    <span class="default-link d-block color-theme font-15 font-400">Nam</span>
-                    <div class="divider my-3"></div>
-                }
-                else
-                {
-                    <span class="default-link d-block color-theme font-15 font-400">Nữ</span>
-                    <div class="divider my-3"></div>
-
-                }
-            </div>
-            <div>
-                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Ngày sinh</span>
-                <span class="default-link d-block color-theme font-15 font-400">@Model.Candidate.DateOfBirth?.ToShortDateString()</span>
-            </div>
-            <div class="divider my-3"></div>
-                  <div>
-                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Địa chỉ</span>
-                <span class="default-link d-block color-theme font-15 font-400">@Model.Candidate.Address, @Model.Candidate.District.DisplayName, @Model.Candidate.Province.DisplayName</span>
-            </div>
-            <div class="divider my-3"></div>
-        </div>
-    </div>
-
-
-
-}
-else
-{
-}
-
-
+    }
+    else
+    {
+        <p>Đang tải...</p>
+    }
+</body>
 <UpdateInfoModal OnSave="RefreshList" @ref="UpdateInfoModal"> </UpdateInfoModal>
-@* <TestModal OnSave="RefreshList" @ref="TestModal"></TestModal> *@

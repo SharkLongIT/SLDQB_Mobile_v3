@@ -7,6 +7,7 @@ using Abp.Domain.Uow;
 using Abp.Linq;
 using Abp.UI;
 using Abp.Zero;
+using Microsoft.EntityFrameworkCore;
 
 namespace BBK.SaaS.Mdls.Category.Indexings
 {
@@ -15,13 +16,13 @@ namespace BBK.SaaS.Mdls.Category.Indexings
     /// </summary>
     public class CatUnitManager : DomainService
     {
-        protected IRepository<CatUnit, long> geoUnitRepository { get; private set; }
+        protected IRepository<CatUnit, long> catUnitRepository { get; private set; }
 
         public IAsyncQueryableExecuter AsyncQueryableExecuter { get; set; }
         
         public CatUnitManager(IRepository<CatUnit, long> geoUnitRepository)
         {
-            this.geoUnitRepository = geoUnitRepository;
+            this.catUnitRepository = geoUnitRepository;
 
             LocalizationSourceName = AbpZeroConsts.LocalizationSourceName;
             AsyncQueryableExecuter = NullAsyncQueryableExecuter.Instance;
@@ -33,7 +34,7 @@ namespace BBK.SaaS.Mdls.Category.Indexings
             {
                 geoUnit.Code = await GetNextChildCodeAsync(geoUnit.ParentId);
                 await ValidateCatUnitAsync(geoUnit);
-                await geoUnitRepository.InsertAsync(geoUnit);
+                await catUnitRepository.InsertAsync(geoUnit);
 
                 await uow.CompleteAsync();
             }    
@@ -45,7 +46,7 @@ namespace BBK.SaaS.Mdls.Category.Indexings
             {
                 geoUnit.Code = GetNextChildCode(geoUnit.ParentId);
                 ValidateCatUnit(geoUnit);
-                geoUnitRepository.Insert(geoUnit);
+                catUnitRepository.Insert(geoUnit);
                 
                 uow.Complete();
             }
@@ -54,13 +55,29 @@ namespace BBK.SaaS.Mdls.Category.Indexings
         public virtual async Task UpdateAsync(CatUnit geoUnit)
         {
             await ValidateCatUnitAsync(geoUnit);
-            await geoUnitRepository.UpdateAsync(geoUnit);
+            await catUnitRepository.UpdateAsync(geoUnit);
         }
 
         public virtual void Update(CatUnit geoUnit)
         {
             ValidateCatUnit(geoUnit);
-            geoUnitRepository.Update(geoUnit);
+            catUnitRepository.Update(geoUnit);
+        }
+
+    public virtual async Task UpdateOrderIndexAsync(long? parentId, IReadOnlyList<long> sortedIds)
+        {
+            await UnitOfWorkManager.WithUnitOfWorkAsync(async () =>
+            {
+                var items = await catUnitRepository.GetAll()
+                    .Where(ou => ou.ParentId == parentId).OrderBy(x => x.OrderIndex).ToListAsync();
+
+                for (int i = 0; i < sortedIds.Count; i++)
+                {
+                    var item = items.FirstOrDefault(x => x.Id == sortedIds[i]);
+                    if (item != null)
+                        item.OrderIndex = i;
+                }
+            });
         }
 
         public virtual async Task<string> GetNextChildCodeAsync(long? parentId)
@@ -89,7 +106,7 @@ namespace BBK.SaaS.Mdls.Category.Indexings
 
         public virtual async Task<CatUnit> GetLastChildOrNullAsync(long? parentId)
         {
-            var query = geoUnitRepository.GetAll()
+            var query = catUnitRepository.GetAll()
                 .Where(ou => ou.ParentId == parentId)
                 .OrderByDescending(ou => ou.Code);
             return await AsyncQueryableExecuter.FirstOrDefaultAsync(query);
@@ -97,7 +114,7 @@ namespace BBK.SaaS.Mdls.Category.Indexings
 
         public virtual CatUnit GetLastChildOrNull(long? parentId)
         {
-            var query = geoUnitRepository.GetAll()
+            var query = catUnitRepository.GetAll()
                 .Where(ou => ou.ParentId == parentId)
                 .OrderByDescending(ou => ou.Code);
             return query.FirstOrDefault();
@@ -105,12 +122,12 @@ namespace BBK.SaaS.Mdls.Category.Indexings
 
         public virtual async Task<string> GetCodeAsync(long id)
         {
-            return (await geoUnitRepository.GetAsync(id)).Code;
+            return (await catUnitRepository.GetAsync(id)).Code;
         }
 
         public virtual string GetCode(long id)
         {
-            return (geoUnitRepository.Get(id)).Code;
+            return (catUnitRepository.Get(id)).Code;
         }
         
         public virtual async Task DeleteAsync(long id)
@@ -121,10 +138,10 @@ namespace BBK.SaaS.Mdls.Category.Indexings
 
                 foreach (var child in children)
                 {
-                    await geoUnitRepository.DeleteAsync(child);
+                    await catUnitRepository.DeleteAsync(child);
                 }
 
-                await geoUnitRepository.DeleteAsync(id);
+                await catUnitRepository.DeleteAsync(id);
 
                 await uow.CompleteAsync();
             }
@@ -138,10 +155,10 @@ namespace BBK.SaaS.Mdls.Category.Indexings
 
                 foreach (var child in children)
                 {
-                    geoUnitRepository.Delete(child);
+                    catUnitRepository.Delete(child);
                 }
 
-                geoUnitRepository.Delete(id);
+                catUnitRepository.Delete(id);
                 
                 uow.Complete();
             }
@@ -151,7 +168,7 @@ namespace BBK.SaaS.Mdls.Category.Indexings
         {
             using (var uow = UnitOfWorkManager.Begin())
             {
-                var geoUnit = await geoUnitRepository.GetAsync(id);
+                var geoUnit = await catUnitRepository.GetAsync(id);
                 if (geoUnit.ParentId == parentId)
                 {
                     await uow.CompleteAsync();
@@ -184,7 +201,7 @@ namespace BBK.SaaS.Mdls.Category.Indexings
         {
             UnitOfWorkManager.WithUnitOfWork(() =>
             {
-                var geoUnit = geoUnitRepository.Get(id);
+                var geoUnit = catUnitRepository.Get(id);
                 if (geoUnit.ParentId == parentId)
                 {
                     return;
@@ -214,17 +231,17 @@ namespace BBK.SaaS.Mdls.Category.Indexings
         {
             if (!recursive)
             {
-                return await geoUnitRepository.GetAllListAsync(ou => ou.ParentId == parentId);
+                return await catUnitRepository.GetAllListAsync(ou => ou.ParentId == parentId);
             }
 
             if (!parentId.HasValue)
             {
-                return await geoUnitRepository.GetAllListAsync();
+                return await catUnitRepository.GetAllListAsync();
             }
 
             var code = await GetCodeAsync(parentId.Value);
 
-            return await geoUnitRepository.GetAllListAsync(
+            return await catUnitRepository.GetAllListAsync(
                 ou => ou.Code.StartsWith(code) && ou.Id != parentId.Value
             );
         }
@@ -233,17 +250,17 @@ namespace BBK.SaaS.Mdls.Category.Indexings
         {
             if (!recursive)
             {
-                return geoUnitRepository.GetAllList(ou => ou.ParentId == parentId);
+                return catUnitRepository.GetAllList(ou => ou.ParentId == parentId);
             }
 
             if (!parentId.HasValue)
             {
-                return geoUnitRepository.GetAllList();
+                return catUnitRepository.GetAllList();
             }
 
             var code = GetCode(parentId.Value);
 
-            return geoUnitRepository.GetAllList(
+            return catUnitRepository.GetAllList(
                 ou => ou.Code.StartsWith(code) && ou.Id != parentId.Value
             );
         }

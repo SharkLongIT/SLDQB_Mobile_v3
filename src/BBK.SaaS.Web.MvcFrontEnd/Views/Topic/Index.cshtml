@@ -1,0 +1,46 @@
+﻿@using System.Globalization
+@using BBK.SaaS.Mdls.Cms.Configuration
+@using BBK.SaaS.Timing
+@using BBK.SaaS.Web.Models.Cms.Topic
+@using BBK.SaaS.Web.Views.Shared.Components.Widget
+
+@model TopicViewModel
+
+<!-- Page Sidebar Ends-->
+<div class="page-body">
+    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.AllPagesAfterMenu })
+
+    <!-- Container-fluid starts-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="blog-single">
+                            <div class="blog-box blog-details">
+                                @* <img class="img-fluid w-100" src="../assets/images/blog/blog-single.jpg" alt="blog-main"> *@
+                                <div class="blog-details">
+                                    @* <ul class="blog-social">
+                                        <li>25 July 2018</li>
+                                        <li><i class="icofont icofont-user"></i>Mark <span>Jecno </span></li>
+                                        <li><i class="icofont icofont-thumbs-up"></i>02<span>Hits</span></li>
+                                        <li><i class="icofont icofont-ui-chat"></i>598 Comments</li>
+                                    </ul> *@
+                                    <h4 class="pt-3">@Html.Raw(Model.Title)</h4>
+                                    <div class="single-blog-content-top">
+                                        <!-- Content here-->
+                                        @Html.Raw(Model.Body)
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.AllPagesBeforeFooter })
+
+</div>

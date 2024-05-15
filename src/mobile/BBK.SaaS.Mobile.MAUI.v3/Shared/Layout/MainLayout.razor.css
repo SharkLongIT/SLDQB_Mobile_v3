@@ -1,0 +1,133 @@
+/*.page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+.sidebar {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+}
+
+.top-row {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+    .top-row ::deep a, .top-row ::deep .btn-link {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+        text-decoration: none;
+    }
+
+    .top-row ::deep a:hover, .top-row ::deep .btn-link:hover {
+        text-decoration: underline;
+    }
+
+    .top-row ::deep a:first-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth) {
+        display: none;
+    }
+
+    .top-row.auth {
+        justify-content: space-between;
+    }
+
+    .top-row ::deep a, .top-row ::deep .btn-link {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page {
+        flex-direction: row;
+    }
+
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .top-row, article {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+
+
+#footer-bar {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 98;
+    background-color: rgba(249, 249, 249, 0.98);
+    box-shadow: 0 -5px 10px 0 rgba(0, 0, 0, 0.06);
+    min-height: 60px;
+    height: calc(62px + constant(safe-area-inset-bottom) * 1.1);
+    height: calc(62px + env(safe-area-inset-bottom) * 1.1);
+    display: flex;
+    text-align: center;
+}
+
+    #footer-bar a {
+        color: #1f1f1f;
+        padding-top: 12px;
+        position: relative;
+        flex: 1 1 auto;
+    }
+
+        #footer-bar a span {
+            position: relative;
+            z-index: 2;
+            display: block;
+            font-size: 10px;
+            font-weight: 500;
+            margin-top: -6px;
+            opacity: 0.7;
+            font-family: "Roboto", sans-serif !important;
+        }
+
+        #footer-bar a i {
+            font-size: 18px;
+            position: relative;
+            z-index: 2;
+        }
+
+.footer-bar-1 .active-nav i,
+.footer-bar-1 .active-nav span,
+.footer-bar-3 .active-nav i {
+    color: #00b14f !important;
+}
+
+.footer-bar-2 .active-nav,
+.footer-bar-5 strong,
+.footer-bar-4 strong,
+.splide__pagination__page.is-active {
+    background-color: #00b14f !important;
+}
+
+.fa{
+    margin-bottom: 3px;
+}
+*/

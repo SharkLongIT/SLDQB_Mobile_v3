@@ -1,0 +1,47 @@
+﻿@using Abp.Organizations
+@using BBK.SaaS
+@using BBK.SaaS.Web.Areas.App.Models.Common.Modals
+@using BBK.SaaS.Web.Areas.Cms.Models.Widgets
+
+@model CreateOrEditConfigModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("ConfigWidgetZone") + ": " + Model.Widget.Title))
+
+<div class="modal-body">
+	<form name="ConfigWidgetForm" role="form" novalidate class="form-validation">
+		<input type="hidden" name="Id" value="@Model.Widget.Id" />
+
+		<div class="mb-3">
+			<label for="Title" class="form-label">@L("Title")</label>
+			<input id="Title" class="form-control" type="text" name="Title" readonly value="@Model.Widget.Title" maxlength="@SaaSConsts.MaxSingleLineLength">
+		</div>
+		<div class="card-wrapper border rounded-3 checkbox-checked">
+			<h6 class="sub-title">Lựa chọn vùng hiển thị:</h6>
+			@foreach (var zoneName in Model.WidgetZoneNames)
+			{
+				if (Model.DisplayedInZones.Any(c => c == zoneName))
+				{
+					<label class="d-block" for="@zoneName"></label>
+					<input class="checkbox_animated" id="@zoneName" name="ZoneNames" value="@zoneName" type="checkbox" checked="checked">
+					@zoneName
+				}
+				else
+				{
+					<label class="d-block" for="@zoneName"></label>
+					<input class="checkbox_animated" id="@zoneName" name="ZoneNames" value="@zoneName" type="checkbox">
+					@zoneName
+				}
+			}
+			@* <label class="d-block" for="chk-ani"></label>
+			<input class="checkbox_animated" id="chk-ani" type="checkbox">Instagram
+			<label class="d-block" for="chk-ani1"></label>
+			<input class="checkbox_animated" id="chk-ani1" type="checkbox">Facebook
+			<label class="d-block" for="chk-ani2"></label>
+			<input class="checkbox_animated" id="chk-ani2" type="checkbox" checked="">Whatsapp
+			<label class="d-block" for="chk-ani4"></label>
+			<input class="checkbox_animated" id="chk-ani4" type="checkbox">Twitter *@
+		</div>
+	</form>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

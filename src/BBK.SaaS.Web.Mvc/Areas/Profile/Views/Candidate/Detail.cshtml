@@ -1,0 +1,129 @@
+﻿@using Abp.Application.Services.Dto
+@using BBK.SaaS.Authorization
+@using BBK.SaaS.Authorization.Users;
+@using BBK.SaaS.Web.Areas.App.Startup
+@using BBK.SaaS.Web.Areas.Profile.Models.Candidates
+@using BBK.SaaS;
+
+@model CandidateDetailViewModel
+@{
+ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+ViewBag.PageTitle = @L("Hồ sơ cá nhân");
+ViewBag.PageDescription = @L("UsersHeaderInfo");
+}
+
+@section Styles
+{
+<link rel="stylesheet" abp-href="/view-resources/App/Users/index.css" asp-append-version="true" />
+}
+
+@section Scripts
+{
+<script src="../node_modules/jquery-bar-rating/dist/jquery.barrating.min.js" asp-append-version="true"></script>
+<script abp-src="/view-resources/App/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+<script src="/view-resources/Profile/Candidate/Detail.js" asp-append-version="true"></script>
+@* <script abp-src="/view-resources/Profile/Candidate/JobAppCrud.js" asp-append-version="true"></script> *@
+
+}
+
+<div class="page-body">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="card">
+                <div class="card-header ">
+                    <ul class="simple-wrapper nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item"><a class="nav-link txt-primary active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                                <h4>Thông tin người lao động</h4>
+                            </a></li>
+                    </ul>
+                    <h4></h4>
+                    <div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            <li><i class="icon-more-alt"></i></li>
+                            <li><i class="icofont icofont-maximize full-card"></i></li>
+                            <li><i class="icofont icofont-minus minimize-card"></i></li>
+                            <li><i class="icofont icofont-refresh reload-card"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body card-wrapper">
+                    <div class="card-body custom-input tab-content">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                           <div class="col-md-12 col-lg-12 mt-2">
+                                <input name="ProvinceId" hidden value="@ViewBag.Province">
+                                <input name="DistrictId" hidden value="@ViewBag.District">
+                                    <form class="row g-3" name="CandidateInfoForm">
+                                        <input hidden value="@Model.Candidate.Id" name="CandidateId">
+                                        <input hidden value="@Model.Candidate.UserId" name="UserId">
+                                    <div class="col-md-12 col-lg-6">
+                                        <label class="form-label" for="Surname">Tên đầy đủ</label>
+                                        <input class="form-control" id="Surname" name="Surname" type="text"
+                                            value="@Model.User.Name" disabled placeholder="Tên đầy đủ">
+                                    </div>
+                                    <div class="col-lg-6 col-md-12">
+                                        <label class="form-label" for="DateOfBirth">Ngày sinh</label>
+                                        <input class="form-control" type="date" id="DateOfBirth" name="DateOfBirth"  asp-for="@Model.Candidate.DateOfBirth" required />
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <label class="form-label" for="Province">Tỉnh/Thành phố</label>
+                                        <select class="form-control" id="Province" name="ProvinceId" type="text" required placeholder="Tỉnh/Thành phố"> </select>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <label class="form-label" for="District">Xã/Huyện</label>
+                                        <select class="form-control" id="District" name="DistrictId" type="text" required placeholder="Xã/Huyện"> </select>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <label class="form-label" for="Address">Địa chỉ</label>
+                                        <input class="form-control" id="Address" name="Address" type="text" value="@Model.Candidate.Address" placeholder="Đia chỉ" required>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12">
+                                        <label class="form-label" for="PhoneNumber">Số điện thoại</label>
+                                        <input class="form-control" id="PhoneNumber" name="PhoneNumber" type="text" disabled
+                                        value="@Model.User.PhoneNumber"  placeholder="Số điện thoại">
+                                    </div>
+                                    <div class="col-lg-6 col-md-12">
+                                        <label class="form-label" for="EmailAddress">Địa chỉ email</label>
+                                        <input class="form-control" id="EmailAddress" type="text" name="EmailAddress" value="@Model.User.EmailAddress"  disabled placeholder="Địa chỉ email" required>
+                                    </div>
+                                    <div class="col-md-12 col-xl-6">
+                                        <label class="form-label mb-3" for="Gender">Giới tính</label>
+                                        <div class="form-check-size">
+                                            <div>
+                                                <input class="form-check-input" id="Male" type="radio" checked="@(Model?.Candidate.Gender == BBK.SaaS.Mdls.Profile.Candidates.Dto.GenderEnum.Male)" name="Gender" value="1" required>
+                                                <label class="form-check-label mb-0" for="Male">Nam</label>
+                                            </div>
+                                            <div>
+                                                <input class="form-check-input" id="Female" type="radio" checked="@(Model?.Candidate.Gender == BBK.SaaS.Mdls.Profile.Candidates.Dto.GenderEnum.Female)" name="Gender" value="2" required>
+                                                <label class="form-check-label mb-0" for="Female">Nữ</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xl-6">
+                                        <label class="form-label mb-3" for="Gender">Tình trạng hôn nhân</label>
+                                        <div class="form-check-size">
+                                            <div>
+                                                <input class="form-check-input" id="Single" type="radio" name="Marital" checked="@(Model?.Candidate.Marital == true)" value="true" required>
+                                                <label class="form-check-label mb-0" for="Single">Độc thân</label>
+                                            </div>
+                                            <div>
+                                                <input class="form-check-input" id="Married" type="radio" name="Marital" checked="@(Model?.Candidate.Marital == false)" value="false" required>
+                                                <label class="form-check-label mb-0" for="Married">Đã kết hôn</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button class="btn btn-light m-5 cancel">@L("Cancel")</button>
+                                        <button class="btn btn-primary m-5 updateCandidate" type="button"><i class="icon-save m-1"></i>@L("Save")</button>
+                                    </div>
+                                </form>
+                                </div>
+                        </div>
+                     
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

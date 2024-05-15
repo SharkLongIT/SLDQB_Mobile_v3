@@ -1,0 +1,132 @@
+﻿@using Abp.Application.Services.Dto
+@using BBK.SaaS.Authorization
+@using BBK.SaaS.Web.Areas.App.Startup
+@using BBK.SaaS.Web.Areas.Profile.Models.UsersType0;
+
+@{
+	ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+	ViewBag.PageTitle = @L("Users");
+	ViewBag.PageDescription = @L("Danh sách hồ sơ người lao động");
+}
+
+@section Styles
+	{
+	<link rel="stylesheet" abp-href="/view-resources/App/Users/index.css" asp-append-version="true" />
+}
+
+@section Scripts
+	{
+	@*<script abp-src="/view-resources/App/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+	<script abp-src="/view-resources/App/_Bundles/user-list.js" asp-append-version="true"></script>*@
+	@*<script abp-src="/view-resources/App/UsersType0/_CreateOrEditModal.js" asp-append-version="true"></script>*@
+    <script src="/view-resources/Profile/Users/CurriculumVitae.js" asp-append-version="true"></script>
+}
+
+<div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+		<div class="row">
+            <nav>
+                <ol class="breadcrumb justify-content-sm-start align-items-center mb-0" style="margin-bottom: 32px !important;">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item f-w-400 active"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item f-w-400">Người lao động</li>
+                </ol>
+            </nav>
+			<div class="col-sm-12">
+				<div class="card">					
+					<div class="card-body">
+                        <div id="panel-1" class="panel">
+                            <div class="panel-hdr">
+                                <h2>
+                                    <span class="fw-300"><i>Danh sách hồ sơ người lao động</i></span>
+                                </h2>
+                            </div>
+                            <div class="panel-container show mt-5">
+                                <div class="panel-content">
+                                    <div class="card-wrapper border rounded-3 light-card checkbox-checked mb-5">
+                                        <div class="row ">
+                                            <div class="col-lg-10">
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-3 mb-3">
+                                                        <input type="text" id="SearchTerm" name="SearchTerm" placeholder="Nhập tên người lao động" class="form-control">
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-4 mb-3 mt-auto">
+                                                        <select class="form-control" id="Gender" name="Gender">
+                                                            <option value="0" selected=""> Giới tính</option>
+                                                            <option value="1">Nam</option>
+                                                            <option value="2">Nữ</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-4 mb-3 mt-auto">
+                                                        <select class="form-control" id="WorkSite" name="WorkSite" asp-items="@ViewBag.WorkSite">
+                                                            <option value="0" selected=""> Tất cả địa điểm</option>
+                                                        </select>
+                                                    </div>
+                                                    @* <div class="col-lg-3 col-md-3 mb-3 mt-auto">
+                                                        <select class="form-control" id="ExperiencesId" name="ExperiencesId" asp-items="@ViewBag.Experiences">
+                                                            <option value="0" selected="">Tất cả kinh nghiệm</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-3 mb-3 mt-auto">
+                                                        <select class="form-control" id="LiteracyId" name="LiteracyId" asp-items="@ViewBag.Literacy">
+                                                            <option value="0" selected="">Tất cả bằng cấp</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-3 mb-3 mt-auto">
+                                                        <select class="form-control" id="OccupationId" name="OccupationId" asp-items="@ViewBag.Occupations">
+                                                            <option value="0" selected="">Tất cả ngành nghề</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-4 mb-3 mt-auto">
+                                                        <select class="form-control" id="salary" name="salary" asp-items="@ViewBag.Salary">
+                                                            <option value="0" selected="">Tất cả mức lương</option>
+                                                        </select>
+                                                    </div> *@
+                                                  
+                                                  
+                                                   
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 d-flex align-items-end justify-content-end">
+                                                <button class="btn btn-primary ml-auto waves-effect waves-themed mb-3" id="Search" type="button" fdprocessedid="tnxpjk">Tìm kiếm</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                             
+                                </div>
+                                <div class="table-responsive theme-scrollbar">
+                                    <table id="UsersTable" class="table align-middle table-row-dashed dataTable dtr-inline no-footer table-responsive theme-scrollbar user-datatable">
+                                        <thead>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>Tên người lao động</th>
+                                                <th>Giới tính</th>
+                                                <th>Ngày sinh</th>
+                                                <th>SĐT"</th>
+                                                <th>Email</th>
+                                                <th>Địa chỉ</th>
+                                                @* <th>@L("Mức lương")</th> *@
+                                                <th>Hành động</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

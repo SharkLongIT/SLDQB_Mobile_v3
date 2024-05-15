@@ -1,0 +1,205 @@
+﻿@using Abp.Localization
+@using BBK.SaaS.Web.Areas.App.Startup
+@using BBK.SaaS.Web.Models.TradingSession
+@model GetAllTrading
+
+@section Scripts
+{
+    <script abp-src="/view-resources/App/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Profile/TradingSession/index.min.js" asp-append-version="true"></script>
+}
+@section Styles
+{
+    <link rel="stylesheet" abp-href="/view-resources/Profile/Recruitments/Style.css" asp-append-version="true" />
+}
+<section id="content">
+    <div class="content-wrap pt-3">
+        <!-- Container-fluid starts-->
+        <!-- Container-fluid starts-->
+        <div class="container">
+            <div class="row">
+                <!-- user profile first-style start-->
+                <nav>
+                    <ol class="breadcrumb justify-content-sm-start align-items-center mb-0"
+                        style="margin-bottom: 32px !important;">
+                        <li class="breadcrumb-item">
+                            <a href="/">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                     height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                     stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item f-w-400 active">Phiên giao dịch</li>
+                    </ol>
+                </nav>
+                <div class="col-sm-12">
+                    <div class="card">
+                        <!-- xóa thẻ div user profile-->
+                        <div class="info" name="filterAdvanced">
+                            @using (Html.BeginForm("Index", "TradingSession", FormMethod.Get))
+                            {
+                                <div class="row mt-5 mx-1">
+                                    <div class=" col-md-4 col-sm-4 mt-1 ">
+                                        @Html.TextBox("Search", "", new { @class = "form-control", @placeholder = "Tên phiên giao dịch" })
+                                    </div>
+                                    <div class=" col-md-4 mt-1">
+                                        @Html.DropDownList("WorkSite", @ViewBag.listItemsTinhThanh, null, new { @multiple = "multiple", @class = "form-control js-example-basic-multiple-search" })
+                                    </div>
+                                    <div class=" col-md-4 col-sm-4  mt-1 ">
+                                        @Html.DropDownList("Status", @ViewBag.newList, "Trạng thái", new { @class = "form-control form-select select" })
+                                    </div>
+                                </div>
+                                <div class="row mt-3 mx-1">
+                                    <div class=" col-md-4 ">
+                                        <div class="form-outline datepicker-with-filter1">
+                                            @Html.TextBox("FromDate", "{0:MM/dd/yyyy}", new { type = "date", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mt-1">
+                                        <div class="form-outline datepicker-with-filter1">
+                                            @Html.TextBox("ToDate", "{0:MM/dd/yyyy}", new { type = "date", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mt-1 ">
+                                        <button class="btn btn-danger ml-auto waves-effect waves-themed" id="Search" type="submit">@(new FixedLocalizableString("Tìm kiếm"))</button>
+                                    </div>
+                                    <!-- xóa thẻ div social media-->
+                                    <!-- xóa thẻ follower và following-->
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class=" col-sm-12 col-lg-12 mt-5">
+                    <div class="row col-mb-50 mb-0 infinity-wrapper">
+                        @for (int i = 0; i < Model.Trading.Count; i++)
+                        {
+                            <div class="col-md-4">
+                                <!-- Post Article -->
+                                <div class="posts-md">
+                                    <div class="entry">
+                                        <div class="entry-image">
+                                            <a href="../TradingSession/ViewDetailTradingSessionAccount/@Model.Trading[i].Id">
+                                                @if (!string.IsNullOrEmpty(@Model.Trading[i].ImgUrl))
+                                                {
+                                                    <img class="img-fluid preview-primaryimg" src="/file/get?p=@Model.Trading[i].ImgUrl" alt="">
+                                                }
+                                                else
+                                                {
+                                                    <img class="img-fluid preview-primaryimg" src="/themes/mofi/assets/images/blog/blog.jpg" alt="">
+                                                }
+                                            </a>
+                                            @if (@Model.Trading[i].StartTime <= DateTime.Now && @Model.Trading[i].EndTime >= DateTime.Now)
+                                            {
+                                                <div class="entry-categories"><a href="../TradingSession/ViewDetailTradingSessionAccount/@Model.Trading[i].Id" class="bg-lifestyle">Đang diễn ra</a></div>
+                                            }
+                                            else
+                                            {
+                                                <div class="entry-categories"><a href="../TradingSession/ViewDetailTradingSessionAccount/@Model.Trading[i].Id" class="bg-danger">Sắp diễn ra</a></div>
+                                            }
+
+                                        </div>
+                                        <div class="entry-title title-sm text-transform-none">
+                                            <h3 class="mb-2"><a href="../TradingSession/ViewDetailTradingSessionAccount/@Model.Trading[i].Id"> @Model.Trading[i].NameTrading</a></h3>
+                                        </div>
+                                        <div class="entry-meta">
+                                            <ul>
+                                                <li><i class="fa fa-map-marker" aria-hidden="true"></i>  @Model.Trading[i].Province.DisplayName</li>
+                                                <li><i class="bi-clock"></i>@Model.Trading[i].StartTime.ToShortDateString() - @Model.Trading[i].EndTime.ToShortDateString()</li>
+                                            </ul>
+                                        </div>
+                                        <div class="entry-content">
+                                            <p class="mb-0">@Model.Trading[i].Describe</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="row m-2">
+                        <div class="col-md-12">
+                            <ul class="pagination pagination-primary justify-content-center">
+                                @{
+                                    int numberPage = ViewBag.numberPage;
+                                    int pageCurrent = ViewBag.pageCurrent;
+                                    int offset = 10;//number display page
+
+
+                                    //config FirstLink
+                                    if (pageCurrent > 1)
+                                    {
+                                        int prevPage = pageCurrent - 1;
+                                        var PrevLink = new Dictionary<string, string> { { "page", prevPage.ToString() } };
+                                        <li class="page-item first-page ">
+                                            <a asp-controller="JobUser" asp-action="Search" asp-all-route-data="PrevLink" class="page-link"><i class="fas fa-angle-left"></i></a>
+                                        </li>
+                                    }
+
+                                    int from = pageCurrent - offset;
+                                    int to = pageCurrent + offset;
+                                    if (from <= 0)
+                                    {
+                                        from = 1;
+                                        to = offset * 2;
+                                    }
+
+
+                                    if (to > numberPage)
+                                    {
+                                        to = numberPage;
+                                    }
+
+                                    int y;
+                                    for (y = from; y <= to; y++)
+                                    {
+                                        var parms = new Dictionary<string, string>
+                                {
+                                { "page",y.ToString()}
+                                };
+                                        if (pageCurrent == y)
+                                        {
+                                            <li class="page-item first-page active">
+                                                <a asp-controller="JobUser" asp-action="Search" asp-all-route-data="parms" class="page-link">@y</a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item first-page">
+                                                <a asp-controller="JobUser" asp-action="Search" asp-all-route-data="parms" class="page-link">@y</a>
+                                            </li>
+
+                                        }
+
+                                    }
+
+                                    if (pageCurrent < numberPage - (to / 2))
+                                    {
+                                        <li><a>...</a></li>
+                                        var LastLink = new Dictionary<string, string> { { "page", numberPage.ToString() } };
+                                    }
+
+                                    if (pageCurrent < numberPage)
+                                    {
+                                        int nextPage = pageCurrent + 1;
+                                        var NextLink = new Dictionary<string, string> { { "page", nextPage.ToString() } };
+                                        <li class="page-item first-page ">
+                                            <a asp-controller="JobUser" asp-action="Search" asp-all-route-data="NextLink" class="page-link"><i class="fas fa-angle-right"></i></a>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+
+
+

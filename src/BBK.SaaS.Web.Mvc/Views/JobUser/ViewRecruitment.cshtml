@@ -1,0 +1,353 @@
+﻿@using BBK.SaaS
+@using BBK.SaaS.Mdls.Profile.Recruiters.Dto
+@using BBK.SaaS.Web.Areas.App.Startup
+@model RecruitmentDto
+@section Scripts
+{
+    <script abp-src="/view-resources/App/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Profile/Recruitments/View.js" asp-append-version="true"></script>
+}
+
+@{
+    ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+    ViewBag.PageTitle = @L("Tin tuyển dụng");
+    ViewBag.PageDescription = @L(" Tin tuyển dụng");
+}
+
+<div class="page-body">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+    <nav class="nav-makeanappiontment" >
+                <ol class="breadcrumb justify-content-sm-start align-items-center mb-0" style="margin-bottom: 32px !important;">
+                    <li class="breadcrumb-item">
+                        <a href="/">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item f-w-400">
+                        <a href="/">@L("Trang chủ")</a>
+                    </li>
+                    <li class="breadcrumb-item f-w-400">@Html.ActionLink(@L("Danh sách lịch hẹn"), "MakeAnAppointment", "Candidate", new { Area = "Profile" }, null)</li>
+                    <li class="breadcrumb-item f-w-400">@L("Chi Tiết Tin Tuyển Dụng")</li>
+                </ol>
+            </nav>
+            <div class="card">
+                <div class="card-header">
+                    <h4>@L("Chi tiết tin tuyển dụng")</h4>
+                    <div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            <li><i class="icon-more-alt"></i></li>
+                            <li><i class="view-html fa fa-code"></i></li>
+                            <li><i class="icofont icofont-maximize full-card"></i></li>
+                            <li><i class="icofont icofont-minus minimize-card"></i></li>
+                            <li><i class="icofont icofont-refresh reload-card"></i></li>
+                            <li><i class="icofont icofont-error close-card"></i></li>
+                        </ul>
+                    </div>
+                   
+                </div>
+                <input type="hidden" name="Id" id="Id" value="@Model.Id" />
+                 <input type="hidden" value="@Model.IsCandidate" id="Check"/>
+                <div class="row mt-2">
+                    <div class="col-xl-8 box-col-12">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="card">
+                                    <div class="job-search">
+                                        <div class="card-body">
+                                            <h3>
+                                                <b>
+                                                    @Model.Title
+                                                </b>
+                                            </h3>
+                                            <div class="row">
+                                                <div class="d-flex justify-content-around"
+                                                     style="margin-top: 16px;">
+                                                    <div class="d-flex col-sm-3" style="margin-top: 16px;">
+                                                        <link rel="stylesheet"
+                                                              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+                                                        <style>
+                                                            .material-symbols-outlined {
+                                                                font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48
+                                                            }
+                                                        </style>
+                                                        <link rel="stylesheet"
+                                                              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,1,0" />
+                                                        <span class="material-symbols-outlined"
+                                                              style="margin-top: 20px; color:#7a70ba ;">
+                                                            paid
+                                                        </span>
+                                                        <div class="">
+                                                            <p style="margin-bottom: -16px; margin-left: 8px;">
+                                                                Mức
+                                                                Lương
+                                                            </p>
+                                                            <p style="margin-left: 8px;">
+                                                                <b>
+                                                                    @(Math.Floor(@Model.MinSalary) / 1000000) Triệu  -  @(Math.Floor(@Model.MaxSalary) / 1000000) Triệu 
+                                                                </b>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="d-flex col-sm-3" style="margin-top: 16px;">
+                                                        <link rel="stylesheet"
+                                                              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+                                                        <style>
+                                                            .material-symbols-rounded {
+                                                                font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48
+                                                            }
+                                                        </style>
+                                                        <link rel="stylesheet"
+                                                              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,700,1,0" />
+                                                        <span class="material-symbols-rounded"
+                                                              style="color:#7a70ba;margin-top:20px;">
+                                                            explore
+                                                        </span>
+                                                        <div class="">
+                                                            <p style="margin-bottom: -16px; margin-left: 8px;">
+                                                                Địa
+                                                                điểm
+                                                            </p>
+                                                            <p style="margin-left: 8px;"><b>@Model.AddressName</b></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex col-sm-3" style="margin-top: 16px;">
+                                                        <link rel="stylesheet"
+                                                              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+                                                        <style>
+                                                            .material-symbols-rounded {
+                                                                font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48
+                                                            }
+                                                        </style>
+                                                        <link rel="stylesheet"
+                                                              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,700,1,0" />
+                                                        <span class="material-symbols-rounded"
+                                                              style="color:#7a70ba; margin-top:23px;">
+                                                            hourglass
+                                                        </span>
+                                                        <div class="">
+                                                            <p style="margin-bottom: -16px; margin-left: 8px;">
+                                                                Kinh
+                                                                nghiệm
+                                                            </p>
+                                                            <p style="margin-left: 8px;"><b>@Model.Experiences.DisplayName</b></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex col-sm-3" style="margin-top: 16px;">
+                                                        <link rel="stylesheet"
+                                                              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+                                                        <style>
+                                                            .material-symbols-rounded {
+                                                                font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48
+                                                            }
+                                                        </style>
+                                                        <link rel="stylesheet"
+                                                              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,700,1,0" />
+                                                        <span class="material-symbols-rounded"
+                                                              style="color:#7a70ba; margin-top:23px;">
+                                                            schedule
+                                                        </span>
+                                                        <div class="">
+                                                            <p style="margin-bottom: -16px; margin-left: 8px;">
+                                                                Hạn
+                                                                nộp hồ sơ
+                                                            </p>
+                                                            <p style="margin-left: 8px;">
+                                                                <b>@Model.DeadlineSubmission.ToLongDateString()</b>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @if(Model.IsRecuiters == false)
+                                            {
+                                                <button class="btn btn-primary" type="button" id="btnUngTuyen"
+                                                        style="width: 959px; margin-top: 32px;">
+                                                    <span>
+                                                        <i class="fa fa-send"
+                                                           style="margin-left: -32px;"></i>
+                                                    </span>Ứng
+                                                    tuyển
+                                                </button>
+                                            }
+                                          
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4">
+                        <!-- without shadow card -->
+                        <div class="card shadow-none border">
+                            <div class="card-body">
+                                <div class="flex-space flex-wrap align-items-center">
+                                    <img class="img-120 rounded-circle" src="@Model.Recruiter.AvatarUrl" width="128" height="128"
+                                         alt="profile">
+                                    <h4 style="margin-bottom: 80px;">@Model.Recruiter.CompanyName</h4>
+                                </div>
+
+                                <p style="text-align: right">
+                                    <u>
+                                        @Html.ActionLink("Xem trang công ty","NVNVViewDetailRecruiter","JobUser",new {id = @Model.Recruiter.UserId})
+                                    </u>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-8">
+                        <div class="card">
+                            <div class="job-search">
+                                <div class="card-body">
+                                <div class="job-description">
+                                        <h4>Thông tin chung</h4><br>
+                                        <p class="mb-2"><i class="fa fa-tasks" aria-hidden="true"></i> <span class="font-weight-bold"> Ngành nghề:</span> @Model.JobCatUnitName </p>
+                                        <p class="mb-2"><i class="fa fa-users" aria-hidden="true"></i> <span class="font-weight-bold">Số lượng tuyển:</span> @Model.NumberOfRecruits </p>
+                                        @if(Model.FormOfWork == 1)
+                                        {
+                                            <p class="mb-2"><i class="fa fa-clock-o" aria-hidden="true"></i> <span class="font-weight-bold">Hình thức làm việc:</span> Toàn thời gian cố định</p>
+
+                                        }
+                                        else
+                                        {
+                                            <p class="mb-2"><i class="fa fa-clock-o" aria-hidden="true"></i> <span class="font-weight-bold">Hình thức làm việc:</span> Toàn thời gian tạm thời</p>
+
+                                        }
+                                        @if (Model.GenderRequired == 1)
+                                        {
+                                            <p class="mb-2"><i class="fa fa-venus-double" aria-hidden="true"></i><span class="font-weight-bold">Giới tính:</span> Nam</p>
+
+                                        }
+                                        else
+                                        {
+                                            <p class="mb-2"><i class="fa fa-venus-double" aria-hidden="true"></i> <span class="font-weight-bold">Giới tính:</span> Nữ</p>
+
+                                        }
+                                  </div>
+                                    <div class="job-description">
+                                        <h3 style="margin-bottom: 32px;"><b>Chi tiết tuyển dụng</b></h3>
+                                        <h5>@L("Mô tả công việc")</h5>
+                                        <p>
+                                            @Html.Raw(Model.JobDesc)
+                                        </p>
+                                    </div>
+                                    <div class="job-description">
+                                        <h5>@L("Yêu cầu công việc công việc") </h5>
+                                        <p>
+                                            @Html.Raw(Model.JobRequirementDesc)
+                                        </p>
+                                    </div>
+                                    <div class="job-description">
+                                        <h5>@L("Kỹ năng cần thiết")</h5>
+                                        <p>
+                                            @Html.Raw(Model.NecessarySkills)
+                                        </p>
+                                    </div>
+                                    <div class="job-description">
+                                        <h5>@L("Quyền lợi")</h5>
+                                        <p>
+                                            @Html.Raw(Model.BenefitDesc)
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4">
+                         <div class="card shadow-none border">
+                              <div class="job-search">
+                                  <div class="card-body">
+                                       <h2>@L("Việc làm gợi ý")</h2></br>
+                                       <div class="row">
+                                <input type="hidden" value="@Model.IsCandidate" id="Check" />
+                                @foreach(var item in  @ViewBag.RecruimentAll)
+                                {
+                                    <div class="col-sm-12">
+                                        <div class="card rounded-3">
+                                            <div class="profile-img-style">
+                                                <div class="row">
+                                                    <div class="col-sm-8">
+                                                    </div>
+                                                </div>
+                                                <div class="row my-2">
+                                                    <div class="col-lg-12 col-xl-3">
+                                                        <div class="my-gallery" id="aniimated-thumbnials-3" itemscope="">
+                                                            <!-- thay ảnh vào -->
+                                                            @if (item.Recruiter.AvatarUrl != null)
+                                                            {
+                                                                <p>
+                                                                    <a href="../ViewRecruitment/@item.Id">
+                                                                        <img class="img-120 rounded-circle" width="100" height="100" src="@item.Recruiter.AvatarUrl" alt="#">
+                                                                    </a>
+                                                                </p>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <p>
+                                                                    <a href="../JobUser/ViewRecruitment/@item.Id">
+                                                                        <img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" width="128" height="128" class="img-rounded user-edit-dialog-profile-image m-r-10" />
+                                                                    </a>
+                                                                </p>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-9">
+                                                        <div class="d-flex justify-content-between">
+                                                            <a href="../ViewRecruitment/@item.Id"><h5 class="text-black mb-3"><b style="color: black;">@item.Title</b></h5></a>
+                                                        </div>
+                                                        <p style="margin-bottom: 8px !important;"> @item.Recruiter.CompanyName</p>
+                                                        <div>
+
+                                                            <label class="me-3">
+                                                                <a>
+                                                                    <i class="fa fa-money"></i>
+                                                                </a>@(Math.Floor(@item.MinSalary) / 1000000)-@(Math.Floor(@item.MaxSalary) / 1000000) Triệu
+                                                            </label>
+                                                            <label class="me-3">
+                                                                <a>
+                                                                    <i class="icofont icofont-ui-alarm"></i>
+                                                                    @item.Experiences.DisplayName
+                                                                </a>
+                                                            </label>
+                                                            <label class="me-3">
+                                                                <a>
+                                                                    <i class="fa fa-calendar"></i>
+                                                                </a>@item.DeadlineSubmission.ToShortDateString()
+                                                            </label>
+                                                            <label class="me-3">
+                                                                <a><i class="fa fa-location-arrow"></i></a> @item.WorkAddress
+                                                            </label>
+
+                                                        </div>
+                                                        @* <div class="d-flex justify-content-end">
+                                                            <a type="button" href="../JobUser/ViewRecruitment/@item.Id" class="btn btn-primary btn-lg"> Xem tin </a>
+                                                            @if (Model.IsRecuiters == false)
+                                                            {
+                                                                <a type="button" data-objid="@item.Id" class="btn btn-primary  btnMake ms-2"> Ứng tuyển </a>
+                                                            }
+                                                        </div> *@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

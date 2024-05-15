@@ -1,0 +1,23 @@
+﻿@using BBK.SaaS.Web.Areas.App.Models.Common.Modals
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("LinkNewAccount")))
+
+<div class="modal-body">
+    <form name="LinkAccountModalForm" role="form" novalidate class="form-validation">
+        <div class="mb-3">
+            <label for="TenancyName" class="form-label">@L("TenancyName")</label>
+            <input id="TenancyName" type="text" name="TenancyName" class="form-control" value="@(ViewBag.TenancyName ?? "")" maxlength="@BBK.SaaS.MultiTenancy.Tenant.MaxTenancyNameLength">
+        </div>
+
+        <div class="mb-3">
+            <label for="UsernameOrEmailAddress" class="form-label">@L("UserName")</label>
+            <input id="UsernameOrEmailAddress" class="form-control" type="text" name="UsernameOrEmailAddress" required maxlength="@BBK.SaaS.Authorization.Users.User.MaxEmailAddressLength">
+        </div>
+
+        <div class="mb-3">
+            <label for="Password" class="form-label">@L("Password")</label>
+            <input id="Password" type="password" name="Password"  autocomplete="new-password" class="form-control" required maxlength="@BBK.SaaS.Authorization.Users.User.MaxPasswordLength">
+        </div>
+    </form>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

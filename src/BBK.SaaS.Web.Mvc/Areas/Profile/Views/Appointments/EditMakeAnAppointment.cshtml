@@ -1,0 +1,83 @@
+﻿@using BBK.SaaS.Mdls.Profile.Candidates.Dto
+@model MakeAnAppointmentDto
+@{
+    Layout = null;
+}
+<div class="modal-body user-edit-modal">
+    <div class="page-body">
+        <!-- Container-fluid starts-->
+        <div class="container-fluid">
+            <div class="row">
+                <form name="EditMakeAnAppointmentForm" role="form" novalidate class="form-validation">
+                    <input type="hidden" name="JobApplicationId" value="@Model.JobApplicationId" />
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <input type="hidden" name="CandidateId" value="@Model.CandidateId" />
+                    <input type="hidden" name="RecruiterId" value="@Model.RecruiterId" />
+                    <input type="hidden" name="StatusOfCandidate" value="@Model.StatusOfCandidate" />
+                    @* <input type="hidden" name="ReasonForRefusal" value="@Model.ReasonForRefusal" /> *@
+                    <h2>Cập nhật lịch phỏng vấn</h2>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="TypeInterview" class="form-label">Công việc mời phỏng vấn</label>
+                            <select required class="form-control" id="ApplicationRequestId" name="ApplicationRequestId" asp-for="@Model.ApplicationRequestId" asp-items="@ViewBag.listItemsKyThuat">
+                                <option value="" selected disabled>Chọn</option>
+                               
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="TypeInterview" class="form-label">Hình thức phỏng vấn</label>
+                            <input id="TypeInterview" class="form-control" placeholder="Trực tiếp" type="text" value="@Model.TypeInterview" name="TypeInterview" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Adress" class="form-label">Địa chỉ phỏng vấn</label>
+                            <input id="Adress" type="text" name="Address" value="@Model.Address" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="TypeInterview" class="form-label">Vị trí phỏng vấn</label>
+                            <select required class="form-control" id="Rank" name="Rank" asp-for="@Model.Rank" asp-items="@ViewBag.listItemsCapBac" disabled>
+                                <option value="" selected disabled>Chọn</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Time" class="form-label">Thời gian phỏng vấn</label>
+                            <input id="Time" type="datetime-local" name="InterviewTime"  asp-for="@Model.InterviewTime" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Message" class="form-label">Lời nhắn</label>
+                            <input id="Message" type="text" name="Message" value="@Model.Message" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Message" class="form-label">Lời nhắn ứng viên</label>
+                            <input id="Message" type="text" name="ReasonForRefusal" value="@Model.ReasonForRefusal" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Message" class="form-label">Kết quả phỏng vấn</label>
+                           @*  <input id="InterviewResultLetter" type="text" name="InterviewResultLetter" value="@Model.InterviewResultLetter" class="form-control"> *@
+                            <select class="form-control" id="InterviewResultLetter" name="InterviewResultLetter" asp-for="@Model.InterviewResultLetter">
+                                <option value="0">Chọn</option>
+                                <option value="1">Pass</option>
+                                <option value="2">Fail</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

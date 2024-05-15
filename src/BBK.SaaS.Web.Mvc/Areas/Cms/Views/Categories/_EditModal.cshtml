@@ -1,0 +1,63 @@
+﻿@using Abp.Organizations
+@using BBK.SaaS
+@using BBK.SaaS.Web.Areas.App.Models.Common.Modals
+@using BBK.SaaS.Web.Areas.Cms.Models.Categories
+
+@model EditCategoryModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Edit") + ": " + Model.DisplayName))
+
+<div class="modal-body">
+	<div id="ContentPanel" class="tabbable-line">
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="nav-item">
+				<a href="#CategoryGeneralTab" aria-expanded="true" class="nav-link active" data-bs-toggle="tab" role="tab">
+					@L("General")
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="#CategorySEOTab" aria-expanded="true" class="nav-link" data-bs-toggle="tab" role="tab">
+					@L("SEO")
+				</a>
+			</li>
+		</ul>
+
+		<div class="tab-content pt-3">
+			<div class="tab-pane active" id="CategoryGeneralTab">
+				<form name="CategoryForm" role="form" novalidate class="form-validation">
+					<input type="hidden" name="ParentId" value="@Model.ParentId" />
+					<input type="hidden" name="Id" value="@Model.Id" />
+					<div class="mb-3">
+						<label for="DisplayName" class="form-label">@L("Name")</label>
+						<input id="DisplayName" class="form-control" type="text" name="DisplayName" value="@Model.DisplayName" required maxlength="@SaaSConsts.MaxShortLineLength">
+					</div>
+
+					<div class="mb-3">
+						<label for="Slug" class="form-label">@L("Slug")</label>
+						<input id="Slug" class="form-control" type="text" name="Slug" value="@Model.Slug" maxlength="@SaaSConsts.MaxShortLineLength">
+					</div>
+				</form>
+			</div>
+			<div class="tab-pane" id="CategorySEOTab">
+				<form name="CategorySEOForm" role="form" novalidate class="form-validation">
+					<div class="mb-3">
+						<label for="MetaTitle" class="form-label">@L("MetaTitle")</label>
+						<input id="MetaTitle" class="form-control" type="text" name="MetaTitle" value="@Model.MetaTitle" required maxlength="@SaaSConsts.MaxShortDescLength">
+					</div>
+
+					<div class="mb-3 no-hint">
+						<label for="MetaDescription" class="form-label">@L("MetaDescription")</label>
+						<textarea id="MetaDescription" type="text" name="MetaDescription" class="form-control" value="@Model.MetaDescription" required maxlength="@SaaSConsts.MaxDescription"></textarea>
+					</div>
+
+					<div class="mb-3 no-hint">
+						<label for="MetaKeywords" class="form-label">@L("MetaKeywords")</label>
+						<input id="MetaKeywords" type="text" name="MetaKeywords" class="form-control" value="@Model.MetaKeywords" required maxlength="@SaaSConsts.MaxShortDescLength">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

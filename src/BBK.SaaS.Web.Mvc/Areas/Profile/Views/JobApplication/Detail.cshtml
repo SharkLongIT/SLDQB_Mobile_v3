@@ -1,0 +1,642 @@
+﻿@using BBK.SaaS.Web.Areas.Profile.Models.JobApplication
+@model JobApplicationModel
+@section Styles
+	{
+
+	<link rel="stylesheet" href="~/view-resources/Profile/Candidate/JobAppCrud.min.css" />
+}
+<div class="page-body-wrapper">
+	<div class="page-body">
+		<!-- Container-fluid starts-->
+		<div class="container-fluid">
+			<div class="user-profile">
+				<div class="row">
+					<nav>
+						<ol class="breadcrumb justify-content-sm-start align-items-center mb-0" style="margin-bottom: 32px !important;">
+							<li class="breadcrumb-item">
+								<a href="index.html">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+										<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+										<polyline points="9 22 9 12 15 12 15 22"></polyline>
+									</svg>
+								</a>
+							</li>
+							<li class="breadcrumb-item f-w-400 active">Trang chủ</li>
+							<li class="breadcrumb-item f-w-400">Người tìm việc</li>
+							<li class="breadcrumb-item f-w-400">Thông tin người tìm việc</li>
+						</ol>
+					</nav>
+					<!-- user profile first-style start-->
+					<div class="col-sm-12">
+						<div class="card" style="padding:30px">
+							<div class="blog-box blog-list row">
+								<div class=" col-xl-2">
+									<div class="my-gallery" id="aniimated-thumbnials-3" style="display: flex; justify-content: center;" data-pswp-uid="1">
+										<!-- thay ảnh vào -->
+										@if (Model.User.Id > 0)
+										{
+											<img src="@Url.Action("GetProfilePictureByUser", "Profile", new {area = string.Empty})?userId=@(Model.User.Id)&&profilePictureId=@(Model.ProfilePictureId)" class="img-thumbnail img rounded-circle user-edit-dialog-profile-image m-r-10" />
+										}
+										else
+										{
+											<img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")"
+												class="img-thumbnail img rounded-circle user-edit-dialog-profile-image m-r-10" />
+										}
+										@* <img class="img rounded-circle" src="../assets/images/avtar/3.jpg" alt="#" style="width: 200px;"> *@
+									</div>
+								</div>
+								<div class="col-xl-9">
+									<div class="blog-details">
+										<h2><b>@Model.User.Surname @Model.User.Name</b></h2>
+										<div class="row">
+											<div class="col-sm-6">
+												<h5 style="color: black;margin-top: 16px;">
+													@Model.JobApplication.Positions.DisplayName
+												</h5>
+											</div>
+											<div class="col-sm-6" style="display: flex; justify-content: flex-end;">
+												<div class="btn-group">
+													@if (@Model.JobApplication.FileCVUrl != null)
+													{
+														<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">CV đính kèm: CV_NVA</button>
+														<ul class="dropdown-menu dropdown-block text-left" style="width: 218px;">
+															<li><a class="dropdown-item" href="@Model.JobApplication.FileMgr.FileUrl">Tải xuống</a></li>
+														</ul>
+													}													}
+												</div>
+											</div>
+
+										</div>
+										<div class="row" style="display: flex; justify-content: space-between">
+											<hr>
+											<div class="col-md-2">
+												<div class="ttl-info text-start">
+													<h6>
+														<i class="fa fa-phone" style="color: #7a70ba;"></i>&nbsp;&nbsp;&nbsp;Số
+														điện thoại
+													</h6><span>@Model.User.PhoneNumber</span>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="ttl-info text-start">
+													<h6>
+														<i class="fa fa-envelope" style="color: #7a70ba;"></i>&nbsp;&nbsp;&nbsp;Email
+													</h6><span>@Model.User.EmailAddress</span>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="ttl-info text-start">
+													<h6>
+														<i class="icofont icofont-location-arrow" style="color: #7a70ba;"></i>&nbsp;&nbsp;&nbsp;Địa
+														chỉ
+													</h6><span>@Model.Candidate.Address, @Model.Candidate.District.DisplayName, @Model.Candidate.Province.DisplayName</span>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="ttl-info text-start">
+													<h6>
+														<i class="fa fa-calendar" style="color: #7a70ba;"></i>&nbsp;&nbsp;&nbsp;Ngày
+														sinh
+													</h6><span>@Model.Candidate.DateOfBirth?.ToShortDateString()</span>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<div class="ttl-info text-start">
+													<h6>
+														<i class="fa fa-user" style="color: #7a70ba;"></i>&nbsp;&nbsp;&nbsp;Giới
+														tính
+													</h6><span>@Model.Candidate.Gender</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-12">
+							<h3 style="color:black;"><i class="fa fa-user" style="Color:#7a70ba; margin-right: 8px;"></i><b>Thông tin hồ sơ</b></h3>
+							<hr>
+							<div class="col-sm-12">
+								<div class="card">
+									<div class="profile-img-style">
+										<div class="row">
+											<div class="col-xl-12;">
+												<div class="row">
+													<div class="col-lg-4">
+														<h6 style="margin-bottom: 8px; color: black;"></h6><h5><b>- Mức lương mong muốn:</b></h5>
+														<p style="margin-bottom: 16px;  color: #7a70ba;">
+															@if (Model.JobApplication.DesiredSalary.HasValue)
+															{
+																@Model.JobApplication.DesiredSalary.Value
+															}
+															else
+															{
+																<span>Lương thoả thuận</span>
+															}			
+																</p>
+													</div>
+													<div class="col-lg-4">
+														<h6 style="margin-bottom: 8px; color: black;"></h6><h5><b>- Kinh nghiệm:</b></h5>
+														<p style="margin-bottom: 16px;  color: #7a70ba;">
+															@Model.JobApplication.Experiences.DisplayName
+														</p>
+													</div>
+													<div class="col-lg-4">
+														<h6 style="margin-bottom: 8px; color: black;"></h6><h5><b>- Ngành nghề:</b></h5>
+														<p style="margin-bottom: 16px;  color: #7a70ba;">
+															@Model.JobApplication.Occupations.DisplayName
+														</p>
+													</div>
+													<div class="col-lg-4">
+														<h6 style="margin-bottom: 8px; color: black;"></h6><h5><b>- Cấp bậc:</b></h5>
+														<p style="margin-bottom: 16px;  color: #7a70ba;">
+															@Model.JobApplication.Positions.DisplayName
+														</p>
+													</div>
+													<div class="col-lg-4">
+														<h6 style="margin-bottom: 8px; color: black;"></h6><h5><b>- Bằng cấp:</b></h5>
+														<p style="margin-bottom: 16px;  color: #7a70ba;">
+															@Model.JobApplication.Literacy.DisplayName
+														</p>
+													</div>
+													<div class="col-lg-4">
+														<h6 style="margin-bottom: 8px; color: black;"></h6><h5><b>- Ngày cập nhật:</b></h5>
+														<p style="margin-bottom: 16px;  color: #7a70ba;">
+															@if (Model.JobApplication.LastModificationTime.HasValue)
+															{
+																@Model.JobApplication.LastModificationTime.Value.ToShortDateString()
+															}
+															else
+															{
+																@Model.JobApplication.CreationTime.ToShortDateString()
+
+															}
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-12">
+							<h3 style="color:black;"><i class="fa fa-suitcase" style="Color:#7a70ba; margin-right: 8px;"></i><b>Thông tin chung</b></h3>
+							<hr>
+							<div class="col-sm-12">
+								<div class="card">
+									<div class="profile-img-style">
+										<div class="row">
+										</div>
+										<div class="row">
+											<div class="col-xl-12">
+												<div class="row">
+													<div class="col-lg-4">
+														<h6 style="margin-bottom: 8px; color: black;"></h6><h5><b>- Hình thức làm việc:</b></h5>
+														<p style="margin-bottom: 16px;  color: #7a70ba;">
+															@Model.JobApplication.FormOfWork.DisplayName
+														</p>
+													</div>
+													<div class="col-lg-4">
+														<h6 style="margin-bottom: 8px; color: black;"></h6><h5><b>- Địa điểm làm việc:</b></h5>
+														<p style="margin-bottom: 16px;  color: #7a70ba;">
+															@Model.JobApplication.Province.DisplayName
+														</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						@if (Model.JobApplication.WorkExperiences != null && Model.JobApplication.WorkExperiences.Count > 0)
+						{
+							<div class="col-sm-12">
+								<h3 style="color:black;"><i class="icofont icofont-building-alt me-2" style="Color:#7a70ba;"></i><b>@L("Kinh nghiệm làm việc")</b></h3>
+								<hr>
+								<div class="col-sm-12">
+									<div class="card">
+										<div class="profile-img-style">
+											<div class="row">
+											</div>
+											<div class="row">
+												<div class="col-xl-12">
+													<div class="row">
+														<div class="col-lg-12">
+															@{
+																int index = 0;
+															}
+															@foreach (var item in Model.JobApplication.WorkExperiences)
+															{
+
+																@if (index > 0)
+																{
+																	<hr></hr>
+																}
+																index++;
+																<h6 class="mb-2 text-dark"></h6>
+
+																<h5><b>@item.Positions</b></h5>
+																<h6 class="mb-2 text-dark"></h6>
+
+																<h6><b>@item.CompanyName</b></h6>
+																<div class="block mt-2 mb-3 text-12 text-se-neutral-64 font-medium"><span>@item.StartTime.ToShortDateString()</span><span class="mx-1">-</span><span>@item.EndTime.ToShortDateString()</span></div>
+																<div class="m-5 description">
+																	@item.Description
+																</div>
+															}
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						}
+						@if (Model.JobApplication.LearningProcess != null && Model.JobApplication.LearningProcess.Count > 0)
+						{
+							<div class="col-sm-12">
+								<h3 style="color:black;"><i class="icofont icofont-briefcase-alt-1 me-2" style="Color:#7a70ba;"></i> <b>@L("Trình độ học vấn")</b></h3>
+								<hr>
+								<div class="col-sm-12">
+									<div class="card">
+										<div class="profile-img-style">
+											<div class="row">
+											</div>
+											<div class="row">
+												<div class="col-xl-12">
+													<div class="row">
+														<div class="col-lg-12">
+															@{
+																int index = 0;
+															}
+															@foreach (var item in Model.JobApplication.LearningProcess)
+															{
+
+																@if (index > 0)
+																{
+																	<hr></hr>
+																}
+																index++;
+																<h6 class="mb-2 text-dark"></h6>
+
+																<h5><b>@item.AcademicDiscipline</b></h5>
+																<h6 class="mb-2 text-dark"></h6>
+
+																<h6><b>@item.SchoolName</b></h6>
+																<div class="block mt-2 mb-3 text-12 text-se-neutral-64 font-medium"><span>@item.StartTime.ToShortDateString()</span><span class="mx-1">-</span><span>@item.EndTime.ToShortDateString()</span></div>
+																<div class="m-5 description">
+																	@item.Description
+																</div>
+															}
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						}
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@* <div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+	<div class="edit-profile">
+	<div class="row">
+	<div class="col-xl-12">
+	<div class="card">
+	<div class="card-body">
+	<div class="row mb-3 mt-3">
+	<div class="col-xl-6 col-md-12">
+	<div class="profile-title">
+	<div class="d-flex">
+	@if (Model.User.Id > 0)
+	{
+	<img src="@Url.Action("GetProfilePictureByUser", "Profile", new {area = string.Empty})?userId=@(Model.User.Id)&&profilePictureId=@(Model.ProfilePictureId)" width="128" height="128" class="img-thumbnail img-rounded user-edit-dialog-profile-image m-r-10" />
+	}
+	else
+	{
+	<img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" width="128"
+	height="128"
+	class="img-thumbnail img-rounded user-edit-dialog-profile-image m-r-10" />
+	}
+	<div class="flex-grow-1">
+	<h4 class="mb-1">@Model.User.Surname @Model.User.Name</h4>
+	<p>@Model.JobApplication.Positions.DisplayName</p>
+	<p>@L("Thời gian cập nhật: ") @Model.JobApplication.CreationTime.ToShortDateString()</p>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="col-xl-6 col-md-12">
+	<p>@L("CV đính kèm")</p>
+	</div>
+	<hr>
+	</div>
+	<div class="row mb-3 mt-3">
+	<h5 class="mb-3"><strong>@L("Thông tin cá nhân")</strong> </h5>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Email")</strong></p>
+	<p>@Model.User.EmailAddress</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("PhoneNumber")</strong></p>
+	<p>@Model.User.PhoneNumber</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Tỉnh/Thành phố")</strong></p>
+	<p>@Model.Candidate.Province.DisplayName</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("DateOfBirth")</strong></p>
+	<p>@Model.Candidate.DateOfBirth.ToShortDateString()</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Tình trạng hôn nhân")</strong></p>
+	<p>@if (Model.Candidate.Marital == true)
+	{
+	@L("Đã kết hôn")
+	}
+	else
+	{
+	@L("Độc thân")
+	}
+	</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Địa chỉ")</strong></p>
+	<p>@Model.Candidate.Address</p>
+	</div>
+	</div>
+	<hr>
+	<div class="row mb-3 mt-3">
+	<h5 class="mb-3"><strong>@L("Thông tin chung")</strong> </h5>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Cấp bậc mong muốn")</strong></p>
+	<p>@Model.JobApplication.Positions.DisplayName</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Mức lương mong muốn")</strong></p>
+	<p>@Model.JobApplication.DesiredSalary</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Literacy")</strong></p>
+	<p>@Model.JobApplication.Literacy.DisplayName</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Số năm kinh nghiệm")</strong></p>
+	<p>@Model.JobApplication.Experiences.DisplayName</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Hình thức làm việc")</strong></p>
+	<p>@Model.JobApplication.FormOfWork.DisplayName</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Nghề nghiệp")</strong></p>
+	<p>@Model.JobApplication.Occupations.DisplayName</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Địa điểm làm việc")</strong></p>
+	<p>@Model.JobApplication.Province.DisplayName</p>
+	</div>
+	</div>
+	<div class="row mb-3 mt-3">
+	@if (Model.JobApplication.WorkExperiences != null && Model.JobApplication.WorkExperiences.Count > 0)
+	{
+	<hr>
+	<div class="row mb-3 mt-3">
+	<h5 class="mb-3"><strong>@L("Kinh nghiệm làm việc")</strong> </h5>
+	@{
+	int index = 0;
+	}
+	@foreach (var item in Model.JobApplication.WorkExperiences)
+	{
+	@if (index > 0)
+	{
+	<hr></hr>
+	}
+	<div class="col-xl-12 col-md-6 mb-3">
+	<p>@item.StartTime.ToShortDateString() - @item.EndTime.ToShortDateString()  </p>
+	<p>@item.Positions</p>
+	<p>@item.CompanyName</p>
+	<p>@item.Description</p>
+	</div>
+	index++;
+
+
+	}
+
+	</div>
+	}
+	@if (Model.JobApplication.LearningProcess != null && Model.JobApplication.LearningProcess.Count > 0)
+	{
+	<hr>
+	<div class="row mb-3 mt-3">
+	<h5 class="mb-3"><strong>@L("Quá trình học tập")</strong> </h5>
+	@{
+	int index = 0;
+	}
+	@foreach (var item in Model.JobApplication.LearningProcess)
+	{
+	@if (index > 0)
+	{
+	<hr></hr>
+	}
+	<div class="col-xl-12 col-md-6 mb-3">
+	<p>@item.StartTime.ToShortDateString() - @item.EndTime.ToShortDateString()  </p>
+	<p>@item.AcademicDiscipline</p>
+	<p>@item.SchoolName</p>
+	<p>@item.Description</p>
+	</div>
+	index++;
+
+	}
+	</div>
+	}
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<!-- Container-fluid Ends-->
+	</div> *@@* <div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+	<div class="edit-profile">
+	<div class="row">
+	<div class="col-xl-12">
+	<div class="card">
+	<div class="card-body">
+	<div class="row mb-3 mt-3">
+	<div class="col-xl-6 col-md-12">
+	<div class="profile-title">
+	<div class="d-flex">
+	@if (Model.User.Id > 0)
+	{
+	<img src="@Url.Action("GetProfilePictureByUser", "Profile", new {area = string.Empty})?userId=@(Model.User.Id)&&profilePictureId=@(Model.ProfilePictureId)" width="128" height="128" class="img-thumbnail img-rounded user-edit-dialog-profile-image m-r-10" />
+	}
+	else
+	{
+	<img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" width="128"
+	height="128"
+	class="img-thumbnail img-rounded user-edit-dialog-profile-image m-r-10" />
+	}
+	<div class="flex-grow-1">
+	<h4 class="mb-1">@Model.User.Surname @Model.User.Name</h4>
+	<p>@Model.JobApplication.Positions.DisplayName</p>
+	<p>@L("Thời gian cập nhật: ") @Model.JobApplication.CreationTime.ToShortDateString()</p>
+	</div>
+	</div>
+	</div>
+	</div>
+	<div class="col-xl-6 col-md-12">
+	<p>@L("CV đính kèm")</p>
+	</div>
+	<hr>
+	</div>
+	<div class="row mb-3 mt-3">
+	<h5 class="mb-3"><strong>@L("Thông tin cá nhân")</strong> </h5>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Email")</strong></p>
+	<p>@Model.User.EmailAddress</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("PhoneNumber")</strong></p>
+	<p>@Model.User.PhoneNumber</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Tỉnh/Thành phố")</strong></p>
+	<p>@Model.Candidate.Province.DisplayName</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("DateOfBirth")</strong></p>
+	<p>@Model.Candidate.DateOfBirth.ToShortDateString()</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Tình trạng hôn nhân")</strong></p>
+	<p>@if (Model.Candidate.Marital == true)
+	{
+	@L("Đã kết hôn")
+	}
+	else
+	{
+	@L("Độc thân")
+	}
+	</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Địa chỉ")</strong></p>
+	<p>@Model.Candidate.Address</p>
+	</div>
+	</div>
+	<hr>
+	<div class="row mb-3 mt-3">
+	<h5 class="mb-3"><strong>@L("Thông tin chung")</strong> </h5>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Cấp bậc mong muốn")</strong></p>
+	<p>@Model.JobApplication.Positions.DisplayName</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Mức lương mong muốn")</strong></p>
+	<p>@Model.JobApplication.DesiredSalary</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Literacy")</strong></p>
+	<p>@Model.JobApplication.Literacy.DisplayName</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Số năm kinh nghiệm")</strong></p>
+	<p>@Model.JobApplication.Experiences.DisplayName</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Hình thức làm việc")</strong></p>
+	<p>@Model.JobApplication.FormOfWork.DisplayName</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Nghề nghiệp")</strong></p>
+	<p>@Model.JobApplication.Occupations.DisplayName</p>
+	</div>
+	<div class="col-xl-4 col-md-6 mb-3">
+	<p><strong>@L("Địa điểm làm việc")</strong></p>
+	<p>@Model.JobApplication.Province.DisplayName</p>
+	</div>
+	</div>
+	<div class="row mb-3 mt-3">
+	@if (Model.JobApplication.WorkExperiences != null && Model.JobApplication.WorkExperiences.Count > 0)
+	{
+	<hr>
+	<div class="row mb-3 mt-3">
+	<h5 class="mb-3"><strong>@L("Kinh nghiệm làm việc")</strong> </h5>
+	@{
+	int index = 0;
+	}
+	@foreach (var item in Model.JobApplication.WorkExperiences)
+	{
+	@if (index > 0)
+	{
+	<hr></hr>
+	}
+	<div class="col-xl-12 col-md-6 mb-3">
+	<p>@item.StartTime.ToShortDateString() - @item.EndTime.ToShortDateString()  </p>
+	<p>@item.Positions</p>
+	<p>@item.CompanyName</p>
+	<p>@item.Description</p>
+	</div>
+	index++;
+
+
+	}
+
+	</div>
+	}
+	@if (Model.JobApplication.LearningProcess != null && Model.JobApplication.LearningProcess.Count > 0)
+	{
+	<hr>
+	<div class="row mb-3 mt-3">
+	<h5 class="mb-3"><strong>@L("Quá trình học tập")</strong> </h5>
+	@{
+	int index = 0;
+	}
+	@foreach (var item in Model.JobApplication.LearningProcess)
+	{
+	@if (index > 0)
+	{
+	<hr></hr>
+	}
+	<div class="col-xl-12 col-md-6 mb-3">
+	<p>@item.StartTime.ToShortDateString() - @item.EndTime.ToShortDateString()  </p>
+	<p>@item.AcademicDiscipline</p>
+	<p>@item.SchoolName</p>
+	<p>@item.Description</p>
+	</div>
+	index++;
+
+	}
+	</div>
+	}
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	</div>
+	<!-- Container-fluid Ends-->
+	</div> *@

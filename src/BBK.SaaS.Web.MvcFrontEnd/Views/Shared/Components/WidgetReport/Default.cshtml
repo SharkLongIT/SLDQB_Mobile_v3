@@ -1,0 +1,90 @@
+﻿@using BBK.SaaS.Mdls.Cms.Configuration
+@using BBK.SaaS.Web.Models.RightSidebar
+@using BBK.SaaS.Web.Views.Shared.Components.Widget
+@model RightSidebarViewModel
+
+<!-- Right Sidebar
+   ============================================= -->
+<div class="col-lg-4 sticky-sidebar-wrap mt-2 mt-lg-0">
+    <div class="sticky-sidebar">
+        <!-- Sidebar Thống kê và đăng nhập
+        ============================================= -->
+        <div class="widget">
+            <h4 class="mb-2 ls-1 text-uppercase fw-bold">Thống kê số liệu</h4>
+            <div class="line line-xs line-market"></div>
+            <div class="row justify-content-between col-mb-50">
+                <div class="col-4 col-lg-auto">
+                    <div class="counter color font-primary ls-1">
+                        <span data-from="0"
+                              data-to="@Model.CountRecruiment" data-refresh-interval="100"
+                              data-speed="2000"></span>+
+                    </div>
+                    <h5 class="mb-0 text-smaller">Việc đăng tuyển</h5>
+                </div>
+
+                <div class="col-4 col-lg-auto">
+                    <div class="counter color font-primary ls-1">
+                        <span data-from="0"
+                              data-to="@Model.CountJob" data-refresh-interval="200"
+                              data-speed="2500"></span>+
+                    </div>
+                    <h5 class="mb-0 text-smaller">Hồ sơ lao động</h5>
+                </div>
+
+                <div class="col-4 col-lg-auto">
+                    <div class="counter color font-primary ls-1">
+                        <span data-from="0"
+                              data-to="@Model.CountRecruiter" data-refresh-interval="2" data-speed="1000"></span>+
+                    </div>
+                    <h5 class="mb-0 text-smaller">Công ty</h5>
+                </div>
+            </div>
+        </div>
+        <!-- Sidebar Đăng ký
+        ============================================= -->
+        <div class="widget">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-stretch grid-border mx-0">
+                        <div class="col-md-6 p-0 text-center">
+                            <div class="grid-inner h-bg-contrast-200">
+                                <a href="/Account/Register" class="d-block py-5" target="_blank">
+                                    <i class="i-style rounded bi-megaphone display-6 mt-2 mb-2 mx-auto d-block"
+                                       style="background-color:#2ecc71"></i>
+                                    <span class="fs-5 text-contrast-900 h-text-color fw-medium d-block mb-2">
+                                        Đăng
+                                        ký
+                                    </span>
+                                    Người tìm việc
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 p-0 text-center">
+                            <div class="grid-inner h-bg-contrast-200">
+                                <a href="/Account/Register" class="d-block py-5" target="_blank">
+                                    <i class="i-style rounded bi-file-earmark-person display-6 mt-2 mb-2 mx-auto d-block"
+                                       style="background-color:#2ecc71"></i>
+                                    <span class="fs-5 text-contrast-900 h-text-color fw-medium d-block mb-2">
+                                        Đăng
+                                        ký
+                                    </span>
+                                    Nhà tuyển dụng
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Widget Quảng cáo
+        ============================================= -->
+        <div class="widget">
+           @*  <a href="https://bbksolution.com">
+                <img src="/themes/BeThems/images/magazine/banner.jpg"
+                     class="img-responsive aligncenter">
+            </a> *@
+            @await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.HomePageRightTopAdvertisings })
+        </div>
+    </div> <!-- Sidebar End -->
+</div>

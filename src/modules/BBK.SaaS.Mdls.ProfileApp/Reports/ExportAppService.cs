@@ -40,25 +40,19 @@ namespace BBK.SaaS.Mdls.Profile.Reports
                 string path = webRootPath + Path.DirectorySeparatorChar.ToString() + "assets" + "\\ReportTemplate" + Path.DirectorySeparatorChar.ToString() + "ReportWebsite.xlsx";
 
                 FileInfo fileInfo = new FileInfo(path);
-
-                FileDto fileDto = new FileDto("Thống kê hoạt động_"+ Clock.Now.ToString("yyyyMMdd") + ".xlsx", MimeTypeNames.ApplicationVndOpenxmlformatsOfficedocumentSpreadsheetmlSheet);
+                FileDto fileDto = new FileDto("Thống kê hoạt động_" + Clock.Now.ToString("yyyyMMdd") + ".xlsx", MimeTypeNames.ApplicationVndOpenxmlformatsOfficedocumentSpreadsheetmlSheet);
                 var items = new List<Dictionary<string, object>>();
 
                 using (var stream = new MemoryStream())
                 {
                     var rows = MiniExcel.Query(path).ToList(); // get all the rows as an IEnumerable<dynamic>
-
-
-                    rows[4].A = $"THÁNG : {month}" +  $"NĂM :{year}";
-
-
                     foreach (var user in reportArray.ListReport)
                     {
                         items.Add(new Dictionary<string, object>()
                              {
                                 //{"STT", user.STT},
                                 {L("Số lượng người lao động"), user.CountCandidate},
-                                {L("Số Lượng tin tuyển dụng"), user.CountRecruiment},
+                                {L("Số Lượng Nhà tuyển dụng"), user.CountRecruiment},
                                 {L("Ngày hoạt động"), user.Date},
 
                             });
@@ -132,7 +126,7 @@ namespace BBK.SaaS.Mdls.Profile.Reports
 
 
         /// <summary>
-        /// export excel biểu đồ danh mục
+        /// export excel biểu đồ danh mục (k dùng)
         /// </summary>
         /// <param name="StartTime"></param>
         /// <param name="EndTime"></param>
@@ -140,7 +134,7 @@ namespace BBK.SaaS.Mdls.Profile.Reports
         /// <param name="reportArray"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async Task<FileDto> ExportForReportCat(string StartTime, string EndTime, int Type,ReportArray reportArray)
+        public async Task<FileDto> ExportForReportCat(string StartTime, string EndTime, int Type, ReportArray reportArray)
         {
             try
             {
@@ -148,17 +142,17 @@ namespace BBK.SaaS.Mdls.Profile.Reports
                 string path;
                 if (Type == 1) // tin tuyen dung
                 {
-                   path = webRootPath + Path.DirectorySeparatorChar.ToString() + "assets" + "\\ReportTemplate" + Path.DirectorySeparatorChar.ToString() + "ReportRecruiment.xlsx";
+                    path = webRootPath + Path.DirectorySeparatorChar.ToString() + "assets" + "\\ReportTemplate" + Path.DirectorySeparatorChar.ToString() + "ReportRecruiment.xlsx";
                 }
                 else
                 {
                     // ho so nguoi lao dong
-                   path = webRootPath + Path.DirectorySeparatorChar.ToString() + "assets" + "\\ReportTemplate" + Path.DirectorySeparatorChar.ToString() + "ReportJob.xlsx";
+                    path = webRootPath + Path.DirectorySeparatorChar.ToString() + "assets" + "\\ReportTemplate" + Path.DirectorySeparatorChar.ToString() + "ReportJob.xlsx";
                 }
 
                 FileInfo fileInfo = new FileInfo(path);
 
-                FileDto fileDto = new FileDto("Thống kê số lượng theo danh mục_" + Clock.Now.ToString("yyyyMMdd") +".xlsx", MimeTypeNames.ApplicationVndOpenxmlformatsOfficedocumentSpreadsheetmlSheet);
+                FileDto fileDto = new FileDto("Thống kê số lượng theo danh mục_" + Clock.Now.ToString("yyyyMMdd") + ".xlsx", MimeTypeNames.ApplicationVndOpenxmlformatsOfficedocumentSpreadsheetmlSheet);
                 var items = new List<Dictionary<string, object>>();
 
                 using (var stream = new MemoryStream())
@@ -167,7 +161,7 @@ namespace BBK.SaaS.Mdls.Profile.Reports
 
                     foreach (var user in reportArray.ReportListCat)
                     {
-                        if(Type == 1)
+                        if (Type == 1)
                         {
                             items.Add(new Dictionary<string, object>()
                              {
@@ -175,8 +169,8 @@ namespace BBK.SaaS.Mdls.Profile.Reports
                                 {L("Danh mục nghề nghiệp"), user.Cat},
                                 {L("Số lượng tin tuyển dụng"), user.CountRecruiment},
                             });
-                        }    
-                        else 
+                        }
+                        else
                         {
                             items.Add(new Dictionary<string, object>()
                              {
@@ -201,7 +195,7 @@ namespace BBK.SaaS.Mdls.Profile.Reports
 
 
         /// <summary>
-        /// export  excel  biểu đồ tin tức
+        /// export  excel  biểu đồ tin tức tổng số tin
         /// </summary>
         /// <param name="StartTime"></param>
         /// <param name="EndTime"></param>
@@ -233,6 +227,53 @@ namespace BBK.SaaS.Mdls.Profile.Reports
                                 {L("Số lượng tin tức"), user.CountArticle},
                             });
 
+                    }
+                    stream.SaveAs(items);
+                    stream.Seek(0, SeekOrigin.Begin);
+                }
+                return CreateExcelPackage(fileDto.FileName, items);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Xuất excel biểu đồ hoạt động website theo năm
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        /// <param name="reportArray"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<FileDto> ExportForReportWebsiteByYear(int ToYear, int FromYear, ReportArray reportArray)
+        {
+            try
+            {
+                var webRootPath = this._Environment.WebRootPath;
+                string path = webRootPath + Path.DirectorySeparatorChar.ToString() + "assets" + "\\ReportTemplate" + Path.DirectorySeparatorChar.ToString() + "ReportWebsite.xlsx";
+
+                FileInfo fileInfo = new FileInfo(path);
+
+                FileDto fileDto = new FileDto("Thống kê hoạt động_" + Clock.Now.ToString("yyyyMMdd") + ".xlsx", MimeTypeNames.ApplicationVndOpenxmlformatsOfficedocumentSpreadsheetmlSheet);
+                var items = new List<Dictionary<string, object>>();
+
+                using (var stream = new MemoryStream())
+                {
+                    var rows = MiniExcel.Query(path).ToList(); // get all the rows as an IEnumerable<dynamic>
+                    foreach (var user in reportArray.ListReport)
+                    {
+                        items.Add(new Dictionary<string, object>()
+                             {
+                                //{"STT", user.STT},
+                                {L("Số lượng người lao động"), user.CountCandidate},
+                                {L("Số Lượng nhà tuyển dụng"), user.CountRecruiment},
+                                {L("Thời gian"), user.Date},
+                            });
                     }
                     stream.SaveAs(items);
                     stream.Seek(0, SeekOrigin.Begin);

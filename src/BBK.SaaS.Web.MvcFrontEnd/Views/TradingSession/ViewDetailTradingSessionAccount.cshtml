@@ -1,0 +1,451 @@
+﻿@using BBK.SaaS
+@using BBK.SaaS.Web.Areas.App.Startup
+@using BBK.SaaS.Web.Models.TradingSession
+@model TradingViewModel
+@section Styles
+{
+    <link rel="stylesheet" abp-href="/view-resources/Profile/Recruitments/Style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/view-resources/Profile/Candidate/JobAppCrud.css">
+}
+
+@section Scripts
+{
+    <script abp-src="/view-resources/App/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Profile/TradingSession/ViewDetail.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Profile/TradingSession/google-chart-loader.min.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Profile/TradingSession/Chart.js" asp-append-version="true"></script>
+}
+<input type="hidden" value="@Model.Id" id="Id" />
+<section id="content">
+    <div class="content-wrap pt-3">
+        <div class="container">
+            <nav>
+                <ol class="breadcrumb justify-content-sm-start align-items-center mb-0" style="margin-bottom: 32px !important;">
+                    <li class="breadcrumb-item">
+                        <a href="/">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item f-w-400">
+                        @Html.ActionLink(@L("Phiên giao dịch"), "Index", "TradingSession", new
+                            {
+                                Area = ""
+                            }
+
+                                 , null)
+                    </li>
+                    <li class="breadcrumb-item f-w-400 active">@L("Chi tiết phiên giao dịch")</li>
+                </ol>
+            </nav>
+            <div class="row mt-5">
+                <!-- Posts Area
+                ============================================= -->
+                <div class="col-lg-12">
+                    <div class="entry">
+                        <h2 class="mb-3 fw-bold h1">@Model.NameTrading</h2>
+                        <p class="text-muted mb-3">@Model.Describe</p>
+                        <div class="entry-meta d-flex justify-content-between mb-4">
+                            <ul>
+                                <li><i class="fa fa-map-marker" aria-hidden="true"></i> @Model.Province.DisplayName</li>
+                                <li><i class="bi-clock"></i>@Model.StartTime.ToShortDateString() - @Model.EndTime.ToShortDateString()</li>
+                            </ul>
+                        </div>
+                        <!-- Post Single - Share
+                        ============================================= -->
+                        <div class="card border-0 border-top rounded-0 border-default mt-4 mb-5">
+                            <div class="card-body pt-3 px-0">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h6 class="fs-6 fw-semibold mb-0">Share:</h6>
+                                    <div class="d-flex">
+                                        <a href="#" class="social-icon text-white border-transparent rounded-circle bg-facebook" title="Facebook" style="--cnvs-socialicon-size:2rem;">
+                                            <i class="fa-brands fa-facebook-f"></i>
+                                            <i class="fa-brands fa-facebook-f"></i>
+                                        </a>
+
+                                        <a href="#" class="social-icon text-white border-transparent rounded-circle bg-x-twitter" title="Twitter" style="--cnvs-socialicon-size:2rem;">
+                                            <i class="fa-brands fa-x-twitter"></i>
+                                            <i class="fa-brands fa-x-twitter"></i>
+                                        </a>
+
+                                        <a href="#" class="social-icon text-white border-transparent rounded-circle bg-pinterest" title="Pinterest" style="--cnvs-socialicon-size:2rem;">
+                                            <i class="fa-brands fa-pinterest-p"></i>
+                                            <i class="fa-brands fa-pinterest-p"></i>
+                                        </a>
+
+                                        <a href="#" class="social-icon text-white border-transparent rounded-circle bg-whatsapp" title="Whatsapp" style="--cnvs-socialicon-size:2rem;">
+                                            <i class="fa-brands fa-whatsapp"></i>
+                                            <i class="fa-brands fa-whatsapp"></i>
+                                        </a>
+
+                                        <a href="#" class="social-icon text-white border-transparent rounded-circle bg-rss" title="RSS" style="--cnvs-socialicon-size:2rem;">
+                                            <i class="fa-solid fa-rss"></i>
+                                            <i class="fa-solid fa-rss"></i>
+                                        </a>
+
+                                        <a href="#" class="social-icon text-white border-transparent rounded-circle bg-email3 me-0" title="Mail" style="--cnvs-socialicon-size:2rem;">
+                                            <i class="fa-solid fa-envelope"></i>
+                                            <i class="fa-solid fa-envelope"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- Post Single - Share End -->
+                        <div class="entry-image">
+                            @if (!string.IsNullOrEmpty(Model.ImgUrl))
+                            {
+                                <img class="img-fluid preview-primaryimg" src="/file/get?p=@Model.ImgUrl" alt="">
+                            }
+
+                            else
+                            {
+                                <img class="img-fluid preview-primaryimg" src="/themes/mofi/assets/images/blog/blog.jpg" alt="">
+                            }
+                            @if (@Model.StartTime <= DateTime.Now && @Model.EndTime >= DateTime.Now)
+                            {
+                                <div class="entry-categories"><a href="../TradingSession/ViewDetailTradingSessionAccount/@Model.Id" class="bg-lifestyle">Đang diễn ra</a></div>
+                            }
+                            else
+                            {
+                                <div class="entry-categories"><a href="../TradingSession/ViewDetailTradingSessionAccount/@Model.Id" class="bg-danger">Sắp diễn ra</a></div>
+                            }
+                        </div>
+                        @if (Model.StartTime > DateTime.Now && Model.IsCheckMax == false)
+                        {
+                            <a type="button" data-objid="@Model.Id" class="btn btn-danger btnMake">Tham gia </a>
+                        }
+                        <div class="entry-content mt-0">
+                            <p>@Html.Raw(@Model.Description) </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="card mt-5">
+                        <div class="card-header">
+                            <h4><i class="icofont icofont-job-search m-r-10"></i>Nhà tuyển dụng tham gia</h4>
+                            <div class="card-header-right">
+                                @ViewBag.RecruiterCount/@Model.CountRecruiterMax <i class="fa fa-user" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="card-body student">
+                            @if (ViewBag.RecruiterCount > 0)
+                            {
+                                <div class="row g-sm-4 g-3">
+                                    @foreach (var item in @ViewBag.Recruiter)
+                                    {
+                                        <div class="col-xxl-4 col-md-4">
+                                            <div class="prooduct-details-box widget-hover">
+                                                <div class="d-flex flex-wrap">
+                                                    @if (item.Recruiter.AvatarUrl != null)
+                                                    {
+                                                        <a href="/JobUser/NVNVViewDetailRecruiter/@item.UsertId"><img class="align-self-center img-fluid mt-3" width="90" src="@item.Recruiter.AvatarUrl" alt="#"></a>
+                                                    }
+
+                                                    else
+                                                    {
+                                                        <a href="/JobUser/NVNVViewDetailRecruiter/@item.UsertId"><img class="align-self-center img-fluid mt-3" width="90" src="/themes/mofi/assets/images/ecommerce/product-table-6.png" alt="#"></a>
+                                                    }
+
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <div class="product-name pb-2">
+                                                            <h6><a href="/JobUser/NVNVViewDetailRecruiter/@item.UsertId"> @item.Recruiter.CompanyName</a></h6>
+                                                        </div><small><i class="fa fa-building font-awesome"></i> @item.Recruiter.SphereOfActivity.DisplayName </small>
+                                                        <hr class="my-1">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <small>
+                                                                    <i class="fa fa-phone" aria-hidden="true"></i> @item.Recruiter.ContactPhone
+                                                                </small>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <small>
+                                                                    <i class="fa fa-user" aria-hidden="true"></i> @item.Recruiter.HumanResSizeCat.DisplayName
+                                                                </small>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <small>
+                                                                    <i class="fa fa-location-arrow"></i> @item.Recruiter.Province.DisplayName
+                                                                </small>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row ms-3">
+                                                        @foreach (var recruiment in @ViewBag.Recruiment)
+                                                        {
+                                                            if (recruiment.RecruiterId == @item.Recruiter.Id)
+                                                            {
+                                                                <div class="col-xxl-12 col-md-12 mt-2">
+                                                                    <div class="product-name pb-2">
+                                                                        <h6><a class="text-danger" href="/JobUser/ViewRecruitment/@recruiment.Id">@recruiment.Title</a></h6>
+                                                                    </div>
+                                                                    <div class="row recruiment">
+                                                                        <div class="col-md-6">
+                                                                            <small>
+                                                                                <i class="fa-solid fa-money-bill-1"></i> @(Math.Floor(@recruiment.MinSalary) / 1000000)-@(Math.Floor(@recruiment.MaxSalary) / 1000000) Triệu
+                                                                            </small>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <small>
+                                                                                <i class="fa fa-map-marker font-awesome"></i> @recruiment.WorkAddress
+                                                                            </small>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row recruiment">
+                                                                        <div class="col-md-6">
+                                                                            <small>
+                                                                                <i class="fa fa-briefcase font-awesome"></i>
+                                                                                @recruiment.Experiences.DisplayName
+
+                                                                            </small>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <small>
+                                                                                <i class="fa fa-calendar font-awesome"></i>
+                                                                                @recruiment.DeadlineSubmission.ToShortDateString()
+                                                                            </small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                            else
+                            {
+                                <p>Chưa có nhà tuyển dụng tham gia</p>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="card mt-5">
+                        <div class="card-header">
+                            <h4><i class="icofont icofont-job-search m-r-10"></i>Người lao động tham gia</h4>
+                            <div class="card-header-right">
+                                @ViewBag.CandidateCount/@Model.CountCandidateMax <i class="fa fa-user" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-sm-4 g-3">
+                                @if (ViewBag.CandidateCount > 0)
+                                {
+                                    @foreach (var item in @ViewBag.Candidate)
+                                    {
+                                        <div class="col-xxl-4 col-md-4">
+                                            <div class="prooduct-details-box widget-hover">
+                                                <div class="d-flex flex-wrap">
+                                                    @if (@item.Candidate.Account.Id > 0)
+                                                    {
+                                                        <a href="/UserJob/Detail?id=@item.JobApplicationId">
+                                                            <img src="@Url.Action("GetProfilePictureByUser", "Profile", new {area = string.Empty})?userId=@item.Candidate.Account.Id&&profilePictureId=@(item.ProfilePictureId)" width="90" height="90" />
+                                                        </a>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="/UserJob/Detail?id=@item.JobApplicationId">
+                                                            <img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" width="90" height="90" />
+                                                        </a>
+                                                    }
+
+                                                    <div class="flex-grow-1 ms-3">
+                                                        <div class="product-name pb-2">
+                                                            <h6><a href="/UserJob/Detail/@item.JobApplicationId">@item.Candidate.Account.Name</a></h6>
+                                                        </div><small>@item.JobApplication.Occupations.DisplayName </small>
+                                                        <hr class="my-1">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <small>
+                                                                    <i class="fa-solid fa-money-bill-1"></i><span class="f-light"> @(Math.Floor(item.JobApplication.DesiredSalary) / 1000000) Triệu</span>
+                                                                </small>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <small>
+                                                                    <i class="fa fa-mortar-board font-awesome"></i><span class="f-light"> @item.JobApplication.Literacy.DisplayName</span>
+                                                                </small>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <small>
+                                                                    <i class="fa fa-briefcase font-awesome"></i><span class="f-light"> @item.JobApplication.Experiences.DisplayName</span>
+                                                                </small>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        @*  <div class="col-xl-4 col-sm-6 col-xxl-4 col-ed-4 box-col-4 widget-hover">
+                                <div class="card social-profile">
+                                <div class="card-body">
+                                <div class="social-img-wrap">
+                                <div class="social-img">
+                                @if (@item.Candidate.Account.Id > 0)
+                                {
+                                <a href="/UserJob/Detail?id=@item.JobApplicationId">
+                                <img src="@Url.Action("GetProfilePictureByUser", "Profile", new {area = string.Empty})?userId=@item.Candidate.Account.Id&&profilePictureId=@(item.ProfilePictureId)" width="68" height="68" />
+                                </a>
+
+                                }
+                                else
+                                {
+                                <a href="/UserJob/Detail?id=@item.JobApplicationId">
+                                <img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" width="68" height="68" />
+                                </a>
+                                }
+                                </div>
+                                </div>
+                                <div class="social-details m-t-5">
+                                <h5 class="mb-1"><a href="/UserJob/Detail/@item.JobApplicationId">@item.Candidate.Account.Name</a></h5>
+                                <span class="f-light"> @item.JobApplication.Occupations.DisplayName</span><br>
+                                <ul class="social-follow m-t-5 recruiment">
+                                <li>
+                                <h5 class="mb-0"><i class="fa-solid fa-money-bill-1"></i></h5><span class="f-light">@(Math.Floor(item.JobApplication.DesiredSalary) / 1000000) Triệu</span>
+                                </li>
+                                <li>
+                                <h5 class="mb-0"><i class="fa fa-mortar-board font-awesome"></i></h5><span class="f-light"> @item.JobApplication.Literacy.DisplayName</span>
+                                </li>
+                                <li>
+                                <h5 class="mb-0"><i class="fa fa-briefcase font-awesome"></i></h5><span class="f-light"> @item.JobApplication.Experiences.DisplayName</span>
+                                </li>
+                                </ul>
+                                </div>
+                                </div>
+                                </div>
+                                </div> *@
+                                    }
+                                }
+
+                                else
+                                {
+                                    <p>Chưa có người lao động tham gia</p>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-5">
+                        <div class="card-header">
+                            <h4>TỔNG QUAN</h4>
+                        </div>
+                        <div class="card-body chart-block">
+                            <div class="row">
+                                <div class="col-xl-4 col-sm-4 mt-2">
+                                    <div class="card">
+                                        <div class="card-header card-no-border pb-0">
+                                            <div class="header-top daily-revenue-card">
+                                                <h4>Nhà tuyển dụng</h4>
+                                            </div>
+                                        </div>
+                                        <div class="card-body pb-0 total-sells">
+                                            <h2>@ViewBag.RecruiterCount</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-sm-4 mt-2">
+                                    <div class="card">
+                                        <div class="card-header card-no-border pb-0">
+                                            <div class="header-top daily-revenue-card">
+                                                <h4>Người lao động</h4>
+                                            </div>
+                                        </div>
+                                        <div class="card-body pb-0 total-sells">
+                                            <h2> @ViewBag.CandidateCount</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-sm-4 mt-2">
+                                    <div class="card">
+                                        <div class="card-header card-no-border pb-0">
+                                            <div class="header-top daily-revenue-card">
+                                                <h4>Công việc</h4>
+                                            </div>
+                                        </div>
+                                        <div class="card-body pb-0 total-sells">
+                                            <h2>@ViewBag.RecruimentCount</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chart-overflow mt-3" id="column-chart1"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="line"></div>
+
+                <h4>Phiên giao dịch khác:</h4>
+
+                <div class="posts-sm row col-mb-30 related-posts">
+                    @foreach (var item in ViewBag.TradingList)
+                    {
+                        <div class="entry col-md-6">
+                            <!-- Post Article -->
+                            <div class="grid-inner row align-items-center no-gutter">
+                                <div class="col-auto">
+                                    <div class="entry-image">
+                                        <a href="../ViewDetailTradingSessionAccount/@item.Id">
+                                            @if (!string.IsNullOrEmpty(@item.ImgUrl))
+                                            {
+                                                <img class="img-fluid preview-primaryimg" src="/file/get?p=@item.ImgUrl" alt="">
+                                            }
+
+                                            else
+                                            {
+                                                <img class="img-fluid preview-primaryimg" src="/themes/mofi/assets/images/blog/blog.jpg" alt="">
+                                            }
+
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col ps-3">
+                                    <div class="entry-title">
+                                        <h4 class="fw-medium">
+                                            <a href="../ViewDetailTradingSessionAccount/@item.Id">
+                                                @item.NameTrading
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div class="entry-meta">
+                                        <ul>
+                                            <li><i class="fa fa-map-marker" aria-hidden="true"></i> @item.Province.DisplayName</li>
+                                            @if (@item.StartTime <= DateTime.Now && @item.EndTime >= DateTime.Now)
+                                            {
+                                                <li class="text-success">Đang diễn ra</li>
+                                            }
+
+                                            else
+                                            {
+                                                <li class="text-danger ">Sắp diễn ra</li>
+                                            }
+                                            <li><i class="bi-clock"></i>@item.StartTime.ToShortDateString() - @item.EndTime.ToShortDateString()</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- Container End -->
+</section><!-- #content end -->

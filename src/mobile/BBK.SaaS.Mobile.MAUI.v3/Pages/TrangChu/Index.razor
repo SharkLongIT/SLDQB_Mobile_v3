@@ -1,0 +1,372 @@
+﻿@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/" + NavigationUrlConsts.TrangChu)]
+<!-- Start Page Content -->
+<!-- Ảnh bìa -->
+<div class="card card-style mx-0 mb-0 rounded-0" data-card-height="400" style="height: 350px;">
+    <div class="card-bottom mb-4">
+        <!-- Slider  -->
+        <div id="carouselExampleIndicators" class="carousel slide mt-0" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/QuangBinh/QB_Intro_1.jpg" class="d-block w-100" height="260px" alt="Slide 1">
+                    <div class="carousel-caption d-md-block">
+                        <h3 class="color-white">Trung tâm DVVL thanh niên tỉnh Quảng Bình</h3>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/QuangBinh/QB_Intro_3.jpg" class="d-block w-100" height="260px" alt="Slide 2">
+                    <div class="carousel-caption d-md-block">
+                        <h3 class="color-white">Cán bộ nhân viên Trung tâm</h3>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/QuangBinh/QB_Intro_10.jpg" class="d-block w-100" height="260px" alt="Slide 3">
+                    <div class="carousel-caption d-md-block">
+                        <h3 class="color-white">Ngày hội việc làm thanh niên</h3>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <!-- Slogan -->
+        <div class="d-flex mt-3">
+            <a href="/NguoiTimViec" data-menu="menu-login-1" class="align-self-center scale-box text-center ps-3">
+                <i class="fa fa-user color-green-dark fa-2x"></i>
+                <p class="color-white text-center text-uppercase mb-3">Ứng viên</p>
+            </a>
+            <div class="align-self-center text-center ms-auto">
+                <h1 class="color-white text-center mb-0 font-28">Bạn muốn tìm việc</h1>
+                <p class="color-white text-center mb-3 ">Hãy để chúng tôi giúp đỡ bạn</p>
+            </div>
+            <a href="/ViecTimNguoi" data-menu="menu-login-2" class="align-self-center scale-box text-center ms-auto pe-3">
+                <i class="fa fa-handshake color-green-dark fa-2x"></i>
+                <p class="color-white text-center text-uppercase mb-3">Nhà tuyển dụng</p>
+            </a>
+        </div>
+    </div>
+    <div class="card-overlay bg-gradient rounded-0"></div>
+</div>
+<!-- Tìm kiếm thông tin -->
+<div class="content mt-n4 search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important">
+    @* <button  class="btn btn-primary" type="button"> *@
+    <i class="fa fa-search" @onclick="RefeshList" aria-label="Search"></i>
+    @* </button> *@
+    <input type="search" class="border-0" placeholder="Tìm kiếm thông tin" @bind="_filtered.Filtered" data-search>
+</div>
+
+<!-- Kết quả tìm kiếm -->
+@if (IsFilter == true)
+{
+    <div class="card card-style p-4">
+        <Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
+
+            <a href="javascript:;" @onclick="(() => ViewRecruitment(recruitment))">
+                <div class="d-flex">
+                    <div>
+                        <img src="@recruitment.Recruiter.AvatarUrl" class="me-3 rounded-m" width="110">
+                    </div>
+                    <div>
+                        <h5 class="font-700 text-uppercase">  @recruitment.Title</h5>
+                        <h1 class="font-500 font-15 line-height-m">
+                            @recruitment.Recruiter.CompanyName
+                        </h1>
+                        <span class="badge bg-green-dark text-uppercase font-12">
+                            <i class="fa-solid fa-dollar-sign pe-1"></i>
+                            @{
+                                var minSalaryInMillion = Math.Truncate(recruitment.MinSalary / 1000000);
+                                var maxSalaryInMillion = Math.Truncate(recruitment.MaxSalary / 1000000);
+                            }
+                            @minSalaryInMillion - @maxSalaryInMillion triệu
+                        </span>
+                        <span class="badge bg-blue-dark text-uppercase font-12">
+                            <i class="fa-solid fa-city pe-1"></i>
+                            @recruitment.WorkAddress
+                        </span>
+                        <span class="badge bg-gray-dark text-uppercase font-12">
+                            <i class="fa-regular fa-star pe-1"></i>
+                            @recruitment.Experiences.DisplayName
+                        </span>
+                    </div>
+                </div>
+            </a>
+            <div class="divider mt-3 mb-3"></div>
+        </Virtualize>
+    </div>
+}
+@if (isError1 == true)
+{
+    <div class="card card-style p-2">
+        <div class="search-no-results ">
+            <div class="content">
+                <h3>Không có kết quả!!!</h3>
+                <p class="opacity-70 color-theme">
+                    Không có công việc phù hợp với mô tả bạn đang tìm kiếm, hãy thử một từ khoá khác.
+                </p>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Thống kê -->
+<div class="card card-style mx-0">
+    <div class="content mb-0">
+        <div class="row mb-0">
+            <div class="col-6 pe-1">
+                <div class="mx-0 mb-3 text-center">
+                    <h6 class="font-12 font-800 text-uppercase opacity-30">Việc đăng tuyển</h6>
+                    <h3 class="color-green-dark font-20 mb-0">@RecruitmentCount+</h3>
+                </div>
+            </div>
+            <div class="col-6 pe-1">
+                <div class="mx-0 mb-3 text-center">
+                    <h6 class="font-12 font-800 text-uppercase opacity-30">Hồ sơ việc làm</h6>
+                    <h3 class="color-brown-dark font-20 mb-0">@JobAppCount+</h3>
+                </div>
+            </div>
+            <div class="col-6 ps-1">
+                <div class="mx-0 mb-3 text-center">
+                    <h6 class="font-12 font-800 text-uppercase opacity-30">Công ty</h6>
+                    <h3 class="color-blue-dark font-20 mb-0">@RecruiteCount+</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card card-style mx-0">
+    <div class="content">
+        <h4 class="pb-1 text-uppercase color-highlight">Sự kiện nổi bật</h4>
+    </div>
+    <div class="row mb-0 mt-n3">
+        @if (articleModel1!= null && articleModel1.Count > 0)
+        {
+            @foreach (var article1 in articleModel1)
+            {
+                <div class="col-6 pe-0">
+                    <a class="card card-style" data-card-height="280" style="background-image: url('@article1.PrimaryImageUrl'); height: 280px;" @onclick="(() => ViewArticle(article1))">
+                        <div class="card-top text-center">
+                            <span class="badge bg-blue-dark px-2 py-1 color-white m-3"><i class="fa fa-fire me-2"></i>@article1.CategoryDisplayName</span>
+                        </div>
+                        <div class="card-bottom py-1 px-2 bg-black">
+                            <h5 class="color-white font-500  text-center" style="display: -webkit-box;
+                                                                                -webkit-line-clamp: 2;
+                                                                                -webkit-box-orient: vertical;
+                                                                                overflow: hidden; text-transform: none">
+                                @article1.Title
+                            </h5>
+                        </div>
+                        <div class="card-overlay bg-black opacity-20"></div>
+                    </a>
+                </div>
+            }
+
+        }
+        @if (articleModel1 != null && articleModel2.Count > 0)
+        {
+            <div class="col-6 ps-0">
+                @foreach (var article2 in articleModel2)
+                {
+                    <a class="card ms-0 card-style mb-2" data-card-height="135" style="background-image: url('@article2.PrimaryImageUrl'); height: 135px;" @onclick="(() => ViewArticle(article2))">
+
+                        <div class="card-top text-center">
+                            <span class="badge bg-green-dark px-2 py-1 color-white m-3"><i class="fa fa-star me-2"></i>@article2.CategoryDisplayName</span>
+                        </div>
+                        <div class="card-bottom py-1 px-2 bg-black">
+                            <h5 class="color-white font-500  text-center " style="display: -webkit-box;
+                                                                                -webkit-line-clamp: 1;
+                                                                                -webkit-box-orient: vertical;
+                                                                                overflow: hidden;
+                                                                                text-transform: none">
+                                @article2.Title
+                            </h5>
+                        </div>
+                        <div class="card-overlay bg-black opacity-20"></div>
+                    </a>
+                }
+            </div>
+        }
+    </div>
+</div>
+<!-- Người tìm việc - Việc tìm người -->
+<div class="card card-style">
+    <div class="content mb-0">
+        <h4 class="pb-1 text-uppercase color-highlight text-center">
+            <i class="fa-solid fa-magnifying-glass pe-2"></i>Người tìm việc - Việc tìm người<i class="fa-solid fa-magnifying-glass ps-2"></i>
+        </h4>
+    </div>
+    <div class="content m-0" id="tab-group-1">
+        <div class="tab-controls tabs-medium tabs-rounded text-uppercase" data-highlight="bg-highlight">
+            <a href="#" class="font-600" data-active data-bs-toggle="collapse" data-bs-target="#tab-1">
+                <i class="fa fa-user pe-2"></i> Người tìm việc
+            </a>
+            <a href="#" class="font-600" data-bs-toggle="collapse" data-bs-target="#tab-2">
+                <i class="fa fa-building pe-2"></i>Việc tìm
+                người
+            </a>
+        </div>
+        <div class="clearfix mb-3"></div>
+        <!-- Người tìm việc  -->
+        <div data-bs-parent="#tab-group-1" class="collapse show" id="tab-1">
+            <div class="content">
+                <Virtualize @ref="JobApplicationContainer" Context="job" ItemsProvider="@LoadJobApplication" ItemSize="20">
+
+                    <a href="javascript:;" @onclick="(() => ViewUser(job))">
+                        <div class="d-flex">
+                            <div>
+                                <img src="@job.Candidate.AvatarUrl" class="me-3 rounded-circle shadow-l"
+                                     width="100">
+                            </div>
+                            <div>
+                                <h5 class="font-700 text-uppercase">@job.User.Name</h5>
+                                <h1 class="font-700 font-15 line-height-m pb-2">@job.JobApplication.Positions.DisplayName</h1>
+                                <span class="badge bg-green-dark text-uppercase font-12">
+                                    <i class="fa-solid fa-dollar-sign pe-1"></i>
+                                    @if (job.JobApplication.DesiredSalary.HasValue)
+                                    {
+                                        <span>
+                                            @{
+                                                var minSalaryInMillion = Math.Truncate(job.JobApplication.DesiredSalary.Value / 1000000);
+                                            }
+                                            @minSalaryInMillion triệu
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span>Lương thoả thuận</span>
+                                    }
+                                </span>
+                                <span class="badge bg-gray-dark text-uppercase font-12">
+                                    <i class="fa-solid fa-graduation-cap pe-1"></i>
+                                    @job.JobApplication.Literacy.DisplayName
+                                </span>
+                                <span class="badge bg-teal-dark text-uppercase font-12">
+                                    <i class="fa-solid fa-comment pe-1"></i>
+                                    @job.JobApplication.Province.DisplayName
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="divider mt-3 mb-3"></div>
+                </Virtualize>
+                <a href="/NguoiTimViec"
+                   class="btn btn-full border-blue-dark rounded-sm color-blue-dark btn-sm font-700 text-uppercase mt-4">
+                    Xem
+                    thêm
+                </a>
+            </div>
+        </div>
+        <!-- Việc tìm người -->
+        <div data-bs-parent="#tab-group-1" class="collapse" id="tab-2">
+            <div class="content">
+                <Virtualize @ref="RecruitmentContainer" Context="recruitment" ItemsProvider="@LoadRecruitment" ItemSize="100">
+
+                    <a href="javascript:;" @onclick="(() => ViewRecruitment(recruitment))">
+                        <div class="d-flex">
+                            <div>
+                                <img src="@recruitment.Recruiter.AvatarUrl" class="me-3 rounded-m" width="110">
+                            </div>
+                            <div>
+                                <h5 class="font-700 text-uppercase">  @recruitment.Title</h5>
+                                <h1 class="font-500 font-15 line-height-m">
+                                    @recruitment.Recruiter.CompanyName
+                                </h1>
+                                <span class="badge bg-green-dark text-uppercase font-12">
+                                    <i class="fa-solid fa-dollar-sign pe-1"></i>
+                                    @{
+                                        var minSalaryInMillion = Math.Truncate(recruitment.MinSalary / 1000000);
+                                        var maxSalaryInMillion = Math.Truncate(recruitment.MaxSalary / 1000000);
+                                    }
+                                    @minSalaryInMillion - @maxSalaryInMillion triệu
+                                </span>
+                                <span class="badge bg-blue-dark text-uppercase font-12">
+                                    <i class="fa-solid fa-city pe-1"></i>
+                                    @recruitment.WorkAddress
+                                </span>
+                                <span class="badge bg-gray-dark text-uppercase font-12">
+                                    <i class="fa-regular fa-star pe-1"></i>
+                                    @recruitment.Experiences.DisplayName
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="divider mt-3 mb-3"></div>
+                </Virtualize>
+                <a href="/ViecTimNguoi" class="btn btn-full border-blue-dark rounded-sm color-blue-dark btn-sm font-700 text-uppercase mt-4">
+                    Xem
+                    thêm
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Tin tức -->
+<div class="card card-style">
+    <div class="content">
+        <a href="/TinTuc">
+            <div class="d-flex">
+                <div class="align-self-center">
+                    <h1 class="font-22 text-uppercase">Tin tức mới nhất</h1>
+                </div>
+                <div class="ms-auto align-self-center">
+                    <i class="fa fa-newspaper color-aqua-dark fa-2x mb-4 me-1"></i>
+                </div>
+            </div>
+        </a>
+        <div class="divider bg-green-dark mb-2 mt-2"></div>
+        <Virtualize @ref="ArticlesContainer" Context="articles" ItemsProvider="@LoadArticles" ItemSize="100">
+
+            <a href="javascript:;" @onclick="(() => ViewArticle(articles))" class="pb-3">
+                <div class="d-flex">
+                    <div>
+                        <img src="@articles.PrimaryImageUrl" class="rounded-sm me-3" width="80">
+                    </div>
+                    <div class="w-100">
+
+                        <p class="mt-n2 mb-2">
+                            <strong>
+                                @articles.Title
+                            </strong>
+                        </p>
+                        <p>
+                            @articles.Author - @articles.Modified.ToShortDateString()<span class="d-block float-end color-blue-dark font-11">
+                                Chi
+                                tiết
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </a>
+            <div class="divider mb-2 mt-2"></div>
+        </Virtualize>
+        <a href="/TinTuc"
+           class="btn btn-full border-blue-dark rounded-sm color-blue-dark btn-sm font-700 text-uppercase mt-4">
+            Xem
+            thêm
+        </a>
+    </div>
+</div>
+
+             
+           
+
+
+
+

@@ -1,51 +1,72 @@
 ﻿@inherits ModalBase
+<div class="modal fade" id="@ModalId" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded">
+            <div class="modal-body scroll-y pt-10 pb-10">
+                <div class="mb-13 text-center">
+                    @if(IsEdit == true)
+                    {
+                    <h1 class="mb-3">@L("Cập nhật trình độ học vấn")</h1>
 
-<div id="@ModalId" class="menu menu-box-modal rounded-m" data-menu-width="330">
-    <div class="content">
-        <div class="d-flex">
-            @if (IsEdit == true)
-            {
-                <h1>@L("Cập nhật trình độ học vấn")</h1>
+                    }
+                    else
+                    {
+                        <h1 class="mb-3">@L("Tạo mới trình độ học vấn")</h1>
 
-            }
-            else
-            {
-                <h1>@L("Tạo mới trình độ học vấn")</h1>
-
-            }
-            <div class="ms-auto">
-                <a class="close-menu" @onclick="Hide"><i class="fa fa-times"></i></a>
+                    }
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Tên trường học")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" @bind="Model.SchoolName" />
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Chuyên ngành học")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <input type="text" class="form-control form-control-solid" @bind="Model.AcademicDiscipline" />
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Thời điểm bắt")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <input type="date" class="form-control form-control-solid" @bind="Model.StartTime"  />
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Thời điểm kết thúc")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <input type="date" class="form-control form-control-solid" @bind="Model.EndTime"  max="@Model.EndTime"/>
+                </div>
+                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                        <span class="required">
+                            @L("Mô tả")
+                        </span>
+                        <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                    </label>
+                    <textarea rows="3" type="text" class="form-control form-control-solid"  @bind="Model.Description" />
+                </div>
+            </div>
+            <div class="text-center mt-3 mb-4">
+                <button type="reset" data-dismiss="modal" class="btn btn-light me-3" @onclick="CancelModal">@L("Huỷ")</button>
+                <button type="button" class="btn " style="background-color: #00b14f" @onclick="SaveExpWork">
+                    <span style="color: white" class="indicator-label">@L("Lưu")</span>
+                </button>
             </div>
         </div>
-        <h5>@L("Tên trường học")</h5>
-        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
-            <input type="text" class="form-control validate-text" id="form1" @bind="Model.SchoolName">
-            <em>(bắt buộc)</em>
-        </div>
-        <h5> @L("Chuyên ngành học")</h5>
-        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
-            <input type="text" class="form-control validate-text" id="form1" @bind="Model.AcademicDiscipline">
-            <em>(bắt buộc)</em>
-        </div>
-        <h5> @L("Thời điểm bắt")</h5>
-        <div class="input-style has-borders no-icon mb-4">
-            <input type="date" class="validate-text" id="form6" @bind="Model.StartTime">
-            <label for="form6" class="color-highlight">Select Date</label>
-        </div>
-        <h5>  @L("Thời điểm kết thúc")</h5>
-        <div class="input-style has-borders no-icon mb-4">
-            <input type="date" class="validate-text" id="form6" @bind="Model.EndTime">
-            <label for="form6" class="color-highlight">Select Date</label>
-        </div>
-        <h5> @L("Mô tả")</h5>
-        <div class="input-style has-borders no-icon mb-4">
-            <textarea id="form7" @bind="Model.Description"></textarea>
-            <label for="form7" class="color-highlight">@L("Mô tả")</label>
-            <em class="mt-n3">(bắt buộc)</em>
-        </div>
-        @* <div class="d-flex justify-content-center"> *@
-            @* <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Đóng</a> *@
-            <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveExpWork">Lưu</a>
-        @* </div> *@
     </div>
 </div>

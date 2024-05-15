@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container" style=" background: white; display: block; margin: 0 auto; margin-bottom: 0.5cm; box-shadow: 0 0 0.5cm rgba(0,0,0,0.5); width: 21cm;  ">
+        <div class="page-body">
+            <!-- Container-fluid starts-->
+            <div class="container-fluid">
+                <div class="row" style="justify-content: center;">
+                    <div class="col-sm-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="col-sm-8" style="flex-wrap: wrap; justify-content: center;">
+                                    <div class="avatar"
+                                         style="justify-content: center; margin: 48px; margin-bottom: 16px !important;">
+                                        <img class="img-250 rounded-circle" src="{{avt}}" alt="#">
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <h3 style="text-align: center; margin-top: 16px;">{{FullName}}</h3>
+                                        <p style="margin-top: 8px; color: #989898;">{{Positions}}</p>
+                                    </div>
+                                    <div class="col-sm-10" style="margin: 32px; margin-top: 48px !important; >
+                                        <div class="ribbon-wrapper border border-1 height-equal"
+                                             style="min-height: 146.781px; border-radius: 10px;">
+                                            <div class="ribbon ribbon-secondary ribbon-clip"
+                                                 style="align-items: center; padding: 15px; background-color: #F0170B;">
+
+
+                                                GIỚI THIỆU BẢN THÂN
+                                            </div>
+                                            <p>
+                                               {{Career}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-10" style="margin: 32px; margin-top: 48px !important; >
+                                        <div class="ribbon-wrapper border border-1 height-equal"
+                                             style="min-height: 146.781px; border-radius: 10px; ">
+                                            <div class="ribbon ribbon-secondary ribbon-clip"
+                                                 style="align-items: center; padding: 15px; background-color: #F0170B; ">
+                                                THÔNG TIN:
+                                            </div>
+                                            <div class="row" style="justify-content: space-between">
+                                                <div class="col-md-12" style="margin-bottom: 8px;">
+                                                    <div class="ttl-info text-start">
+                                                        <p>
+                                                            <i class="fa fa-phone"
+                                                               style="color: #000000; margin-right: 14px;"></i>Số điện thoại : <span>{{Phone}}</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12" style="margin-bottom: 8px;">
+                                                    <div class="ttl-info text-start">
+                                                        <p>
+                                                            <i class="icofont icofont-envelope"
+                                                               style="color: #000000; margin-right: 12px;"></i>Email : <span>{{Email}}</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12" style="margin-bottom: 8px;">
+                                                    <div class="ttl-info text-start">
+                                                        <p>
+                                                            <i class="fa fa-location-arrow"
+                                                               style="color: #000000; margin-right: 14px;"></i>Địa chỉ : <span>{{Provice}}</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12" style="margin-bottom: 8px;">
+                                                    <div class="ttl-info text-start">
+                                                        <p>
+                                                            <i class="fa fa-calendar-o"
+                                                               style="color: #000000; margin-right: 12px;"></i>Ngày sinh : <span>{{DateOfBirth}}</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8" style="flex-wrap: wrap; justify-content: center;">
+                                    <!--<div class="col-sm-10" style="margin: 32px; margin-top: 48px !important; >
+                                        <div class="ribbon-wrapper border border-1 height-equal"
+                                             style="min-height: 146.781px; border-radius: 10px;">
+                                            <div class="ribbon ribbon-secondary ribbon-clip"
+                                                 style="align-items: center; padding: 15px; background-color: #F0170B;">
+                                                THÀNH TỰU
+                                            </div>
+                                            <h3 style="margin-bottom: 16px;">ABC</h3>
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <p style="color: rgb(168, 168, 168);">1988-2004</p>
+                                                </div>
+                                                <div class="col-10">
+                                                    <p>
+                                                        The frequently appear together because they have similar features
+                                                        that capture attention and make wonderful spaces for vital
+                                                        information.
+                                                    </p>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>-->
+                                    <div class="col-sm-10" style="margin: 32px; >
+                                        <div class="ribbon-wrapper border border-1 height-equal"
+                                             style="min-height: 146.781px; border-radius: 10px;">
+                                            <div class="ribbon ribbon-secondary ribbon-clip"
+                                                 style="align-items: center; padding: 15px; background-color: #F0170B;">
+                                                HỌC VẤN
+                                            </div>
+                                            {{learning}}
+                                          
+
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-10" style="margin: 32px; >
+                                        <div class="ribbon-wrapper border border-1 height-equal"
+                                             style="min-height: 146.781px; border-radius: 10px;">
+                                            <div class="ribbon ribbon-secondary ribbon-clip"
+                                                 style="align-items: center; padding: 15px; background-color: #F0170B;">
+                                                KINH NGHIỆM LÀM VIỆC
+                                            </div>
+                                            {{experience}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

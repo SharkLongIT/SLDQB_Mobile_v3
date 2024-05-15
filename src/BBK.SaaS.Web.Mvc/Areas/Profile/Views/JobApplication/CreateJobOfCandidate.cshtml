@@ -1,0 +1,195 @@
+﻿@using Abp.Application.Services.Dto
+@using BBK.SaaS.Authorization
+@using BBK.SaaS.Authorization.Users;
+@using BBK.SaaS.Web.Areas.App.Startup
+@using BBK.SaaS.Web.Areas.Profile.Models.Candidates
+@using BBK.SaaS;
+@using BBK.SaaS.Web.Areas.Profile.Models.JobApplication
+
+@{
+	ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+	ViewBag.PageTitle = @L("Hồ sơ cá nhân");
+	ViewBag.PageDescription = @L("UsersHeaderInfo");
+}
+
+@model JobApplicationModel
+
+@section Styles
+	{
+	<link rel="stylesheet" abp-href="/view-resources/App/Users/index.css" asp-append-version="true" />
+	
+	<link rel="stylesheet"  href="~/view-resources/Profile/Candidate/JobAppCrud.min.css"/>
+}
+
+@section Scripts
+	{
+	<script src="/view-resources/profile/Candidate/JobAppCrud.js" asp-append-version="true"></script>
+	<script src="/view-resources/profile/Candidate/JobAppPartialView.js" asp-append-version="true"></script>
+}
+
+<div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+		<div class="row">
+			<nav>
+                <ol class="breadcrumb justify-content-sm-start align-items-center mb-0" style="margin-bottom: 32px !important;">
+                    <li class="breadcrumb-item">
+                        <a href="/">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item f-w-400 active">
+                        <a href="/">Trang chủ</a>
+                    </li>
+                   
+                    <li class="breadcrumb-item f-w-400 active">@Html.ActionLink(@L("Danh sách hồ sơ của tôi"), "JobAppOfCandidate", "Candidate", new { Area = "Profile" }, null)</li>
+                <li class="breadcrumb-item f-w-400 ">
+                        <a href="/">Hồ sơ ứng tuyển của tôi</a>
+                    </li>
+               </ol>
+            </nav>
+			<div class="card card-jobapplication">
+				<div class="card-header ">
+					<h4>Hồ sơ ứng tuyển</h4>
+					<div class="card-header-right">
+					</div>
+				</div>
+				<div class="card-body card-wrapper">
+					<input hidden="" name="CandidateId" value="@Model.JobAppPartialView.CandidateId">
+					<div class="card-body custom-input tab-content" id="JobApplication">
+						<input id="JobApplicationId" name="JobApplication" hidden value="@Model.JobAppPartialView.Id"></input>
+						@if (Model.JobAppPartialView.Id.HasValue)
+						{
+							@await Html.PartialAsync("ViewJobApp")
+						}
+						else
+						{
+
+							@await Html.PartialAsync("PartialViewCommonJobApp", Model.JobAppPartialView)
+						}
+					</div>
+				</div>
+			</div>
+			<div class="card" id="workexperience">
+				<div class="card-header ">
+					<h4>Kinh nghiệm làm việc</h4>
+					<div class="card-header-right">
+						<a class="addworkexp" href="javascript:void(0)">
+							<span class="fa fa-plus-square"> Thêm </span>
+						</a>
+					</div>
+				</div>
+				<div class="card-body card-wrapper">
+					<div class="card-body custom-input tab-content">
+						<div class="col-md-12 col-lg-12 mt-2 partialview">
+							@* @await Html.PartialAsync("PartialViewWorkExp") *@
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card" id="learningprocess">
+				<div class="card-header ">
+					<h4>Trình độ học vấn</h4>
+					<div class="card-header-right">
+						<a class="addlearnprocess" href="javascript:void(0)">
+							<span class="fa fa-plus-square"> Thêm </span>
+						</a>
+					</div>
+				</div>
+				<div class="card-body card-wrapper">
+					<div class="card-body custom-input tab-content">
+						<div class="col-md-12 col-lg-12 mt-2 partialviewlearn">
+							@* @await Html.PartialAsync("PartialViewLearnProcess") *@
+						</div>
+					</div>
+				</div>
+			</div>
+
+			@*    <div class="card">
+			<div class="card-header ">
+			<h4>Hồ sơ ứng tuyển</h4>
+			<div class="card-header-right">
+			<ul class="list-unstyled card-option">
+			<li><i class="icon-more-alt"></i></li>
+			<li><i class="icofont icofont-maximize full-card"></i></li>
+			<li><i class="icofont icofont-minus minimize-card"></i></li>
+			<li><i class="icofont icofont-refresh reload-card"></i></li>
+			</ul>
+			</div>
+			</div>
+
+			<div class="card-body card-wrapper">
+			<input hidden name="CandidateId" value="@ViewBag.candidateId"> *@
+			@* <input hidden name="JobApplicationId" value="@ViewBag.jobAppId"> *@
+			@*   <div class="card-body custom-input tab-content">
+			<div class="col-md-12 col-lg-12 mt-2" id="jobapplication">
+			<div class="col-12 d-flex canupdate" style="justify-content: space-between">
+			<h5 class="mb-4"><strong>@L("Thông tin chung")</strong></h5>
+			</div>
+			<form class="row g-3" name="JobAppInfoForm">
+			<input hidden name="JobApplicationId" value="@ViewBag.jobAppId">
+			</form>
+			</div>
+			</div>
+			</div>
+			</div> *@
+
+
+			@*  <div class="card">
+			<div class="card-header ">
+			<h4>Kinh nghiệm làm việc</h4>
+			<div class="card-header-right">
+			<ul class="list-unstyled card-option">
+			<li><i class="icon-more-alt"></i></li>
+			<li><i class="icofont icofont-maximize full-card"></i></li>
+			<li><i class="icofont icofont-minus minimize-card"></i></li>
+			<li><i class="icofont icofont-refresh reload-card"></i></li>
+			</ul>
+			</div>
+			</div>
+			<div class="card-body card-wrapper">
+			<div class="card-body custom-input tab-content">
+			<div class="col-md-12 col-lg-12 mt-2">
+			<div class="col-12 titleworkexperience">
+			<h5 class="mb-4"><strong>@L("WorkExperience")</strong></h5> *@
+			@* <a href="#">Cập nhật</a> *@
+		</div>
+		@*    <form class="row g-3" name="WorkExperience">
+		</form>
+		</div>
+		</div>
+		</div>
+		</div> *@
+
+		@*  <div class="card">
+		<div class="card-header ">
+		<h4>Trình độ học vấn</h4>
+		<div class="card-header-right">
+		<ul class="list-unstyled card-option">
+		<li><i class="icon-more-alt"></i></li>
+		<li><i class="icofont icofont-maximize full-card"></i></li>
+		<li><i class="icofont icofont-minus minimize-card"></i></li>
+		<li><i class="icofont icofont-refresh reload-card"></i></li>
+		</ul>
+		</div>
+		</div>
+		<div class="card-body card-wrapper">
+		<div class="card-body custom-input tab-content">
+		<div class="col-md-12 col-lg-12 mt-2">
+		<div class="col-12 titlelearningprocess">
+		<h5 class="mb-4"><strong>@L("LearningProcess")</strong></h5> *@
+		@* <a href="#">Cập nhật</a> *@
+		@*   </div>
+		<form class="row g-3" name="LearningProcess">
+		</form>
+		</div>
+		</div>
+		</div>
+		</div> *@
+
+	</div>
+</div>
+			</div>

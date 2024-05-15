@@ -1,0 +1,91 @@
+﻿@using Abp.Localization
+@using BBK.SaaS.Web.Areas.App.Startup
+
+@section Scripts
+{
+    <script abp-src="/view-resources/App/ContactManager/Index.js" asp-append-version="true"></script>
+}
+
+@{
+    ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+    ViewBag.PageTitle = @L("Quản trị hỏi đáp");
+    ViewBag.PageDescription = @L("Quản trị hỏi đáp");
+}
+<div class="page-body">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-xl-12">
+                        <div id="panel-1" class="panel">
+                            <div class="panel-hdr">
+                                <h2>
+                                    <span class="fw-300"><i>@L("Danh sách câu hỏi")</i></span>
+                                </h2>
+                            </div>
+                            <div class="panel-container show mt-5">
+                                <div class="panel-content">
+                                    <div class="card-wrapper border rounded-3 light-card checkbox-checked">
+                                        <div class="row ">
+                                            <div class="col-lg-10">
+                                                <div class="row">
+                                                      <div class="col-lg-3 col-md-4 mb-3 mt-auto">
+                                                        <label for="Title" class="form-label">@L("Từ ngày")</label>
+                                                        <div class="form-outline datepicker-with-filter1">
+                                                            <input id="StartDay" type="date" name="StartDay"
+                                                               class="form-control" placeholder="Hạn nộp hồ sơ : Từ ngày" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-4 mb-3 mt-auto">
+                                                         <label for="Title" class="form-label">@L("Đến ngày")</label>
+                                                        <div class="form-outline datepicker-with-filter1">
+                                                            <input id="EndDay" type="date" name="EndDay" class="form-control" placeholder="Đến ngày" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 mb-3 mt-auto">
+                                                        <select required class="form-control" id="Status">
+                                                            <option value="" selected>Trạng thái</option>
+                                                            <option value="0">Chưa trả lời</option>
+                                                            <option value="1">Đã trả lời</option>
+                                                        </select>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 d-flex align-items-end justify-content-end">
+                                                <button class="btn btn-primary ml-auto waves-effect waves-themed mb-3" id="Search" type="button">@(new FixedLocalizableString("Tìm kiếm"))</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- datatable start -->
+                                    <div class="mt-5">
+                                        <table id="ContactTable" class="table table-bordered table-hover table-striped w-100 mt-5">
+                                            <thead class="bg-primary-600">
+                                                <tr>
+                                                    <th>@L("STT")</th>
+                                                    <th>@L("Nội dung")</th>
+                                                    <th>@L("Họ tên người gửi")</th>
+                                                    <th>@L("Email")</th>
+                                                    <th>@L("Số điện thoại")</th>
+                                                    <th>@L("Ngày gửi")</th>
+                                                    <th>@L("Trạng thái")</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                               
+                                    <!-- datatable end -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

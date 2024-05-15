@@ -1,0 +1,179 @@
+﻿@using Abp.Timing;
+@using BBK.SaaS.Web.Areas.App.Models.Layout;
+@using BBK.SaaS.Web.Areas.App.Views.Shared.Components.AppSideBar
+@using BBK.SaaS.Web.Views.Shared.Components.CmsMenus
+
+@{
+    var headerViewModel = new HeaderViewModel();
+}
+
+<!-- Page Sidebar Start-->
+<div class="sidebar-wrapper" data-layout="stroke-svg">
+	<div>
+		<div class="logo-wrapper">
+            <a href="/">
+                @* <img class="img-fluid " src="@headerViewModel.GetLogoUrl(ApplicationPath, "light")&t=@Clock.Now.Ticks.ToString()" alt=""> *@
+                <img class="img-fluid lazyload" data-src="@headerViewModel.GetLogoUrl(ApplicationPath, "light")&t=@Clock.Now.Ticks.ToString()" alt="">
+            </a>
+			<div class="back-btn"><i class="fa fa-angle-left"></i></div>
+			<div class="toggle-sidebar">
+				<svg class="stroke-icon sidebar-toggle status_toggle middle">
+					<use href="/themes/mofi/assets/svg/icon-sprite.svg#toggle-icon"></use>
+				</svg>
+				<svg class="fill-icon sidebar-toggle status_toggle middle">
+					<use href="/themes/mofi/assets/svg/icon-sprite.svg#fill-toggle-icon"></use>
+				</svg>
+			</div>
+		</div>
+		<div class="logo-icon-wrapper"><a href="/"><img class="img-fluid" src="/themes/mofi/assets/images/logo/logo-icon.png" alt=""></a></div>
+		<nav class="sidebar-main">
+			<div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
+
+			@*@await Component.InvokeAsync(typeof(AppSideBarViewComponent))*@
+			@await Component.InvokeAsync(typeof(CmsMenusViewComponent))
+
+            @* <div id="sidebar-menu">
+                <ul class="sidebar-links" id="simple-bar">
+                    <li class="back-btn">
+                        <a href="index.html"><img class="img-fluid" src="/themes/mofi/assets/images/logo/logo-icon.png" alt=""></a>
+                        <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
+                    </li>
+                    <li class="pin-title sidebar-main-title">
+                        <div>
+                            <h6>Pinned</h6>
+                        </div>
+                    </li>
+                    <li class="sidebar-main-title">
+                        <div>
+                            <h6 class="lan-1">General</h6>
+                        </div>
+                    </li>
+                    <li class="sidebar-list">
+                        <i class="fa fa-thumb-tack"></i>
+                        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                            <svg class="stroke-icon">
+                                <use href="/themes/mofi/assets/svg/icon-sprite.svg#stroke-home"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use href="/themes/mofi/assets/svg/icon-sprite.svg#fill-home"></use>
+                            </svg><span>Giới thiệu</span>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="index.html">Giới thiệu về Quảng Bình</a></li>
+                            <li><a href="dashboard-02.html">Giới thiệu về trung tâm</a></li>
+                            <li><a href="dashboard-03.html">Chức năng nhiệm vụ của trung tâm</a></li>
+                            <li><a href="dashboard-04.html">Cơ cấu tổ chức</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                            <span>Tin tức</span>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="index.html">Tin chung</a></li>
+                            <li><a href="dashboard-02.html">Du học</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="#">
+                            <span>Người tìm việc</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="#">
+                            <span>Việc tìm người</span>
+                        </a>
+                    </li>
+                    
+                    <li class="mega-menu sidebar-list">
+                        <i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                            <svg class="stroke-icon">
+                                <use href="/themes/mofi/assets/svg/icon-sprite.svg#stroke-others"></use>
+                            </svg>
+                            <svg class="fill-icon">
+                                <use href="/themes/mofi/assets/svg/icon-sprite.svg#fill-others"></use>
+                            </svg><span>Others</span>
+                        </a>
+                        <div class="mega-menu-container menu-content">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col mega-box">
+                                        <div class="link-section">
+                                            <div class="submenu-title">
+                                                <h5>Error Page</h5>
+                                            </div>
+                                            <ul class="submenu-content opensubmegamenu">
+                                                <li><a href="error-400.html">Error 400</a></li>
+                                                <li><a href="error-401.html">Error 401</a></li>
+                                                <li><a href="error-403.html">Error 403</a></li>
+                                                <li><a href="error-404.html">Error 404</a></li>
+                                                <li><a href="error-500.html">Error 500</a></li>
+                                                <li><a href="error-503.html">Error 503</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col mega-box">
+                                        <div class="link-section">
+                                            <div class="submenu-title">
+                                                <h5> Authentication</h5>
+                                            </div>
+                                            <ul class="submenu-content opensubmegamenu">
+                                                <li><a href="login.html" target="_blank">Login Simple</a></li>
+                                                <li><a href="login_one.html" target="_blank">Login with bg image</a></li>
+                                                <li><a href="login_two.html" target="_blank">Login with image two                      </a></li>
+                                                <li><a href="login-bs-validation.html" target="_blank">Login With validation</a></li>
+                                                <li><a href="login-bs-tt-validation.html" target="_blank">Login with tooltip</a></li>
+                                                <li><a href="login-sa-validation.html" target="_blank">Login with sweetalert</a></li>
+                                                <li><a href="sign-up.html" target="_blank">Register Simple</a></li>
+                                                <li><a href="sign-up-one.html" target="_blank">Register with Bg Image                              </a></li>
+                                                <li><a href="sign-up-two.html" target="_blank">Register with image two</a></li>
+                                                <li><a href="sign-up-wizard.html" target="_blank">Register wizard</a></li>
+                                                <li><a href="unlock.html">Unlock User</a></li>
+                                                <li><a href="forget-password.html">Forget Password</a></li>
+                                                <li><a href="reset-password.html">Reset Password</a></li>
+                                                <li><a href="maintenance.html">Maintenance</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col mega-box">
+                                        <div class="link-section">
+                                            <div class="submenu-title">
+                                                <h5>Coming Soon</h5>
+                                            </div>
+                                            <ul class="submenu-content opensubmegamenu">
+                                                <li><a href="comingsoon.html">Coming Simple</a></li>
+                                                <li><a href="comingsoon-bg-video.html">Coming with Bg video</a></li>
+                                                <li><a href="comingsoon-bg-img.html">Coming with Bg Image</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col mega-box">
+                                        <div class="link-section">
+                                            <div class="submenu-title">
+                                                <h5>Email templates</h5>
+                                            </div>
+                                            <ul class="submenu-content opensubmegamenu">
+                                                <li><a href="basic-template.html">Basic Email</a></li>
+                                                <li><a href="email-header.html">Basic With Header</a></li>
+                                                <li><a href="template-email.html">Ecomerce Template</a></li>
+                                                <li><a href="template-email-2.html">Email Template 2</a></li>
+                                                <li><a href="ecommerce-templates.html">Ecommerce Email</a></li>
+                                                <li><a href="email-order-success.html">Order Success</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div> *@
+			<div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
+		</nav>
+	</div>
+</div>
+
+<!-- Page Sidebar Ends-->

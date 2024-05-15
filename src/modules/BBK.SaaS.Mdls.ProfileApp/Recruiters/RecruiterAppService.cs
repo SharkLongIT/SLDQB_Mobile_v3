@@ -183,6 +183,22 @@ namespace BBK.SaaS.Mdls.Profile.Recruiters
             }
         }
 
+        public async Task<int> CountRecruiter()
+        {
+            using var uow = UnitOfWorkManager.Begin();
+
+            using (CurrentUnitOfWork.SetTenantId(1))
+            {
+                try
+                {
+                    var List = (await _recruiterRepo.GetAllListAsync()).ToList();
+                    return List.Count();
+                }
+                catch (Exception) {return 0; }
+                finally { await uow.CompleteAsync(); }
+              
+            }
+        }
 
         #region Mobile
         public async Task<long> UpdateRecruiterForMobile(RecruiterEditDto input)

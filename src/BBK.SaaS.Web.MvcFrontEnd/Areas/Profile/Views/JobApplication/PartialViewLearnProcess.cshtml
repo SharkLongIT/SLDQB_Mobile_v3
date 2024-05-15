@@ -1,0 +1,27 @@
+﻿
+
+<form class="row g-3 mt-3" name="LearningProcess">
+	<input hidden name="Id" id="LearningProcessId">
+	<div class="col-lg-6 col-md-12">
+		<label class="form-label" for="AcademicDiscipline">Ngành học/Môn học<span class="txt-danger">*</span></label>
+		<input class="form-control" id="AcademicDiscipline" name="AcademicDiscipline" type="text" required="required" placeholder="Nhập ngành học/Môn học">
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<label class="form-label" for="StartTime">Thời gian bắt đầu<span class="txt-danger">*</span></label>
+		<input class="form-control " id="StartTime" name="StartTime" type="date" required="required">
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<label class="form-label" for="EndTime">Thời gian kết thúc<span class="txt-danger">*</span></label>
+		<input class="form-control " id="EndTime" name="EndTime" type="date" required="required">
+	</div><div class="col-lg-6 col-md-12">
+		<label class="form-label" for="SchoolName">Tên trường học<span class="txt-danger">*</span></label>
+		<input class="form-control" id="SchoolName" name="SchoolName" type="text" required="required" placeholder="Tên trường học">
+	</div>
+	<div class="col-lg-12 col-md-12">
+		<label class="form-label" for="Description">Mô tả<span class="txt-danger">*</span></label>
+		<textarea class="form-control" id="Description" name="Description" type="text" required="required" rows="3" placeholder="Mô tả"></textarea>
+	</div><div class="col-12 d-flex justify-content-end">
+		<button class="btn btn-light m-2" type="reset">Hủy bỏ</button>
+		<button class="btn btn-danger m-2" type="button">Lưu thông tin</button>
+	</div>
+</form>

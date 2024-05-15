@@ -58,6 +58,7 @@ namespace BBK.SaaS.Mdls.Profile.TradingSessions
                     CountCandidateMax = x.CountCandidateMax,
                     Describe = x.Describe,
                     ImgUrl = x.ImgUrl,
+                    CreationTime = x.CreationTime,
                 })
                .ToList();
 
@@ -361,5 +362,58 @@ namespace BBK.SaaS.Mdls.Profile.TradingSessions
             }
         }
         #endregion  
+
+        #region get tất cả
+
+        public async Task<PagedResultDto<TradingSessionEditDto>> GetAllUnitOfWork()
+        {
+            using var uow = UnitOfWorkManager.Begin();
+
+            using (CurrentUnitOfWork.SetTenantId(AbpSession.TenantId.HasValue ? AbpSession.TenantId.Value : 1))
+            {
+                try
+                {
+                    var TradingList = _tradingSessionService.GetAll().OrderByDescending(x => x.CreationTime)
+                .AsNoTracking()
+                .Include(e => e.Province)
+                .Include(e => e.District)
+                .Include(e => e.Village)
+                .Select(x => new TradingSessionEditDto
+                {
+                    Id = x.Id,
+                    NameTrading = x.NameTrading,
+                    ProvinceId = x.ProvinceId,
+                    DistrictId = x.DistrictId,
+                    VillageId = x.VillageId,
+                    Province = ObjectMapper.Map<GeoUnitDto>(x.Province),
+                    StartTime = x.StartTime,
+                    EndTime = x.EndTime,
+                    Address = x.Address,
+                    Description = x.Description,
+                    CountRecruiterMax = x.CountRecruiterMax,
+                    CountCandidateMax = x.CountCandidateMax,
+                    Describe = x.Describe,
+                    ImgUrl = x.ImgUrl,
+                    CreationTime = x.CreationTime,
+                })
+               .ToList();
+
+
+                    return new PagedResultDto<TradingSessionEditDto>(
+                             TradingList.Count(),
+                             TradingList.ToList()
+                             );
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+                finally
+                {
+                    await uow.CompleteAsync();
+                }
+            }
+        }
+        #endregion
     }
 }

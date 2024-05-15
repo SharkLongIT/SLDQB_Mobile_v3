@@ -4,7 +4,6 @@ using Abp.Localization;
 using Abp.Web.Models.AbpUserConfiguration;
 using JetBrains.Annotations;
 using BBK.SaaS.Sessions.Dto;
-using System.Threading.Tasks;
 
 namespace BBK.SaaS.ApiClient
 {
@@ -45,7 +44,5 @@ namespace BBK.SaaS.ApiClient
             CurrentTenant = currentTenant;
             LoginInfo = loginInfo;
         }
-
-
     }
 }

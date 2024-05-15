@@ -1,0 +1,588 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<Import Project="..\..\common.props"></Import>
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+		<PreserveCompilationContext>true</PreserveCompilationContext>
+		<AssemblyName>BBK.SaaS.Web.Mvc</AssemblyName>
+		<OutputType>Exe</OutputType>
+		<PackageId>BBK.SaaS.Web.Mvc</PackageId>
+		<UserSecretsId>BBK-SaaS-894FDFC1-6482-4A56-926A-3C46C9FE0329</UserSecretsId>
+		<RootNamespace>BBK.SaaS.Web</RootNamespace>
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+		<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+		<TypeScriptToolsVersion>4.3</TypeScriptToolsVersion>
+		<PreserveCompilationReferences>true</PreserveCompilationReferences>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="App_Data\**" />
+		<Compile Remove="Views\Profile\**" />
+		<Content Remove="App_Data\**" />
+		<Content Remove="Views\Profile\**" />
+		<EmbeddedResource Remove="App_Data\**" />
+		<EmbeddedResource Remove="Views\Profile\**" />
+		<None Remove="App_Data\**" />
+		<None Remove="Views\Profile\**" />
+		<TypeScriptCompile Remove="node_modules\**" />
+		<TypeScriptCompile Remove="Views\Profile\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Remove="Areas\Profile\Views\Recruitments\GetJobUser.cshtml" />
+		<Content Remove="wwwroot\swagger\ui\index.html" />
+		<Content Remove="wwwroot\view-resources\Profile\Candidate\UserJob.min.css" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="wwwroot\swagger\ui\index.html" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="app.config" />
+		<None Include="wwwroot\Plugins\.gitkeep" />
+		<None Include="wwwroot\themes\BeThems\css\components\ion.rangeslider.css.map" />
+		<None Include="wwwroot\themes\BeThems\css\icons\bootstrap-icons\bootstrap-icons.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\font-awesome\fa-brands-400.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\font-awesome\fa-regular-400.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\font-awesome\fa-solid-900.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\font-awesome\fa-v4compatibility.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-0.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-1.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-10.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-11.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-12.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-13.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-14.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-15.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-16.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-17.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-18.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-19.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-2.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-20.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-3.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-4.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-5.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-6.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-7.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-8.woff2" />
+		<None Include="wwwroot\themes\BeThems\css\icons\unicons\unicons-9.woff2" />
+		<None Include="wwwroot\themes\BeThems\demos\news\images\envato.svg" />
+		<None Include="wwwroot\themes\BeThems\demos\news\images\logo%402x.psd" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\css\closedhand.cur" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\css\index.php" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\css\openhand.cur" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\fonts\font-awesome\fonts\fontawesome-webfont.svg" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\fonts\font-awesome\fonts\fontawesome-webfont.woff2" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\fonts\font-awesome\index.php" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\fonts\index.php" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\fonts\pe-icon-7-stroke\css\index.php" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\fonts\pe-icon-7-stroke\fonts\index.php" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.svg" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\fonts\pe-icon-7-stroke\index.php" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\fonts\revicons\index.php" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\fonts\revicons\revicons.svg" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\jquery.revslider-beforeafterslider1.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\jquery.revslider-distortion-addon.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\jquery.revslider-particle-effect-one1.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\revolution.addon.beforeafter.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\revolution.addon.bubblemorph.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\revolution.addon.countdown.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\revolution.addon.duotonefilters.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\revolution.addon.explodinglayers.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\revolution.addon.filmstrip.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\revolution.addon.liquideffect.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\revolution.addon.paintbrush.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\revolution.addon.panorama.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\revolution.addon.panorama.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\revolution.addon.particles.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\revolution.addon.polyfold.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\revolution.addon.revealer.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\revolution.addon.slicey.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\revolution.addon.snow.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\addons\revolution.addon.typewriter.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\index.php" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\revolution.extension.actions.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\revolution.extension.carousel.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\revolution.extension.kenburn.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\revolution.extension.layeranimation.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\revolution.extension.migration.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\revolution.extension.navigation.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\revolution.extension.parallax.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\revolution.extension.slideanims.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\revolution.extension.video.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\source\index.php" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\source\revolution.extension.actions.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\source\revolution.extension.carousel.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\source\revolution.extension.kenburn.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\source\revolution.extension.layeranimation.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\source\revolution.extension.migration.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\source\revolution.extension.navigation.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\source\revolution.extension.parallax.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\source\revolution.extension.slideanims.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\extensions\source\revolution.extension.video.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\index.php" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\jquery.revslider-360-degree-panorama.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\jquery.revslider-fitness-club-template3.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\jquery.revslider-mountain-parallax-header.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\jquery.revslider-overexposure-transition.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\jquery.revslider.embed.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\jquery.themepunch.enablelog.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\jquery.themepunch.revolution.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\jquery.themepunch.revolution.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\jquery.themepunch.tools.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\pixi.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\revolution.addon.particles.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\source\index.php" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\source\jquery.themepunch.enablelog.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\source\jquery.themepunch.revolution.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\source\jquery.themepunch.tools.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\source\tp-color-picker.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\three.min.js" />
+		<None Include="wwwroot\themes\BeThems\include\rs-plugin\js\tp-color-picker.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\bundle.js" />
+		<None Include="wwwroot\themes\BeThems\js\chart-utils.js" />
+		<None Include="wwwroot\themes\BeThems\js\chart.js" />
+		<None Include="wwwroot\themes\BeThems\js\chartjs-plugin-zoom.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\bs-datatable.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\bs-filestyle.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\bs-select.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\bs-select.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\bs-switches.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\datepicker.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\daterangepicker.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\event.move.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\image-changer.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\moment.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\rangeslider.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\select-boxes.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\selectsplitter.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\star-rating.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\timepicker.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\icons\default\icons.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\langs\README.md" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\models\dom\model.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\accordion\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\advlist\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\anchor\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\autolink\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\autoresize\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\autosave\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\charmap\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\codesample\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\code\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\directionality\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\emoticons\js\emojiimages.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\emoticons\js\emojiimages.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\emoticons\js\emojis.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\emoticons\js\emojis.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\emoticons\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\fullscreen\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\ar.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\bg_BG.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\ca.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\cs.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\da.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\de.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\el.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\en.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\es.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\eu.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\fa.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\fi.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\fr_FR.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\he_IL.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\hi.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\hr.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\hu_HU.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\id.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\it.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\ja.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\kk.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\ko_KR.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\ms.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\nb_NO.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\nl.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\pl.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\pt_BR.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\pt_PT.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\ro.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\ru.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\sk.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\sl_SI.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\sv_SE.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\th_TH.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\tr.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\uk.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\vi.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\zh_CN.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\js\i18n\keynav\zh_TW.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\help\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\image\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\importcss\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\insertdatetime\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\link\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\lists\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\media\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\nonbreaking\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\pagebreak\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\preview\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\quickbars\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\save\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\searchreplace\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\table\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\template\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\visualblocks\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\visualchars\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\plugins\wordcount\plugin.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\themes\silver\theme.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\tinymce\tinymce.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\components\typehead.js" />
+		<None Include="wwwroot\themes\BeThems\js\events-data.js" />
+		<None Include="wwwroot\themes\BeThems\js\functions.bundle.js" />
+		<None Include="wwwroot\themes\BeThems\js\holder.js" />
+		<None Include="wwwroot\themes\BeThems\js\jquery.calendario.js" />
+		<None Include="wwwroot\themes\BeThems\js\jquery.hotspot.js" />
+		<None Include="wwwroot\themes\BeThems\js\jquery.js" />
+		<None Include="wwwroot\themes\BeThems\js\jquery.mousewheel.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\accordion.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\adaptivecolorscheme.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\ajaxform.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\ajaxtrigger.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\animations.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\bootstrap.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\bscomponents.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\buttons.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\canvasslider.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\carousel.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\clipboard.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\codehighlight.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\conditional.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\cookies.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\countdown.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\counter.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\cursor.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\dataclasses.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\dataheights.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\easing.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\filter.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\flexslider.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\flickr.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\fontsizer.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\fullvideo.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\googlemaps.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\gototop.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\grid.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\headers.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\hover3d.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\hoveranimations.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\instagram.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\lazyload.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\lightbox.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\logo.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\masonrythumbs.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\mediaactions.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\menus.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\modal.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\navtree.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\notifications.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\onepage.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\pagemenu.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\pagetransition.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\portfolioajax.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\pricingswitcher.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\progress.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\quantity.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\readmore.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\resizevideos.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\roundedskills.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\schemetoggle.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\scrolldetect.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\shapedivider.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\sidepanel.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\sliderdimensions.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\slidermenuclass.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\sliderparallax.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\stickfooteronsmall.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\stickysidebar.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\subscribe.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\textrotator.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\textsplitter.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\tips.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\toggle.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\topcart.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\topsearch.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\twitter.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\videofacade.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\viewportdetect.js" />
+		<None Include="wwwroot\themes\BeThems\js\modules\youtubebg.js" />
+		<None Include="wwwroot\themes\BeThems\js\particles\particles-bubbles.js" />
+		<None Include="wwwroot\themes\BeThems\js\particles\particles-line.js" />
+		<None Include="wwwroot\themes\BeThems\js\particles\particles-nasa.js" />
+		<None Include="wwwroot\themes\BeThems\js\particles\particles-poly.js" />
+		<None Include="wwwroot\themes\BeThems\js\particles\particles-snow.js" />
+		<None Include="wwwroot\themes\BeThems\js\particles\particles.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.bootstrap.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.carousel.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.clipboard.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.countdown.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.counter.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.dribbble.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.easing.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.fastdom.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.fitvids.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.flexslider.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.flickrfeed.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.form.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.gmap.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.hashchange.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.imagesloaded.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.infinitescroll.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.isotope.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.jpaginate.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.lazyload.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.lightbox.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.min.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.packery.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.piechart.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.prism.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.stickysidebar.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.swiper.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.textrotator.js" />
+		<None Include="wwwroot\themes\BeThems\js\plugins.youtube.js" />
+		<None Include="wwwroot\themes\BeThems\one-page\css\et-line\et-line.svg" />
+		<None Include="wwwroot\themes\BeThems\one-page\css\et-line\et-line.woff2" />
+		<None Include="wwwroot\themes\BeThems\one-page\images\page\design.svg" />
+		<None Include="wwwroot\themes\BeThems\one-page\images\page\developer.svg" />
+		<None Include="wwwroot\themes\BeThems\one-page\images\page\pet\hero.svg" />
+		<None Include="wwwroot\themes\BeThems\one-page\images\page\product\bg-left.svg" />
+		<None Include="wwwroot\themes\BeThems\one-page\images\page\product\bg-right.svg" />
+		<None Include="wwwroot\themes\BeThems\one-page\images\page\yoga\yoga.svg" />
+		<None Include="wwwroot\themes\BeThems\sass\animate.css.map" />
+		<None Include="wwwroot\themes\BeThems\sass\animate.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\bootstrap-grid.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\bootstrap-reboot.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\bootstrap-utilities.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\bootstrap.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\forms\_floating-labels.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\forms\_form-check.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\forms\_form-control.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\forms\_form-range.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\forms\_form-select.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\forms\_form-text.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\forms\_input-group.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\forms\_labels.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\forms\_validation.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\helpers\_clearfix.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\helpers\_color-bg.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\helpers\_colored-links.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\helpers\_focus-ring.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\helpers\_icon-link.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\helpers\_position.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\helpers\_ratio.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\helpers\_stacks.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\helpers\_stretched-link.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\helpers\_text-truncation.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\helpers\_visually-hidden.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\helpers\_vr.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_alert.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_backdrop.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_banner.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_border-radius.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_box-shadow.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_breakpoints.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_buttons.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_caret.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_clearfix.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_color-mode.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_color-scheme.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_container.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_deprecate.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_forms.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_gradients.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_grid.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_image.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_list-group.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_lists.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_pagination.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_reset-text.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_resize.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_table-variants.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_text-truncate.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_transition.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_utilities.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\mixins\_visually-hidden.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\tests\jasmine.js" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\tests\mixins\_color-modes.test.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\tests\mixins\_media-query-color-mode-full.test.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\tests\mixins\_utilities.test.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\tests\sass-true\register.js" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\tests\sass-true\runner.js" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\tests\utilities\_api.test.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\utilities\_api.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\vendor\_rfs.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_accordion.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_alert.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_badge.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_breadcrumb.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_button-group.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_buttons.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_card.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_carousel.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_close.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_containers.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_dropdown.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_forms.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_functions.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_grid.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_helpers.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_images.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_list-group.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_maps.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_mixins.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_modal.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_nav.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_navbar.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_offcanvas.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_pagination.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_placeholders.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_popover.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_progress.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_reboot.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_root.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_spinners.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_tables.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_toasts.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_tooltip.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_transitions.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_type.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_utilities.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_variables-dark.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\bootstrap\_variables.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\magnific-popup.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\ion.rangeslider.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_alerts.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_buttons.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_carousel.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_clients.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_countdown.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_counter-skills.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_dividers.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_faqs.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_feature-box.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_flipcard.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_headings.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_misc.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_pricing.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_process-steps.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_promo.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_social-icons.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_styled-icons.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_tabs.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_team.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_testimonials.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\shortcodes\_toggles-accordions.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_blog.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_content.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_dark.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_events.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_extras.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_footer.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_forms.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_header.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_layouts.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_mixins.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_page-loaders.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_pagetitle.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_paginations.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_patterns.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_portfolio.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_root.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_shop.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_shortcodes.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_sliders.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_style-rtl.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_topbar.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_typography.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_utilities.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_variables.scss" />
+		<None Include="wwwroot\themes\BeThems\sass\_widgets.scss" />
+		<None Include="wwwroot\themes\BeThems\style.css.map" />
+		<None Include="wwwroot\themes\BeThems\style.scss" />
+		<None Update="Dockerfile">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="log4net.config">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</None>
+		<None Update="wwwroot\**\*;Areas\**\*;Views\**\*">
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BBK.SaaS.Web.Core\BBK.SaaS.Web.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Abp.Castle.Log4Net" Version="8.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="7.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.5" />
+		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.3.3">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.2.2" />
+		<PackageReference Include="Azure.Identity" Version="1.10.4" />
+		<PackageReference Include="Abp.AutoMapper" Version="8.2.0" />
+		<PackageReference Include="Abp.MailKit" Version="8.2.0" />
+		<PackageReference Include="Abp.Zero.Ldap" Version="8.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="BBK.SaaS.Application">
+			<HintPath>..\libs\BBK.SaaS.Application.dll</HintPath>
+		</Reference>
+		<Reference Include="BBK.SaaS.Application.Shared">
+			<HintPath>..\libs\BBK.SaaS.Application.Shared.dll</HintPath>
+		</Reference>
+		<Reference Include="BBK.SaaS.Core">
+			<HintPath>..\libs\BBK.SaaS.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="BBK.SaaS.Core.Shared">
+			<HintPath>..\libs\BBK.SaaS.Core.Shared.dll</HintPath>
+		</Reference>
+		<!--<Reference Include="BBK.SaaS.Mdls.CategoryApp">
+			<HintPath>..\libs\BBK.SaaS.Mdls.CategoryApp.dll</HintPath>
+		</Reference>
+		<Reference Include="BBK.SaaS.Mdls.CategoryApp.Shared">
+			<HintPath>..\libs\BBK.SaaS.Mdls.CategoryApp.Shared.dll</HintPath>
+		</Reference>-->
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="wwwroot\view-resources\Profile\JobApplication\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Areas\Profile\Views\Recruitments\GetJobUser.cshtml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="appsettings.json" />
+	  <_ContentIncludedByDefault Remove="Areas\Profile\Views\Recruitments\GetJobUser.cshtml" />
+	</ItemGroup>
+	
+</Project>

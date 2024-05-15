@@ -1,0 +1,100 @@
+﻿@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/" + NavigationUrlConsts.InforNLD)]
+
+  @if (Model != null && Model.Candidate != null)
+{
+    <div class="card card-style">
+        <div class="d-flex content">
+            <div class="flex-grow-1">
+                <div>
+                    <h1 class="font-700 mb-1">@Model.User.Name</h1>
+                    <p class="mb-0 pb-1 pe-3">
+                        <div class="desc"><a @onclick="EditUser"><i class="fa fa-pencil me-1" aria-hidden="true"></i>Cập nhật thông tin cá nhân</a></div>
+						@* <div class="desc"><a @onclick="ShowModal" ><i class="fa fa-pencil me-1" aria-hidden="true"></i>Cập nhật thông tin cá nhân</a></div> *@
+                    </p>
+                </div>
+            </div>
+            <div>
+               @*  <img src="@_userImage" width="80" class="rounded-circle mt- shadow-xl preload-img">
+                <i class="fa-solid fa-camera" @onclick="ChangeAvatar"></i> *@
+
+                <a class="card card-style rounded-l rounded-circle shadow-xl preload-img" style="background-image: url('@_userImage'); height: 80px; width: 80px" @onclick="(() => ChangeAvatar())">
+                    <div class="card-bottom  px-2 bg-black">
+                        <h5 class="color-white font-500 text-center">
+                            <i class="fa-solid fa-camera"></i>
+                        </h5>
+                    </div>
+                    <div class="card-overlay bg-gray opacity-20"></div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card card-style">
+        <div class="list-group list-custom-small  list-icon-0  ps-3 pe-4">
+            <a data-bs-toggle="collapse" class="no-effect" href="#collapse-2">
+                <span class="font-20 fw-700 color-highlight">Thông tin</span>
+                <i class="fa fa-angle-down"></i>
+            </a>
+        </div>
+        <div class="collapse ps-2 pe-4 show" id="collapse-2">
+            <div>
+                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Email</span>
+                <span class="default-link d-block color-theme font-15 font-400">@Model.User.EmailAddress</span>
+            </div>
+            <div class="divider my-3"></div>
+            <div>
+                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Số điện thoại</span>
+                <span class="default-link d-block color-theme font-15 font-400">@Model.User.PhoneNumber</span>
+            </div>
+            <div class="divider my-3"></div>
+            <div>
+                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Tình trạng hôn nhân</span>
+                @if (Model.Candidate.Marital == false)
+                {
+                    <span class="default-link d-block color-theme font-15 font-400">Đã kết hôn</span>
+                    <div class="divider my-3"></div>
+                }
+                else
+                {
+                    <span class="default-link d-block color-theme font-15 font-400">Độc thân</span>
+                    <div class="divider my-3"></div>
+                }
+            </div>
+            <div>
+                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Giới tính</span>
+                @if (Model.Candidate.Gender == Mdls.Profile.Candidates.Dto.GenderEnum.Male)
+                {
+                    <span class="default-link d-block color-theme font-15 font-400">Nam</span>
+                    <div class="divider my-3"></div>
+                }
+                else
+                {
+                    <span class="default-link d-block color-theme font-15 font-400">Nữ</span>
+                    <div class="divider my-3"></div>
+
+                }
+            </div>
+            <div>
+                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Ngày sinh</span>
+                <span class="default-link d-block color-theme font-15 font-400">@Model.Candidate.DateOfBirth?.ToShortDateString()</span>
+            </div>
+            <div class="divider my-3"></div>
+                  <div>
+                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Địa chỉ</span>
+                <span class="default-link d-block color-theme font-15 font-400">@Model.Candidate.Address, @Model.Candidate.District.DisplayName, @Model.Candidate.Province.DisplayName</span>
+            </div>
+            <div class="divider my-3"></div>
+        </div>
+    </div>
+
+
+
+}
+else
+{
+}
+
+
+<UpdateInfoModal OnSave="RefreshList" @ref="UpdateInfoModal"> </UpdateInfoModal>
+@* <TestModal OnSave="RefreshList" @ref="TestModal"></TestModal> *@

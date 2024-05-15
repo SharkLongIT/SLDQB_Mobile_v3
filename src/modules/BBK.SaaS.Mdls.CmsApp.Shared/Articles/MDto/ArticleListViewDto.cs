@@ -24,6 +24,7 @@ namespace BBK.SaaS.Mdls.Cms.Articles.MDto
         /// </summary>
         public string PrimaryImageUrl { get; set; }
 
+        public DateTime Modified {  get; set; }
         public ArticleListViewDto() { }
 
         public ArticleListViewDto(Article article)
@@ -33,6 +34,7 @@ namespace BBK.SaaS.Mdls.Cms.Articles.MDto
             this.Slug = article.Slug;
             this.PrimaryImageUrl = article.PrimaryImageUrl;
             this.Author = article.Author;
+            this.Modified = article.CreationTime;
         }
 
     }

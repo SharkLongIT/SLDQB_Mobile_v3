@@ -1,0 +1,54 @@
+﻿@inherits ModalBase
+
+<div id="@ModalId" class="menu menu-box-modal rounded-m" data-menu-width="330">
+    <div class="content">
+        @if (_isInitialized)
+        {
+
+            <h1>@L("Đặt lịch phỏng vấn ")</h1>
+            <div class="ms-auto">
+                <a class="close-menu" @onclick="Hide"><i class="fa fa-times"></i></a>
+            </div>
+            <h5>@L("Chọn công việc mời phỏng vấn")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <select required="required" class="form-control" @onchange="selectedValue">
+                    <option value="" selected>Chọn</option>
+
+                    @foreach (var item in ApplicationRequest)
+                    {
+                        <option value="@item.Id">@item.Title</option>
+                    }
+
+                </select>
+                <em>(bắt buộc)</em>
+
+            </div>
+            <h5>@L("Nhập hình thức phỏng vấn")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                @* <input type="text" class="form-control validate-text" id="form1" @bind="Model.TypeInterview"> *@
+                <select required="" class="form-control" id="TypeInterview" name="TypeInterview" @onchange="selectInterview">
+                    <option value="1">Online</option>
+                    <option value="2">Trực tiếp</option>
+                </select>
+            </div>
+            <h5>@L("Nhập địa chỉ phỏng vấn")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="text" class="form-control validate-text" id="form1" @bind="Model.Address">
+                <em>(bắt buộc)</em>
+            </div>
+            <h5> @L("Vị trí phỏng vấn")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="text" class="form-control validate-text" id="form1" placeholder="@RanksName" disabled>
+            </div>
+            <h5>  @L("Thời gian phỏng vấn")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="datetime-local" class="" id="form1" @bind="Model.InterviewTime">
+            </div>
+            <h5>   @L("Lời nhắn")</h5>
+            <div class="input-style has-borders no-icon mb-4">
+                <textarea id="form7" @bind="Model.Message"></textarea>
+            </div>
+                <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveBookJob">Đặt lịch</a>
+        }
+    </div>
+</div>

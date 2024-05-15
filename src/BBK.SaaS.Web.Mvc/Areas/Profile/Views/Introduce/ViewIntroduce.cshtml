@@ -1,0 +1,56 @@
+﻿@using BBK.SaaS.Mdls.Cms.Introduces.Dto
+@model IntroduceEditDto
+@{
+    Layout = null;
+}
+<div class="modal-body user-edit-modal">
+    <div class="page-body">
+        <!-- Container-fluid starts-->
+        <div class="container-fluid">
+            <div class="row">
+                <form name="EditIntroduceForm" role="form" novalidate class="form-validation">
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <input type="hidden" name="ArticleId" value="@Model.ArticleId" />
+                    <h2>Cập nhật liên kết giới thiệu</h2></br>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label  class="form-label">Họ và tên</label>
+                            <input type="text" name="FullName" value="@Model.FullName" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input  type="text" name="Email" value="@Model.Email" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label  class="form-label">Số điện thoại</label>
+                            <input type="text" name="Phone" value="@Model.Phone" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label  class="form-label">Nội dung</label>
+                            <textarea required id="Description" class="form-control" rows="4" cols="50" name="Description" disabled>@Model.Description</textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label  class="form-label">Trạng thái</label>
+                            <select required class="form-control" id="Status" name="Status" asp-for="Status">
+                                <option value="" selected>Trạng thái</option>
+                                <option value="1">Chờ xử lý</option>
+                                <option value="2">Đã xử lý</option>
+                                <option value="3">Không liên lạc được</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

@@ -1,0 +1,15 @@
+﻿@using BBK.SaaS.Web.Areas.App.Models.Common.Modals
+
+@model SortingModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.Title ?? L("DragAndDropToSortItem")))
+
+<div class="modal-body">
+    <ul id="sortableList" class="list-group">
+    </ul>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary save-button" data-bs-dismiss="modal">@L("Save")</button>
+    <button type="button" class="btn btn-light-primary fw-bold close-button" data-bs-dismiss="modal">@L("Cancel")</button>
+</div>

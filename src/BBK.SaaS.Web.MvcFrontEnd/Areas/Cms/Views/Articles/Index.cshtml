@@ -1,0 +1,65 @@
+@using Abp.Application.Services.Dto
+@using BBK.SaaS.Authorization
+@using BBK.SaaS.Web.Areas.App.Startup
+
+@* @model TopicsType0ViewModel *@
+@{
+	// ViewBag.CurrentTopicName = AppTopicNames.Administrators.Topics;
+	// ViewBag.TopicTitle = @L("Topics");
+	// ViewBag.TopicDescription = @L("TopicsHeaderInfo");
+}
+
+@section Styles {
+	@* <link rel="stylesheet" abp-href="/view-resources/App/Articles/index.css" asp-append-version="true" /> *@
+}
+
+@section Scripts {
+	<script abp-src="/view-resources/Cms/Articles/Index.js" asp-append-version="true"></script>
+}
+
+<div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card">
+					<div class="card-body">
+						<div class="row align-items-center">
+							<div class="col-md-6 mb-3">
+								<div class="input-group">
+									<input type="text" id="ArticlesTableFilter" class="form-control" placeholder="@L("SearchWithThreeDot")" value="">
+									<button id="GetArticlesButton" class="btn btn-primary" type="submit">
+										<i class="flaticon-search-1" aria-label="@L("Search")"></i>
+									</button>
+								</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<button id="CreateNewButton" class="btn btn-primary">
+									<i class="fa fa-plus btn-md-icon"></i>
+									<span class="d-none d-md-inline-block">
+										@L("CreateArticle")
+									</span>
+								</button>
+							</div>
+						</div>
+
+						<div class="table-responsive theme-scrollbar">
+							<table id="ArticlesTable" class="table align-middle table-row-dashed dataTable dtr-inline no-footer table-responsive theme-scrollbar user-datatable">
+								<thead>
+									<tr>
+										<th>@L("Actions")</th>
+										<th>@L("Title")</th>
+										<th>@L("Published")</th>
+										<th>@L("StartDate")</th>
+										<th>@L("EndDate")</th>
+										<th>@L("CreationTime")</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

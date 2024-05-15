@@ -1,0 +1,466 @@
+﻿@using System.Globalization
+@using Abp.AspNetCore.Mvc.Caching
+@using Abp.Timing;
+@using BBK.SaaS.Timing
+@using Abp.CachedUniqueKeys
+@using Abp.Configuration
+@using Abp.MultiTenancy
+@using Abp.Web.Mvc.Alerts
+@using BBK.SaaS.Features
+@using BBK.SaaS.Web.Areas.App.Views.Shared.Components.AppUserMenu;
+@using BBK.SaaS.Web.Resources
+@using Abp.Web.Security.AntiForgery
+@using BBK.SaaS.Configuration
+@using BBK.SaaS.UiCustomization
+@using BBK.SaaS.UiCustomization.Dto
+@using BBK.SaaS.Url
+@using BBK.SaaS.Web.Areas.App.Models.Layout
+@using BBK.SaaS.Web.Session
+@using CultureHelper = BBK.SaaS.Localization.CultureHelper
+@inject ScriptPaths ScriptPaths
+@inject AppTimes AppTimes
+@inject IAbpAntiForgeryManager AbpAntiForgeryManager
+@inject IWebUrlService WebUrlService
+@inject IPerRequestSessionCache SessionCache
+@inject IAlertManager AlertManager
+@inject ICachedUniqueKeyPerUser CachedUniqueKeyPerUser
+@inject IGetScriptsResponsePerUserConfiguration GetScriptsResponsePerUserConfiguration
+@inject IUiThemeCustomizerFactory ThemeCustomizerFactory
+@{
+	AbpAntiForgeryManager.SetCookie(Context);
+
+	var isChatEnabled = AbpSession.MultiTenancySide == MultiTenancySides.Host || IsFeatureEnabled(AppFeatures.ChatFeature);
+	var headerViewModel = new HeaderViewModel();
+	var theme = await GetTheme();
+	var themeCustomizer = await ThemeCustomizerFactory.GetCurrentUiCustomizer();
+}
+
+<!DOCTYPE html>
+<html lang="en" dir="@(CultureHelper.IsRtl ? "rtl" : "")" data-theme="@(theme.BaseSettings.Layout.DarkMode ? "dark" : "light")">
+<head prefix="og: http://ogp.me/ns#">
+	<title>BBK SaaS</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<meta content="" name="copyright" />
+	<meta name="GENERATOR" content="" />
+	<meta name="robots" content="index,follow,noarchive" />
+	<meta name="GOOGLEBOT" content="index,follow,noarchive" />
+
+	<meta property="og:title" content="BBK SaaS" />
+	<meta property="og:image" content="@headerViewModel.GetLogoUrl(ApplicationPath, await GetLogoSkin())" />
+	<meta property="og:description" content="Base solution for your next web application" />
+	<meta property="og:url" content="@($" {Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")">
+
+	<link rel="shortcut icon" href="~/favicon.ico" />
+
+	<link rel="stylesheet" abp-href="/view-resources/App/_Bundles/vendors.bundle.css" asp-append-version="true" />
+	<link rel="stylesheet" abp-href="/view-resources/App/_Bundles/app-layout-libs.css" asp-append-version="true" />
+	<link rel="stylesheet" abp-href="/view-resources/App/_Bundles/common-styles.css" asp-append-version="true" />
+	<link rel="stylesheet" abp-href="/Common/Scripts/Datatables/datatables@(CultureHelper.IsRtl ? "-rtl" : "").css" asp-append-version="true" />
+
+	<!-- Google font-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+	@*<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">*@
+	<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+	@*<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">*@
+	@*<link href="/fonts/fonts-outfit.css" rel="stylesheet">*@
+
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/font-awesome.css">
+	<!-- ico-font-->
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/icofont.css">
+	<!-- Themify icon-->
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/themify.css">
+	<!-- Flag icon-->
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/flag-icon.css">
+	<!-- Feather icon-->
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/feather-icon.css">
+	<!-- Plugins css start-->
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/slick.css">
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/slick-theme.css">
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/scrollbar.css">
+	@*<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/animate.css">*@
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/sweetalert2.css">
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/datatables.css">
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/select2.css">
+	<!-- Plugins css Ends-->
+	<!-- Bootstrap css-->
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/vendors/bootstrap.css">
+	<!-- App css-->
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/style.css">
+	<link id="color" rel="stylesheet" href="/themes/mofi/assets/css/color-3.css" media="screen">
+
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/style-alt.css">
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/cms.css">
+	<!-- Responsive css-->
+	<link rel="stylesheet" type="text/css" href="/themes/mofi/assets/css/responsive.css">
+
+	@if (isChatEnabled)
+	{
+		<link rel="stylesheet" abp-href="/view-resources/App/Layout/_ChatBar.css" asp-append-version="true" />
+	}
+
+	<link rel="stylesheet" abp-href="/view-resources/App/Layout/_Layout.css" asp-append-version="true" />
+
+	@await RenderSectionAsync("Styles", false)
+
+	@{
+		var loginInfo = await SessionCache.GetCurrentLoginInformationsAsync();
+	}
+	@if (loginInfo?.Tenant?.CustomCssId != null)
+	{
+		<!-- id parameter is used to prevent caching -->
+		<link id="TenantCustomCss" rel="stylesheet" href="@Url.Action("GetCustomCss", "TenantCustomization", new {area = string.Empty, tenantId = loginInfo?.Tenant?.Id})" asp-append-version="true" />
+	}
+
+	<script type="text/javascript">
+		@* This is used to get the application's root path from javascript.
+			It's useful if you're running application in a virtual directory under IIS. *@
+								var abp = abp || {}; abp.appPath = '@ApplicationPath';
+	</script>
+</head>
+<!-- END HEAD -->
+<!-- begin::Body -->
+<body>
+	<div class="loader-wrapper">
+		<div class="loader loader-1">
+			<div class="loader-outter"></div>
+			<div class="loader-inner"></div>
+			<div class="loader-inner-1"></div>
+		</div>
+	</div>
+	<!-- loader ends-->
+	<!-- tap on top starts-->
+	<div class="tap-top"><i data-feather="chevrons-up"></i></div>
+	<!-- tap on tap ends-->
+	<div class="page-wrapper compact-wrapper" id="pageWrapper">
+		<div class="page-header row">
+			<div class="header-logo-wrapper col-auto">
+				<div class="logo-wrapper"><a href="/"><img class="img-fluid applogo for-light" src="@headerViewModel.GetLogoUrl(ApplicationPath, "light")&t=@Clock.Now.Ticks.ToString()" /><img class="img-fluid for-dark" src="@headerViewModel.GetLogoUrl(ApplicationPath, "light")&t=@Clock.Now.Ticks.ToString()" alt="" /></a></div>
+			</div>
+			<div class="col-4 col-xl-4 page-title ">
+				@*<h4 class="f-w-700">@ViewBag.PageTitle</h4>
+				<nav>
+				<ol class="breadcrumb justify-content-sm-start align-items-center mb-0">
+				<li class="breadcrumb-item"><a href="index.html"> <i data-feather="home"> </i></a></li>
+				<li class="breadcrumb-item f-w-400">@L("Administration")</li>
+				<li class="breadcrumb-item f-w-400 active">@ViewBag.PageTitle</li>
+				</ol>
+				</nav>*@
+				<span>TRUNG TÂM DỊCH VỤ VIỆC LÀM</span>
+				<p style="font-weight:500;font-size:26px;margin-bottom:0px;letter-spacing: 0.6px;" class="font-primary">QUẢNG BÌNH</p>
+			</div>
+			<!-- Page Header Start-->
+			<div class="header-wrapper col m-0">
+				<div class="row">
+					<form class="form-inline search-full col" action="#" method="get">
+						<div class="form-group w-100">
+							<div class="Typeahead Typeahead--twitterUsers">
+								<div class="u-posRelative">
+									<input class="demo-input Typeahead-input form-control-plaintext w-100" type="text" placeholder="Tìm kiếm..." name="q" title="" autofocus>
+									<div class="spinner-border Typeahead-spinner" role="status"><span class="sr-only">Loading...</span></div><i class="close-search" data-feather="x"></i>
+								</div>
+								<div class="Typeahead-menu"></div>
+							</div>
+						</div>
+					</form>
+					<div class="header-logo-wrapper col-auto p-0">
+						<div class="logo-wrapper"><a href="/"><img class="img-fluid" src="@headerViewModel.GetLogoUrl(ApplicationPath, "light")&t=@Clock.Now.Ticks.ToString()" alt=""></a></div>
+						<div class="toggle-sidebar">
+							<svg class="stroke-icon sidebar-toggle status_toggle middle">
+								<use href="/themes/mofi/assets/svg/icon-sprite.svg#toggle-icon"></use>
+							</svg>
+						</div>
+					</div>
+					<div class="nav-right col-xxl-8 col-xl-6 col-md-7 col-8 pull-right right-header p-0 ms-auto">
+						<ul class="nav-menus">
+							<li>
+								<span class="header-search">
+									<svg>
+										<use href="/themes/mofi/assets/svg/icon-sprite.svg#search"></use>
+									</svg>
+								</span>
+							</li>
+							<li>
+								<div class="form-group w-100">
+									<div class="Typeahead Typeahead--twitterUsers">
+										<div class="u-posRelative d-flex align-items-center">
+											<svg class="search-bg svg-color">
+												<use href="/themes/mofi/assets/svg/icon-sprite.svg#search"></use>
+											</svg>
+											<input class="demo-input py-0 Typeahead-input form-control-plaintext w-100" type="text" placeholder="Tìm kiếm..." name="q" title="">
+										</div>
+									</div>
+								</div>
+							</li>
+
+							@* <li>
+								<div class="mode">
+									<svg>
+										<use href="/themes/mofi/assets/svg/icon-sprite.svg#moon"></use>
+									</svg>
+								</div>
+							</li> *@
+
+
+							@await Component.InvokeAsync(typeof(AppUserMenuViewComponent), new
+								{
+									togglerCssClass = "cursor-pointer symbol symbol-35px symbol-md-40px",
+									textCssClass = "text-dark-50 fw-bolder font-size-base d-none d-md-inline me-3",
+									symbolCssClass = "symbol symbol-30px",
+									symbolTextCssClas = "symbol-label fs-2 fw-bold bg-success text-inverse-success"
+								})
+							@*<li class="profile-nav onhover-dropdown px-0 py-0">
+							<div class="d-flex profile-media align-items-center"><img class="img-30" src="/themes/mofi/assets/images/dashboard/profile.png" alt="">
+							<div class="flex-grow-1"><span>Alen Miller</span>
+							<p class="mb-0 font-outfit">UI Designer<i class="fa fa-angle-down"></i></p>
+							</div>
+							</div>
+							<ul class="profile-dropdown onhover-show-div">
+							<li><a href="private-chat.html"><i data-feather="user"></i><span>Account </span></a></li>
+							<li><a href="letter-box.html"><i data-feather="mail"></i><span>Inbox</span></a></li>
+							<li><a href="task.html"><i data-feather="file-text"></i><span>Taskboard</span></a></li>
+							<li><a href="edit-profile.html"><i data-feather="settings"></i><span>Settings</span></a></li>
+							<li><a href="login.html"><i data-feather="log-in"> </i><span>Log in</span></a></li>
+							</ul>
+							</li>*@
+						</ul>
+					</div>
+					<script class="result-template" type="text/x-handlebars-template">
+						<div class="ProfileCard u-cf">
+						<div class="ProfileCard-avatar"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-airplay m-0"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path><polygon points="12 15 17 21 7 21 12 15"></polygon></svg></div>
+						<div class="ProfileCard-details">
+						<div class="ProfileCard-realName">{{name}}</div>
+						</div>
+						</div>
+					</script>
+					<script class="empty-template" type="text/x-handlebars-template"><div class="EmptyMessage">Your search turned up 0 results. This most likely means the backend is down, yikes!</div></script>
+				</div>
+			</div>
+			<!-- Page Header Ends                              -->
+		</div>
+
+		<div class="page-body-wrapper">
+			<partial name="~/Views/Layout/_SideBar.cshtml" />
+
+			<!-- begin:: Page -->
+			@RenderBody()
+			<!-- end:: Page -->
+			<!-- footer start-->
+			@* <footer class="footer">
+			<div class="container-fluid">
+			<div class="row">
+			<div class="col-md-12 footer-copyright d-flex flex-wrap align-items-center justify-content-between">
+			<p class="mb-0 f-w-600">Copyright 2023 © BBK Solution </p>
+			<p class="mb-0 f-w-600">
+			Documents, FAQ
+			<svg class="footer-icon">
+			<use href="/themes/mofi/assets/svg/icon-sprite.svg#footer-heart"> </use>
+			</svg>
+			</p>
+			</div>
+			</div>
+			</div>
+			</footer> *@
+			<footer class="footer bg-primary text-white">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12 mb-3">
+							<ul class="fw-bold list-group list-group-horizontal-xxl">
+								<li class="list-group-item border-left-info">Quảng cáo tuyển dụng</li>
+								<li class="list-group-item">Liện hệ quảng cáo</li>
+								<li class="list-group-item">Đây là MENU Footer</li>
+							</ul>
+						</div>
+						<div class="col-md-3">
+							TRUNG TÂM DỊCH VỤ VIỆC LÀM <br> <span class="f-48 fw-bolder">QUẢNG BÌNH</span>
+						</div>
+						<div class="col-md-5">
+							<div class="footer-content footer-size">
+								<p class="mb-0">Giấy phép số 305/GP-BTTTT cấp ngày 15/6/2022 của Bộ Thông tin và Truyền thông</p>
+								<p class="mb-0">Địa chỉ: Nhà tranh vách đất - Tầng 30</p>
+								<p class="mb-0">Điện thoại: (0232).xxxxxx - (0232).xxxx xxx - Fax: (0232).xxxx xxx</p>
+								<p class="mb-0">Email: quangbinhdientu@gmail.com; toasoanqb@gmail.com</p><a href="">
+									<p class="toggle_textlink mb-0" style="color: white;">Bản quyền thuộc về BBK Solutions. Cấm sao chép dưới mọi hình thức nếu không có sự chấp thuận bằng văn bản.</p>
+								</a>
+							</div>
+						</div>
+						<div class="col-md-4 footer-size">
+							<p class="mb-2">Tổng biên tập: TRẦN NHẬT TÂM</p>
+							<p class="mb-2">Phó Tổng biên tập: NGUYỄN THỊ MY - TRUNG</p>
+							<p class="mb-2">HOTLINE:  091 xxxxxxx</p>
+							<p class="mb-2">QUẢNG CÁO: 0888 xxx xxx</p>
+							@* <div class="d-flex align-items-end footer-social mt-0">
+							<ul class="list-inline mb-0 mt-2">
+							<li class="list-inline-item">
+							<a href="https://gmail.com" target="_blank">
+							<img src="/common/v3/images/ic-gmail.png" alt="icon gmail">
+							</a>
+							</li>
+							<li class="list-inline-item">
+							<a href="https://facebook.com" target="_blank">
+							<img src="/common/v3/images/ic-facebook-square.png" alt="icon facebook">
+							</a>
+							</li>
+							<li class="list-inline-item">
+							<a href="https://youtube.com" target="_blank">
+							<img src="/common/v3/images/ic-youtube.png" alt="icon youtube">
+							</a>
+							</li>
+							</ul>
+							</div> *@
+						</div>
+					</div>
+				</div>
+			</footer>
+
+		</div>
+	</div>
+
+
+	@*<!-- begin::Scrolltop -->
+	<div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+	<!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
+	<span class="svg-icon">
+	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+	<rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)" fill="black"></rect>
+	<path d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z" fill="black"></path>
+	</svg>
+	</span>
+	<!--end::Svg Icon-->
+	</div>
+	<!-- end::Scrolltop -->*@
+	<!-- begin::Chat Bar -->
+	@if (isChatEnabled)
+	{
+		@await Html.PartialAsync("~/Areas/App/Views/Layout/_ChatBar.cshtml")
+	}
+	<!-- end::Chat Bar -->
+	<!-- begin::Theme Selection Panel -->
+	@if (await SettingManager.GetSettingValueAsync<bool>(AppSettings.UserManagement.IsQuickThemeSelectEnabled))
+	{
+		@await Html.PartialAsync("~/Areas/App/Views/Layout/_ThemeSelectionPanel.cshtml")
+	}
+	<!-- end::Theme Selection Panel -->
+	<!--begin::Base Scripts -->
+	<script abp-src="/view-resources/App/_Bundles/app-layout-libs.js" asp-append-version="true"></script>
+	@*<script abp-src="/view-resources/App/_Bundles/@theme.BaseSettings.Theme.ToLowerInvariant()-scripts.bundle.js" asp-append-version="true"></script>*@
+
+	<!-- latest jquery-->
+	@*<script src="/themes/mofi/assets/js/jquery.min.js"></script>*@
+	<!-- Bootstrap js-->
+	@*<script src="/themes/mofi/assets/js/bootstrap/bootstrap.bundle.min.js"></script>*@
+	<!-- feather icon js-->
+	<script src="/themes/mofi/assets/js/icons/feather-icon/feather.min.js"></script>
+	<script src="/themes/mofi/assets/js/icons/feather-icon/feather-icon.js"></script>
+	<!-- scrollbar js-->
+	<script src="/themes/mofi/assets/js/scrollbar/simplebar.js"></script>
+	<script src="/themes/mofi/assets/js/scrollbar/custom.js"></script>
+	<!-- Sidebar jquery-->
+	<script src="/themes/mofi/assets/js/config.js"></script>
+	<!-- Plugins JS start-->
+	<script src="/themes/mofi/assets/js/sidebar-menu.js"></script>
+	<script src="/themes/mofi/assets/js/sidebar-pin.js"></script>
+	<script src="/themes/mofi/assets/js/slick/slick.min.js"></script>
+	<script src="/themes/mofi/assets/js/slick/slick.js"></script>
+	<script src="/themes/mofi/assets/js/header-slick.js"></script>
+	<script src="/themes/mofi/assets/js/prism/prism.min.js"></script>
+	<script src="/themes/mofi/assets/js/clipboard/clipboard.min.js"></script>
+	<script src="/themes/mofi/assets/js/custom-card/custom-card.js"></script>
+	<!-- calendar js-->
+	<script src="/themes/mofi/assets/js/datatable/datatables/jquery.dataTables.min.js"></script>
+	<script src="/themes/mofi/assets/js/datatable/datatables/datatable.custom.js"></script>
+	<script src="/themes/mofi/assets/js/height-equal.js"></script>
+	<script src="/themes/mofi/assets/js/notify/custom-notify.js"></script>
+	<script src="/themes/mofi/assets/js/select2/select2.full.min.js"></script>
+	<script src="/themes/mofi/assets/js/select2/select2-custom.js"></script>
+	<!-- Plugins JS Ends-->
+	<!-- Theme js-->
+	<script src="/themes/mofi/assets/js/script.js"></script>
+	@* <script src="/themes/mofi/assets/js/theme-customizer/customizer.js"></script> *@
+	<!-- Plugin used-->
+	<!-- Dynamic scripts of ABP system (They are created on runtime and can not be bundled) -->
+	<script src="@(ApplicationPath)AbpServiceProxies/GetAll?v=@(AppTimes.StartupTime.Ticks)" type="text/javascript"></script>
+
+	@if (GetScriptsResponsePerUserConfiguration.IsEnabled)
+	{
+		<script src="@(ApplicationPath)AbpScripts/GetScripts?v=@(await CachedUniqueKeyPerUser.GetKeyAsync(GetScriptsResponsePerUserCache.CacheName))" type="text/javascript"></script>
+	}
+	else
+	{
+		<script src="@(ApplicationPath)AbpScripts/GetScripts?v=@(AppTimes.StartupTime.Ticks)" type="text/javascript"></script>
+	}
+
+	<script type="text/javascript">
+		abp.localization.currentCulture = $.extend({}, abp.localization.currentCulture, { displayNameEnglish: '@CultureInfo.CurrentUICulture.EnglishName' });
+		abp.localization.defaultSourceName = '@LocalizationSourceName';
+		moment.locale('@(GetMomentLocale())'); //Localizing moment.js
+	</script>
+
+	@* <script src="@(ApplicationPath)view-resources/Areas/App/Views/_Bundles/signalr.bundle.min.js" asp-append-version="true"></script> *@
+
+	<script abp-src="/view-resources/App/_Bundles/common-scripts.js" asp-append-version="true"></script>
+	<script abp-src="/view-resources/App/_Bundles/app-common-scripts.js" asp-append-version="true"></script>
+	@*<script abp-src="/view-resources/App/Layout/_Header.js" asp-append-version="true"></script>*@
+	<script abp-src="/view-resources/App/Layout/_Layout.js" asp-append-version="true"></script>
+	@if (await SettingManager.GetSettingValueAsync<bool>(AppSettings.UserManagement.IsQuickThemeSelectEnabled))
+	{
+		<script src="@(ApplicationPath)view-resources/Areas/App/Views/Layout/_ThemeSelectionPanel.js" asp-append-version="true"></script>
+	}
+
+	@if (isChatEnabled)
+	{
+		<script src="@(ApplicationPath)view-resources/Areas/App/Views/Layout/_ChatBar.js" asp-append-version="true"></script>
+		<script src="@(ApplicationPath)Common/Scripts/Chat/chat.signalr.js" asp-append-version="true"></script>
+	}
+	@if (await SettingManager.GetSettingValueAsync<bool>(AppSettings.UserManagement.SessionTimeOut.IsEnabled) && AbpSession.UserId.HasValue)
+	{
+		<script src="@(ApplicationPath)view-resources/Areas/App/Views/_Bundles/InactivityController.min.js" asp-append-version="true"></script>
+	}
+	<script src="~@ScriptPaths.JQuery_Validation_Localization" asp-append-version="true"></script>
+	<script src="~@ScriptPaths.JQuery_Timeago_Localization" asp-append-version="true"></script>
+	<script src="~@ScriptPaths.Select2_Localization" asp-append-version="true"></script>
+
+	@* <script src="@(ApplicationPath)view-resources/Areas/App/Views/Layout/_ToggleDarkMode.js" asp-append-version="true"></script>
+	@if (theme.BaseSettings.Menu.SearchActive)
+	{
+		<script src="~/view-resources/App/Layout/_MenuSearchBar.min.js" asp-append-version="true"></script>
+	} *@
+
+	<!--end::Base Scripts -->
+	<!--begin::Page Snippets -->
+	@await RenderSectionAsync("Scripts", false)
+	<script>
+		app.supportsTenancyNameInUrl = @(WebUrlService.SupportsTenancyNameInUrl.ToString().ToLower());
+
+		abp.multiTenancy.tenantIdDefault = 1;
+		if (abp.multiTenancy.isEnabled && abp.session.tenantId == null) {
+			abp.multiTenancy.setTenantIdCookie(1);
+		}
+	</script>
+	<!--end::Page Snippets -->
+	<!--begin: svg symbols for alerts-->
+	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+		<symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+			<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+		</symbol>
+		<symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+			<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+		</symbol>
+		<symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+			<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+		</symbol>
+		<symbol id="warning-icon" fill="none" viewBox="0 0 24 24">
+			<path opacity="0.3" d="M2 4V16C2 16.6 2.4 17 3 17H13L16.6 20.6C17.1 21.1 18 20.8 18 20V17H21C21.6 17 22 16.6 22 16V4C22 3.4 21.6 3 21 3H3C2.4 3 2 3.4 2 4Z" fill="black"></path>
+			<path d="M18 9H6C5.4 9 5 8.6 5 8C5 7.4 5.4 7 6 7H18C18.6 7 19 7.4 19 8C19 8.6 18.6 9 18 9ZM16 12C16 11.4 15.6 11 15 11H6C5.4 11 5 11.4 5 12C5 12.6 5.4 13 6 13H15C15.6 13 16 12.6 16 12Z" fill="black"></path>
+		</symbol>
+	</svg>
+	<!--end: svg symbols for alerts-->
+</body>
+<!-- end::Body -->
+</html>

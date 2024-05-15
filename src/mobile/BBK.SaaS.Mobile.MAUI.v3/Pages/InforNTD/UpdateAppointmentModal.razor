@@ -1,0 +1,59 @@
+﻿@inherits ModalBase
+
+<div id="@ModalId" class="menu menu-box-modal rounded-m" data-menu-width="330">
+    <div class="content">
+        <div class="d-flex">
+            <h1>@L("Cập nhật lịch phỏng vấn")</h1>
+            <div class="ms-auto">
+                <a class="close-menu" @onclick="Hide"><i class="fa fa-times"></i></a>
+            </div>
+        </div>
+        <h5>   @L("Công việc mời phỏng vấn")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control  validate-text" placeholder="@ApplicationRequest" disabled />
+            <em>(bắt buộc)</em>
+        </div>
+        <h5> @L("Hình thức phỏng vấn")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control  validate-text" @bind="Model.TypeInterview" disabled />
+            <em>(bắt buộc)</em>
+        </div>
+        <h5> @L("Địa chỉ phỏng vấn")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control  validate-text" @bind="Model.Address" disabled />
+            <em>(bắt buộc)</em>
+        </div>
+        <h5> @L("Vị trí phỏng vấn")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control  validate-text" placeholder="@RanksName" disabled />
+            <em>(bắt buộc)</em>
+        </div>
+        <h5> @L("Thời gian phỏng vấn")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control  validate-text" @bind="Model.InterviewTime" disabled />
+            <em>(bắt buộc)</em>
+        </div>
+        <h5>  @L("Lời nhắn")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control  validate-text" @bind="Model.Message" disabled />
+            <em>(bắt buộc)</em>
+        </div>
+        <h5>   @L("Lời nhắn ứng viên")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <input type="text" class="form-control  validate-text" @bind="Model.ReasonForRefusal" disabled />
+            <em>(bắt buộc)</em>
+        </div>
+        <h5>@L("Kết quả phỏng vấn")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+            <select @bind="@Model.InterviewResultLetter">
+                <option selected value="">Chọn</option>
+                <option value="1">Đỗ</option>
+                <option value="2">Trượt</option>
+            </select>
+        </div>
+        @* <div class="d-flex justify-content-center"> *@
+            @* <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Đóng</a> *@
+            <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveJob">Lưu</a>
+        @* </div> *@
+    </div>
+</div>

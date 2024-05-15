@@ -92,8 +92,10 @@ public class ArticleFrontEndService : SaaSAppServiceBase, IArticleFrontEndServic
 					PrimaryImageUrl = string.IsNullOrWhiteSpace(article.PrimaryImageUrl) ? string.Empty : (new FileMgr(article.PrimaryImageUrl)).FileUrl,
 					Slug = article.Slug,
 					Author = article.Author,
+                    Modified = article.CreationTime
 
-				}).ToList();
+
+                }).ToList();
 
 				return new ListResultDto<ArticleListViewDto>(category);
 			}
@@ -120,7 +122,8 @@ public class ArticleFrontEndService : SaaSAppServiceBase, IArticleFrontEndServic
 			try
 			{
 				var query = _articleRepository.GetAll()
-					.WhereIf(input.CategoryId.HasValue, a => _cmsCatArticleRepository.GetAll().Where(x => x.CmsCatId == input.CategoryId).Select(x => x.CmsCatId).Contains(a.Id));
+                    .WhereIf(!input.Filter.IsNullOrWhiteSpace(), t => t.Title.ToLower().Contains(input.Filter) || t.Title.ToLower().Contains(input.Filter))
+                    .WhereIf(input.CategoryId.HasValue, a => _cmsCatArticleRepository.GetAll().Where(x => x.CmsCatId == input.CategoryId).Select(x => x.CmsCatId).Contains(a.Id));
 
 				query = query.OrderByDescending(x => x.CreationTime).PageBy(input);
 
@@ -137,6 +140,7 @@ public class ArticleFrontEndService : SaaSAppServiceBase, IArticleFrontEndServic
 
 					Slug = article.Slug,
 					Author = article.Author,
+					Modified = article.CreationTime,
 
 				}).ToList();
 
@@ -174,8 +178,10 @@ public class ArticleFrontEndService : SaaSAppServiceBase, IArticleFrontEndServic
 				PrimaryImageUrl = HttpUtility.UrlEncode(StringCipher.Instance.Encrypt(article.PrimaryImageUrl)),
 				Slug = article.Slug,
 				Author = article.Author,
+                Modified = article.CreationTime
 
-			}).ToList();
+
+            }).ToList();
 
 			return new ListResultDto<ArticleListViewDto>(category);
 		}

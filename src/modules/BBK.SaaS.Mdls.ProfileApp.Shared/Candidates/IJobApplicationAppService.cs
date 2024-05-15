@@ -36,7 +36,7 @@ namespace BBK.SaaS.Mdls.Profile.Candidates
 		Task<JobApplicationEditDto> GetJobApplication(NullableIdDto<long> input);
 
 		Task UpdatePushlishById(NullableIdDto<long> input);
-
+		Task<int> CountJob();
 
         #region Mobile/Frontend
         Task<PagedResultDto<GetJobApplicationForEditOutput>> GetAllJobAppsMobile(JobAppSearch input);

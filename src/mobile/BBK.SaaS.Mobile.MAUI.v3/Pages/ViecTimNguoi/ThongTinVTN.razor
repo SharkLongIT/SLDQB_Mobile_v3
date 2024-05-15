@@ -1,0 +1,216 @@
+﻿@using Abp.UI;
+@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/ThongTinVTN")]
+
+
+
+<div class="card card-style">
+    <div class="card card-style mt-2 me-2 ms-2">
+        <img src="@Model.ImageCoverUrl" alt="img" class="img-fluid">
+    </div>
+    <div class="content position-relative" style="margin-top:-50px; z-index:2;">
+        <div class="d-flex mx-2">
+            <div class="me-3">
+                <img src="@Model.AvatarUrl" class="rounded-l shadow-xl" alt="img" width="100" height="100">
+            </div>
+            <div class="align-self-end ">
+                <h4 class="font-24 mb-0 mt-3">@Model.Title</h4>
+                <a href="javascript:;" @onclick="(()=>ViewCompany(Model))">
+                    <span><i class="fa-regular fa-building font-10 pe-2"></i><span class="font-12 opacity-70">@Model.CompanyName</span></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="divider mb-0"></div>
+    <div class="content">
+        <div class="m-auto">
+            <a href="javascript:;" class="btn btn-m btn-full bg-highlight rounded-m text-uppercase font-700 under-slider-btn  mb-2" style="width: 100%" @onclick="(()=>UngTuyen(Model))">
+                Ứng tuyển
+            </a>
+        </div>
+    </div>
+</div>
+<div class="card card-style">
+    <div class="content">
+        <h3 class="mb-0"></h3>
+        <div class="d-flex text-center">
+            <div class="m-auto">
+                <span class="icon icon-xxl bg-yellow-dark rounded-m"><i class="fa-solid fa-money-bill font-24"></i></span>
+                <p class="font-12 line-height-xs pt-2 font-500">
+                    @{
+                        var minSalaryInMillion = Math.Truncate(Model.MinSalary / 1000000);
+                        var maxSalaryInMillion = Math.Truncate(Model.MaxSalary / 1000000);
+                    }
+                    @minSalaryInMillion - @maxSalaryInMillion triệu<br>
+                </p>
+            </div>
+            <div class="m-auto">
+                <span class="icon icon-xxl bg-green-dark rounded-m"><i class="fa-solid fa-location-dot font-24"></i></span>
+                <p class="font-12 line-height-xs pt-2 font-500">@Model.AddressForWork <br></p>
+            </div>
+            <div class="m-auto">
+                <span class="icon icon-xxl bg-red-dark rounded-m"><i class="fa fa-briefcase font-24"></i></span>
+                <p class="font-12 line-height-xs pt-2 font-500">@Model.Experience <br></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card card-style">
+    <div class="list-group list-custom-small  list-icon-0  ps-3 pe-4">
+        <a data-bs-toggle="collapse" class="no-effect" href="#collapse-1">
+            <span class="font-20 fw-700 color-highlight" >Thông tin chung</span>
+            <i class="fa fa-angle-down"></i>
+        </a>
+    </div>
+    <div class="collapse ps-2 pe-4 show" id="collapse-1">
+        <div class="d-flex">
+            <div>
+                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Kinh nghiệm</span>
+                <span class="default-link d-block color-theme font-15 font-400">@Model.Experience</span>
+            </div>
+           @*  <div class="ms-auto">
+                <i class="fa fa-briefcase color-theme opacity-30 pt-3 mt-1"></i>
+            </div> *@
+        </div>
+        <div class="divider my-3"></div>
+        <div class="d-flex">
+            <div>
+                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Hình thức làm việc</span>
+                <span class="default-link d-block color-theme font-15 font-400"> @Model.FormOfWorkName</span>
+            </div>
+           @*  <div class="ms-auto">
+                <i class="fa-solid fa-timeline color-theme opacity-30 pt-3 mt-1"></i>
+            </div> *@
+        </div>
+        <div class="divider my-3"></div>
+        <div class="d-flex">
+            <div>
+                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Số lượng tuyển</span>
+                <span class="default-link d-block color-theme font-15 font-400">@Model.NumberOfRecruits người</span>
+            </div>
+           @*  <div class="ms-auto">
+                <i class="fa-solid fa-person-circle-plus color-theme opacity-30 pt-4 mt-3"></i>
+            </div> *@
+        </div>
+        <div class="divider my-3"></div>
+        <div class="d-flex">
+            <div>
+                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Giới tính</span>
+                @if (Model.GenderRequired == 0)
+                {
+                    <span class="default-link d-block color-theme font-15 font-400">Không yêu cầu</span>
+
+                }
+                else if (Model.GenderRequired == 1)
+                {
+                    <span class="default-link d-block color-theme font-15 font-400">Nam</span>
+                }
+                else
+                {
+                    <span class="default-link d-block color-theme font-15 font-400">Nữ</span>
+                }
+            </div>
+           @*  <div class="ms-auto">
+                <i class="fa-solid fa-venus-mars color-theme opacity-30 pt-3 mt-1"></i>
+            </div> *@
+        </div>
+        <div class="divider my-3"></div>
+        <div class="d-flex mb-3">
+            <div>
+                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Hạn nộp hồ sơ</span>
+                <span class="default-link d-block color-theme font-15 font-400">@Model.DeadlineSubmission.ToString("dd/MM/yyyy")</span>
+            </div>
+           @*  <div class="ms-auto">
+                <i class="fa fa-calendar color-theme opacity-30 pt-4 mt-3"></i>
+            </div> *@
+        </div>
+
+    </div>
+</div>
+
+
+<div class="card card-style">
+    <div class="list-group list-custom-small  list-icon-0  ps-3 pe-4">
+        <a data-bs-toggle="collapse" class="no-effect" href="#collapse-2">
+            <span class="font-20 fw-700 color-highlight">Chi tiết tuyển dụng</span>
+            <i class="fa fa-angle-down"></i>
+        </a>
+    </div>
+    <div class="collapse ps-2 pe-4 show" id="collapse-2">
+        <div>
+            <span class="font-11 d-block mb-n2 opacity-50 color-theme">Ngành nghề</span>
+            <span class="default-link d-block color-theme font-15 font-400">@Model.JobCatUnitName</span>
+        </div>
+        <div class="divider my-3"></div>
+        <div>
+            <span class="font-11 d-block mb-n2 opacity-50 color-theme">Vị trí làm việc</span>
+            <span class="default-link d-block color-theme font-15 font-400">@Model.Title</span>
+        </div>
+        <div class="divider my-3"></div>
+        <div>
+            <span class="font-11 d-block mb-n2 opacity-50 color-theme">Làm việc tại</span>
+            <span class="default-link d-block color-theme font-15 font-400">@Model.AddressName</span>
+        </div>
+        <div class="divider my-3"></div>
+        <div>
+            <span class="font-11 d-block mb-n2 opacity-50 color-theme">Kỹ năng cần thiết</span>
+            <span class="default-link d-block color-theme font-15 font-400">@Model.NecessarySkills</span>
+        </div>
+        <div class="divider my-3"></div>
+        <div>
+            <span class="font-11 d-block mb-n2 opacity-50 color-theme">Mô tả công việc</span>
+            <span class="default-link d-block color-theme font-15 font-400"> @htmlContent1</span>
+        </div>
+        <div class="divider my-3"></div>
+        <div>
+            <span class="font-11 d-block mb-n2 opacity-50 color-theme">Yêu cầu ứng viên</span>
+            <span class="default-link d-block color-theme font-15 font-400"> @htmlContent2</span>
+        </div>
+        <div class="divider my-3"></div>
+        <div class="mb-3">
+            <span class="font-11 d-block mb-n2 opacity-50 color-theme">Quyền lợi</span>
+            <span class="default-link d-block color-theme font-15 font-400"> @htmlContent3</span>
+        </div>
+    </div>
+</div>
+
+
+@* <div class="card card-style">
+    <div class="content">
+        <h2 class="vcard-title color-highlight mb-1">Thông tin người liên hệ</h2>
+        <div>
+            <span class="font-11 d-block mb-n2 opacity-50 color-theme">Họ và tên</span>
+            <span class="default-link d-block color-theme font-15 font-400"> @Model.FullName</span>
+        </div>
+        <div class="divider my-3"></div>
+        <div>
+            <span class="font-11 d-block mb-n2 opacity-50 color-theme">Email</span>
+            <span class="default-link d-block color-theme font-15 font-400"> @Model.FullName</span>
+        </div>
+        <div class="divider my-3"></div>
+        <div>
+            <span class="font-11 d-block mb-n2 opacity-50 color-theme">Số điện thoại</span>
+            <span class="default-link d-block color-theme font-15 font-400"> @Model.PhoneNumber</span>
+        </div>
+        <div class="divider my-3"></div>
+        <div>
+            <span class="font-11 d-block mb-n2 opacity-50 color-theme">Địa chỉ liên hệ</span>
+            <span class="default-link d-block color-theme font-15 font-400"> @Model.Address</span>
+        </div>
+        <div class="divider my-3"></div>
+    </div>
+</div>
+ *@
+<UngtuyenModal @ref="ungtuyenModal"></UngtuyenModal>
+
+<div class="scroll-ad shadow-xl bg-theme rounded-m ">
+    <img src="@Model.AvatarUrl" class="shadow-l rounded-m" alt="img">
+    <h1 class="text-uppercase font-900 font-18 color-white"><span class="color-highlight">@Model.Title </span></h1>
+    @* <em class="font-12">@Model.CompanyName</em> *@
+    <a href="javascript:;" class="bg-highlight color-white shadow-m rounded-s" style="margin-top: 3px;" @onclick="(()=>UngTuyen(Model))">Ứng tuyển</a>
+   @*  <a href="javascript:;" class="btn  bg-highlight rounded-m text-uppercase font-700 " style="width: 100%" @onclick="(()=>UngTuyen(Model))">
+        Ứng tuyển
+    </a> *@
+</div>

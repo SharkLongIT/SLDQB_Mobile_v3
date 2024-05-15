@@ -1,0 +1,33 @@
+﻿@using Abp.Organizations
+@using BBK.SaaS
+@using BBK.SaaS.Mdls.Cms.Widgets.Dto
+@using BBK.SaaS.Web.Areas.App.Models.Common.Modals
+
+@model WidgetEditDto
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Edit") + ": " + Model.Title))
+
+<div class="modal-body">
+	<form name="WidgetForm" role="form" novalidate class="form-validation">
+		<input type="hidden" name="Id" value="@Model.Id" />
+
+		<div class="mb-3">
+			<label for="Title" class="form-label">@L("Title")</label>
+			<input id="Title" class="form-control" type="text" name="Title" required value="@Model.Title" maxlength="@SaaSConsts.MaxSingleLineLength">
+		</div>
+		<div class="mb-3">
+			<label for="OrderIndex" class="form-label">@L("OrderIndex")</label>
+			<input id="OrderIndex" class="form-control" type="number" name="OrderIndex" value="@Model.OrderIndex">
+		</div>
+		<div class="form-check checkbox checkbox-primary mb-0">
+			<input class="form-check-input" id="Published" name="Published" type="checkbox" @(Model.Published ? "checked=\"checked\"" : "") value="true">
+			<label class="form-check-label" for="Published">Published</label>
+		</div>
+		<div class="mb-3 no-hint">
+			<label for="HTMLContent" class="form-label">@L("HTMLContent")</label>
+			<textarea id="HTMLContent" type="text" name="HTMLContent" class="form-control" rows="5" required maxlength="@SaaSConsts.MaxContent">@Model.HTMLContent</textarea>
+		</div>
+	</form>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

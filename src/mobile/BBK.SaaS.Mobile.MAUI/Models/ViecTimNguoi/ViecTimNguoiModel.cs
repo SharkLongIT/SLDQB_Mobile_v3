@@ -39,7 +39,6 @@ namespace BBK.SaaS.Mobile.MAUI.Models.ViecTimNguoi
         public long JobCatUnitId { get; set; } // nghề nghiệp
         public string JobCatUnitName { get; set; }
         public string AvatarUrl { get; set; } //logo cty
-        public string ImageCoverUrl { get; set; } // ảnh bìa
 
         public string CompanyName { get; set; }
         public string AddressName { get; set; }

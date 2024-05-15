@@ -1,0 +1,84 @@
+﻿.header {
+    display: flex;
+    align-items: center;
+}
+body {
+    font-family: "Roboto",Arial, helvetica neue, Helvetica, sans-serif;
+}
+.icon-right {
+    margin-bottom: 11px;
+    margin-right: 4px;
+    margin-left: -8px;
+}
+.cat-filter {
+    margin-left: 4px;
+}
+.btn{
+    width: 60px;
+}
+.btn-filter {
+    background-color: #00b14f
+}
+a{
+    color: black;
+}
+.application {
+    border-radius: 10px;
+    border-color: #9bc3a8;
+}
+.material-icons{
+    margin-top: 8px;
+}
+.name-job{
+    text-transform: capitalize;
+}
+.name{
+    font-weight: 500
+
+}
+span {
+    color: black;
+}
+.applying {
+    color: white;
+    background-color: deepskyblue;
+    border: none;
+    padding: 4px;
+    border-radius: 6px;
+    font-size: 10px;
+    margin-top: -3px;
+    margin-left: 3px
+}
+
+.seen {
+    color: white;
+    background-color: darkgrey;
+    border: none;
+    padding: 4px;
+    border-radius: 6px;
+    font-size: 10px;
+    margin-top: -3px;
+    margin-left: 3px
+}
+
+.fit {
+    color: white;
+    background-color: #00b14f;
+    border: none;
+    padding: 4px;
+    border-radius: 6px;
+    font-size: 10px;
+    margin-top: -3px;
+    margin-left: 3px
+}
+
+.undefined {
+    color: white;
+    background-color: #f35355;
+    border: none;
+    padding: 4px;
+    border-radius: 6px;
+    font-size: 10px;
+    margin-top: -3px;
+    margin-left: 3px
+}

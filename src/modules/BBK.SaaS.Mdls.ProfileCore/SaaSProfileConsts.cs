@@ -19,7 +19,7 @@ namespace BBK.SaaS.Mdls.Profile
 
 	public enum GenderEnum
 	{
-		None = 0, Male = 1, Female = 2,
+		Không = 0, Nam = 1, Nữ = 2,
 	}
 
 	public enum RecruitmentStatusEnum { 

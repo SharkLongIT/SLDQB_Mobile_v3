@@ -1,0 +1,333 @@
+﻿@using Abp.Application.Services.Dto
+@using BBK.SaaS.Authorization
+@using BBK.SaaS.Web.Areas.App.Startup
+
+@* @model TopicsType0ViewModel *@
+@{
+	// ViewBag.CurrentTopicName = AppTopicNames.Administrators.Topics;
+	// ViewBag.TopicTitle = @L("Topics");
+	// ViewBag.TopicDescription = @L("TopicsHeaderInfo");
+}
+
+@section Styles {
+	@* <link rel="stylesheet" abp-href="/view-resources/App/Widgets/index.css" asp-append-version="true" /> *@
+	<link rel="stylesheet" abp-href="/view-resources/App/_Bundles/dragables.css" asp-append-version="true" />
+	<style>
+		.email-main-wrapper .email-app-sidebar .nav-pills .nav-link div {
+			width: 100%;
+		}
+
+		.email-main-wrapper .email-app-sidebar .nav-pills .nav-link {
+			padding: 8px 10px;
+		}
+
+		.email-main-wrapper .email-app-sidebar .nav-pills .nav-link {
+			text-transform: uppercase;
+		}
+
+		.table.dataTable input, table.dataTable select {
+			height: 17px;
+		}
+
+		.moveHandler {
+			margin-right: 15px;
+		}
+	</style>
+}
+
+@section Scripts {
+	<script abp-src="/view-resources/App/_Bundles/sortable.js" asp-append-version="true"></script>
+	<script abp-src="/view-resources/Cms/Widgets/WidgetZonesCfg.js" asp-append-version="true"></script>
+}
+
+<div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+		<div class="email-wrap email-main-wrapper">
+			<div class="row">
+				<div class="col-xxl-3 col-xl-4 box-col-12">
+					<div class="md-sidebar">
+						<a class="btn btn-primary md-sidebar-toggle" href="javascript:void(0)">email filter</a>
+						<div class="md-sidebar-aside job-left-aside custom-scrollbar">
+							<div class="email-left-aside">
+								<div class="card">
+									<div class="card-body">
+										<div class="email-app-sidebar">
+											@* <button class="btn btn-primary emailbox" type="button" data-bs-toggle="modal" data-bs-target="#compose_mail"><i class="fa fa-plus"></i>Compose Email</button> *@
+											<div class="input-group">
+												<input class="form-control" type="text" placeholder="Vùng hiển thị..." aria-label="Vùng hiển thị..."><span class="input-group-text list-light-info"><i class="icofont icofont-ui-search txt-info"> </i></span>
+											</div>
+											<ul class="nav nav-pills main-menu email-category" id="email-pills-tab" role="tablist">
+
+												@foreach (SelectListItem item in ViewBag.PublicZoneNames)
+												{
+													<li class="nav-item">
+														<a class="nav-link zoneNameEle" id="@item.Value" data-bs-toggle="pill" href="#inbox-pill" role="tab" aria-controls="inbox-pill" aria-selected="false">
+															<div>@item.Text<span class="badge bg-light-secondary">0</span></div>
+														</a>
+													</li>
+												}
+												@* <li class="nav-item"><a class="nav-link" type="button" data-bs-toggle="modal" data-bs-target="#label-pill-modal"><i class="fa fa-plus"></i>Add Label</a></li> *@
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xxl-9 col-xl-8 box-col-12">
+					<div class="email-right-aside">
+						<div id="widget-list" class="card email-body email-list" style="display:none">
+							<div class="mail-header-wrapper">
+								<div class="mail-header">
+									<div class="form-check form-check-inline m-0">
+										@* <input class="form-check-input checkbox-primary" id="emailCheckbox1" type="checkbox" value="option1" />
+										<label class="form-check-label" for="emailCheckbox1"></label> *@
+										@* <ul class="email-tabs nav" id="email-content-tab">
+										<li class="nav-item">
+										<a class="nav-link" id="pills-important-tab" data-bs-toggle="pill" href="#pills-important" role="tab" aria-controls="pills-important" aria-selected="true">
+										<svg class="stroke-icon">
+										<use href="../assets/svg/icon-sprite.svg#mail"></use>
+										</svg><span>Important </span>
+										</a>
+										</li>
+										<li class="nav-item">
+										<a class="nav-link" id="pills-social-tab" data-bs-toggle="pill" href="#pills-social" role="tab" aria-controls="pills-social" aria-selected="false">
+										<svg class="stroke-icon">
+										<use href="../assets/svg/icon-sprite.svg#goal"></use>
+										</svg><span>Social</span>
+										</a>
+										</li>
+										<li class="nav-item">
+										<a class="nav-link active" id="pills-promotion-tab" data-bs-toggle="pill" href="#pills-promotion" role="tab" aria-controls="pills-promotion" aria-selected="false">
+										<svg class="stroke-icon">
+										<use href="../assets/svg/icon-sprite.svg#tread"></use>
+										</svg><span>Promotion</span>
+										</a>
+										</li>
+										</ul> *@
+									</div>
+								</div>
+								<div class="mail-body">
+									@* <div class="mail-search d-flex-align-items-center">
+									<input class="form-control" type="text" placeholder="Search..." /><i class="fa fa-search"></i>
+									</div> *@
+									@* <div class="light-square"><i class="fa fa-refresh"></i></div>
+									<div class="light-square"> <i class="fa fa-trash"></i></div>
+									<div id="AddWidgetModal" class="light-square"> <i class="fa fa-plus"></i></div> *@
+
+									@* <button id="TestSortable" class="btn btn-primary">
+										<i class="fa fa-plus btn-md-icon"></i>
+										<span class="d-none d-md-inline-block">
+											[Test widget]
+										</span>
+									</button> *@
+
+									<button id="SyncZone" class="btn btn-success" data-value="@ViewBag.SyncUrlWebHook">
+										<i class="fa fa-plus btn-md-icon"></i>
+										<span class="d-none d-md-inline-block">
+											[Sync Zones]
+										</span>
+									</button>
+
+									@* <a id="SyncZone" class="btn btn-success" href="@ViewBag.SyncUrlWebHook" target="_blank">
+										<i class="fa fa-plus btn-md-icon"></i>
+										<span class="d-none d-md-inline-block">
+											[Sync Zones]
+										</span>
+									</a> *@
+
+									<button id="AddWidgetModal" class="btn btn-info">
+										<i class="fa fa-plus btn-md-icon"></i>
+										<span class="d-none d-md-inline-block">
+											[Add widget]
+										</span>
+									</button>
+
+									<button id="SaveWidgetsInZone" class="btn btn-primary">
+										<i class="fa fa-plus btn-md-icon"></i>
+										<span class="d-none d-md-inline-block">
+											[Save widget]
+										</span>
+									</button>
+
+									@*<div class="light-square dropdown-toggle" role="main" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></div>
+									<ul class="dropdown-menu dropdown-block dropdown-menu-end">
+									<li> <a class="dropdown-item" href="#!">All</a></li>
+									<li> <a class="dropdown-item" href="#!">None</a></li>
+									<li> <a class="dropdown-item" href="#!">Read</a></li>
+									<li> <a class="dropdown-item" href="#!">Unread</a></li>
+									<li> <a class="dropdown-item" href="#!">Starred</a></li>
+									<li> <a class="dropdown-item" href="#!">Unstarred</a></li>
+									</ul> *@
+								</div>
+							</div>
+							<div class="tab-content" id="widgets-pills-tabContent">
+								<div class="tab-pane fade show active" id="inbox-pill">
+									<div class="mail-body-wrapper">
+										<ul id="paginated-widgetlist">
+											@* <li class="inbox-data">
+												<div class="inbox-message">
+													<div class="email-data">
+														<span>New comments on MSR2023 draft presentation - <span>New Here's a list of all the topic challenges...</span></span>
+														<div class="badge badge-light-primary">new</div>
+													</div>
+													<div class="email-timing"><span>2:30 PM</span></div>
+													<div class="email-options"><i class="fa fa-envelope-o envelope-1 show"></i><i class="fa fa-envelope-open-o envelope-2 hide"></i><i class="fa fa-trash-o trash-3"></i><i class="fa fa-print"></i></div>
+												</div>
+											</li> *@
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div id="NoWidgetInZone">
+								<div class="figure d-block dark-blockquote">
+									<blockquote class="blockquote light-card mb-2 bg-light-primary">
+										<span class="blockquote-footer pt-3">Không có nội dung</span>
+									</blockquote>
+								</div>
+							</div>
+							
+						</div>
+						
+						<div id="NoneSelectedZoneName">
+							<div class="figure d-block dark-blockquote">
+								<blockquote class="blockquote light-card mb-2 bg-light-secondary">
+									<span class="blockquote-footer pt-3">Chọn vùng hiển thị để xem nội dung</span>
+								</blockquote>
+							</div>
+						</div>
+						
+						<div class="card email-body email-read">
+							<div class="mail-header-wrapper header-wrapper1">
+								<div class="mail-header1">
+									<div class="light-square">
+										<svg class="btn-email">
+											<use href="../assets/svg/icon-sprite.svg#back-arrow"></use>
+										</svg>
+									</div><span>Interview Mail</span>
+								</div>
+								<div class="mail-body1">
+									<div class="light-square" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Achieve">
+										<svg>
+											<use href="../assets/svg/icon-sprite.svg#sms"></use>
+										</svg>
+									</div>
+									<div class="light-square" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Bookmark">
+										<svg class="bookmark-box">
+											<use href="../assets/svg/icon-sprite.svg#bookmark"></use>
+										</svg>
+									</div>
+									<div class="light-square" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Spam">
+										<svg>
+											<use href="../assets/svg/icon-sprite.svg#spam"></use>
+										</svg>
+									</div>
+									<div class="light-square" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Trash">
+										<svg class="stroke-danger">
+											<use href="../assets/svg/icon-sprite.svg#mail-trash"></use>
+										</svg>
+									</div>
+									<div class="light-square" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Settings">
+										<svg>
+											<use href="../assets/svg/icon-sprite.svg#setting"></use>
+										</svg>
+									</div>
+								</div>
+							</div>
+							<div class="mail-body-wrapper">
+								<div class="user-mail-wrapper">
+									<div class="user-title">
+										<div>
+											<div class="rounded-border"> <img class="img-fluid" src="../assets/images/user/12.png" alt="user" /></div>
+											<div class="dropdown-subtitle">
+												<p>Ronald Richards</p>
+												<div class="onhover-dropdown">
+													<button class="btn p-0 dropdown-button">To me <i data-feather="chevron-down"> </i></button>
+													<div class="inbox-security onhover-show-div">
+														<p>From: <span>pixelstrap &lt;pixelstrap3@gmail.com&gt;</span></p>
+														<p>to: <span>donut.horry@gmail.com</span></p>
+														<p>reply-to:<span>&lt;pixelstrap3@gmail.com&gt;</span></p>
+														<p>date: <span>Jun 13, 2023, 7:10 AM</span></p>
+														<p>subject: <span>Important Account Security Update</span></p>
+														<p>security: <span>standard encryption (TLS)</span></p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="inbox-options">
+											<span>Friday 07 Apr (4 hours ago)</span>
+											<div class="light-square">
+												<svg class="important-mail">
+													<use href="../assets/svg/icon-sprite.svg#mail-star"></use>
+												</svg>
+											</div>
+											<div class="light-square" onclick="myFunction()">
+												<svg>
+													<use href="../assets/svg/icon-sprite.svg#print"></use>
+												</svg>
+											</div>
+											<div class="light-square btn-group">
+												<svg class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+													<use href="../assets/svg/icon-sprite.svg#menubar"></use>
+												</svg>
+												<div class="dropdown-menu dropdown-block"><a class="dropdown-item" href="#!"><i class="fa fa-mail-reply"></i>Reply</a><a class="dropdown-item" href="#!"> <i class="fa fa-mail-forward"></i>Forward</a></div>
+											</div>
+										</div>
+									</div>
+									<div class="user-body">
+										<p>Dear Customer,</p>
+										<p>We regret to notify you that an unauthorized attempt was made to access your account. Our system discovered suspicious activity, and we acted right away to safeguard your personal data.</p>
+										<p>Please change your login information by clicking the following link in order to safeguard your account:</p>
+										<p>Please be aware that your account may be temporarily suspended if no action is taken within 24 hours. We urge you to take immediate action to prevent any inconvenience.</p>
+										<p>We sincerely apologize for any inconvenience this may cause and thank you for your immediate attention to this matter.</p>
+										<div class="mail-subcontent">
+											<p>Yours faithfully,</p>
+											<p>Account Security Team</p>
+										</div>
+									</div>
+									<div class="user-footer">
+										<div>
+											<svg>
+												<use href="../assets/svg/icon-sprite.svg#attchment"></use>
+											</svg><span class="f-light">Attachments</span>
+										</div>
+										<div class="d-inline-block">
+											<div class="attchment-file common-flex">
+												<div class="common-flex align-items-center">
+													<img src="../assets/images/email-template/pdfs.png" alt="pdf" />
+													<div class="d-block">
+														<p>Offer_Letter.pdf</p>
+														<p>200KB</p>
+													</div>
+												</div><a href="../assets/pug/pages/theme/text_file.txt" download="download"> <i class="fa fa-download f-light"></i></a>
+											</div>
+										</div>
+										<div class="toolbar-box">
+											<div id="toolbar">
+												<button class="ql-bold">Bold </button>
+												<button class="ql-italic">Italic </button>
+												<button class="ql-underline">underline</button>
+												<button class="ql-list" value="ordered">List </button>
+												<button class="ql-list" value="bullet"> </button>
+												<button class="ql-link"></button>
+												<button class="ql-image"></button>
+											</div>
+											<div id="editor"></div>
+										</div>
+									</div>
+									<div class="send-btn">
+										<button class="btn btn-primary">Send<i class="fa fa-paper-plane"></i></button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+

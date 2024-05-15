@@ -1,0 +1,104 @@
+﻿@model BBK.SaaS.Web.Models.Account.RegisterViewModel
+@using Abp.Json
+@using BBK.SaaS.Localization
+@using BBK.SaaS.Web.Security.Recaptcha
+@addTagHelper *, Owl.reCAPTCHA
+
+@{
+    Layout = "_LayoutRegister.cshtml";
+}
+
+@section Scripts
+{
+    <script>
+        window.passwordComplexitySetting = @Html.Raw(Model.PasswordComplexitySetting.ToJsonString(indented: true));
+    </script>
+
+    @if (ViewBag.UseCaptcha)
+    {
+        <recaptcha-script-v3/>
+        <recaptcha-script-v3-js action="register" execute="false"/>
+    }
+
+    @*<script abp-src="/view-resources/Areas/AppAreaName/Views/_Bundles/account-register.min.js" asp-append-version="true"></script>*@
+    <script abp-src="/view-resources/_bundles/account-register.min.js" asp-append-version="true"></script>
+
+}
+
+<div class="card-body p-0">
+	<form class="mb-0 form register-form"  id="RegisterForm" asp-action="Register" method="post">
+			 @if (@ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger">
+                <div class="alert-icon">
+                    <i class="fa fa-exclamation-triangle"></i>
+                </div>
+                <div class="alert-text">@ViewBag.ErrorMessage</div>
+            </div>
+        }
+
+        <input type="hidden" name="IsExternalLogin" value="@Model.IsExternalLogin.ToString()"/>
+        <input type="hidden" name="ExternalLoginAuthSchema" value="@Model.ExternalLoginAuthSchema"/>
+        <input type="hidden" name="SingleSignOn" value="@Model.SingleSignIn"/>
+        <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl"/>
+        @if (ViewBag.UseCaptcha)
+        {
+            <input type="hidden" name="@RecaptchaValidator.RecaptchaResponseKey" id="recaptchaResponse"/>
+        }
+				<div class="fancy-title title-border title-center mb-4">
+					<h1 class="fs-5 fw-semibold">Đăng ký</h1>
+				</div>
+
+				<div class="row">
+					<div class="col-12 form-group mb-4">
+				<label for="login-form-username">@(new FixedLocalizableString("Tên đầy đủ"))</label>
+					  <input class="form-control not-dark" type="text" placeholder="@L("Name")" name="Name" required value="@Model.Name" maxlength="@BBK.SaaS.Authorization.Users.User.MaxNameLength"/>
+					</div>
+                    	<div class="col-12 form-group mb-4">
+				<label for="login-form-username">Email Address</label>
+                 <input class="form-control  not-dark" type="email" placeholder="@L("EmailAddress")" id="EmailAddress" name="EmailAddress" required value="@Model.EmailAddress" maxlength="@BBK.SaaS.Authorization.Users.User.MaxEmailAddressLength"/>
+					</div>
+            @if (!Model.IsExternalLogin)
+            {
+                <div class="col-12 form-group mb-4">
+                    <div class="d-flex justify-content-between">
+                        <label for="login-form-password">@L("Password")</label>
+                    </div>
+                   <input class="form-control not-dark" type="password" autocomplete="new-password" id="RegisterPassword" placeholder="@L("Password")" name="Password" required/>
+                </div>
+            }
+               <div class="row">
+        <div class="col-sm-12">
+            <p class="m-b-5">Bạn là</p>
+        </div>
+        <div class="col-6 form-group mb-4">
+				  
+                    <div class="form-check radio radio-warning m-0 w-100">
+                        <input class="form-check-input" id="radio26" type="radio" name="UserType" value="@((int)BBK.SaaS.Authorization.Users.UserTypeEnum.Type2)" checked="">
+                        <label class="form-check-label mb-0 w-100" for="radio26"><span class="flex-grow-1"><span class="mt-0 mega-title-badge no-wrap">@(new FixedLocalizableString("Người lao động"))</span></span></label>
+                    
+            </div>
+					</div>
+       
+         <div class="col-6 form-group mb-4">
+           
+                    <div class="form-check radio radio-danger m-0 w-100">
+                        <input class="form-check-input" id="radio27" type="radio" name="UserType" value="@((int)BBK.SaaS.Authorization.Users.UserTypeEnum.Type1)">
+                        <label class="form-check-label mb-0 w-100" for="radio27"><span class="flex-grow-1"><span class="mt-0 mega-title-badge no-wrap">Nhà tuyển dụng</span></span></label>
+                    </div>
+                
+        </div>
+    </div>
+  
+
+					<div class="col-12 form-group mb-0">
+                         <div class="form-check checkbox checkbox-primary mt-3">
+            <input id="AgreeWithTermOfUse" name="AgreeWithTermOfUse" type="checkbox" class="form-check-input" required>
+            <label class="form-check-label" for="AgreeWithTermOfUse">Đồng ý với <a class="ms-2" target="_blank" href="/dieu-khoan-su-dung">Điều khoản sử dụng</a></label>
+        </div>
+                <button class="btn btn-lg text-white bg-black h-bg-color d-block w-100 m-0" type="submit" id="register-submit-btn">@L("Submit")</button>
+					</div>
+				</div>
+                 <p class="mt-4 mb-0 text-center">@(new FixedLocalizableString("Bạn đã có tài khoản?"))<a asp-action="Login" class="ms-2" >Đăng nhập</a></p>
+			</form>
+			</div>

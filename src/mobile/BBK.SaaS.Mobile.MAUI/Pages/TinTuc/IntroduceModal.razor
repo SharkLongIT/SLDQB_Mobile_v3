@@ -1,36 +1,70 @@
 ﻿@inherits ModalBase
-<div id="@ModalId" class="menu menu-box-modal rounded-m" data-menu-width="330">
-    <div class="content">
-        <div class="d-flex">
-            <h1>@L("Giới thiệu")</h1>
-            <div class="ms-auto">
-                <a class="close-menu" @onclick="Hide"><i class="fa fa-times"></i></a>
+<div class="modal fade" id="@ModalId" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded">
+            <div class="modal-body scroll-y pt-10 pb-10">
+                    <div class="mb-13 text-center">
+                        <h1 class="mb-3">@L("Giới thiệu")</h1>
+                    </div>
+                    <div class="card shadow-sm p-0 m-0">
+                        <div class="card-body d-flex flex-column py-10 m-0">
+                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container ">
+                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">
+                                        @L("Họ và tên")
+                                    </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                                </label>
+                            <input type="text" class="form-control form-control-solid" placeholder="Nhập họ và tên" @bind="Model.FullName" />
+                            </div>
+                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">
+                                        @L("Email")
+                                    </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                                </label>
+                                <input type="text" class="form-control form-control-solid" placeholder="Nhập email" @bind="Model.Email"/>
+                            </div>
+                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">
+                                        @L("Số điện thoại")
+                                    </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                                </label>
+                              @*   <div class="d-flex">
+
+                                    <input type="text" class="form-control form-control-solid" placeholder="Số điện thoại" @bind="Model.Phone"/>
+                                </div> *@
+                            <div class="d-flex">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">+84</span>
+                                </div>
+                                <input type="text" id="PhoneNumber" name="Phone" class="form-control" @bind="Model.Phone">
+                            </div>
+                            </div>
+                            <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container min-w-90">
+                                <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                    <span class="required">
+                                        @L("Nội dung")
+                                    </span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7"></i>
+                                </label>
+                                <textarea class="form-control form-control-solid" @bind="Model.Description" style="height: 130px" />
+                            </div>
+                            <div mt-3>
+                            <p style="color:red; text-decoration:underline;">Chính sách giới thiệu</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-8">
+                        <button type="reset" data-dismiss="modal" class="btn btn-light me-3" @onclick="Hide">@L("Đóng")</button>
+                    <button type="button" class="btn" style="background-color:#00b14f" @onclick="CreateIntroduce">
+                            <span style="color: white" class="indicator-label">@L("Gửi")</span>
+                        </button>
+                    </div>
             </div>
         </div>
-        <h5> @L("Họ và tên")</h5>
-        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
-            <input type="text" class="form-control validate-text" id="form1" @bind="Model.FullName">
-            <em>(bắt buộc)</em>
-        </div>
-        <h5>  @L("Email")</h5>
-        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
-            <input type="text" class="form-control validate-text" id="form1" @bind="Model.Email">
-            <em>(bắt buộc)</em>
-        </div>
-        <h5>@L("Số điện thoại")</h5>
-        <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
-            <input type="text" class="form-control validate-text" id="form1" @bind="Model.Phone">
-            <em>(bắt buộc)</em>
-        </div>
-        <h5>@L("Nội dung")</h5>
-        <div class="input-style has-borders no-icon mb-4">
-            <textarea id="form7" @bind="Model.Description"></textarea>
-            <label for="form7" class="color-highlight">@L("Nội dung")</label>
-            <em class="mt-n3">(bắt buộc)</em>
-        </div>
-        <div mt-3>
-            <p style="color:red; text-decoration:underline;">Chính sách giới thiệu</p>
-        </div>
-        <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="CreateIntroduce">Gửi</a>
     </div>
 </div>

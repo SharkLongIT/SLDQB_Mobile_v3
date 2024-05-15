@@ -1,13 +1,10 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.Threading;
 using Abp.UI;
-using BBK.SaaS.ApiClient;
 using BBK.SaaS.Core.Dependency;
 using BBK.SaaS.Core.Threading;
 using BBK.SaaS.Mdls.Cms.Articles;
 using BBK.SaaS.Mdls.Cms.Articles.MDto;
-using BBK.SaaS.Mdls.Cms.Categories;
-using BBK.SaaS.Mdls.Cms.Categories.MDto;
 using BBK.SaaS.Mdls.Cms.Entities;
 using BBK.SaaS.Mdls.Cms.Introduces;
 using BBK.SaaS.Mobile.MAUI.Models.TinTuc;
@@ -16,7 +13,6 @@ using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.Services.Navigation;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
-using System.Drawing.Design;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
 {
@@ -32,8 +28,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
         private ItemsProviderResult<ArticleModel> articleDto;
         private readonly SearchArticlesInput _filter = new SearchArticlesInput();
 
-        protected IApplicationContext ApplicationContext { get; set; }
-        protected IFECntCategoryAppService fECntCategoryAppService { get; set; }
+
         private Virtualize<ArticleModel> ArticlesContainer { get; set; }
 
         private ItemsProviderResult<ArticleModel> articleDto1;
@@ -43,7 +38,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
         [Parameter]
         public long Id { get; set; } = 0;
         public long CategoryId { get; set; } = 0;
-        public string CategoryName;
         public string PrimaryImageUrl;
         private bool _IsInitLoadOther;
         private bool _IsInitLoadNew;
@@ -58,14 +52,13 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
             articleFrontendAppService = DependencyResolver.Resolve<IArticleFrontEndService>();
             articleService = DependencyResolver.Resolve<IArticleService>();
             introduceAppService = DependencyResolver.Resolve<IIntroduceAppService>();
-            fECntCategoryAppService = DependencyResolver.Resolve<IFECntCategoryAppService>();
-            ApplicationContext = DependencyResolver.Resolve<IApplicationContext>();
 
         }
 
         protected override async Task OnInitializedAsync()
         {
             _IsInitialication = false; 
+            await SetPageHeader(L("Chi tiết tin tức"), new List<Services.UI.PageHeaderButton>());
             var querySegment = NavigationManager.Uri.Substring(NavigationManager.Uri.IndexOf("ArticleDetail") + "ArticleDetail".Length);
             var q1 = System.Web.HttpUtility.ParseQueryString(querySegment);
 
@@ -73,6 +66,15 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
             {
                 Id = long.Parse(q1["Id"]);
             }
+
+            //if (q1["CategoryId"] != null)
+            //{
+            //    CategoryId = long.Parse(q1["CategoryId"]);
+            //}
+            //if (q1["PrimaryImageUrl"] != null)
+            //{
+            //    PrimaryImageUrl = (q1["PrimaryImageUrl"]);
+            //}
             try
             {
                 ArticleViewDto articleViewDto = await articleFrontendAppService.GetArticleDetail(new EntityDto<long> { Id = Id });
@@ -138,8 +140,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
                 foreach (var article in articlesFilter)
                 {
                     article.PrimaryImageUrl = AsyncHelper.RunSync(async () => await articleService.GetPicture(article.PrimaryImageUrl));
-                    //ArticleViewDto articleViewDto = await articleFrontendAppService.GetArticleDetail(new EntityDto<long> { Id = article.Id.Value });
-                    //article.Modified = articleViewDto.Modified;
                 }
                 articleDto1 = new ItemsProviderResult<ArticleModel>(articlesFilter, articlesFilter.Count);
                 await UserDialogsService.UnBlock();
@@ -152,6 +152,40 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
             return articleDto1;
 
         }
+        #endregion
+
+        #region  Xem them tin tức cùng chuyên mục
+        private async Task RedirectOtherArticles()
+        {
+            switch (Model.CategoryId)
+            {
+                case 1:
+                    navigationService.NavigateTo(NavigationUrlConsts.TinTuc);
+                    break;
+                case 2:
+                    navigationService.NavigateTo(NavigationUrlConsts.ThongTinDuHoc);
+                    break;
+                case 3:
+                    navigationService.NavigateTo(NavigationUrlConsts.ThongTinXuatKhauLaoDong);
+                    break;
+                case 4:
+                    navigationService.NavigateTo(NavigationUrlConsts.DaotaoKyNang);
+                    break;
+                case 5:
+                    navigationService.NavigateTo(NavigationUrlConsts.DaoTaoNghe);
+                    break;
+                case 6:
+                    navigationService.NavigateTo(NavigationUrlConsts.DichVuKhac);
+                    break;
+                case 7:
+                    navigationService.NavigateTo(NavigationUrlConsts.VanBanMoi);
+                    break;
+                default:
+                    navigationService.NavigateTo(NavigationUrlConsts.TrangChu);
+                    break;
+            }
+        }
+
         #endregion
 
         #region Bài viết mới nhất
@@ -216,10 +250,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
                 {
                     await introduceModal.OpenFor(Model);
                 }
-                //else
-                //{
-                //    await introduceModal.OpenFor(Model);
-                //}
             }
             catch (Exception ex)
             {
@@ -230,22 +260,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TinTuc
 
         }
         #endregion
-
-
-        public async Task GetArticleByCategory()
-        {
-            var category = await fECntCategoryAppService.GetCategory(new GetCategoryInput()
-            {
-                CategoryId = Model.CategoryId,
-                SearchArticlesInput = null,
-            });
-            if (category != null)
-            {
-                CategoryName = category.DisplayName;
-            }
-            navigationService.NavigateTo($"ListArticle?CategoryId={Model.CategoryId}&CategoryName={CategoryName}");
-        }
-
 
     }
 }

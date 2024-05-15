@@ -50,7 +50,7 @@ namespace BBK.SaaS.Mdls.Profile.Recruiters
 
                 var listCat = ObjectMapper.Map<List<CatUnitDto>>(Cat);
                 var query = _recruitmentRepo
-                            .GetAll().AsNoTracking().OrderByDescending(x=>x.Id).Include(x => x.FormOfWorks)
+                            .GetAll().AsNoTracking().OrderByDescending(x => x.Id).Include(x => x.FormOfWorks)
                             .Where(x => x.CreatorUserId == AbpSession.UserId)
                             .WhereIf(!string.IsNullOrEmpty(input.Filtered), u => u.Title.ToLower().Contains(input.Filtered.ToLower()))
                             .WhereIf(input.NumberOfRecruits.HasValue, x => x.NumberOfRecruits.Equals(input.NumberOfRecruits))
@@ -99,7 +99,7 @@ namespace BBK.SaaS.Mdls.Profile.Recruiters
                                  WorkAddress = ge.DisplayName,
                                  FormOfWorks = c.FormOfWorks,
                                  Recruiter = ObjectMapper.Map<RecruiterEditDto>(recruiter),
-                                 
+
 
                              };
 
@@ -126,9 +126,9 @@ namespace BBK.SaaS.Mdls.Profile.Recruiters
                 }
 
                 var Cat = _CatUnitrepository.GetAll();
-                var geo = _georepository .GetAll();
+                var geo = _georepository.GetAll();
                 var query = _recruitmentRepo
-                            .GetAll().AsNoTracking().OrderByDescending(x=>x.CreationTime).Include(x=>x.Experiences)
+                            .GetAll().AsNoTracking().OrderByDescending(x => x.CreationTime).Include(x => x.Experiences)
                             .WhereIf(!string.IsNullOrEmpty(input.Filtered), u => u.Title.ToLower().Contains(input.Filtered.ToLower()))
                             .WhereIf(input.NumberOfRecruits.HasValue, x => x.NumberOfRecruits == input.NumberOfRecruits)
                             .WhereIf(input.FormOfWork.HasValue && input.FormOfWork != 0, x => x.FormOfWork.Equals(input.FormOfWork.Value))
@@ -136,7 +136,7 @@ namespace BBK.SaaS.Mdls.Profile.Recruiters
                             .WhereIf(input.Experience.HasValue && input.Experience != 0, x => x.Experience.Equals(input.Experience.Value))
                             .WhereIf(input.Rank.HasValue && input.Rank != 0, x => x.Rank == input.Rank)
                             .WhereIf(input.Degree.HasValue && input.Degree != 0, x => x.Degree == input.Degree)
-                            .WhereIf(input.Salary.HasValue && input.Salary != 0, x => x.MinSalary <= input.Salary &&  x.MaxSalary >= input.SalaryMax)
+                            .WhereIf(input.Salary.HasValue && input.Salary != 0, x => x.MinSalary <= input.Salary && x.MaxSalary >= input.SalaryMax)
                             .WhereIf(input.WorkSite != null && input.WorkSite.Count > 0, x => input.WorkSite.Contains(x.ProvinceId))
                             .WhereIf(!string.IsNullOrEmpty(input.FromDate), x => x.DeadlineSubmission >= DateTime.Parse(input.FromDate) && x.DeadlineSubmission <= DateTime.Parse(input.ToDate))
                             .Select(x => new RecruitmentDto
@@ -160,30 +160,30 @@ namespace BBK.SaaS.Mdls.Profile.Recruiters
                             }).ToList();
 
                 var result = (from c in query
-                             join cat in Cat on c.JobCatUnitId equals cat.Id
-                             join recruiter in _recruiterrepository.GetAll() on c.RecruiterId equals recruiter.Id
-                             join ge in geo on c.ProvinceId equals ge.Id
-                             select new RecruitmentDto
-                             {
-                                 Id = c.Id,
-                                 Title = c.Title,
-                                 FormOfWork = c.FormOfWork,
-                                 Experience = c.Experience,
-                                 NumberOfRecruits = c.NumberOfRecruits,
-                                 DeadlineSubmission = c.DeadlineSubmission,
-                                 JobCatUnitId = c.JobCatUnitId,
-                                 Status = c.Status,
-                                 JobCatUnitName = cat.DisplayName,
-                                 RecruiterId = c.RecruiterId,
-                                 Recruiter = ObjectMapper.Map<RecruiterEditDto>(recruiter),
-                                 MaxSalary = c.MaxSalary,
-                                 MinSalary = c.MinSalary,
-                                 MinAge = c.MinAge,
-                                 Experiences = c.Experiences,
-                                 Degree = c.Degree,
-                                 Rank = c.Rank,
-                                 WorkAddress = ge.DisplayName
-                             }).Where(x =>x.DeadlineSubmission.CompareTo(DateTime.Today) >= 0).Where(x=>x.Status == false && x.DeadlineSubmission.CompareTo(DateTime.Today) >= 0);
+                              join cat in Cat on c.JobCatUnitId equals cat.Id
+                              join recruiter in _recruiterrepository.GetAll() on c.RecruiterId equals recruiter.Id
+                              join ge in geo on c.ProvinceId equals ge.Id
+                              select new RecruitmentDto
+                              {
+                                  Id = c.Id,
+                                  Title = c.Title,
+                                  FormOfWork = c.FormOfWork,
+                                  Experience = c.Experience,
+                                  NumberOfRecruits = c.NumberOfRecruits,
+                                  DeadlineSubmission = c.DeadlineSubmission,
+                                  JobCatUnitId = c.JobCatUnitId,
+                                  Status = c.Status,
+                                  JobCatUnitName = cat.DisplayName,
+                                  RecruiterId = c.RecruiterId,
+                                  Recruiter = ObjectMapper.Map<RecruiterEditDto>(recruiter),
+                                  MaxSalary = c.MaxSalary,
+                                  MinSalary = c.MinSalary,
+                                  MinAge = c.MinAge,
+                                  Experiences = c.Experiences,
+                                  Degree = c.Degree,
+                                  Rank = c.Rank,
+                                  WorkAddress = ge.DisplayName
+                              }).Where(x => x.DeadlineSubmission.CompareTo(DateTime.Today) >= 0).Where(x => x.Status == false && x.DeadlineSubmission.CompareTo(DateTime.Today) >= 0);
 
                 var Count = result.Count();
                 return new PagedResultDto<RecruitmentDto>(
@@ -196,8 +196,6 @@ namespace BBK.SaaS.Mdls.Profile.Recruiters
                 throw new UserFriendlyException(ex.Message);
             }
         }
-
-
 
         public async Task<long> Create(RecruitmentDto input)
         {
@@ -235,9 +233,9 @@ namespace BBK.SaaS.Mdls.Profile.Recruiters
                 newItemId.ProvinceId = input.ProvinceId;
                 if (input.GenderRequired == 1)
                 {
-                    newItemId.GenderRequired = GenderEnum.Male;
+                    newItemId.GenderRequired = GenderEnum.Nam;
                 }
-                else { newItemId.GenderRequired = GenderEnum.Female; }
+                else { newItemId.GenderRequired = GenderEnum.Nữ; }
                 var newId = await _recruitmentRepo.InsertAndGetIdAsync(newItemId);
                 //if (input.RecruitmentAddress.Count > 0)
                 //{
@@ -292,9 +290,9 @@ namespace BBK.SaaS.Mdls.Profile.Recruiters
                 //Recruitment.TenantId = AbpSession.TenantId.Value;
                 if (input.GenderRequired == 1)
                 {
-                    Recruitment.GenderRequired = GenderEnum.Male;
+                    Recruitment.GenderRequired = GenderEnum.Nam;
                 }
-                else { Recruitment.GenderRequired = GenderEnum.Female; }
+                else { Recruitment.GenderRequired = GenderEnum.Nữ; }
                 Recruitment.Status = input.Status;
                 Recruitment.JobCatUnitId = input.JobCatUnitId;
                 //if (input.RecruitmentAddress.Count > 0)
@@ -348,22 +346,22 @@ namespace BBK.SaaS.Mdls.Profile.Recruiters
             var item = await _recruitmentRepo.GetAsync(Id);
             var recruiter = await _recruiterrepository.GetAsync(item.RecruiterId);
             item.Recruiter = recruiter;
-            
-            
-           // var adress = _recruitmentAddress.GetAll().FirstOrDefault(x => x.RecruitmentId == Id);
+
+
+            // var adress = _recruitmentAddress.GetAll().FirstOrDefault(x => x.RecruitmentId == Id);
             var geo = await _georepository.GetAll().Where(x => x.Code == item.DistrictCode).FirstOrDefaultAsync();
             var geoProvince = await _georepository.GetAsync(item.ProvinceId);
             var catex = await _CatUnitrepository.GetAsync(item.Experience);
             var catjob = await _CatUnitrepository.GetAsync(item.JobCatUnitId);
             var rank = await _CatUnitrepository.GetAsync(item.Rank);
             var Formow = await _CatUnitrepository.GetAsync(item.FormOfWork);
-          
+
             var output = ObjectMapper.Map<RecruitmentDto>(item);
             output.Recruiter = ObjectMapper.Map<RecruiterEditDto>(item.Recruiter);
             output.Experiences = ObjectMapper.Map<CatUnitDto>(catex);
             output.Ranks = ObjectMapper.Map<CatUnitDto>(rank);
             output.FormOfWorks = ObjectMapper.Map<CatUnitDto>(Formow);
-            output.JobCatUnitName = catjob.DisplayName ;
+            output.JobCatUnitName = catjob.DisplayName;
             output.AddressName = item.WorkAddress + "," + geo.DisplayName + "," + geoProvince.DisplayName;
             if (recruiter.ProvinceId.HasValue)
             {
@@ -386,9 +384,9 @@ namespace BBK.SaaS.Mdls.Profile.Recruiters
                 var Cat = _CatUnitrepository.GetAll();
                 var query = _recruitmentRepo
                             .GetAll().AsNoTracking().Where(x => x.IsDeleted == false)
-							.Where(x => x.DeadlineSubmission.CompareTo(DateTime.Today) >= 0)
+                            .Where(x => x.DeadlineSubmission.CompareTo(DateTime.Today) >= 0)
                             .Where(x => x.Status == false && x.DeadlineSubmission.CompareTo(DateTime.Today) >= 0)
-                            .Where(x=>x.CreatorUserId == AbpSession.UserId)
+                            .Where(x => x.CreatorUserId == AbpSession.UserId)
                             .Select(x => new RecruitmentDto
                             {
                                 Id = x.Id,
@@ -455,7 +453,7 @@ namespace BBK.SaaS.Mdls.Profile.Recruiters
                 var listCat = ObjectMapper.Map<List<CatUnitDto>>(Cat);
                 var query = _recruitmentRepo
                             .GetAll().AsNoTracking().OrderByDescending(x => x.Id)
-                            .Include(x=>x.FormOfWorks)
+                            .Include(x => x.FormOfWorks)
                             .WhereIf(!string.IsNullOrEmpty(input.Filtered), u => u.Title.ToLower().Contains(input.Filtered.ToLower()))
                             .WhereIf(input.NumberOfRecruits.HasValue, x => x.NumberOfRecruits.Equals(input.NumberOfRecruits))
                             .WhereIf(input.FormOfWork.HasValue && input.FormOfWork != 0, x => x.FormOfWork.Equals(input.FormOfWork.Value))
@@ -537,6 +535,29 @@ namespace BBK.SaaS.Mdls.Profile.Recruiters
                 throw new UserFriendlyException(ex.Message);
             }
         }
+
+
+        public async Task<int> CountRecruiment()
+        {
+            using var uow = UnitOfWorkManager.Begin();
+            using (CurrentUnitOfWork.SetTenantId(1))
+            {
+                try
+                {
+                    var List = (await _recruitmentRepo.GetAllListAsync()).Where(x => x.DeadlineSubmission.CompareTo(DateTime.Today) >= 0).Where(x => x.Status == false && x.DeadlineSubmission.CompareTo(DateTime.Today) >= 0).ToList();
+                    return List.Count();
+                }
+                catch (Exception)
+                {
+                    return 0;
+                }
+                finally
+                {
+                    await uow.CompleteAsync();
+                }
+            }
+        }
+
 
         #region Mobile/Frontend
         public async Task<PagedResultDto<RecruitmentDto>> GetAllUser(RecruimentInput input)

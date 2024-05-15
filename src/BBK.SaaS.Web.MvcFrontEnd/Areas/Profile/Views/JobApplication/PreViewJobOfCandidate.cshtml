@@ -1,0 +1,107 @@
+﻿@using Abp.Application.Services.Dto
+@using BBK.SaaS.Authorization
+@using BBK.SaaS.Authorization.Users;
+@using BBK.SaaS.Web.Areas.App.Startup
+@using BBK.SaaS.Web.Areas.Profile.Models.Candidates
+@using BBK.SaaS;
+
+@{
+ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+ViewBag.PageTitle = "Hồ sơ cá nhân";
+ViewBag.PageDescription = @L("UsersHeaderInfo");
+}
+
+@section Styles
+{
+<link rel="stylesheet" abp-href="/view-resources/App/Users/index.css" asp-append-version="true" />
+}
+
+@section Scripts
+{
+    <script abp-src="/view-resources/profile/JobApplication/PreViewJobApp.js" asp-append-version="true"></script>
+
+}
+
+<div class="page-body">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="card">
+                <div class="card-header ">
+                    <h4>Hồ sơ ứng tuyển</h4>
+                    <div class="card-header-right">
+                    </div>
+                </div>
+                <div class="card-body card-wrapper">
+                    <input hidden name="CandidateId" value="@ViewBag.candidateId">
+                    @* <input hidden name="JobApplicationId" value="@ViewBag.jobAppId"> *@
+                    <div class="card-body custom-input tab-content">
+                        <div class="col-md-12 col-lg-12 mt-2" id="jobapplication">
+                                  <div class="col-12 d-flex canupdate" style="justify-content: space-between">
+                                     <h5 class="mb-4"><strong>Thông tin chung</strong></h5>
+                                     @* <a href="#">Cập nhật</a> *@
+                                  </div>
+                                <form class="row g-3" name="JobAppInfoForm">
+                                     <input hidden name="JobApplicationId" value="@ViewBag.jobAppId"> 
+                                </form>
+                       </div>
+                       </div>
+                </div>
+            </div>
+
+            
+            <div class="card">
+                <div class="card-header ">
+                    <h4>Kinh nghiệm làm việc</h4>
+                    <div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            <li><i class="icon-more-alt"></i></li>
+                            <li><i class="icofont icofont-maximize full-card"></i></li>
+                            <li><i class="icofont icofont-minus minimize-card"></i></li>
+                            <li><i class="icofont icofont-refresh reload-card"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body card-wrapper">
+                    <div class="card-body custom-input tab-content">
+                        <div class="col-md-12 col-lg-12 mt-2">
+                                <div class="col-12 titleworkexperience">
+                                     <h5 class="mb-4"><strong>Kinh nghiệm làm việc</strong></h5>
+                                     @* <a href="#">Cập nhật</a> *@
+                                  </div>
+                                <form class="row g-3" name="WorkExperience">
+                                </form>
+                       </div>
+                       </div>
+                </div>
+            </div>
+
+                 <div class="card">
+                <div class="card-header ">
+                    <h4>Trình độ học vấn</h4>
+                    <div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            <li><i class="icon-more-alt"></i></li>
+                            <li><i class="icofont icofont-maximize full-card"></i></li>
+                            <li><i class="icofont icofont-minus minimize-card"></i></li>
+                            <li><i class="icofont icofont-refresh reload-card"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body card-wrapper">
+                    <div class="card-body custom-input tab-content">
+                        <div class="col-md-12 col-lg-12 mt-2">
+                                 <div class="col-12 titlelearningprocess">
+                                     <h5 class="mb-4"><strong>Trình độ học vấn</strong></h5>
+                                     @* <a href="#">Cập nhật</a> *@
+                                  </div>
+                                <form class="row g-3" name="LearningProcess">
+                                </form>
+                       </div>
+                       </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

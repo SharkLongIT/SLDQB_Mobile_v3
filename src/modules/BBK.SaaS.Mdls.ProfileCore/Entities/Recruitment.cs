@@ -41,7 +41,7 @@ namespace BBK.SaaS.Mdls.Profile.Entities
 
         public int MaxAge { get; set; }
 
-        public GenderEnum GenderRequired { get; set; } = GenderEnum.None; // Yêu cầu giới tính
+        public GenderEnum GenderRequired { get; set; } = GenderEnum.Không; // Yêu cầu giới tính
 
         public int NumberOfRecruits { get; set; } // Số lượng tuyển
 

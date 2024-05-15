@@ -1,0 +1,162 @@
+﻿@using System.Globalization
+@using BBK.SaaS.Mdls.Cms.Configuration
+@using BBK.SaaS.Timing
+@using BBK.SaaS.Web.Models.Cms.Articles
+@using BBK.SaaS.Web.Views.Shared.Components.HomeCategories
+@using BBK.SaaS.Web.Views.Shared.Components.Widget
+
+@model ArticleViewModel
+@section Scripts
+{
+	<script abp-src="/view-resources/Profile/Introduce/Index.js" asp-append-version="true"></script>
+}
+
+<!-- Page Sidebar Ends-->
+<div class="wrapper">
+	@await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.AllPagesAfterMenu })
+	@await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.ArticleDetailTop })
+
+	<!-- Container-fluid starts-->
+	<div class="container cms">
+		<div class="row">
+			<div class="box-col-12">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-8">
+								<div class="blog-single">
+									<div class="blog-box blog-details">
+										@* <input type="hidden" value="@Model.Article.Id" id="ArticleId" /> *@
+										@if (!string.IsNullOrEmpty(@Model.Article.PrimaryImageUrl))
+										{
+											<img class="img-fluid w-100" src="/file/get?c=@Model.Article.PrimaryImageUrl" alt="blog-main">
+										}
+										<span class="f-w-600 f-32">@Model.Article.Title</span>
+										@* <button class="btn btn-primary m-1" type="button" id="btnIntroduce">Giới thiệu</button> *@
+										<div class="blog-details">
+											<ul class="blog-social">
+												<li>@Model.Article.Modified.ToString("dd/MM/yyyy hh:mm:ss")</li>
+												<li><i class="icofont icofont-user"></i>@Model.Article.Author</li>
+												<li><i class="icofont icofont-eye"></i>@Model.Article.ViewedCount <span>lượt xem</span></li>
+												@* <li><i class="icofont icofont-thumbs-up"></i>02<span>Hits</span></li>
+												<li><i class="icofont icofont-ui-chat"></i>598 Comments</li> *@
+											</ul>
+											<span class="pt-2 f-w-600 f-18">@Model.Article.ShortDesc</span>
+											<div class="single-blog-content-top">
+												@Html.Raw(Model.Article.Content)
+											</div>
+										</div>
+									</div>
+									<section class="related-post mt-3">
+
+										<span class="f-w-600 f-24 cms-cattitle">Tin cùng chuyên mục</span>
+										<hr>
+
+									</section>
+									<div class="row">
+
+										@{
+											int relateShowNumber = 0;
+										}
+
+										@foreach (var article in Model.Category.Articles)
+										{
+											if (article.Id == Model.Article.Id) continue;
+											if (relateShowNumber == 9) break;
+
+											<div class="col-4">
+												<div class="card border-0 bg-transparent shadow-0 shadow-none">
+													<div class="blog-box blog-grid product-box">
+														@if (!string.IsNullOrEmpty(article.PrimaryImageUrl))
+														{
+															<div class="product-img mb-3">
+																<a href="/@article.Slug" title="@@article.Title"><img class="img-fluid top-radius-blog" src="/file/get?c=@article.PrimaryImageUrl" alt=""></a>
+															</div>
+														}
+														<div class="blog-details-main">
+															<a href="/@article.Slug" class="" title="@@article.Title"><span class="f-w-700">@article.Title</span></a>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											++relateShowNumber;
+										}
+
+									</div>
+								</div>
+
+							</div>
+							<div class="col-4">
+								@await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.ArticleDetailRightTop })
+								@await Component.InvokeAsync(typeof(NewsWidgetsViewComponent), new { zone = PublicWidgetZones.ArticleDetailRightTop })
+								@* <div class="card card-absolute b-t-primary bg-transparent shadow-0 shadow-none">
+								<div class="card-header bg-primary">
+								<span class="f-18 fw-semibold m-0 p-0 txt-light">Khám phá</span>
+								</div>
+								<div class="blog-box blog-grid product-box mt-5">
+								<div class="product-img">
+								<a href="@Model.Article.Slug"><img class="img-fluid top-radius-blog" src="" alt=""></a>
+								</div>
+								<div class="blog-details-main mt-3">
+								<a href="#" class=""><span class="f-w-700">#</span></a>
+								</div>
+								</div>
+								</div> *@
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="box-col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-xl-12">
+                        <form name="CreateIntroduceForm" role="form" novalidate class="form-validation">
+							<input type="hidden" value="@Model.Article.Id" id="ArticleId" name="ArticleId"/>
+							<h2>Giới thiệu</h2></br>
+							<div class="row">
+								<div class="mb-3">
+									<label class="form-label">Họ và tên</label>
+									<input type="text" name="FullName" required class="form-control">
+								</div>
+							</div>
+							<div class="row">
+								<div class="mb-3">
+									<label class="form-label">Email</label>
+									<input type="email" name="Email" required class="form-control">
+								</div>
+							</div>
+							<div class="row">
+								<div class="mb-3">
+									<label class="form-label">Số điện thoại</label>
+									<input type="text" id="PhoneNumber" name="Phone" required class="form-control">
+								</div>
+							</div>
+							<div class="row">
+								<div class="mb-3">
+									<label class="form-label">Nội dung</label>
+									<textarea required id="Description" class="form-control" rows="4" cols="50" name="Description"></textarea>
+								</div>
+							</div>
+							<a href="#"><u>Chính sách giới thiệu</u></a>
+							 <div class="row">
+                                <div class="col-12 d-flex justify-content-end">
+										<button class="btn btn-primary m-1" type="button" id="btnIntroduce">Giới thiệu</button>
+                                </div>
+                            </div>
+						</form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+	</div>
+	<!-- Container-fluid Ends-->
+	@await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.ArticleDetailBottom })
+	@await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.AllPagesBeforeFooter })
+</div>

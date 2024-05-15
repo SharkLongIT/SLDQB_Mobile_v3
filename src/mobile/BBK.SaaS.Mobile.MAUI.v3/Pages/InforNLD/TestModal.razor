@@ -1,0 +1,107 @@
+﻿@inherits ModalBase
+
+<div id="@ModalId" class="menu menu-box-modal rounded-m" data-menu-width="330">
+    <div class="content">
+        <div class="d-flex">
+            <div>
+                <h1>@L("Cập nhật thông tin")</h1>
+            </div>
+        </div>
+        <h5>@L("Họ và tên")</h5>
+        <div class="input-style has-borders has-icon validate-field mb-4">
+            <input type="text" class="form-control validate-name" id="form1" placeholder="@ApplicationContext.LoginInfo.User.Name" disabled>
+            <label for="form1" class="color-highlight">Name</label>
+            <em>(required)</em>
+        </div>
+        <h5>@L("Ngày sinh")</h5>
+        <div class="input-style has-borders no-icon mb-4">
+            <input type="date" max="2030-01-01" min="2021-01-01" class="validate-text" id="form6" @bind="Model.DateOfBirth">
+            <label for="form6" class="color-highlight">Select Date</label>
+            <i class="fa fa-check disabled valid me-4 pe-3 font-12 color-green-dark"></i>
+            <i class="fa fa-check disabled invalid me-4 pe-3 font-12 color-red-dark"></i>
+        </div>
+
+        <div class="input-style has-borders no-icon">
+            <h5>@L("Tỉnh/ Thành phố")</h5>
+            <select class="form-control" @onchange="selectedValue">
+                @if (ListProvince != null && ListProvince.Count > 0)
+                {
+                    @foreach (var item in ListProvince)
+                    {
+                        @if (@Model.ProvinceId == @item.Id)
+                        {
+                            <option value="@item.Id" selected>
+                                @item.DisplayName
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@item.Id">
+                                @item.DisplayName
+                            </option>
+                        }
+
+                    }
+
+                }
+
+            </select>
+        </div>
+        <div class="input-style has-borders no-icon">
+            <h5>@L("Xã/huyện")</h5>
+            <select class="form-control" @bind="Model.DistrictId">
+
+                @if (ListDistrict != null && ListDistrict.Count > 0)
+                {
+                    @foreach (var item in ListDistrict)
+                    {
+                        <option value="@item.Id">
+                            @item.DisplayName
+                        </option>
+                    }
+                }
+
+            </select>
+        </div>
+        <h5>@L("Địa chỉ")</h5>
+        <div class="input-style has-borders no-icon validate-field mb-4">
+            <input type="text" class="form-control validate-name" id="form1" placeholder="Địa chỉ" @bind="Model.Address">
+            <label for="form1" class="color-highlight disabled">John</label>
+            <i class="fa fa-times disabled invalid color-red-dark"></i>
+            <i class="fa fa-check disabled valid color-green-dark"></i>
+            <em>(optional)</em>
+        </div>
+        <h5>@L("Giới tính")</h5>
+        <div class="d-flex">
+            <div class="form-check icon-check">
+                <input class="form-check-input" type="radio" checked=@(Model.Gender== Mdls.Profile.Candidates.Dto.GenderEnum.Male) name="inlineRadioOptions" @onchange="ChangeGender" value="1" id="radio1">
+                <label class="form-check-label" for="radio1">Nam</label>
+                <i class="icon-check-1 fa fa-square color-gray-dark font-16"></i>
+                <i class="icon-check-2 fa fa-check-square font-16 color-highlight"></i>
+            </div>
+            <div class="form-check icon-check">
+                <input class="form-check-input" type="radio" checked="@(Model.Gender == Mdls.Profile.Candidates.Dto.GenderEnum.Female)" name="inlineRadioOptions" value="2" @onchange="ChangeGender" id="radio2">
+                <label class="form-check-label" for="radio2">Nữ</label>
+                <i class="icon-check-1 fa fa-square color-gray-dark font-16"></i>
+                <i class="icon-check-2 fa fa-check-square font-16 color-highlight"></i>
+            </div>
+        </div>
+        <h5>@L("Tình trạng hôn nhân")</h5>
+        <div class="d-flex">
+            <div class="form-check icon-check">
+                <input class="form-check-input" type="radio" name="Marital" checked="@(Model.Marital == true)"  @onchange="ChangeMarital" id="radio4">
+                <label class="form-check-label" for="radio4">Độc thân</label>
+                <i class="icon-check-1 fa fa-square color-gray-dark font-16"></i>
+                <i class="icon-check-2 fa fa-check-square font-16 color-highlight"></i>
+            </div>
+            <div class="form-check icon-check">
+                <input class="form-check-input" type="radio" name="Marital" checked="@(Model.Marital == false)" @onchange="ChangeMarital"  id="radio3">
+                <label class="form-check-label" for="radio3">Đã kết hôn</label>
+                <i class="icon-check-1 fa fa-square color-gray-dark font-16"></i>
+                <i class="icon-check-2 fa fa-check-square font-16 color-highlight"></i>
+            </div>
+        </div>
+
+        <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4" @onclick="Save">Lưu</a>
+    </div>
+</div>

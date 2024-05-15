@@ -1,0 +1,132 @@
+﻿@using Abp.Localization
+@using BBK.SaaS.Web.Areas.App.Startup
+
+@section Scripts
+{
+    <script abp-src="/view-resources/App/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script src="/view-resources/Profile/Candidate/JobAppOfCandidate.js" asp-append-version="true"></script>
+}
+
+@* @{
+    ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+    ViewBag.PageTitle = "Quản lý Hồ sơ ứng tuyển";
+    ViewBag.PageDescription = "Hồ sơ ứng tuyển";
+} *@
+<section id="content">
+	<div class="content-wrap pt-3"> 
+    <!-- Container-fluid starts-->
+    <div class="container">
+        <div class="row">
+              <nav>
+                <ol class="breadcrumb justify-content-sm-start align-items-center mb-0" style="margin-bottom: 32px !important;">
+                    <li class="breadcrumb-item">
+                        <a href="/">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item f-w-400 active">
+                        <a href="/">Trang chủ</a>
+                    </li>
+                   
+                    <li class="breadcrumb-item f-w-400">Danh sách hồ sơ của tôi</li>
+               </ol>
+            </nav>
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-xl-12">
+                        <div id="panel-1" class="panel">
+                            <div class="panel-hdr">
+                                <h2>
+                                    <span class="fw-300"><i>Danh sách hồ sơ ứng tuyển của tôi</i></span>
+                                </h2>
+                            </div>
+                            <div class="panel-container show mt-5">
+                                <div class="panel-content">
+                                    <div class="card-wrapper border rounded-3 light-card checkbox-checked">
+                                        <div class="row mx-2 my-3">
+                                            <div class="col-lg-10">
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 mb-3">
+                                                        <input type="text" id="SearchTerm" name="SearchTerm" placeholder="@(new FixedLocalizableString("Tên hồ sơ"))" class="form-control">
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 mb-3 mt-auto">
+                                                         <select  class="form-select" id="WorkSite" name="WorkSite" asp-items="@ViewBag.listItemsWorkSite">
+                                                            <option value="0" selected>Địa điểm làm việc</option>
+                                                         </select>   
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 mb-3 mt-auto">
+                                                      @*   <select class="form-control" id="FormOfWork" name="FormOfWork">
+                                                            <option value="0" selected>Hình thức làm việc</option>
+                                                            <option value="1">Toàn thời gian cố định</option>
+                                                            <option value="2">Toàn thời gian tạm thời</option>
+                                                        </select> *@
+                                                        <select  class="form-select" id="FormOfWorkId" name="FormOfWorkId" asp-items="@ViewBag.listItemFormOfWork">
+                                                                <option value="0" selected> Hình thức làm việc</option>
+                                                            </select>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 mb-3 mt-auto">
+                                                        <select  class="form-select" id="OccupationId" name="OccupationId" asp-items="@ViewBag.listItemsKyThuat">
+                                                                <option value="0" selected>Tất cả ngành nghề</option>
+                                                            </select>
+                                                    </div> <div class="col-lg-4 col-md-4 mb-3 mt-auto">
+                                                        <select class="form-select" id="LiteracyId" name="LiteracyId" asp-items="@ViewBag.listItemsCatUnitLiteracy">
+                                                            <option value="0" selected>Bằng cấp</option>
+                                                        </select>
+                                                    </div> <div class="col-lg-4 col-md-4 mb-3 mt-auto">
+                                                        <select class="form-select" id="ExperiencesId" name="ExperiencesId" asp-items="@ViewBag.Experiences">
+                                                                <option value="0" selected>Tất cả kinh nghiệm</option>
+                                                            </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 d-flex align-items-end justify-content-end">
+                                                <button class="btn btn-danger ml-auto waves-effect waves-themed mb-3" id="Search" type="button">@(new FixedLocalizableString("Tìm kiếm"))</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row mt-5">
+                                        <div class="col-lg-6 col-md-12 mb-3">
+                                            <button id="CreateNewButtonxx" name="CreateNewButton" class="btn btn-sm btn-toolbar-full btn-danger ml-auto">
+                                                <span class="fa fa-plus-square"></span>
+                                                Thêm mới hồ sơ ứng tuyển
+                                            </button>
+                                            <button id="DeleteAll" name="DeleteButton" class="btn btn-sm btn-toolbar-full btn-danger ml-auto" disabled>
+                                                <span class="fa fa-trash"></span>
+                                                Xoá
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- datatable start -->
+                                    <table id="RecruitmentTable" class="table table-bordered table-hover table-striped w-100">
+                                        <thead class="bg-primary-600">
+                                            <tr>
+                                                <th><input type="checkbox" name="select_all" data-value="1" id="example-select-all"></th>
+                                                <th>STT</th>
+                                                <th>Tên hồ sơ</th>
+                                                <th>Ngành nghề</th>
+                                                <th>Bằng cấp</th>
+                                                <th>Kinh nghiệm</th>
+                                                <th>Địa điểm làm việc</th>
+                                                <th>Hình thức làm việc</th>
+                                                <th>Hồ sơ chính</th>
+                                                <th>Ngày tạo</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                    <!-- datatable end -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>

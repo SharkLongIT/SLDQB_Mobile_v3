@@ -1,0 +1,76 @@
+﻿@using System.Globalization
+@using BBK.SaaS.Mdls.Cms.Configuration
+@using BBK.SaaS.Timing
+@using BBK.SaaS.Web.Models.Cms.Articles
+@using BBK.SaaS.Web.Views.Shared.Components.Widget
+
+@model ListArticlesViewModel
+
+<!-- Page Sidebar Ends-->
+
+<section id="content">
+    <div class="content-wrap">
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.AllPagesAfterMenu })
+        <!-- container starts-->
+        @if (Model.Articles != null && Model.Articles.Count > 0)
+        {
+            <div class="container cms">
+                <div class="row">
+                    <div class="col-md-6 md-50 box-col-6">
+                        <div class="card border-0 bg-transparent shadow-0 shadow-none">
+                            <div class="blog-box blog-grid product-box">
+                                <div class="product-img">
+                                    <a href="@Model.Articles[0].Slug"><img class="img-fluid top-radius-blog" src="/file/get?c=@Model.Articles[0].PrimaryImageUrl" alt=""></a>
+                                </div>
+                                <div class="blog-details-main mt-3">
+                                    <a href="/@Model.Articles[0].Slug" class=""><span class="f-w-600 f-32 mb-3">@Model.Articles[0].Title</span></a>
+                                    <p class="">@Model.Articles[0].ShortDesc</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 md-50 box-col-6">
+                        <div class="row">
+                            @for (int i = 1; i < Model.Articles.Count; i++)
+                            {
+                                <div class="col-md-6 md-50 box-col-6">
+                                    <div class="card border-0 bg-transparent shadow-0 shadow-none">
+                                        <div class="blog-box blog-grid product-box">
+                                            <div class="product-img">
+                                                <a href="/@Model.Articles[i].Slug"><img class="img-fluid top-radius-blog" src="/file/get?c=@Model.Articles[i].PrimaryImageUrl" alt=""></a>
+                                            </div>
+                                            <div class="blog-details-main mt-3">
+                                                <a href="/@Model.Articles[i].Slug" class=""><span class="f-w-700">@Model.Articles[i].Title</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.Articles.Count > 5)
+            {
+                <div class="card card-absolute b-t-primary bg-transparent shadow-0 shadow-none">
+                    <div class="card-header bg-primary">
+                        <span class="f-18 fw-semibold m-0 p-0 txt-light">Khám phá</span>
+                    </div>
+                    <div class="blog-box blog-grid product-box mt-5">
+                        <div class="product-img">
+                            @* <a href="@Model.Article.Slug"><img class="img-fluid top-radius-blog" src="" alt=""></a> *@
+                        </div>
+                        <div class="blog-details-main mt-3">
+                            @* <a href="#" class=""><span class="f-w-700">#</span></a> *@
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        <!-- container ends-->
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.CategoryArticlesBottom })
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.AllPagesBeforeFooter })
+
+    </div>
+</section>

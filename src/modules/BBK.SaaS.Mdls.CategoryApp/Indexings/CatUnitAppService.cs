@@ -204,7 +204,7 @@ namespace BBK.SaaS.Mdls.Category.Indexings
                var bangcap = await _catUnitRepository.GetAll().Where(x => x.DisplayName == "Bằng cấp").FirstOrDefaultAsync();
                if (bangcap != null)
                {
-                    var bangcap1 = await CreateAndSaveCatUnit(catUnits, tenant, "Tất cả trình độ", bangcap);
+                    //var bangcap1 = await CreateAndSaveCatUnit(catUnits, tenant, "Tất cả trình độ", bangcap);
                     var bangcap2 = await CreateAndSaveCatUnit(catUnits, tenant, "Trên đại học", bangcap);
                     var bangcap3 = await CreateAndSaveCatUnit(catUnits, tenant, "Đại học ", bangcap);
                     var bangcap4 = await CreateAndSaveCatUnit(catUnits, tenant, "Cao đẳng ", bangcap);
@@ -248,7 +248,7 @@ namespace BBK.SaaS.Mdls.Category.Indexings
                var kinhnghiemklamviec = await _catUnitRepository.GetAll().Where(x => x.DisplayName == "Kinh nghiệm làm việc").FirstOrDefaultAsync();
                if (kinhnghiemklamviec != null)
                {
-                    var kinhnghiemklamviec1 = await CreateAndSaveCatUnit(catUnits, tenant, "Tất cả kinh nghiệm", kinhnghiemklamviec);
+                   // var kinhnghiemklamviec1 = await CreateAndSaveCatUnit(catUnits, tenant, "Tất cả kinh nghiệm", kinhnghiemklamviec);
                     var kinhnghiemklamviec2 = await CreateAndSaveCatUnit(catUnits, tenant, "Chưa có kinh nghiệm", kinhnghiemklamviec);
                     var kinhnghiemklamviec3 = await CreateAndSaveCatUnit(catUnits, tenant, "Dưới 1 năm", kinhnghiemklamviec);
                     var kinhnghiemklamviec4 = await CreateAndSaveCatUnit(catUnits, tenant, "1 năm", kinhnghiemklamviec);

@@ -11,5 +11,6 @@ namespace BBK.SaaS.Mdls.Profile.Reports
         Task<FileDto> ExportForReportArticle(string StartTime, string EndTime, ReportArray reportArray);
         Task<FileDto> ExportForReportCat(string StartTime, string EndTime, int Type, ReportArray reportArray);
         Task<FileDto> ExportForReportArticleApex(string StartTime, string EndTime, ReportArray reportArray);
+        Task<FileDto> ExportForReportWebsiteByYear(int ToYear, int FromYear, ReportArray reportArray);
     }
 }

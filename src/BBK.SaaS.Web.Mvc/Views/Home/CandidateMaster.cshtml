@@ -1,0 +1,115 @@
+﻿@using BBK.SaaS.Web.Areas.Profile.Models.Recruiters
+@model GetAllJobOfUser
+
+
+
+@* <h3 style="color:#7a70ba;" :"violet"><b>Hồ sơ xin việc mới nhất</b></h3>
+<a href="../UserJob">Xem thêm</a> *@
+
+<div class="row" style="display: flex; flex-wrap: nowrap;">
+    <div class="col-sm-8">
+        <h3 style="color:#7a70ba;">
+            <i class="icofont icofont-bag-alt"
+               Style="margin-right: 16px;"></i><b>Hồ sơ xin việc mới nhất</b>
+        </h3>
+    </div>
+    <div class="row">
+        <div class="col-sm-4" style="text-align:end;">
+            <label>
+                <a href="../UserJob">
+                    <i style="color: #7a70ba;"><b><u>Xem thêm</u></b></i>
+                </a>
+            </label><i class="fa fa-angle-double-right"
+                       style="color: #7a70ba; margin-left: 8px;"></i>
+        </div>
+    </div>
+</div>
+<hr>
+@* <div class="job-apps row">
+</div> *@
+<div class="row">
+    @for (int i = 0; i < Model.Candidate.Count; i++)
+    {
+        <div class="col-sm-4">
+            <div class="card rounded-3">
+                <div class="profile-img-style">
+                    <div class="row">
+                        <div class="col-sm-8">
+                        </div>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-lg-12 col-xl-3">
+                            <div class="my-gallery" id="aniimated-thumbnials-3" itemscope="">
+                                <!-- thay ảnh vào -->
+                                @if (Model.Candidate[i].User.Id > 0)
+                                {
+                                    <p>
+                                        <a href="../UserJob/Detail/@Model.Candidate[i].JobApplication.Id">
+                                            <img src="@Url.Action("GetProfilePictureByUser", "Profile", new {area = string.Empty})?userId=@(Model.Candidate[i].User.Id)&&profilePictureId=@(Model.Candidate[i].ProfilePictureId)" width="80" height="80" class="img-130 rounded-circle mt-2 ms-2" />
+                                        </a>
+                                    </p>
+
+                                }
+                                else
+                                {
+                                    <p>
+                                        <a href="../UserJob/Detail/@Model.Candidate[i].JobApplication.Id">
+                                            <img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" width="80" height="80" class="img-130 rounded-circle mt-2 ms-2" />
+                                        </a>
+                                    </p>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-xl-9">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-between">
+                                    <a href="../UserJob/Detail/@Model.Candidate[i].JobApplication.Id"><h5><b style="color: black;"> @Model.Candidate[i].Candidate.Account.Surname  @Model.Candidate[i].Candidate.Account.Name</b></h5></a>
+                                </div>
+                            </div>
+                            <p style="margin-bottom: 8px !important;">  @Model.Candidate[i].JobApplication.Positions.DisplayName</p>
+                            <div>
+                                <div class="d-flex justify-content-initial">
+                                    <label class="m-0" style="margin-right: 8px  !important;">
+                                        <a>
+                                            <i class="fa fa-mortar-board"></i>
+                                        </a> @Model.Candidate[i].JobApplication.Literacy.DisplayName
+                                    </label>
+                                
+                                    <label class="m-0" style="margin-bottom:2px !important;">
+                                        <a>
+                                            <i class="icofont icofont-ui-alarm"></i>
+                                            @Model.Candidate[i].JobApplication.Experiences.DisplayName
+                                        </a>
+                                    </label>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="m-0">
+                                    @if (@Model.Candidate[i].JobApplication.DesiredSalary.HasValue)
+                                    {
+                                        <label class="m-0" style="margin-right: 1rem !important;">
+                                        <a>
+                                            <i class="fa fa-money"></i>
+                                        </a>@(Math.Floor(@Model.Candidate[i].JobApplication.DesiredSalary.Value) / 1000000) Triệu
+                                            </label>
+                                    }
+                                    else
+                                    {
+                                        <label class="m-0" style="margin-right: 1rem !important;">
+                                            <a href="#">
+                                                <i class="fa fa-money"></i>
+                                            </a>Lương thoả thuận
+                                        </label>
+                                    }
+                                    <a><i class="fa fa-calendar"></i></a> @Model.Candidate[i].Age
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+

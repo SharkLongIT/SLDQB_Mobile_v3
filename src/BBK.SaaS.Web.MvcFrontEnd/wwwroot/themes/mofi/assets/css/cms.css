@@ -1,0 +1,39 @@
+﻿.page-wrapper .page-header {
+min-height: 75px;
+}
+
+.cms a {
+color: #000;
+}
+
+.card {
+  border-radius: 0px;
+
+}
+
+.blog-box .blog-details .blog-social {
+margin-top: 5px;
+}
+
+.blog-box .blog-details .single-blog-content-top {
+padding-top: 20px;
+}
+
+.blog-box .blog-details p {
+margin-top: 0px;
+margin-bottom: 20px;
+color: #2A2A2A;
+}
+
+.single-blog-content-top img {
+max-width: 100%;
+}
+
+.cms-cattitle {
+color: #ff0053;
+}
+
+.footer li {
+background-color: transparent;
+color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
+}

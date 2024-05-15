@@ -1,0 +1,227 @@
+﻿@using BBK.SaaS
+@using BBK.SaaS.Mdls.Profile
+@using BBK.SaaS.Web.Areas.App.Startup
+
+@section Scripts
+{
+    <script abp-src="/view-resources/App/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Profile/Recruitments/Create.js" asp-append-version="true"></script>
+}
+
+@{
+    ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+    ViewBag.PageTitle = @L("Tạo mới tin tuyển dụng");
+    ViewBag.PageDescription = @L("Thông tin nhà tuyển dụng");
+}
+
+<div class="page-body">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <h4>@L("Tạo mới tin tuyển dụng")</h4>
+                    <div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            <li><i class="icon-more-alt"></i></li>
+                            <li><i class="view-html fa fa-code"></i></li>
+                            <li><i class="icofont icofont-maximize full-card"></i></li>
+                            <li><i class="icofont icofont-minus minimize-card"></i></li>
+                            <li><i class="icofont icofont-refresh reload-card"></i></li>
+                            <li><i class="icofont icofont-error close-card"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form name="FormCreate" role="form" novalidate class="form-validation">
+                        <h3>Thông tin cơ bản</h3>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="Title" class="form-label">@L("Chức danh")</label><span class="text-danger">*</span>
+                                <input id="Title" class="form-control" type="text" name="Title" placeholder="Vị trí hiển thị đăng tuyển" required maxlength="@SaaSConsts.MaxCodeLineLength">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="Job" class="form-label">@L("Nghề nghiệp")</label><span class="text-danger">*</span>
+                                 <select required class="form-control" id="Job" name="JobCatUnitId" asp-items="@ViewBag.listItemsKyThuat">
+                                    <option value="" selected disabled>Chọn</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                             <div class="col-md-4 mb-3">
+                                <label for="FormOfWork" class="form-label">@L("Hình thức làm việc")</label><span class="text-danger">*</span>
+                                 <select required class="form-control" id="FormOfWork" name="FormOfWork" asp-items="@ViewBag.listItemsHinhThucLV">
+                                    <option value="" selected disabled>Chọn</option>
+                                   @*  <option value="1">Toàn thời gian cố định</option>
+                                    <option value="2">Toàn thời gian tạm thời</option> *@
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="Degree" class="form-label">@L("Bằng cấp")</label><span class="text-danger">*</span>
+                                 <select required class="form-control" id="Degree" name="Degree" asp-items="@ViewBag.listItemsBangCap">
+                                    <option value="" selected disabled>Chọn</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="Experience" class="form-label">@L("Kinh nghiệm")</label><span class="text-danger">*</span>
+                                <select required class="form-control" id="Experience" name="Experience" asp-items="@ViewBag.listItemsKinhNghiem">
+                                    <option value="" selected disabled>Chọn</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="Rank" class="form-label">@L("Cấp bậc")</label><span class="text-danger">*</span>
+                                 <select required class="form-control" id="Rank" name="Rank" asp-items="@ViewBag.listItemsCapBac">
+                                    <option value="" selected disabled>Chọn</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                     <div class="col-sm-6 ">
+                                    <label for="MinAge" class="form-label">@L("Độ tuổi tối thiểu")</label><span class="text-danger">*</span>
+                                    <div class="input-group mb-3">
+                                        <input id="MinAge" class="form-control" type="number" name="MinAge" placeholder="Nhập số" required maxlength="@SaaSConsts.MaxCodeLineLength">
+                                        <span class="input-group-text">tuổi</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 ">
+                                    <label for="MaxAge" class="form-label">@L("Độ tuổi tối đa")</label><span class="text-danger">*</span>
+                                    <div class="input-group mb-3">
+                                        <input id="MaxAge" class="form-control" type="number" name="MaxAge" placeholder="Nhập số" required maxlength="@SaaSConsts.MaxCodeLineLength">
+                                        <span class="input-group-text">tuổi</span>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="GenderRequired" class="form-label">@L("Giới tính")</label><span class="text-danger">*</span>
+                                 <select required class="form-control" id="GenderRequired" name="GenderRequired" asp-items="ViewBag.listItemsGender">
+                                    <option value="" selected disabled>Chọn</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="NumberOfRecruits" class="form-label">@L("Số lượng tuyển")</label><span class="text-danger">*</span>
+                                <input id="NumberOfRecruits" class="form-control" type="number" name="NumberOfRecruits" placeholder="Chỉ nhập số" required maxlength="@SaaSConsts.MaxCodeLineLength">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                 <label for="ProbationPeriod" class="form-label">@L("Thời hạn thử việc")</label>
+                                 <div class="input-group mb-3">
+                                     <input id="ProbationPeriod" class="form-control" type="number" placeholder="Chỉ nhập số" name="ProbationPeriod"  maxlength="@SaaSConsts.MaxCodeLineLength">
+                                     <span class="input-group-text">Tháng</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="DeadlineSubmission" class="form-label">@L("Hạn nộp hồ sơ")</label><span class="text-danger">*</span>
+                                <input id="DeadlineSubmission" class="form-control" type="date" name="DeadlineSubmission" required maxlength="@SaaSConsts.MaxCodeLineLength">
+                            </div>
+                        </div>
+
+                        <h3>Địa điểm làm việc</h3>
+                        <div class="AdressForm card-wrapper border rounded-3 light-card checkbox-checked mt-3">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                <label for="HumanResSize" class="form-label">@L("Tỉnh/Thành phố")</label><span class="text-danger">*</span>
+                                <select required class="form-control Province" id="Province" name="ProvinceId">
+                                     <option value="" selected disabled>Chọn Tinh/Thành phố</option>
+                                </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                <label for="HumanResSize" class="form-label">@L("Quận/Huyện")</label><span class="text-danger">*</span>
+                                <select required class="form-control District" id="District" name="DistrictCode" disabled>
+                                    <option value="" selected disabled>Chọn Quận/Huyện</option>
+                                </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                <label for="HumanResSize" class="form-label">@L("Số nhà tên đường")</label><span class="text-danger">*</span>
+                                    <input id="WorkAddress" class="form-control adress" type="text" name="WorkAddress" required maxlength="@SaaSConsts.MaxCodeLineLength">
+                                </div>
+                            </div>
+                        </div>
+                       @*  <div class="row mt-2">
+                            <div class="col-12 d-flex">
+                                   <button class="btn btn-primary m-1" type="button" id="btnAdd">Thêm địa điểm</button>
+                            </div>
+                        </div> *@
+                        
+                        <div class="row mt-3">
+                            <h3>Mức lương & Kỹ năng</h3>
+                            <div class="col-md-4 mb-3">
+                                <label for="MinSalary" class="form-label">@L("Mức lương tối thiểu")</label><span class="text-danger">*</span>
+                                <div class="input-group mb-3"> 
+                                    <input id="MinSalary" class="form-control" placeholder="Chỉ nhập số" type="number" name="MinSalary" required maxlength="@SaaSConsts.MaxCodeLineLength">
+                                    <span class="input-group-text">VNĐ</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="MaxSalary" class="form-label">@L("Mức lương tối đa")</label><span class="text-danger">*</span>
+                                <div class="input-group mb-3">
+                                    <input id="MaxSalary" class="form-control" placeholder="Chỉ nhập số" type="number" name="MaxSalary" required maxlength="@SaaSConsts.MaxCodeLineLength">
+                                    <span class="input-group-text">VNĐ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="NecessarySkills" class="form-label">@L("Kỹ năng cần thiết")</label>
+                                <input id="NecessarySkills" class="form-control" type="text" name="NecessarySkills" placeholder="Nhập các kỹ năng cần thiết cho vị trí này" maxlength="@SaaSConsts.MaxCodeLineLength">
+                            </div>
+                        </div>
+
+                        <h3>Mô tả công việc</h3>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="JobDesc" class="form-label">@L("Mô tả công việc")</label><span class="text-danger">*</span>
+                                <textarea required id="JobDesc" class="form-control" rows="4" cols="50" name="JobDesc" maxlength="@SaaSConsts.MaxDescription"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="JobRequirementDesc" class="form-label">@L("Yêu cầu công việc công việc")</label><span class="text-danger">*</span>
+                                <textarea required id="JobRequirementDesc" class="form-control" rows="4" cols="50" name="JobRequirementDesc" maxlength="@SaaSConsts.MaxDescription"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="BenefitDesc" class="form-label">@L("Quyền lợi")</label><span class="text-danger">*</span>
+                                <textarea required id="BenefitDesc" class="form-control" rows="4" cols="50" name="BenefitDesc" maxlength="@SaaSConsts.MaxDescription"></textarea>
+                            </div>
+                        </div>
+
+
+                        <h3>Thông tin người liên hệ</h3>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="FullName" class="form-label">@L("Họ và tên")</label><span class="text-danger">*</span>
+                                <input id="FullName" class="form-control" type="text" name="FullName" required maxlength="@SaaSConsts.MaxCodeLineLength">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="Email" class="form-label">@L("Email")</label><span class="text-danger">*</span>
+                                <input id="Email" class="form-control" type="text" name="Email" required maxlength="@SaaSConsts.MaxCodeLineLength">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="PhoneNumber" class="form-label">@L("Điện thoại")</label><span class="text-danger">*</span>
+                                <input id="PhoneNumber" class="form-control" type="number" name="PhoneNumber" required maxlength="@SaaSConsts.MaxCodeLineLength">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="Address" class="form-label">@L("Địa chỉ liên hệ")</label><span class="text-danger">*</span>
+                                <input id="Address" class="form-control" type="text" name="Address" required maxlength="@SaaSConsts.MaxCodeLineLength">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-end">
+                                <button class="btn btn-primary m-1" type="button" id="btnCreate">Tạo mới</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

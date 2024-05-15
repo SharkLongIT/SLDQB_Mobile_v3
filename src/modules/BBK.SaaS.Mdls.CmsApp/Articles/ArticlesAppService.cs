@@ -360,6 +360,7 @@ public class ArticlesAppService : SaaSAppServiceBase, IArticlesAppService
 					PrimaryImageUrl = $"/file/get?c=" + HttpUtility.UrlEncode(StringCipher.Instance.Encrypt(article.PrimaryImageUrl)),//article.PrimaryImageUrl,
 					Slug = article.Slug,
 					Author = article.Author,
+					Modified = article.CreationTime,
 
 				}).ToList();
 				return new ListResultDto<ArticleListViewDto>(category);

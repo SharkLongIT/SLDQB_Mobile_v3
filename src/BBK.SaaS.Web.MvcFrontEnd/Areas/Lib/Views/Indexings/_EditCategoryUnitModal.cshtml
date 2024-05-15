@@ -1,0 +1,19 @@
+﻿@using BBK.SaaS.Web.Areas.App.Models.Common.Modals
+@using BBK.SaaS.Web.Areas.Lib.Models.Indexings
+@using BBK.SaaS;
+
+@model EditCategoryUnitModalViewModel
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("NewCategoryUnit")))
+
+<div class="modal-body">
+    <form name="CategoryUnitForm" role="form" novalidate class="form-validation">
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <div class="mb-3">
+            <label for="DisplayName" class="form-label">@L("Name")</label>
+            <input id="DisplayName" class="form-control edited" type="text" name="DisplayName" value="@Model.DisplayName" required maxlength="@SaaSConsts.MaxShortLineLength">
+        </div>
+    </form>
+</div>
+
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

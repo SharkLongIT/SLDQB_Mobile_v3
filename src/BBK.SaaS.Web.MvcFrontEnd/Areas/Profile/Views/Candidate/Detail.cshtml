@@ -1,0 +1,216 @@
+﻿@using Abp.Application.Services.Dto
+@using BBK.SaaS.Authorization
+@using BBK.SaaS.Authorization.Users;
+@using BBK.SaaS.Web.Areas.App.Startup
+@using BBK.SaaS.Web.Areas.Profile.Models.Candidates
+@using BBK.SaaS;
+
+@model CandidateDetailViewModel
+@* @{
+    ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+    ViewBag.PageTitle = "Hồ sơ cá nhân";
+    ViewBag.PageDescription = @L("UsersHeaderInfo");
+} *@
+
+@section Styles
+{
+    <link rel="stylesheet" abp-href="/view-resources/App/Users/index.css" asp-append-version="true" />
+}
+
+@section Scripts
+{
+    <script abp-src="/view-resources/App/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script src="/view-resources/Profile/Candidate/Detail.js" asp-append-version="true"></script>
+    @* <script abp-src="/view-resources/Profile/Candidate/JobAppCrud.js" asp-append-version="true"></script> *@
+
+}
+
+<section id="content">
+	<div class="content-wrap pt-3"> 
+    <!-- Container-fluid starts-->
+    <div class="container">
+        <div class="row">
+            <div class="card">
+                <div class="card-header ">
+                    <ul class="simple-wrapper nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link txt-primary active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                                <h4>Thông tin người dùng</h4>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link txt-primary" id="profile-tabs" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                                <h4>Thông tin cơ bản</h4>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body card-wrapper">
+                    <div class="card-body custom-input tab-content">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="col-md-12 col-lg-12 mt-2">
+                                <form class="row g-3" name="UserInformationsForm" id="UserInformationsForm" role="form" asp-area="Profile" asp-controller="UsersType" asp-action="UpdateUserInfo" role="form" novalidate class="form-validation">
+                                    <input type="hidden" name="UserId" value="@Model.User.Id" />
+                                    <div class="row">
+                                        <div class="profile-title d-flex align-items-center">
+                                            @if (Model.User.Id > 0)
+                                            {
+                                                <img src="@Url.Action("GetProfilePictureByUser", "Profile", new {area = string.Empty})?userId=@(Model.User.Id)&&profilePictureId=@(Model.ProfilePictureId)" width="128" height="128" class="img-thumbnail img-rounded user-edit-dialog-profile-image m-r-10" />
+                                            }
+                                            else
+                                            {
+                                                <img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" width="128"
+                                                     height="128"
+                                                     class="img-thumbnail img-rounded user-edit-dialog-profile-image m-r-10" />
+                                            }
+                                            <div class="flex-grow-1">
+                                                @if (Model.User.Id > 0)
+                                                {
+                                                    <button type="button" class="btn-light btn-sm mb-3"
+                                                            id="changeProfilePicture">
+                                                        Cập nhật
+                                                    </button>
+                                                }
+                                                <span>
+                                                    Dạng file .jpg, .jpeg, .png, dung lượng <= 300KB và kích thước tối
+                                                    thiểu 300x300 pixel.
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Tên truy cập <span class="txt-danger">*</span>    </label>
+                                        <input class="form-control" id="first-name" type="text" placeholder="Tên truy cập" value="@Model.User.UserName" disabled="disabled">
+                                    </div>
+                                    @*  <div class="col-md-12 col-lg-6">
+                                    <label class="form-label" for="Surname">@L("Surname")</label>
+                                    <input class="form-control" id="Surname" name="Surname" type="text"
+                                    value="@Model.User.Surname" placeholder="@L(" Surname")" required>
+                                    </div> *@
+                                    <div class="col-12 mb-3">
+                                        <label class="form-label" for="Name">Tên <span class="txt-danger">*</span></label>
+                                        <input class="form-control" id="Name" name="Name" type="text"
+                                               value="@Model.User.Name" placeholder="Tên" required>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="PhoneNumber" class="form-label">Số điện thoại</label>
+                                        <input id="PhoneNumber" type="text" name="PhoneNumber" class="form-control" value="@Model.User.PhoneNumber" maxlength="@UserConsts.MaxPhoneNumberLength">
+                                    </div>
+                                    @* <div class="col-md-12 col-lg-6">
+                                    <label class="form-label" for="EmailAddress">@L("EmailAddress")</label>
+                                    <input class="form-control" id="EmailAddress" name="EmailAddress" type="text"
+                                    value="@Model.User.EmailAddress" placeholder="@L("EmailAddress")" disabled="disabled">
+                                    </div> *@
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button class="btn btn-light" type="reset">Huỷ</button>
+                                        <button class="btn btn-danger m-2 updateUserType" id="updateUserType" type="button">
+                                            <i class="icon-save m-1"></i>Cập nhật tài khoản
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tabs">
+                            <div class="col-md-12 col-lg-12 mt-2">
+                                <input name="ProvinceId" hidden value="@ViewBag.Province">
+                                <input name="DistrictId" hidden value="@ViewBag.District">
+                                <form class="row g-3" name="CandidateInfoForm">
+                                    <input hidden value="@Model.Candidate.Id" name="CandidateId">
+                                    <div class="row">
+                                        <div class="profile-title d-flex align-items-center">
+                                            @if (Model.User.Id > 0)
+                                            {
+                                                <img src="@Url.Action("GetProfilePictureByUser", "Profile", new {area = string.Empty})?userId=@(Model.User.Id)&&profilePictureId=@(Model.ProfilePictureId)" width="128" height="128" class="img-thumbnail img-rounded user-edit-dialog-profile-image m-r-10" />
+                                            }
+                                            else
+                                            {
+                                                <img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" width="128"
+                                                     height="128"
+                                                     class="img-thumbnail img-rounded user-edit-dialog-profile-image m-r-10" />
+                                            }
+                                            <div class="flex-grow-1">
+                                                @if ((Model.User.Id > 0 && await PermissionChecker.IsGrantedAsync(AppPermissions.Pages_Administration_Users_ChangeProfilePicture)) || @Model.CanUpdateAvatar == true)
+                                                {
+                                                    <button type="button" class="btn-light btn-sm mb-3"
+                                                            id="changeProfileAvatar">
+                                                        Cập nhật
+                                                    </button>
+                                                }
+                                                <span>
+                                                    Dạng file .jpg, .jpeg, .png, dung lượng <= 300KB và kích thước tối
+                                                    thiểu 300x300 pixel.
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-6">
+                                        <label class="form-label" for="Surname">Tên <span class="txt-danger">*</span></label>
+                                        <input class="form-control" id="Surname" name="Surname" type="text"
+                                               value=" @Model.User.Name" disabled placeholder="Tên">
+                                    </div>
+                                    <div class="col-lg-6 col-md-12">
+                                        <label class="form-label" for="DateOfBirth">Ngày sinh <span class="txt-danger">*</span></label>
+                                        <input class="form-control" type="date" id="DateOfBirth" name="DateOfBirth" asp-for="@Model.Candidate.DateOfBirth" required />
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <label class="form-label" for="Province">Tỉnh/Thành phố <span class="txt-danger">*</span></label>
+                                        <select class="form-select" id="Province" name="ProvinceId" type="text" required placeholder="Tỉnh/Thành phố"> </select>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <label class="form-label" for="District">Quận/Huyện <span class="txt-danger">*</span></label>
+                                        <select class="form-select" id="District" name="DistrictId" type="text" required placeholder="Quận/Huyện"> </select>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12">
+                                        <label class="form-label" for="Address">Địa chỉ <span class="txt-danger">*</span></label>
+                                        <input class="form-control" id="Address" name="Address" type="text" value="@Model.Candidate.Address" placeholder="Địa chỉ" required>
+                                    </div>
+                                    <div class="col-lg-6 col-md-12">
+                                        <label class="form-label" for="PhoneNumber">Số điện thoại</label>
+                                        <input class="form-control" id="PhoneNumber" name="PhoneNumber" type="text" disabled
+                                               value="@Model.User.PhoneNumber" placeholder="Số điện thoại">
+                                    </div>
+                                    <div class="col-lg-6 col-md-12">
+                                        <label class="form-label" for="EmailAddress">Địa chỉ email<span class="txt-danger">*</span></label>
+                                        <input class="form-control" id="EmailAddress" type="text" name="EmailAddress" value="@Model.User.EmailAddress" disabled placeholder="Địa chỉ email" required>
+                                    </div>
+                                    <div class="col-md-12 col-xl-6">
+                                        <label class="form-label mb-3" for="Gender">Giới tính <span class="txt-danger">*</span></label>
+                                        <div class="form-check-size">
+                                            <div>
+                                                <input class="form-check-input" id="Male" type="radio" checked="@(Model?.Candidate.Gender == BBK.SaaS.Mdls.Profile.Candidates.Dto.GenderEnum.Male)" name="Gender" value="1" required>
+                                                <label class="form-check-label mb-0" for="Male">Nam</label>
+                                            </div>
+                                            <div>
+                                                <input class="form-check-input" id="Female" type="radio" checked="@(Model?.Candidate.Gender == BBK.SaaS.Mdls.Profile.Candidates.Dto.GenderEnum.Female)" name="Gender" value="2" required>
+                                                <label class="form-check-label mb-0" for="Female">Nữ</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-xl-6">
+                                        <label class="form-label mb-3" for="Gender">Tình trạng hôn nhân <span class="txt-danger">*</span></label>
+                                        <div class="form-check-size">
+                                            <div>
+                                                <input class="form-check-input" id="Single" type="radio" name="Marital" checked="@(Model?.Candidate.Marital == true)" value="true" required>
+                                                <label class="form-check-label mb-0" for="Single">Độc thân</label>
+                                            </div>
+                                            <div>
+                                                <input class="form-check-input" id="Married" type="radio" name="Marital" checked="@(Model?.Candidate.Marital == false)" value="false" required>
+                                                <label class="form-check-label mb-0" for="Married">Đã kết hôn</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button class="btn btn-light m-2" type="reset">Huỷ</button>
+                                        <button class="btn btn-danger m-2 updateCandidate" type="button"><i class="icon-save m-1"></i>Lưu</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>

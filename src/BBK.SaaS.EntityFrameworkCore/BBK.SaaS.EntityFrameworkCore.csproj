@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props"></Import>
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <RootNamespace>BBK.SaaS</RootNamespace>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Abp.EntityFrameworkCore.EFPlus" Version="8.2.0" />
+    <PackageReference Include="Abp.ZeroCore.EntityFrameworkCore" Version="8.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System.Transactions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\modules\BBK.SaaS.Mdls.CmsApp.Shared\BBK.SaaS.Mdls.CmsApp.Shared.csproj" />
+    <ProjectReference Include="..\modules\BBK.SaaS.Mdls.CmsApp\BBK.SaaS.Mdls.CmsApp.csproj" />
+    <ProjectReference Include="..\modules\BBK.SaaS.Mdls.ProfileCore\BBK.SaaS.Mdls.ProfileCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="BBK.SaaS.Application">
+      <HintPath>..\libs\BBK.SaaS.Application.dll</HintPath>
+    </Reference>
+    <Reference Include="BBK.SaaS.Application.Shared">
+      <HintPath>..\libs\BBK.SaaS.Application.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="BBK.SaaS.Core">
+      <HintPath>..\libs\BBK.SaaS.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="BBK.SaaS.Core.Shared">
+      <HintPath>..\libs\BBK.SaaS.Core.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="BBK.SaaS.Mdls.CategoryApp">
+      <HintPath>..\libs\BBK.SaaS.Mdls.CategoryApp.dll</HintPath>
+    </Reference>
+    <Reference Include="BBK.SaaS.Mdls.CategoryApp.Shared">
+      <HintPath>..\libs\BBK.SaaS.Mdls.CategoryApp.Shared.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

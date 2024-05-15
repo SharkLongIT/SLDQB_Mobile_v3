@@ -1,0 +1,120 @@
+﻿@using BBK.SaaS.Web.Areas.App.Startup
+@using BBK.SaaS.Web.Areas.Profile.Models.Recruiters
+@using BBK.SaaS;
+@model RecruiterDetailViewModel
+
+@{
+    Layout = null;
+}
+<div class="modal-body user-edit-modal">
+    <div class="page-body">
+        <!-- Container-fluid starts-->
+        <div class="container-fluid">
+            <div class="row">
+                <form name="RecruiterInfoForm" role="form" novalidate class="form-validation">
+                    <input type="hidden" name="Id" value="@Model.Recruiter.Id" />
+                    <input type="hidden" name="UserId" value="@Model.Recruiter.UserId" />
+                    <input type="hidden" id="ProvinceId" value="@Model.Recruiter.ProvinceId" />
+                    <input type="hidden" id="DistrictId" value="@Model.Recruiter.DistrictId" />
+                    <input type="hidden" id="VillageId" value="@Model.Recruiter.VillageId" />
+                    <input type="hidden" id="AvatarUrl" name="AvatarUrl" value="@Model.Recruiter.AvatarUrl" />
+                    <input type="hidden" id="ImageCoverUrl" name="ImageCoverUrl" value="@Model.Recruiter.ImageCoverUrl" />
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="CompanyName" class="form-label">Tên công ty</label>
+                            <input id="CompanyName" class="form-control" value="@Model.Recruiter.CompanyName" type="text" name="CompanyName" required maxlength="@SaaSConsts.MaxCodeLineLength">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="ContactName" class="form-label">Tên người liên hệ</label>
+                            <input id="ContactName" class="form-control" value="@Model.Recruiter.ContactName" type="text" name="ContactName" required maxlength="@SaaSConsts.MaxCodeLineLength">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="ContactEmail" class="form-label">Email người liên hệ</label>
+                            <input id="ContactEmail" class="form-control" value="@Model.Recruiter.ContactEmail" type="text" name="ContactEmail" maxlength="@SaaSConsts.MaxCodeLineLength">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="ContactPhone" class="form-label">Số điện thoại</label>
+                            <input id="ContactPhone" class="form-control" value="@Model.Recruiter.ContactPhone" type="number" name="ContactPhone" required maxlength="@SaaSConsts.MaxCodeLineLength">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="HumanResSize" class="form-label">Quy mô nhân sự</label>
+                            <select required class="form-control" id="HumanResSizeCat" name="HumanResSizeCatId" asp-for="@Model.Recruiter.HumanResSizeCatId" asp-items="ViewBag.QuyMo">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="TaxCode" class="form-label">Lĩnh vực hoạt động</label>
+                            <select required class="form-control" id="SphereOfActivity" name="SphereOfActivityId" asp-for="@Model.Recruiter.SphereOfActivityId" asp-items="@ViewBag.listItemsKyThuat">
+                                <option value="" selected disabled>Chọn lĩnh vực</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="Website" class="form-label">Website</label>
+                            <input id="WebSite" class="form-control" value="@Model.Recruiter.WebSite" type="text" name="WebSite" maxlength="@SaaSConsts.MaxCodeLineLength">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="TaxCode" class="form-label">Mã số thuế</label>
+                            <input id="TaxCode" class="form-control" value="@Model.Recruiter.TaxCode" type="text" name="TaxCode" maxlength="@SaaSConsts.MaxCodeLineLength">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="DateOfEstablishment" class="form-label">Ngày thành lập công ty</label>
+                            <input id="DateOfEstablishment" class="form-control" asp-for="@Model.Recruiter.DateOfEstablishment" type="date" name="DateOfEstablishment">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="Address" class="form-label">Địa chỉ</label>
+                            <input id="Address" class="form-control" value="@Model.Recruiter.Address" type="text" name="Address" required maxlength="@SaaSConsts.MaxCodeLineLength">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="HumanResSize" class="form-label">Tỉnh/Thành phố</label>
+                            <select required class="form-control" id="Province" name="ProvinceId" asp-for="@Model.Recruiter.ProvinceId">
+                                <option value="" selected disabled>Chọn Tinh/Thành phố</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="TaxCode" class="form-label">Quận/Huyện</label>
+                            <select required class="form-control" id="District" name="DistrictId" data-select-id="@Model.Recruiter.DistrictId" disabled asp-for="@Model.Recruiter.DistrictId">
+                                <option value="" selected disabled>Chọn Quận/Huyện</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="TaxCode" class="form-label">Phường/Xã</label>
+                            <select required class="form-control" id="Village" name="VillageId" disabled data-select-id="@Model.Recruiter.VillageId" asp-for="@Model.Recruiter.VillageId">
+                                <option value="" selected disabled>Chọn Phường/Xã</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="Description" class="form-label">Mô tả công ty</label>
+                            <textarea id="Description" class="form-control" rows="4" cols="50" name="Description" maxlength="@SaaSConsts.MaxDescription">@Model.Recruiter.Description</textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

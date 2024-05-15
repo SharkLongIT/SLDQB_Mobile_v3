@@ -22,7 +22,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
 
         private string _SearchText = "";
         private long _Status = 0;
-        bool isError;
         public DSCauHoi()
         {
             navigationService = DependencyResolver.Resolve<INavigationService>();
@@ -31,9 +30,15 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
         }
         protected override async Task OnInitializedAsync()
         {
+            await SetPageHeader(L("Danh sách câu hỏi"));
         }
 
-       
+        public async void selectStatus(ChangeEventArgs args)
+        {
+            long select = Convert.ToInt64(args.Value);
+            _Status = select;
+            StateHasChanged();
+        }
         private bool _IsCancelList;
         private async Task RefeshList()
         {
@@ -55,13 +60,14 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
             StateHasChanged();
             await LoadContact(new ItemsProviderRequest());
         }
-        public async void selectedValue(ChangeEventArgs args)
+        private async Task CancelList()
         {
-            string select = Convert.ToString(args.Value);
-            _SearchText = select;
+            _SearchText = "";
+            _Status = 0;
+            _IsCancelList = false;
             await contactContainer.RefreshDataAsync();
             StateHasChanged();
-
+            await LoadContact(new ItemsProviderRequest());
         }
         private async ValueTask<ItemsProviderResult<ContactDto>> LoadContact(ItemsProviderRequest request)
         {
@@ -92,17 +98,14 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNTD
                               {
                                   //var makeAnAppointment = result.Items.ToList();
                                   var contacts = ObjectMapper.Map<List<ContactDto>>(result.Items);
-                                  if (_SearchText != "")
-                                  {
-                                      if (contacts.Count == 0)
-                                      {
-                                          isError = true;
-                                      }
-                                      else
-                                      {
-                                          isError = false;
-                                      }
-                                  }
+                                  //if (makeAnAppointment.Count == 0)
+                                  //{
+                                  //    isError = true;
+                                  //}
+                                  //else
+                                  //{
+                                  //    isError = false;
+                                  //}
                                   contactDto = new ItemsProviderResult<ContactDto>(contacts, contacts.Count);
                                   await UserDialogsService.UnBlock();
                               }

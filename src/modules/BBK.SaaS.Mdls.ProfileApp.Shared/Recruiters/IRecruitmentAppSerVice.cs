@@ -18,6 +18,7 @@ namespace BBK.SaaS.Mdls.Profile.Recruiters
         Task<PagedResultDto<RecruitmentDto>> GetAllBy();
         Task<long> ActiveRecruiment(RecruitmentDto input);
         Task<PagedResultDto<RecruitmentDto>> GetAllByNVNV(RecruimentInput input);
+        Task<int> CountRecruiment();
         #region Mobile/Frontend
         Task<PagedResultDto<RecruitmentDto>> GetAllUser(RecruimentInput input);
         #endregion

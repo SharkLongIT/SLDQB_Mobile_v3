@@ -1,0 +1,195 @@
+﻿@using Abp.Application.Services.Dto
+@using BBK.SaaS.Authorization
+@using BBK.SaaS.Authorization.Users;
+@using BBK.SaaS.Web.Areas.App.Startup
+@using BBK.SaaS.Web.Areas.Profile.Models.Recruiters;
+@using BBK.SaaS;
+
+@model RecruiterDetailViewModel
+@{
+	ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+	ViewBag.PageTitle = @L("Users");
+	ViewBag.PageDescription = @L("UsersHeaderInfo");
+}
+
+@section Styles
+	{
+	<link rel="stylesheet" abp-href="/view-resources/App/Users/index.css" asp-append-version="true" />
+}
+
+@section Scripts
+	{
+	<script abp-src="/view-resources/App/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+	@*<script abp-src="/view-resources/App/_Bundles/user-list.js" asp-append-version="true"></script>*@
+	<script abp-src="/view-resources/Profile/Recruiters/Detail.js" asp-append-version="true"></script>
+
+}
+
+<div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12 col-lg-5">
+				<div class="card">
+					<div class="card-header">
+						<h4>Thông tin tài khoản</h4>
+						<div class="card-header-right">
+							<ul class="list-unstyled card-option">
+								<li><i class="icon-more-alt"></i></li>
+								<li><i class="view-html fa fa-code"></i></li>
+								<li><i class="icofont icofont-maximize full-card"></i></li>
+								<li><i class="icofont icofont-minus minimize-card"></i></li>
+								<li><i class="icofont icofont-refresh reload-card"></i></li>
+								<li><i class="icofont icofont-error close-card"></i></li>
+							</ul>
+						</div>
+						<span>@L("UsersHeaderInfo")</span>
+					</div>
+					<div class="card-body">
+						<form name="UserInformationsForm" role="form" novalidate class="form-validation">
+							<input type="hidden" name="UserId" value="@Model.User.Id" />
+							<div class="row">
+								<div class="profile-title d-flex align-items-center">
+									@if (Model.User.Id > 0)
+									{
+										<img src="@Url.Action("GetProfilePictureByUser", "Profile", new {area = string.Empty})?userId=@(Model.User.Id)&&profilePictureId=@(Model.ProfilePictureId)" width="128" height="128" class="img-thumbnail img-rounded user-edit-dialog-profile-image m-r-10" />
+									}
+									else
+									{
+										<img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" width="128" height="128" class="img-thumbnail img-rounded user-edit-dialog-profile-image m-r-10" />
+									}
+									<div class="flex-grow-1">
+										@if (Model.User.Id > 0 && await PermissionChecker.IsGrantedAsync(AppPermissions.Pages_Administration_Users_ChangeProfilePicture))
+										{
+											<button type="button" class="btn-light btn-sm mb-3" id="changeProfilePicture">Cập nhật</button>
+										}
+										<span>Dạng file .jpg, .jpeg, .png, dung lượng <= 300KB và kích thước tối thiểu 300x300 pixel.</span>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 mb-3">
+									<label for="UserName" class="form-label">@L("UserName")/@L("Email")</label>
+									<input id="UserName" class="form-control" value="@Model.User.UserName" type="text" name="UserName" required maxlength="@BBK.SaaS.Authorization.Users.User.MaxNameLength" disabled="disabled">
+								</div>
+								<div class="col-12 mb-3">
+									<label for="Name" class="form-label">@L("FirstName")</label>
+									<input id="Name" class="form-control" value="@Model.User.Name" type="text" name="Name" required maxlength="@BBK.SaaS.Authorization.Users.User.MaxNameLength">
+								</div>
+								@* <div class="col-12 mb-3">
+									<label for="Surname" class="form-label">@L("Surname")</label>
+									<input id="Surname" type="text" name="Surname" class="form-control" value="@Model.User.Surname" required maxlength="@BBK.SaaS.Authorization.Users.User.MaxSurnameLength">
+								</div> *@
+								<div class="col-12 mb-3">
+									<label for="PhoneNumber" class="form-label">@L("PhoneNumber") *</label>
+									<input id="PhoneNumber" type="text" name="PhoneNumber" class="form-control" required value="@Model.User.PhoneNumber" maxlength="@UserConsts.MaxPhoneNumberLength">
+								</div>
+								<div class="col-12">
+									<button class="btn btn-primary" type="submit">Submit form</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-7">
+				<div class="card">
+					<div class="card-header">
+						<h4>Thông tin công ty</h4>
+						<div class="card-header-right">
+							<ul class="list-unstyled card-option">
+								<li><i class="icon-more-alt"></i></li>
+								<li><i class="view-html fa fa-code"></i></li>
+								<li><i class="icofont icofont-maximize full-card"></i></li>
+								<li><i class="icofont icofont-minus minimize-card"></i></li>
+								<li><i class="icofont icofont-refresh reload-card"></i></li>
+								<li><i class="icofont icofont-error close-card"></i></li>
+							</ul>
+						</div>
+						<span>@L("UsersHeaderInfo")</span>
+					</div>
+					<div class="card-body">
+						<form name="RecruiterInfoForm" role="form" novalidate class="form-validation">
+							<input type="hidden" name="RecruiterId" value="@Model.Recruiter.Id" />
+							<div class="row">
+								<div class="col-12 mb-3">
+									<label for="TaxCode" class="form-label">@L("Mã số thuế")</label>
+									<input id="TaxCode" class="form-control" value="@Model.Recruiter.TaxCode" type="text" name="TaxCode" required maxlength="@SaaSConsts.MaxCodeLineLength">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 mb-3">
+									<label for="CompanyName" class="form-label">@L("Tên công ty")</label>
+									<input id="CompanyName" class="form-control" value="@Model.Recruiter.CompanyName" type="text" name="CompanyName" required maxlength="@SaaSConsts.MaxCodeLineLength">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 mb-3">
+									<label for="HumanResSize" class="form-label">@L("Quy mô nhân sự")</label>
+									<input id="HumanResSize" class="form-control" value="@Model.Recruiter.HumanResSizeCatId" type="text" name="HumanResSize" required maxlength="@SaaSConsts.MaxCodeLineLength">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 mb-3">
+									<label for="TaxCode" class="form-label">@L("Địa điểm")</label>
+									<input id="TaxCode" class="form-control" value="@Model.Recruiter.TaxCode" type="text" name="TaxCode" required maxlength="@SaaSConsts.MaxCodeLineLength">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 mb-3">
+									<label for="Address" class="form-label">@L("Địa chỉ")</label>
+									<input id="Address" class="form-control" value="@Model.Recruiter.Address" type="text" name="Address" required maxlength="@SaaSConsts.MaxCodeLineLength">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 mb-3">
+									<label for="TaxCode" class="form-label">@L("Lĩnh vực hoạt động")</label>
+									<input id="TaxCode" class="form-control" value="@Model.Recruiter.TaxCode" type="text" name="TaxCode" required maxlength="@SaaSConsts.MaxCodeLineLength">
+								</div>
+							</div>
+							<h5 class="mb-2">@L("Giấy phép kinh doanh") </h5>
+							<span>Để chứng thực tài khoản Quý khách đang sử dụng trên BBKJobExchange, vui lòng đăng tải giấy phép đăng ký kinh doanh.</span>
+
+							<div class="d-flex align-items-center m-t-10 fileUpload">
+								<input id="input-11" name="input11[]" type="file" class="" accept="application/pdf" data-show-preview="false">
+							</div>
+							
+							@* <div class="profile-title d-flex align-items-center m-t-10 bd-1 recruiterBLUpload">
+								@if (!string.IsNullOrWhiteSpace(Model.Recruiter.BusinessLicenseUrl) && Model.Recruiter.BusinessLicenseFile != null)
+								{
+									<a href="@Model.Recruiter.BusinessLicenseFile.FileUrl" target="_blank"><span><i class="f-22 fa fa-file-pdf-o m-r-10"></i>@Model.Recruiter.BusinessLicenseFile.FileName</span></a>
+									<div class="flex-grow-1">
+										<span class="badge badge-light-warning m-r-15">On The Way</span>
+										<a href="#" class="pull-right delRecruiterBL font-danger" title="@Model.Recruiter.BusinessLicenseFile.FileName">
+											<svg width="24" height="24">
+												<use href="/themes/mofi/assets/svg/icon-sprite.svg#recycle"></use>
+											</svg>
+										</a>
+									</div>
+								}								
+							</div> *@
+
+							<p class="mb-2 f-w-500 font-success m-t-10">Giấy phép kinh doanh hợp lệ</p>
+							<div class="alert alert-light-secondary" role="alert">
+								<svg width="14px" height="14px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+									<path d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+								</svg>
+								<p class="txt-secondary">Có dấu giáp lai của cơ quan có thẩm quyền.</p>
+							</div>
+
+							<div class="alert alert-light-secondary" role="alert">
+								<svg width="14px" height="14px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M8.5 12.5L10.5 14.5L15.5 9.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+									<path d="M22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C21.5093 4.43821 21.8356 5.80655 21.9449 8" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+								</svg>
+								<p class="txt-secondary">Trường hợp giấy phép kinh doanh là bản photo thì phải có dấu công chứng.</p>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

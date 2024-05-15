@@ -1,0 +1,240 @@
+﻿@using BBK.SaaS.Web.Areas.Profile.Models.Recruiters
+@model GetAllJobOfUser
+
+<div class="section bg-transparent m-0 py-2">
+    <h4 class="mb-3 ls-1 text-uppercase fw-bold">Người tìm việc - Việc tìm người</h4>
+    <div class="line line-xs line-sports"></div>
+    <div class="row col-mb-50 infinity-wrapper grid-container">
+        <!-- Công việc mới nhất ============================================= -->
+        <div class="col-md-6">
+            <div class="card border">
+                <div class="card-header p-3 ps-4 bg-transparent">
+                    <h4 class="ls-1 mb-0 text-uppercase fw-bold" style="font-size: 110%;">
+                        Công việc mới nhất
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="scroll-wrap" style="height: 400px;">
+                        <div class="scroll">
+                            <div class="posts-sm row col-mb-30">
+                                <!-- Bắt đầu Item -->
+                                @for (int i = 0; i < Model.Recruiment.Count; i++)
+                                {
+                                    <div class="entry col-12">
+                                        <div class="grid-inner row align-items-center g-0">
+                                            <div class="col-auto">
+                                                <div class="entry-image">
+                                                    @if (Model.Recruiment[i].Recruiter.AvatarUrl != null)
+                                                    {
+                                                        <a href="../JobUser/ViewRecruitment/@Model.Recruiment[i].Id">
+                                                            <img src="@Model.Recruiment[i].Recruiter.AvatarUrl"
+                                                                 alt="Image">
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="../JobUser/ViewRecruitment/@Model.Recruiment[i].Id">
+                                                            <img src="/themes/mofi/assets/images/ecommerce/product-table-6.png" alt="#">
+                                                        </a>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="col ps-3">
+                                                <div class="entry-title title-sm mt-3 mt-md-0">
+                                                    <h3>
+                                                        <a href="../JobUser/ViewRecruitment/@Model.Recruiment[i].Id">@Model.Recruiment[i].Title</a>
+                                                    </h3>
+                                                    <span>
+                                                        @Model.Recruiment[i].Recruiter.CompanyName
+                                                    </span>
+                                                </div>
+                                                <div class="entry-meta no-separator">
+                                                    <ul>
+                                                        <li class="text-dark">
+                                                            <i class="uil-usd-circle"></i><span>
+                                                                @(Math.Floor(@Model.Recruiment[i].MinSalary) / 1000000)-@(Math.Floor(@Model.Recruiment[i].MaxSalary) / 1000000) Triệu
+                                                            </span>
+                                                        </li>
+                                                        <li class="text-dark">
+                                                            <i class="fa fa-map-marker font-awesome"></i><span> @Model.Recruiment[i].WorkAddress</span>
+                                                        </li>
+                                                        <li class="text-dark">
+                                                            <i class="bi-calendar-date"></i>
+                                                            <span>@Model.Recruiment[i].DeadlineSubmission.ToShortDateString()</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Kết thúc Item -->
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="../JobUser/Search" class="card-footer  ls-1 text-uppercase fw-bold text-white w-100 border-top-0 bg-sports text-center">
+                    Xem thêm
+                </a>
+            </div>
+        </div>
+
+        <!-- Hồ sơ mới nhất ============================================= -->
+        <div class="col-md-6">
+            <div class="card border">
+                <div class="card-header p-3 ps-4 bg-transparent">
+                    <h4 class="ls-1 mb-0 text-uppercase fw-bold" style="font-size: 110%;">
+                        Hồ sơ mới nhất
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="scroll-wrap" style="height: 400px;">
+                        <div class="scroll">
+                            <div class="posts-sm row col-mb-30">
+                                  @for (int i = 0; i < Model.Candidate.Count; i++)
+                                    {
+                                <!-- Bắt đầu item -->
+                                <div class="entry col-12">
+                                  
+                                        <div class="grid-inner row align-items-center g-0">
+                                            <div class="col-auto">
+                                                <div class="entry-image">
+                                                    @if (Model.Candidate[i].User.Id > 0)
+                                                    {
+                                                        <a href="../UserJob/Detail/@Model.Candidate[i].JobApplication.Id">
+                                                            <img src="@Url.Action("GetProfilePictureByUser", "Profile", new {area = string.Empty})?userId=@(Model.Candidate[i].User.Id)&&profilePictureId=@(Model.Candidate[i].ProfilePictureId)" alt="Image" />
+                                                        </a>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="../UserJob/Detail/@Model.Candidate[i].JobApplication.Id">
+                                                            <img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" alt="Image" />
+                                                        </a>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="col ps-3">
+                                                <div class="entry-title title-sm mt-3 mt-md-0">
+                                                    <h3><a href="../UserJob/Detail/@Model.Candidate[i].JobApplication.Id">@Model.Candidate[i].Candidate.Account.Name</a></h3>
+                                                    <span>@Model.Candidate[i].JobApplication.Positions.DisplayName</span>
+                                                </div>
+                                                <div class="entry-meta no-separator">
+                                                    <ul>
+                                                        <li class="text-dark">
+                                                            <i class="uil-usd-circle"></i><span>
+                                                                @(Math.Floor(@Model.Candidate[i].JobApplication.DesiredSalary.Value) / 1000000) Triệu
+                                                            </span>
+                                                        </li>
+                                                        <li class="text-dark">
+                                                            <i class="fa fa-mortar-board font-awesome"></i>
+                                                            <span>@Model.Candidate[i].JobApplication.Literacy.DisplayName</span>
+                                                        </li>
+                                                        <li class="text-dark">
+                                                            <i class="bi-calendar-date"></i>
+                                                            <span> @Model.Candidate[i].Age</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <!-- Kết thúc item-->
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="../UserJob" class="card-footer ls-1 text-uppercase fw-bold text-white w-100 bg-market border-top-0 text-center">
+                    Xem thêm
+                </a>
+            </div>
+        </div>
+    </div> <!-- Container End -->
+</div>
+
+@* <div class="widget-grid">
+    <div class="card">
+        <div class="card-header" style="text-transform: none">
+            <h4><i class="icofont icofont-job-search m-r-10"></i>Việc làm mới nhất</h4>
+            <div class="card-header-right">
+                <a href="../JobUser/Search" class="btn btn-pill btn-outline-primary btn-air-primary btn-xs" type="button"
+                   title="btn btn-pill btn-outline-primary btn-air-primary btn-xs">
+                    Xem thêm
+                </a>
+
+            </div>
+        </div>
+        <div class="card-body student">
+
+            <div class="row g-sm-4 g-3">
+                @for (int i = 0; i < Model.Recruiment.Count; i++)
+                {
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="prooduct-details-box widget-hover">
+                            <div class="d-flex">
+                                @if (Model.Recruiment[i].Recruiter.AvatarUrl != null)
+                                {
+                                    <a href="../JobUser/ViewRecruitment/@Model.Recruiment[i].Id">
+                                        <img class="img-90 align-self-center img-fluid mt-3"
+                                             src="@Model.Recruiment[i].Recruiter.AvatarUrl" alt="#">
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="../JobUser/ViewRecruitment/@Model.Recruiment[i].Id">
+                                        <img class="align-self-center img-fluid img-90 mt-3"
+                                             src="/themes/mofi/assets/images/ecommerce/product-table-6.png" alt="#">
+                                    </a>
+                                }
+                                <div class="flex-grow-1 ms-3">
+                                    <div class="product-name pb-2 recruiment">
+                                        <h6><a href="../JobUser/ViewRecruitment/@Model.Recruiment[i].Id">@Model.Recruiment[i].Title</a></h6>
+                                    </div>
+                                    <small>
+                                        <i class="fa fa-building font-awesome"></i> @Model.Recruiment[i].Recruiter.CompanyName
+                                    </small>
+                                    <hr class="my-1">
+                                    <div class="row recruiment">
+                                        <div class="col-md-6">
+                                            <small>
+                                                <i class="fa fa-money font-awesome"></i> @(Math.Floor(@Model.Recruiment[i].MinSalary) / 1000000)-@(Math.Floor(@Model.Recruiment[i].MaxSalary) / 1000000) Triệu
+                                            </small>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <small>
+                                                <i class="fa fa-map-marker font-awesome"></i> @Model.Recruiment[i].WorkAddress
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="row recruiment">
+                                        <div class="col-md-6">
+                                            <small>
+                                                <i class="fa fa-briefcase font-awesome"></i>
+                                                @Model.Recruiment[i].Experiences.DisplayName
+
+                                            </small>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <small>
+                                                <i class="fa fa-calendar font-awesome"></i>
+                                                @Model.Recruiment[i].DeadlineSubmission.ToShortDateString()
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div> *@
+
+
+
+

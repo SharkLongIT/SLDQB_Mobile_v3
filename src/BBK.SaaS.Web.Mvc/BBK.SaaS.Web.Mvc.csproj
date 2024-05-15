@@ -1,0 +1,115 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<Import Project="..\..\common.props"></Import>
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+		<PreserveCompilationContext>true</PreserveCompilationContext>
+		<AssemblyName>BBK.SaaS.Web.Mvc</AssemblyName>
+		<OutputType>Exe</OutputType>
+		<PackageId>BBK.SaaS.Web.Mvc</PackageId>
+		<UserSecretsId>BBK-SaaS-894FDFC1-6482-4A56-926A-3C46C9FE0329</UserSecretsId>
+		<RootNamespace>BBK.SaaS.Web</RootNamespace>
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+		<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+		<TypeScriptToolsVersion>4.3</TypeScriptToolsVersion>
+		<PreserveCompilationReferences>true</PreserveCompilationReferences>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="App_Data\**" />
+		<Content Remove="App_Data\**" />
+		<EmbeddedResource Remove="App_Data\**" />
+		<None Remove="App_Data\**" />
+		<TypeScriptCompile Remove="node_modules\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Remove="Areas\Profile\Views\Recruitments\GetJobUser.cshtml" />
+		<Content Remove="wwwroot\swagger\ui\index.html" />
+		<Content Remove="wwwroot\view-resources\Profile\Candidate\UserJob.min.css" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="wwwroot\swagger\ui\index.html" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="app.config" />
+		<None Include="wwwroot\Plugins\.gitkeep" />
+		<None Update="Dockerfile">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="log4net.config">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</None>
+		<None Update="wwwroot\**\*;Areas\**\*;Views\**\*">
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BBK.SaaS.Web.Core\BBK.SaaS.Web.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Abp.Castle.Log4Net" Version="8.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="7.0.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.5" />
+		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.3.3">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.2.2" />
+		<PackageReference Include="Azure.Identity" Version="1.10.4" />
+		<PackageReference Include="Abp.AutoMapper" Version="8.2.0" />
+		<PackageReference Include="Abp.MailKit" Version="8.2.0" />
+		<PackageReference Include="Abp.Zero.Ldap" Version="8.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="BBK.SaaS.Application">
+			<HintPath>..\libs\BBK.SaaS.Application.dll</HintPath>
+		</Reference>
+		<Reference Include="BBK.SaaS.Application.Shared">
+			<HintPath>..\libs\BBK.SaaS.Application.Shared.dll</HintPath>
+		</Reference>
+		<Reference Include="BBK.SaaS.Core">
+			<HintPath>..\libs\BBK.SaaS.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="BBK.SaaS.Core.Shared">
+			<HintPath>..\libs\BBK.SaaS.Core.Shared.dll</HintPath>
+		</Reference>
+		<!--<Reference Include="BBK.SaaS.Mdls.CategoryApp">
+			<HintPath>..\libs\BBK.SaaS.Mdls.CategoryApp.dll</HintPath>
+		</Reference>
+		<Reference Include="BBK.SaaS.Mdls.CategoryApp.Shared">
+			<HintPath>..\libs\BBK.SaaS.Mdls.CategoryApp.Shared.dll</HintPath>
+		</Reference>-->
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Views\Profile\" />
+	  <Folder Include="wwwroot\view-resources\Profile\JobApplication\" />
+	  <Folder Include="wwwroot\view-resources\Views\UserJob\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Areas\Profile\Views\Recruitments\GetJobUser.cshtml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="Areas\Profile\Views\Recruitments\GetJobUser.cshtml" />
+	</ItemGroup>
+	
+</Project>

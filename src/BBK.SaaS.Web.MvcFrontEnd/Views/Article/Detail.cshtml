@@ -1,0 +1,201 @@
+﻿@using System.Globalization
+@using BBK.SaaS.Mdls.Cms.Configuration
+@using BBK.SaaS.Timing
+@using BBK.SaaS.Web.Models.Cms.Articles
+@using BBK.SaaS.Web.Views.Shared.Components.HomeCategories
+@using BBK.SaaS.Web.Views.Shared.Components.Widget
+
+@model ArticleViewModel
+@section Scripts
+{
+	<script abp-src="/view-resources/Profile/Introduce/Index.js" asp-append-version="true"></script>
+}
+@section Styles
+{
+    <link rel="stylesheet" abp-href="/view-resources/Profile/Recruitments/Style.css" asp-append-version="true" />
+}
+<!-- Content
+============================================= -->
+<section id="content">
+	<div class="content-wrap pt-3">
+		@await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.AllPagesAfterMenu })
+		@await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.ArticleDetailTop })
+		<div class="container">
+			<div class="row mt-5">
+				<!-- Posts Area
+				============================================= -->
+				<div class="col-lg-8">
+					<div class="entry">
+						<h2 class="mb-3 fw-bold h1">@Model.Article.Title</h2>
+						@* <button class="btn btn-primary m-1" type="button" id="btnIntroduce">Giới thiệu</button> *@
+						<p class="text-muted mb-3">@Model.Article.ShortDesc</p>
+						<div class="entry-meta d-flex justify-content-between mb-4">
+							<ul>
+								<li>@Model.Article.Modified.ToString("dd/MM/yyyy hh:mm:ss")</li>
+								<li><i class="icofont icofont-user"></i>@Model.Article.Author</li>
+								<li><i class="icofont icofont-eye"></i>@Model.Article.ViewedCount <span>lượt xem</span></li>
+							</ul>
+						</div>
+
+						<!-- Post Single - Share
+						============================================= -->
+						<div class="card border-0 border-top rounded-0 border-default mt-4 mb-5">
+							<div class="card-body pt-3 px-0">
+								<div class="d-flex align-items-center justify-content-between">
+									<h6 class="fs-6 fw-semibold mb-0">Share:</h6>
+									<div class="d-flex">
+										<a href="#" class="social-icon text-white border-transparent rounded-circle bg-facebook" title="Facebook" style="--cnvs-socialicon-size:2rem;">
+											<i class="fa-brands fa-facebook-f"></i>
+											<i class="fa-brands fa-facebook-f"></i>
+										</a>
+										<a href="#" class="social-icon text-white border-transparent rounded-circle bg-x-twitter" title="Twitter" style="--cnvs-socialicon-size:2rem;">
+											<i class="fa-brands fa-x-twitter"></i>
+											<i class="fa-brands fa-x-twitter"></i>
+										</a>
+
+										<a href="#" class="social-icon text-white border-transparent rounded-circle bg-pinterest" title="Pinterest" style="--cnvs-socialicon-size:2rem;">
+											<i class="fa-brands fa-pinterest-p"></i>
+											<i class="fa-brands fa-pinterest-p"></i>
+										</a>
+
+										<a href="#" class="social-icon text-white border-transparent rounded-circle bg-whatsapp" title="Whatsapp" style="--cnvs-socialicon-size:2rem;">
+											<i class="fa-brands fa-whatsapp"></i>
+											<i class="fa-brands fa-whatsapp"></i>
+										</a>
+
+										<a href="#" class="social-icon text-white border-transparent rounded-circle bg-rss" title="RSS" style="--cnvs-socialicon-size:2rem;">
+											<i class="fa-solid fa-rss"></i>
+											<i class="fa-solid fa-rss"></i>
+										</a>
+
+										<a href="#" class="social-icon text-white border-transparent rounded-circle bg-email3 me-0" title="Mail" style="--cnvs-socialicon-size:2rem;">
+											<i class="fa-solid fa-envelope"></i>
+											<i class="fa-solid fa-envelope"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div><!-- Post Single - Share End -->
+
+						<div class="entry-image">
+							@if (!string.IsNullOrEmpty(@Model.Article.PrimaryImageUrl))
+								{
+									<img class="img-fluid w-100" src="/file/get?c=@Model.Article.PrimaryImageUrl" alt="blog-main">
+								}
+							<div class="entry-categories"><a href="demo-news-category.html" class="bg-travel">@Model.Article.Slug</a></div>
+						</div>
+
+						<div class="entry-content mt-0">
+							<p>@Html.Raw(Model.Article.Content)</p>
+						</div>
+					</div>
+					<div class="line"></div>
+					<h4>Tin cùng chuyên mục:</h4>
+					<div class="posts-sm row col-mb-30 related-posts">
+						@{
+							int relateShowNumber = 0;
+						}
+						@foreach (var article in Model.Category.Articles)
+										{
+											if (article.Id == Model.Article.Id) continue;
+											if (relateShowNumber == 9) break;
+
+						<div class="entry col-md-6">
+							<!-- Post Article -->
+							<div class="grid-inner row align-items-center no-gutter">
+								<div class="col-auto">
+									<div class="entry-image">
+										@if (!string.IsNullOrEmpty(article.PrimaryImageUrl))
+												{
+													<div class="product-img mb-3">
+														<a href="/@article.Slug" title="@@article.Title"><img class="img-fluid top-radius-blog" src="/file/get?c=@article.PrimaryImageUrl" alt=""></a>
+													</div>
+												}
+									</div>
+								</div>
+								<div class="col ps-3">
+									<div class="entry-title">
+										<h4 class="fw-medium"><a href="/@article.Slug" class="" title="@@article.Title">@article.Title</a></h4>
+									</div>
+									<div class="entry-meta">
+										<ul>
+											<li>@article.Modified.ToString("dd/MM/yyyy hh:mm:ss")</li>
+											<li><i class="icofont icofont-user"></i>@article.Author</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						++relateShowNumber;
+						}
+					</div>
+				</div>
+
+				<!-- Top Sidebar Area
+				============================================= -->
+				<div class="col-lg-4 sticky-sidebar-wrap mt-5 mt-lg-0">
+					<div class="sticky-sidebar">
+						<!-- Sidebar Widget 1
+						============================================= -->
+						 <div class="widget">
+							<div class="line line-xs line-market"></div>
+							@await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.ArticleDetailRightTop })
+						</div>
+						<!-- Sidebar Widget 2
+						============================================= -->
+						<div class="widget">
+							<div class="card">
+								<div class="card-body">
+									 <form name="CreateIntroduceForm" role="form" novalidate class="form-validation">
+										<input type="hidden" value="@Model.Article.Id" id="ArticleId" name="ArticleId"/>
+										<div class="text-center">
+												<i class="bi-envelope text-muted mb-3" style="font-size: 48px;line-height: 1"></i>
+												<h3 class="h3 mb-3 fw-normal font-primary">Giới thiệu người lao động.</h3>
+												<p class="font-secondary mb-2"><a href="#"><u>Chính sách giới thiệu</u></a>.</p>
+										</div>
+										<div class="row">
+											<div class="mb-3">
+												<label class="form-label">Họ và tên</label>
+												<input type="text" name="FullName" required class="form-control">
+											</div>
+										</div>
+										<div class="row">
+											<div class="mb-3">
+												<label class="form-label">Email</label>
+												<input type="email" name="Email" required class="form-control">
+											</div>
+										</div>
+										<div class="row">
+											<div class="mb-3">
+												<label class="form-label">Số điện thoại</label>
+												<input type="text" id="PhoneNumber" name="Phone" required class="form-control">
+											</div>
+										</div>
+										<div class="row">
+											<div class="mb-3">
+												<label class="form-label">Nội dung</label>
+												<textarea required id="Description" class="form-control" rows="4" cols="50" name="Description"></textarea>
+											</div>
+										</div>
+										 <div class="row">
+											<div class="col-12 d-flex justify-content-end">
+													<button class="btn btn-danger m-1" type="button" id="btnIntroduce">Giới thiệu</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+						<!-- Sidebar Widget 3
+						============================================= -->
+						 <div class="widget">
+							 @await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.ArticleDetailRightTop })
+						</div>
+					</div>
+				</div> <!-- Sidebar End -->
+			</div>
+		</div> <!-- Container End -->
+		@await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.ArticleDetailBottom })
+		@await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.AllPagesBeforeFooter })
+	</div>
+</section><!-- #content end -->

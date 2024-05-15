@@ -7,12 +7,12 @@ namespace BBK.SaaS.Mobile.MAUI.Services.UI
     {
         public async Task Show(IJSRuntime JS, string jquerySelector)
         {
-            await JS.InvokeVoidAsync("ModalCustomManagerService.show", jquerySelector);
+            await JS.InvokeVoidAsync("BlazorModalManagerService.show", jquerySelector);
         }
 
         public async Task Hide(IJSRuntime JS, string jquerySelector)
         {
-            await JS.InvokeVoidAsync("ModalCustomManagerService.hide", jquerySelector);
+            await JS.InvokeVoidAsync("BlazorModalManagerService.hide", jquerySelector);
         }
     }
 }

@@ -1,0 +1,114 @@
+﻿@using BBK.SaaS.Web.Areas.App.Startup
+@using BBK.SaaS.Web.Areas.Profile.Models.Recruiters
+@model RecruiterDetailViewModel
+
+
+<div class="page-body">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <h4>@L("Thông tin chi tiết công ty")</h4>
+                    <div class="card-header-right">
+                        <ul class="list-unstyled card-option">
+                            <li><i class="icon-more-alt"></i></li>
+                            <li><i class="view-html fa fa-code"></i></li>
+                            <li><i class="icofont icofont-maximize full-card"></i></li>
+                            <li><i class="icofont icofont-minus minimize-card"></i></li>
+                            <li><i class="icofont icofont-refresh reload-card"></i></li>
+                            <li><i class="icofont icofont-error close-card"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-xl-12 box-col-12">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="card">
+                                    <div class="job-search">
+                                        <div class="card-body">
+                                            <h3>
+                                                <b>
+
+                                                </b>
+                                            </h3>
+                                            <div class="row">
+                                                <div class="profile-title d-flex align-items-center">
+                                                    @if (Model.Recruiter.AvatarUrl != null)
+                                                    {
+                                                        <img src="@Model.Recruiter.AvatarUrl" width="200" height="200" class="img-thumbnail img-rounded user-edit-dialog-profile-image m-r-10" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="@Url.Content($"{ApplicationPath}Common/Images/default-profile-picture.png")" width="128" height="128" class="img-thumbnail img-rounded user-edit-dialog-profile-image m-r-10" />
+                                                    }
+                                                    <div class="flex-grow-1">
+                                                        <span>@Model.Recruiter.CompanyName</span></br>
+
+                                                        <i class="fa fa-envelope"></i>
+                                                        <span>@Model.Recruiter.ContactEmail</span></br>
+
+                                                        <i class="fa fa-area-chart"></i>
+                                                        <span>@Model.Recruiter.HumanResSizeCat.DisplayName</span></br>
+
+                                                        <i class="fa fa-phone"></i>
+                                                        <span>@Model.Recruiter.ContactPhone</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-8">
+                    <div class="card">
+                        <div class="job-search">
+                            <div class="card-body">
+                                <div class="job-description">
+                                    <h3 style="margin-bottom: 32px;"><b>Giới thiệu công ty</b></h3>
+                                    <p>
+                                        @Model.Recruiter.Description
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <!-- without shadow card -->
+                    <div class="card shadow-none border">
+                        <div class="card-body">
+                            <h4>Thông tin liên hệ</h4><br>
+                            <p class="mb-2"><span class="font-weight-bold"> Địa chỉ:</span> @Model.Recruiter.Address, @Model.Recruiter.Village.DisplayName, @Model.Recruiter.District.DisplayName, @Model.Recruiter.Province.DisplayName. </p>
+                            <p class="mb-2"><span class="font-weight-bold">Mã số thuế:</span> @Model.Recruiter.TaxCode  </p>
+                            <p class="mb-2"><span class="font-weight-bold">Ngày thành lập:</span> @Model.Recruiter.DateOfEstablishment.Value.ToShortDateString()  </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-8">
+                    <div class="card">
+                        <div class="job-search">
+                            <div class="card-body">
+                                <div class="job-description">
+                                    <h3 style="margin-bottom: 32px;"><b>Tuyển dụng</b></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+

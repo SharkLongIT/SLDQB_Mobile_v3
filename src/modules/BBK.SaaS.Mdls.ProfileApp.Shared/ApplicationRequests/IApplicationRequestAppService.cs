@@ -21,7 +21,8 @@ namespace BBK.SaaS.Mdls.Profile.ApplicationRequests
         /// <returns></returns>
         Task<bool> CheckApplied(long RecruitmentId);
         Task<PagedResultDto<ApplicationRequestEditDto>> GetAllByRecruiter(ApplicationRequestSearch input);
-        Task Delete(long? Id);                                                                                                                                                                                                                                                                                                                  
+        Task Delete(long? Id);
+        Task<long> CreateUT(ApplicationRequestEditDto input);
     }
 }
                                                                                                                                                                        

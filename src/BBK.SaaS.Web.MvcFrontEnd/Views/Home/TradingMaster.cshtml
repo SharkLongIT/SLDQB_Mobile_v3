@@ -1,0 +1,107 @@
+﻿@using BBK.SaaS.Web.Areas.Profile.Models.Recruiters
+@model GetAllJobOfUser
+<!-- Phiên giao dịch ============================================= -->
+<div class="col-lg-8">
+    <div>
+        <h4 class="mb-2 ls-1 text-uppercase fw-bold">Phiên giao dịch</h4>
+        <div class="line line-xs line-market"></div>
+
+        <div class="row col-mb-50 mb-0">
+            @for (int i = 0; i < Model.TradingSession.Count; i++)
+            {
+                <div class="entry col-12 mb-0">
+                    <div class="grid-inner row">
+                        <div class="col-md-5">
+                            <div class="entry-image mb-0">
+                                <a href="../TradingSession/ViewDetailTradingSessionAccount/@Model.TradingSession[i].Id">
+                                    @if (!string.IsNullOrEmpty(@Model.TradingSession[i].ImgUrl))
+                                    {
+                                        <img class="img-fluid preview-primaryimg" src="/file/get?p=@Model.TradingSession[i].ImgUrl" alt="Image">
+                                    }
+                                    else
+                                    {
+                                        <img class="img-fluid preview-primaryimg" src="/themes/mofi/assets/images/blog/blog.jpg" alt="Image">
+                                    }
+                                </a>
+                                @if (@Model.TradingSession[i].StartTime <= DateTime.Now && @Model.TradingSession[i].EndTime >= DateTime.Now)
+                                {
+                                    <div class="entry-categories"><a href="../TradingSession/ViewDetailTradingSessionAccount/@Model.TradingSession[i].Id" class="bg-lifestyle">Đang diễn ra</a></div>
+                                }
+                                else
+                                {
+                                    <div class="entry-categories"><a href="../TradingSession/ViewDetailTradingSessionAccount/@Model.TradingSession[i].Id" class="bg-danger">Sắp diễn ra</a></div>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="entry-title title-sm mt-3 mt-md-0">
+                                <h3 class="mb-2">
+                                    <a href="../TradingSession/ViewDetailTradingSessionAccount/@Model.TradingSession[i].Id">
+                                        @Model.TradingSession[i].NameTrading
+                                    </a>
+                                </h3>
+                            </div>
+                            <div class="entry-meta">
+                                <ul>
+                                    <li>Admin</li>
+                                    <li><i class="bi-clock"></i> @Model.TradingSession[i].StartTime.ToShortDateString() - @Model.TradingSession[i].EndTime.ToShortDateString()</li>
+                                  @*   <li><i class="uil uil-camera"></i></li> *@
+                                </ul>
+                            </div>
+                            <div class="entry-content mt-3">
+                                <p class="mb-0">
+                                    @Model.TradingSession[i].Describe
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Tin khác
+        ============================================= -->
+        <div class="row col-mb-50 infinity-wrapper grid-container">
+            @for (int i = 0; i < Model.Article.Count; i++)
+            {
+                <div class="col-md-6">
+                    <!-- Bài viết  -->
+                    <div class="posts-md">
+                        <div class="entry">
+                            <div class="entry-image">
+                                <a href="/@Model.Article[i].Slug">
+                                    <img src="@Model.Article[i].PrimaryImageUrl"
+                                         alt="Image 3">
+                                </a>
+                                <div class="entry-categories">
+                                    <a href="/@Model.Article[i].Slug"
+                                       class="bg-lifestyle">@Model.Article[i].Slug</a>
+                                </div>
+                            </div>
+                            <div class="entry-title title-sm text-transform-none">
+                                <h3 class="mb-2">
+                                    <a href="/@Model.Article[i].Slug">
+                                        @Model.Article[i].Title
+                                    </a>
+                                </h3>
+                            </div>
+                            <div class="entry-meta">
+                                <ul>
+                                    <li> @Model.Article[i].Author</li>
+                                    <li><i class="bi-clock"></i>@Model.Article[i].Modified.ToShortDateString()</li>
+                                </ul>
+                            </div>
+                            <div class="entry-content">
+                                <p class="mb-0">
+                                    @Model.Article[i].ShortDesc
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,113 @@
+﻿@using Abp.Application.Services.Dto
+@using BBK.SaaS
+@using Abp.Timing;
+@using BBK.SaaS.Mdls.Cms
+@using BBK.SaaS.Security
+@using BBK.SaaS.Web.Areas.App.Startup
+@using BBK.SaaS.Web.Areas.Cms.Models.Settings
+
+@model CmsSettingsViewModel
+@{
+	ViewBag.CurrentPageName = CmsPageNames.Administrators.Settings;
+	ViewBag.PageTitle = @L("CMSSettings");
+	ViewBag.PageDescription = @L("SettingsHeaderInfo");
+}
+
+@section Styles
+{
+
+}
+
+@section Scripts
+{
+	@* <script>
+    var isOpenIdEnabled = @(Model.EnabledSocialLoginSettings.Contains("OpenId") ? "true" : "false");
+    var openIdConnectClaimsMappings = @Html.Raw(Model.Settings.ExternalLoginProviderSettings.OpenIdConnectClaimsMapping == null || Model.Settings.ExternalLoginProviderSettings.OpenIdConnectClaimsMapping.Count == 0 ? "[]" : Newtonsoft.Json.JsonConvert.SerializeObject(Model.Settings.ExternalLoginProviderSettings.OpenIdConnectClaimsMapping));
+
+    var isWsFederationEnabled = @(Model.EnabledSocialLoginSettings.Contains("WsFederation") ? "true" : "false");
+    var wsFederationClaimsMappings = @Html.Raw(Model.Settings.ExternalLoginProviderSettings.WsFederationClaimsMapping == null || Model.Settings.ExternalLoginProviderSettings.WsFederationClaimsMapping.Count == 0 ? "[]" : Newtonsoft.Json.JsonConvert.SerializeObject(Model.Settings.ExternalLoginProviderSettings.WsFederationClaimsMapping));
+
+    </script> *@
+	@* <script abp-src="/view-resources/App/Common/_KeyValueListManager.js" asp-append-version="true"></script> *@
+	<script abp-src="/view-resources/Cms/Settings/Index.js" asp-append-version="true"></script>
+}
+
+<div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card">
+					<div class="card-body">
+						<div id="SettingsTabPanel" class="tabbable-line">
+							<ul class="nav nav-tabs" role="tablist">
+
+								<li class="nav-item">
+									<a href="#SettingsGeneralTab" aria-expanded="true" class="nav-link active" data-bs-toggle="tab" role="tab">
+										@L("General")
+									</a>
+								</li>
+
+								<li class="nav-item">
+									<a href="#RobotsTxtTab" aria-expanded="true" class="nav-link" data-bs-toggle="tab" role="tab">
+										@L("robots.txt")
+									</a>
+								</li>
+							</ul>
+
+							<div class="tab-content pt-3">
+
+								<div class="tab-pane active" id="SettingsGeneralTab">
+									<form id="GeneralSettingsForm" class="form ">
+										<h5 class="mb-3">@L("SettingsGeneral")</h5>
+										<div class="mb-3">
+											<label for="HeaderCusomHtml" class="form-label">@L("HeaderCusomHTML")</label>
+											<textarea id="HeaderCusomHtml" rows="5" class="form-control" name="HeaderCusomHtml" row="5" maxlength="8000">@Model.Settings.General.HeaderCusomHtml</textarea>
+										</div>
+										<div class="mb-3">
+											<label for="FooterCusomHTML" class="form-label">@L("FooterCusomHTML")</label>
+											<textarea id="FooterCusomHTML" rows="5" class="form-control" name="FooterCusomHTML" row="5" maxlength="8000">@Model.Settings.General.FooterCusomHtml</textarea>
+										</div>
+									</form>
+								</div>
+
+								<div class="tab-pane" id="RobotsTxtTab">
+									<form id="RobotsTxtForm" class="form">
+										<div class="mb-3">
+											<label for="Setting_AllowSiteMapXml" class="form-check form-check-custom form-check-solid col-lg-12">
+												<input id="Setting_AllowSiteMapXml" type="checkbox" name="AllowSiteMapXml" class="form-check-input" value="true" @(Model.Settings.RobotsTxt.AllowSiteMapXml ? "checked=\"checked\"" : "")>
+												<span class="form-check-label">
+													@L("Allow sitemap.xml")
+												</span>
+											</label>
+											<span class="form-text text-muted">Chọn để cho phép robot truy cập vào tệp sitemap.xml.</span>
+										</div>
+
+										<div class="mb-3">
+											<label for="Address" class="form-label">@L("DisallowPaths")</label>
+											<textarea id="RobotTxt" rows="5" class="form-control" name="Address" row="5" maxlength="8000">@Model.Settings.RobotsTxt.DisallowPath</textarea>
+											<span class="form-text text-muted">Tệp robots.txt cho trình thu thập dữ liệu của công cụ tìm kiếm biết có thể truy cập vào những URL nào trên trang web của bạn. Tệp này chủ yếu dùng để ngăn trình thu thập dữ liệu gửi quá nhiều yêu cầu cho trang web.</span>
+										</div>
+									</form>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="card-footer">
+						<button id="SaveAllSettingsButton" class="btn btn-primary">
+							<i class="fa fa-save btn-md-icon"></i>
+							<span class="d-none d-md-inline-block">
+								@L("SaveAll")
+							</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+		</div>
+	</div>
+</div>

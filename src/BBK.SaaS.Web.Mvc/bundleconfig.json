@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "wwwroot/view-resources/App/Languages/Texts.min.js",
+    "inputFiles": [
+      "wwwroot/view-resources/App/Languages/Texts.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/view-resources/Profile/Candidate/Detail.min.js",
+    "inputFiles": [
+      "wwwroot/view-resources/Profile/Candidate/Detail.js"
+    ]
+  }
+]

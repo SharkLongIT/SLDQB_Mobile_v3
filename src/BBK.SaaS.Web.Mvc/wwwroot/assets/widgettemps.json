@@ -1,0 +1,113 @@
+[
+  {
+    "Name": "mofi-title",
+    "Content": "<div class=\"container\"><div class=\"row\"><img src=\"#mainimg#\" alt=\"#maintitle#\" class=\"img-fluid\"></div>\r\n</div>",
+    "PlaceHolderStr": "",
+    "Fields": [
+      {
+        "Title": "Tiêu đề",
+        "Name": "maintitle",
+        "Value": null,
+        "FieldType": 0
+      },
+      {
+        "Title": "Đường dẫn ảnh đại diện",
+        "Name": "mainimg",
+        "Value": null,
+        "FieldType": 0
+      }
+    ]
+  },
+  {
+    "Name": "mofi-img-fluid",
+    "Content": "<div class=\"container\"><div class=\"row\"><a href=\"#mainurl#\" target=\"#mainurltarget#\"><img src=\"#mainimg#\" alt=\"#maintitle#\" class=\"img-fluid\"></div>\r\n</div><a>",
+    "PlaceHolderStr": "",
+    "Fields": [
+      {
+        "Title": "Tooltip",
+        "Name": "maintitle",
+        "Value": null,
+        "FieldType": 0
+      },
+      {
+        "Title": "Đường dẫn ảnh đại diện",
+        "Name": "mainimg",
+        "Value": null,
+        "FieldType": "img"
+      },
+      {
+        "Title": "Đường dẫn",
+        "Name": "mainurl",
+        "Value": null,
+        "FieldType": "0"
+      },
+      {
+        "Title": "Target",
+        "Name": "mainurltarget",
+        "Value": null,
+        "FieldType": "0"
+      }
+    ]
+  },
+  {
+    "Name": "3 ảnh hàng ngang",
+    "Content": "<div class=\"container\"><div class=\"row\"><div class=\"col-md-4\"><div class=\"card\"><a href=\"#mainurl1#\" target=\"_blank\"><div class=\"blog-box blog-shadow\"><img class=\"img-fluid\" src=\"#mainimgurl1#\" alt=\"#maintitle1#\"><div class=\"blog-details\"><h5 class=\"text-white\">#maintitle1#</h5></div></div></a></div></div><div class=\"col-md-4\"><div class=\"card\"><a href=\"#mainurl2#\" target=\"_blank\"><div class=\"blog-box blog-shadow\"><img class=\"img-fluid\" src=\"#mainimgurl2#\" alt=\"#maintitle2#\"><div class=\"blog-details\"><h5 class=\"text-white\">#maintitle2#</h5></div></div></a></div></div><div class=\"col-md-4\"><div class=\"card\"><a href=\"#mainurl3#\" target=\"_blank\"><div class=\"blog-box blog-shadow\"><img class=\"img-fluid\" src=\"#mainimgurl3#\" alt=\"#maintitle3#\"><div class=\"blog-details\"><h5 class=\"text-white\">#maintitle3#</h5></div></div></a></div></div></div></div>",
+    "PlaceHolderStr": "",
+    "Fields": [
+      {
+        "Title": "Tiêu đề",
+        "Name": "maintitle1",
+        "Value": null,
+        "FieldType": 0
+      },
+      {
+        "Title": "Đường dẫn ảnh đại diện",
+        "Name": "mainimgurl1",
+        "Value": null,
+        "FieldType": "img"
+      },
+      {
+        "Title": "Đường dẫn",
+        "Name": "mainurl1",
+        "Value": null,
+        "FieldType": "0"
+      },
+      {
+        "Title": "Tiêu đề",
+        "Name": "maintitle2",
+        "Value": null,
+        "FieldType": 0
+      },
+      {
+        "Title": "Đường dẫn ảnh đại diện",
+        "Name": "mainimgurl2",
+        "Value": null,
+        "FieldType": "img"
+      },
+      {
+        "Title": "Đường dẫn",
+        "Name": "mainurl2",
+        "Value": null,
+        "FieldType": "0"
+      },
+      {
+        "Title": "Tiêu đề",
+        "Name": "maintitle3",
+        "Value": null,
+        "FieldType": 0
+      },
+      {
+        "Title": "Đường dẫn ảnh đại diện",
+        "Name": "mainimgurl3",
+        "Value": null,
+        "FieldType": "img"
+      },
+      {
+        "Title": "Đường dẫn",
+        "Name": "mainurl3",
+        "Value": null,
+        "FieldType": "0"
+      }
+    ]
+  }
+]

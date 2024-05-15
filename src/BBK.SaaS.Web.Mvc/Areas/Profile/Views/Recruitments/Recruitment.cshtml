@@ -1,0 +1,116 @@
+﻿@using Abp.Localization
+@using BBK.SaaS.Web.Areas.App.Startup
+
+@section Scripts
+{
+    <script abp-src="/view-resources/App/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Profile/Recruitments/index.js" asp-append-version="true"></script>
+}
+
+@{
+    ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+    ViewBag.PageTitle = @L("Quản lý Tin tuyển dụng");
+    ViewBag.PageDescription = @L("Tin đã đăng");
+}
+<div class="page-body">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+             <div class="card">
+                <div class="card-body">
+            <div class="col-xl-12">
+                <div id="panel-1" class="panel">
+                    <div class="panel-hdr">
+                        <h2>
+                            <span class="fw-300"><i>@L("Danh sách tin tuyển dụng")</i></span>
+                        </h2>
+                    </div>
+                    <div class="panel-container show mt-5">
+                        <div class="panel-content">
+                            <div class="card-wrapper border rounded-3 light-card checkbox-checked">
+                            <div class="row ">
+                                <div class="col-lg-3 col-md-4 mb-3">
+                                    <input type="text" id="SearchTerm" name="SearchTerm" placeholder="@(new FixedLocalizableString("Chức danh"))" class="form-control" required>
+                                </div>
+                                <div class="col-lg-3 col-md-4 mb-3 mt-auto">
+                                    <select required class="form-control" id="Job" name="Job" asp-items="@ViewBag.listItemsKyThuat">
+                                        <option value="0" selected>Nghề nghiệp</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-4 mb-3 mt-auto">
+                                    <select class="form-control" id="FormOfWork" name="FormOfWork">
+                                        <option value="0" selected>Hình thức làm việc</option>
+                                        <option value="1">Toàn thời gian cố định</option>
+                                        <option value="2">Toàn thời gian tạm thời</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-4 mb-3 mt-auto">
+                                    <select class="form-control" id="Experience" name="Experience" asp-items="@ViewBag.listItemsKinhNghiem">
+                                        <option value="0" selected >Tất cả kinh nghiệm</option>
+                                    </select>
+                                </div>
+                               
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 mb-3 mt-auto">
+                                    <input type="number" id="NumberOfRecruits" name="NumberOfRecruits" placeholder="@(new FixedLocalizableString("Số lượng tuyển"))" class="form-control" required>
+                                </div>
+                                <div class="col-lg-3 col-md-4 mb-3 mt-auto">
+                                    <label for="Title" class="form-label">@L("Hạn nộp hồ sơ : Từ ngày")</label>
+                                    <div class="form-outline datepicker-with-filter1">
+                                        <input id="StartDay" type="date" name="StartDay"
+                                           class="form-control" placeholder="Hạn nộp hồ sơ : Từ ngày" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-4 mb-3 mt-auto">
+                                     <label for="Title" class="form-label">@L("Đến ngày")</label>
+                                    <div class="form-outline datepicker-with-filter1">
+                                        <input id="EndDay" type="date" name="EndDay" class="form-control" placeholder="Đến ngày" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-12 mb-3 mt-auto">
+                                    <button class="btn btn-primary ml-auto waves-effect waves-themed" id="Search" type="button">@(new FixedLocalizableString("Tìm kiếm"))</button>
+                                </div>
+                            </div>
+                            </div>
+                      
+                            <div class="form-row mt-5">
+                                <div class="col-lg-6 col-md-12 mb-3">
+                                    <button id="CreateNewButtonxx" name="CreateNewButton" class="btn btn-sm btn-toolbar-full btn-primary ml-auto">
+                                        <span class="fa fa-plus-square"></span>
+                                        @L("Đăng tin tuyển dụng")
+                                    </button>
+                                     <button id="DeleteAll" name="DeleteButton" class="btn btn-sm btn-toolbar-full btn-primary ml-auto" disabled>
+                                                <span class="fa fa-trash"></span>
+                                        @L("Delete")
+                                     </button>
+                                </div>
+                            </div>
+                            <!-- datatable start -->
+                            <table id="RecruitmentTable" class="table table-bordered table-hover table-striped w-100">
+                                <thead class="bg-primary-600">
+                                    <tr>
+                                        <th><input type="checkbox" name="select_all" data-value="1" id="example-select-all"></th>
+                                        <th>@L("STT")</th>
+                                        <th>@L("Chức danh")</th>
+                                        <th>@L("Nghề nghiệp")</th>
+                                        <th>@L("Hình thức làm việc")</th>
+                                        <th>@L("Kinh nghiệm")</th>
+                                        <th>@L("Số lượng tuyển")</th>
+                                        <th>@L("Hạn nộp hồ sơ")</th>
+                                        <th>@L("Ẩn")</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                            <!-- datatable end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

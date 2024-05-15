@@ -95,8 +95,8 @@ namespace BBK.SaaS.Mdls.Profile.ApplicationRequests
               .Include(x => x.Recruitment.Ranks)
               .WhereIf(!string.IsNullOrEmpty(input.Search), x => x.Recruitment.Recruiter.CompanyName.ToLower().Contains(input.Search.ToLower()) || x.Recruitment.Title.ToLower().Contains(input.Search.ToLower()))
               .WhereIf(input.Status.HasValue, x => x.Status == input.Status.Value)
-              .WhereIf(input.StartTime.HasValue, x=>x.CreationTime.Date >= input.StartTime.Value.Date)
-              .WhereIf(input.EndTime.HasValue, x=>x.CreationTime.Date <= input.EndTime.Value.Date)
+              .WhereIf(input.StartTime.HasValue, x => x.CreationTime.Date >= input.StartTime.Value.Date)
+              .WhereIf(input.EndTime.HasValue, x => x.CreationTime.Date <= input.EndTime.Value.Date)
               .AsNoTracking()
               .Where(x => x.CreatorUserId == AbpSession.UserId)
               .OrderByDescending(x => x.CreationTime)
@@ -148,8 +148,8 @@ namespace BBK.SaaS.Mdls.Profile.ApplicationRequests
                           .Include(e => e.Recruitment)
                           .AsTracking()
                           .Where(x => x.Id == dto.Id).FirstOrDefaultAsync();
-                    if(AppRequest != null)
-                    { 
+                    if (AppRequest != null)
+                    {
 
                         AppRequestEditDto = ObjectMapper.Map<ApplicationRequestEditDto>(AppRequest);
                         if (AppRequest.JobApplication.Candidate.Account != null)
@@ -157,7 +157,7 @@ namespace BBK.SaaS.Mdls.Profile.ApplicationRequests
                             AppRequestEditDto.User = ObjectMapper.Map<UserEditDto>(AppRequest.JobApplication.Candidate.Account);
                             AppRequestEditDto.ProfilePictureId = AppRequest.JobApplication.Candidate.Account.ProfilePictureId;
                         }
-                        
+
                     }
                 }
             }
@@ -214,9 +214,34 @@ namespace BBK.SaaS.Mdls.Profile.ApplicationRequests
                 throw new UserFriendlyException(ex.Message);
             }
         }
+
+        public async Task<long> CreateUT(ApplicationRequestEditDto input)
+        {
+            try
+            {
+                if (AbpSession.TenantId.HasValue == false)
+                {
+                    var unit = UnitOfWorkManager.Current;
+                    unit.SetTenantId(1);
+                }
+                ApplicationRequest newItemId = new ApplicationRequest();
+               
+                newItemId.Status = 1;
+                newItemId.RecruitmentId = input.RecruitmentId;
+                newItemId.JobApplicationId = input.JobApplicationId;
+                newItemId.Content = input.Content;
+                var newId = await _applicationRequestRepo.InsertAndGetIdAsync(newItemId);
+                return newId;
+
+            }
+            catch (Exception ex)
+            {
+                throw new UserFriendlyException(ex.Message);
+            }
+        }
     }
 
-    
+
 
 
 }

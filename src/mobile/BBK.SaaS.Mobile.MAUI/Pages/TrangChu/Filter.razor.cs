@@ -1,4 +1,7 @@
-﻿using BBK.SaaS.Core.Dependency;
+﻿using Abp.Threading;
+using BBK.SaaS.ApiClient;
+using BBK.SaaS.Authorization.Users.Profile;
+using BBK.SaaS.Core.Dependency;
 using BBK.SaaS.Core.Threading;
 using BBK.SaaS.Mdls.Category.Geographies;
 using BBK.SaaS.Mdls.Category.Geographies.Dto;
@@ -10,8 +13,14 @@ using BBK.SaaS.Mdls.Profile.Recruiters;
 using BBK.SaaS.Mdls.Profile.Recruiters.Dto;
 using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.Services.Navigation;
+using BBK.SaaS.TinTuc;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 {
@@ -121,14 +130,14 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
         private async Task RefeshList()
         {
             _SearchText = _filtered.Filtered;
-            //if (_filter.WorkSiteId.HasValue)
-            //{
-            //    _WorkSite = _filter.WorkSiteId.Value;
-            //}
-            //if (_filter.Job.HasValue)
-            //{
-            //    _Job = _filter.Job.Value;
-            //}
+            if (_filtered.Job.HasValue)
+            {
+                _Job = _filtered.Job.Value;
+            }
+            if (_filtered.WorkSiteId.HasValue)
+            {
+                _WorkSite = _filtered.WorkSiteId.Value;
+            }
 
             await UriFilter();
         }
@@ -171,33 +180,14 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             _filtered.Filtered = recruitmentDto.Title;
             await RefeshList();
         }
-        public async void FilterWorksite(ChangeEventArgs args)
+        public async void selectedValue(ChangeEventArgs args)
         {
-            long select = Convert.ToInt64(args.Value);
-            _WorkSite = select;
+            string select = Convert.ToString(args.Value);
+            _SearchText = select;
+            await RecruitmentContainer.RefreshDataAsync();
+            //await LoadRecruitment(new ItemsProviderRequest());
+            StateHasChanged();
 
-        }
-        public async void FilterJob(ChangeEventArgs args)
-        {
-            long select = Convert.ToInt64(args.Value);
-            _Job = select;
-
-        }
-        bool IsOpenFilter;
-
-        public async Task OpenFilter()
-        {
-            IsOpenFilter = true;
-        }
-        public async Task CloseFilter()
-        {
-            IsOpenFilter = false;
-        }
-
-        private FilterHomeModal filterHomeModal { get; set; }
-        public async Task OpenFilterHomeModal()
-        {
-            await filterHomeModal.OpenFor();
         }
     }
 }

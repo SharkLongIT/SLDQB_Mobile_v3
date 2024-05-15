@@ -1,0 +1,77 @@
+﻿@using BBK.SaaS
+@using BBK.SaaS.Mdls.Profile.Contacts.Dto
+@using BBK.SaaS.Web.Areas.App.Startup
+@model ContactDto
+@* @section Scripts
+{
+    <script abp-src="/view-resources/App/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/App/ContactManager/Send.js" asp-append-version="true"></script>
+} *@
+
+@* @{
+    ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+    ViewBag.PageTitle = @L("Tin tuyển dụng");
+    ViewBag.PageDescription = @L(" Tin tuyển dụng");
+} *@
+
+<div class="page-body">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+
+        <div class="row">
+            <form name="EditContactForm" role="form" novalidate class="form-validation">
+                <div class="card">
+                    <input type="hidden" name="Id" id="Id" value="@Model.Id" />
+                    <input type="hidden" value="@Model.Email" id="Email" name="Email" />
+                    <input type="hidden" value="@Model.Description" id="Description" name="Description" />
+                    <input type="hidden" value="@Model.FullName" id="FullName" name="FullName" />
+                    <div class="row">
+                        <div class="card">
+                            <div class="job-search">
+                                <div class="card-body">
+                                    <div class="job-description">
+                                        <h3><b>Thông tin người hỏi</b></h3><br>
+                                        <p class="mb-2"><i class="fa fa-user" aria-hidden="true"></i> <span class="font-weight-bold"> Họ tên:</span> @Model.FullName  </p>
+                                        <p class="mb-2"><i class="fa fa-envelope" aria-hidden="true"></i> <span class="font-weight-bold"> Email:</span> @Model.Email  </p>
+                                        <p class="mb-2"><i class="fa fa-phone" aria-hidden="true"></i> <span class="font-weight-bold"> Số điện thoại:</span> @Model.Phone  </p>
+
+                                    </div>
+                                    <div class="job-description">
+                                        <h3><b>Câu hỏi</b></h3>
+                                        @Model.Description
+                                    </div>
+
+                                    <p class="mb-2"><i class="fa fa-calendar" aria-hidden="true"></i> <span class="font-weight-bold"> Ngày hỏi:</span> @Model.CreationTime.ToShortDateString()  </p>
+
+                                    <div class="job-description">
+                                        <h3><b>Trả lời</b></h3></br>
+                                        @if (Model.Status == true)
+                                        {
+                                            <textarea id="Answer" class="form-control" rows="4" cols="50" name="Answer" maxlength="@SaaSConsts.MaxDescription" disabled>@Model.Answer</textarea>
+                                        }
+                                        else
+                                        {
+                                            <textarea id="Answer" class="form-control" rows="4" cols="50" name="Answer" maxlength="@SaaSConsts.MaxDescription"></textarea>
+                                            
+                                        }
+
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary fw-bold close-button" data-bs-dismiss="modal">@L("Cancel")</button>
+                                        @if (Model.Status == false)
+                                        {
+                                            <button type="button" class="btn btn-primary save-button"><i class="fa fa-save"></i> <span>@L("Save")</span></button>
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

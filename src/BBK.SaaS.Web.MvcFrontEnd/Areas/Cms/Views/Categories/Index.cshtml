@@ -1,0 +1,102 @@
+﻿@using BBK.SaaS.Authorization
+@using BBK.SaaS.Mdls.Cms
+@using BBK.SaaS.Web.Areas.App.Startup
+@{
+    ViewBag.CurrentPageName = CmsPageNames.Administrators.Categories;
+    ViewBag.PageTitle = @L("Categories");
+	ViewBag.PageDescription = @L("CategoriesHeaderInfo");
+}
+
+@section Styles
+{
+    @* <link rel="stylesheet" abp-href="/view-resources/App/CmsCats/Index.css" asp-append-version="true"/> *@
+}
+
+@section Scripts
+{
+    <script abp-src="/view-resources/Cms/Categories/Index.js" asp-append-version="true"></script>
+}
+
+<div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+		<div class="row g-4">
+			<div class="col-sm-12 col-md-6">
+            <div class="card card-stretch" id="ouCard">
+                <div class="card-header align-items-center">
+                    <h3 class="card-title align-items-start flex-column">
+                        <span class="fw-bolder text-dark">@L("CategoryTree")</span>
+                    </h3>
+                    <div class="card-toolbar">
+                        @* @if (IsGranted(AppPermissions.Pages_Administration_CmsCats_ManageOrganizationTree))
+                        {
+                            <button type="button" id="AddRootUnitButton" class="btn btn-primary">
+                                <i class="la la-plus btn-md-icon"></i>
+                                <span class="d-none d-md-inline-block">
+                                    @L("AddRootUnit")
+                                </span>
+                            </button>
+                        } *@
+
+                        <button type="button" id="AddRootUnitButton" class="btn btn-primary">
+                                <i class="la la-plus btn-md-icon"></i>
+                                <span class="d-none d-md-inline-block">
+                                    @L("Thêm danh mục gốc")
+                                </span>
+                            </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-scroll">
+                        <div id="CategoryEditTree"></div>
+                        <div id="CategoryEditTreeEmptyInfo" ng-if="!vm.organizationTree.unitCount" class="text-muted">
+                            @L("NoCmsCatDefinedYet")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <div class="card card-stretch" id="catDetailInfo">
+                <div class="card-header align-items-center">
+                    <h3 class="card-title align-items-start flex-column">
+                        <span class="fw-bolder text-dark" id="SelectedOuRightTitle"></span>
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="card-scroll">
+                        <div class="col-12 mb-3">
+						    <h5>@L("DisplayName")</h5>
+						    <p id="DisplayName" class="form-control"></p>
+					    </div>
+
+					    <div class="mb-3">
+						    <h5 for="Slug" class="form-label">@L("Slug")</h5>
+						    <a id="Slug" class="form-control"></a>
+
+					    </div>
+
+                        <div class="mb-3">
+						    <h5 for="MetaTitle" class="form-label">@L("MetaTitle")</h5>
+						    <p id="MetaTitle" class="form-control"></p>
+					    </div>
+
+					    <div class="mb-3 no-hint">
+						    <h5 for="MetaDescription" class="form-label">@L("MetaDescription")</h5>
+						    <p id="MetaDescription" class="form-control"></p>
+					    </div>
+
+					    <div class="mb-3 no-hint">
+						    <h5 for="MetaKeywords" class="form-label">@L("MetaKeywords")</h5>
+						    <p id="MetaKeywords" class="form-control"></p>
+					    </div>
+                    </div>
+                    <div id="CatDetailEmptyInfo" class="card-scroll text-muted mt-4">
+                        @L("ChoseCategoryForDetail")
+                    </div>
+                </div>
+            </div>
+        </div>
+		</div>
+	</div>
+</div>

@@ -33,7 +33,7 @@ namespace BBK.SaaS.Mdls.Cms
 					)
 					.AddItem(new MenuItemDefinition(
 							CmsPageNames.Administrators.Topics,
-							new FixedLocalizableString("Quản lý Trang tĩnh"), //L(CmsPageNames.Administrators.Topics),
+							new FixedLocalizableString("Quản lý trang tĩnh"), //L(CmsPageNames.Administrators.Topics),
 							url: "/CMS/Topics",
 							icon: "flaticon-users"
 							//permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Users)
@@ -41,7 +41,7 @@ namespace BBK.SaaS.Mdls.Cms
 						)
 					.AddItem(new MenuItemDefinition(
 							CmsPageNames.Administrators.Categories,
-							new FixedLocalizableString("Quản lý Chuyên mục"), //L(CmsPageNames.Administrators.Categories),
+							new FixedLocalizableString("Quản lý chuyên mục"), //L(CmsPageNames.Administrators.Categories),
 							url: "/CMS/Categories",
 							icon: "flaticon-users"
 						//permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Users)
@@ -49,7 +49,7 @@ namespace BBK.SaaS.Mdls.Cms
 					)
 					.AddItem(new MenuItemDefinition(
 							CmsPageNames.Administrators.Articles,
-							new FixedLocalizableString("Quản lý Bài viết"), //L(CmsPageNames.Administrators.Articles),
+							new FixedLocalizableString("Quản lý bài viết"), //L(CmsPageNames.Administrators.Articles),
 							url: "/CMS/Articles",
 							icon: "flaticon-users"
 						//permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Users)
@@ -57,7 +57,7 @@ namespace BBK.SaaS.Mdls.Cms
 					)
 					.AddItem(new MenuItemDefinition(
 							CmsPageNames.Administrators.MediasMgr,
-							new FixedLocalizableString("Quản lý Hình ảnh"),
+							new FixedLocalizableString("Quản lý hình ảnh"),
 							url: "/CMS/MediasMgr",
 							icon: "flaticon-users"
 						//permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Users)
@@ -65,31 +65,31 @@ namespace BBK.SaaS.Mdls.Cms
 					)
 					.AddItem(new MenuItemDefinition(
 							CmsPageNames.Administrators.UrlRecords,
-							 new FixedLocalizableString("Quản lý Links"), //L(CmsPageNames.Administrators.UrlRecords),
+							 new FixedLocalizableString("Quản lý links"), //L(CmsPageNames.Administrators.UrlRecords),
 							url: "/CMS/UrlRecords",
 							icon: "flaticon-users"
 						//permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Users)
 						)
 					)
-					.AddItem(new MenuItemDefinition(
-							CmsPageNames.Administrators.Widgets,
-							 new FixedLocalizableString("Quản lý Widgets"), //L(CmsPageNames.Administrators.UrlRecords),
-							url: "/CMS/Widgets",
-							icon: "flaticon-users"
-						//permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Users)
-						)
-					)
+					//.AddItem(new MenuItemDefinition(
+					//		CmsPageNames.Administrators.Widgets,
+					//		 new FixedLocalizableString("Quản lý widgets"), //L(CmsPageNames.Administrators.UrlRecords),
+					//		url: "/CMS/Widgets",
+					//		icon: "flaticon-users"
+					//	//permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Users)
+					//	)
+					//)
+					//.AddItem(new MenuItemDefinition(
+					//		CmsPageNames.Administrators.WidgetZones,
+					//		 new FixedLocalizableString("Quản lý widgetZones"), //L(CmsPageNames.Administrators.UrlRecords),
+					//		url: "/CMS/Widgets/WidgetZonesCfg",
+					//		icon: "flaticon-users"
+					//	//permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Users)
+					//	)
+					//)
 					.AddItem(new MenuItemDefinition(
 							CmsPageNames.Administrators.WidgetZones,
-							 new FixedLocalizableString("Quản lý WidgetZones"), //L(CmsPageNames.Administrators.UrlRecords),
-							url: "/CMS/Widgets/WidgetZonesCfg",
-							icon: "flaticon-users"
-						//permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Users)
-						)
-					)
-					.AddItem(new MenuItemDefinition(
-							CmsPageNames.Administrators.WidgetZones,
-							 new FixedLocalizableString("Quản lý Giao diện"), //L(CmsPageNames.Administrators.UrlRecords),
+							 new FixedLocalizableString("Quản lý giao diện"), //L(CmsPageNames.Administrators.UrlRecords),
 							url: "/CMS/Settings",
 							icon: "flaticon-users"
 						//permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Users)

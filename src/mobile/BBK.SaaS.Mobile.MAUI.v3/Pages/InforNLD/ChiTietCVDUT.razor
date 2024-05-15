@@ -1,0 +1,278 @@
+﻿@using Abp.UI;
+@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/ChiTietCVDUT")]
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+@if (Model != null && Model.JobApplication != null)
+{
+    <div class="card card-style mb-3">
+        <div class="list-group list-custom-small list-icon-0 ps-3 pe-4">
+            <a data-bs-toggle="collapse" class="no-effect" href="#collapse-1">
+                <span class="font-14 color-black">Tin nhắn gửi đến nhà tuyển dụng</span>
+                <i class="fa fa-angle-down"></i>
+            </a>
+        </div>
+        <div class="collapse ps-2 pe-4" id="collapse-1">
+            <div class="content mb-2">
+                <span>@Model.Content</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-style">
+        <div class="card card-style mt-2 me-2 ms-2">
+            <img src="images/pictures/_bg-infinite.jpg" alt="img" class="img-fluid">
+        </div>
+        <div class="content position-relative" style="margin-top:-70px; z-index:2;">
+            <div class="d-flex mx-2">
+                <div class="me-3">
+                    <img src="@Model.Photo" class="rounded-l shadow-xl" alt="img" width="100">
+                </div>
+                <div class="align-self-end">
+                    <h4 class="font-24 mb-0">@Model.User.Name</h4>
+                    <span><i class="fa fa-map-marker font-10 pe-2"></i><span class="font-12 opacity-70">@Model.Candidate.Address, @Model.JobApplication.Candidate.Province.DisplayName</span></span>
+                </div>
+            </div>
+        </div>
+        <div class="divider mb-0"></div>
+
+    </div>
+
+
+    <!--Thông tin cá nhân-->
+    <div class="card card-style mb-3">
+        <div class="list-group list-custom-small list-icon-0 ps-3 pe-4">
+            <a data-bs-toggle="collapse" class="no-effect" href="#collapse-5">
+                @* <i class="fa font-14 fa-phone color-white"></i> *@
+                <span class="font-14 color-black">Thông tin cá nhân</span>
+                <i class="fa fa-angle-down"></i>
+            </a>
+        </div>
+        <div class="collapse ps-2 pe-4" id="collapse-5">
+            <div class="content mb-2">
+                <div class="list-group list-custom-small pb-4">
+                    <div>
+                        <span class="text-1">
+                            Địa chỉ email:
+                        </span>
+                        <span style="float: right">@Model.User.EmailAddress</span>
+                    </div>
+                    <div class="divider mb-2 mt-2"></div>
+                    <div>
+                        <span class="text-1">
+                            Số điện thoại:
+                        </span>
+                        <span style="float: right">@Model.User.PhoneNumber</span>
+                    </div>
+                    <div class="divider mb-2 mt-2"></div>
+                    <div>
+                        <span class="text-1">
+                            Ngày sinh:
+                        </span>
+                        <span style="float: right">@Model.Candidate.DateOfBirth?.ToString("dd/MM/yyyy")</span>
+                    </div>
+                    <div class="divider mb-2 mt-2"></div>
+                    <div>
+                        <span class="text-1">
+                            Giới tính:
+                        </span>
+                        @if (Model.Candidate.Gender == BBK.SaaS.Mdls.Profile.Candidates.Dto.GenderEnum.Male)
+                        {
+                            <span style="float: right">Nam</span>
+                            <div class="divider mb-2 mt-2"></div>
+
+                        }
+                        else if (Model.Candidate.Gender == BBK.SaaS.Mdls.Profile.Candidates.Dto.GenderEnum.Female)
+                        {
+                            <span style="float: right">Nữ</span>
+                            <div class="divider mb-2 mt-2"></div>
+
+                        }
+                        else
+                        {
+                            <span style="float: right">Không xác định</span>
+                            <div class="divider mb-2 mt-2"></div>
+
+                        }
+                        <div>
+                            <span class="text-1">
+                                Tình trạng hôn nhân:
+                            </span>
+                            @if (Model.Candidate.Marital == true)
+                            {
+                                <span style="float: right">Độc thân </span>
+
+                            }
+                            else
+                            {
+                                <span style="float: right">Đã kết hôn </span>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!--Thông tin chung-->
+    <div class="card card-style mb-3">
+        <div class="list-group list-custom-small list-icon-0 ps-3 pe-4">
+            <a data-bs-toggle="collapse" class="no-effect" href="#collapse-6">
+                @* <i class="fa font-14 fa-phone color-white"></i> *@
+                <span class="font-14 color-black">Thông tin chung</span>
+                <i class="fa fa-angle-down"></i>
+            </a>
+        </div>
+        <div class="collapse ps-2 pe-4" id="collapse-6">
+            <div class="content mb-2">
+                <div class="list-group list-custom-small pb-4 mb-2">
+                    <div>
+                        <span class="text-1">
+                            Cấp bậc:
+                        </span>
+                        <span style="float: right">@Model.Positions</span>
+                    </div>
+                    <div class="divider mb-2 mt-2"></div>
+                    <div>
+                        <span class="text-1">
+                            Mức lương mong muốn:
+                        </span>
+                        <span style="float: right">
+                            @{
+                                var minSalaryInMillion = Math.Truncate(Model.JobApplication.DesiredSalary.Value / 1000000);
+                            }
+                            @minSalaryInMillion triệu
+                        </span>
+                    </div>
+                    <div class="divider mb-2 mt-2"></div>
+                    <div>
+                        <span class="text-1">
+                            Hình thức làm việc:
+                        </span>
+                        <span style="float: right">@Model.FormOfWork</span>
+                    </div>
+                    <div class="divider mb-2 mt-2"></div>
+                    <div>
+                        <span class="text-1">
+                            Bằng cấp:
+                        </span>
+                        <span style="float: right">@Model.Literacy</span>
+                    </div>
+                    <div class="divider mb-2 mt-2"></div>
+                    <div>
+                        <span class="text-1">
+                            Mục tiêu tương lai:
+                        </span>
+                        <span style="float: right">@Model.JobApplication.Career</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!--Kinh nghiệm làm việc-->
+    <div class="card card-style mb-3">
+        <div class="list-group list-custom-small list-icon-0  ps-3 pe-4">
+            <a data-bs-toggle="collapse" class="no-effect" href="#collapse-7">
+                @* <i class="fa font-14 fa-phone color-white"></i> *@
+                <span class="font-14 color-black">Kinh nghiệm làm việc</span>
+                <i class="fa fa-angle-down"></i>
+            </a>
+        </div>
+        <div class="collapse ps-2 pe-4" id="collapse-7">
+
+            <div class="content">
+                @if (Model.JobApplication.WorkExperiences != null && Model.JobApplication.WorkExperiences.Count > 0)
+                {
+
+                    @foreach (var workExperience in Model.JobApplication.WorkExperiences)
+                    {
+                        <div class="list-group list-custom-small pb-4 mb-2 exp-list">
+                            <div>
+                                <span style="float: left" class="work-position">@workExperience.Positions</span>
+                                <span style="float: right" class="start-end-date">
+                                    @workExperience.StartTime.ToString("MM/yyy")-@workExperience.EndTime.ToString("MM/yyy")
+                                </span>
+                            </div>
+                            <div><span style="float: left" class="company-name">@workExperience.CompanyName</span></div>
+                            <div>
+                                <span class="text-1">
+                                    Mô tả công việc:
+                                </span>
+                                <span style="float: right; white-space: pre-line">@workExperience.Description</span>
+                            </div>
+                            <div class="divider mb-2 mt-2"></div>
+                        </div>
+                    }
+                }
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!--Trình độ học vấn-->
+    <div class="card card-style mb-3">
+        <div class="list-group list-custom-small  list-icon-0  ps-3 pe-4">
+            <a data-bs-toggle="collapse" class="no-effect" href="#collapse-8">
+                @* <i class="fa font-14 fa-phone color-white"></i> *@
+                <span class="font-14 color-black">Trình độ học vấn</span>
+                <i class="fa fa-angle-down"></i>
+            </a>
+        </div>
+        <div class="collapse ps-2 pe-4" id="collapse-8">
+            <div class="content mb-2">
+                @if (Model.JobApplication.LearningProcess != null && Model.JobApplication.LearningProcess.Count > 0)
+                {
+                    @foreach (var learningprocess in Model.JobApplication.LearningProcess)
+                    {
+                        <div class="list-group list-custom-small pb-4 mb-2 learn-list">
+                            <div>
+                                <span style="float: left" class="academic">
+                                    @learningprocess.AcademicDiscipline
+                                </span>
+                                <span style="float: right" class="start-end-date">
+                                    @learningprocess.StartTime.ToString("yyy")-@learningprocess.EndTime.ToString("yyy")
+                                </span>
+                            </div>
+                            <div>
+                                <span style="float: left" class="school-name">@learningprocess.SchoolName</span>
+                            </div>
+                            <div>
+                                <span class="text-1">
+                                    Mô tả :
+                                </span>
+                                <span style="float: right; white-space: pre-line">@learningprocess.Description</span>
+                            </div>
+                            <div class="divider mb-2 mt-2"></div>
+                        </div>
+                    }
+                }
+            </div>
+
+        </div>
+    </div>
+
+}
+else
+{
+}
+

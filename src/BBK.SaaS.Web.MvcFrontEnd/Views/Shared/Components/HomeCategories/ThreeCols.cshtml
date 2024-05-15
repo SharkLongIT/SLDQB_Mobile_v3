@@ -1,0 +1,70 @@
+﻿@using BBK.SaaS.Web.Models.Cms.Articles
+
+@model ListCntCatsViewModel
+
+@for (int i = 0; i < Model.CntCategories.Count; i++)
+{
+    if (i % 3 == 0)
+    {
+        <div>
+
+            <div class="col-md-4 md-50 box-col-6">
+                <div class="card card-absolute b-t-primary bg-transparent shadow-0 shadow-none">
+                    <div class="card-header bg-primary">
+                        <span class="f-18 fw-semibold m-0 p-0 txt-light">@Model.CntCategories[i].DisplayName</span>
+                    </div>
+                    <div class="blog-box blog-grid product-box mt-5">
+                        <div class="product-img">
+                            <a href="/@Model.CntCategories[i].Articles[0].Slug"><img class="img-fluid top-radius-blog" src="@Model.CntCategories[i].Articles[0].PrimaryImageUrl" alt=""></a>
+                        </div>
+                        <div class="blog-details-main mt-3">
+                            <a href="/@Model.CntCategories[i].Articles[0].Slug" class=""><span class="f-w-700">@Model.CntCategories[i].Articles[0].Title</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (i + 1 < Model.CntCategories.Count && Model.CntCategories[i + 1].Articles.Count > 0)
+            {
+                ++i;
+                <div class="col-md-4 md-50 box-col-6">
+                    <div class="card card-absolute b-t-primary bg-transparent shadow-0 shadow-none">
+                        <div class="card-header bg-primary">
+                            <span class="f-18 fw-semibold m-0 p-0 txt-light">@Model.CntCategories[i].DisplayName</span>
+                        </div>
+                        <div class="blog-box blog-grid product-box mt-5">
+                            <div class="product-img">
+                                <a href="/@Model.CntCategories[i].Articles[0].Slug"><img class="img-fluid top-radius-blog" src="@Model.CntCategories[i].Articles[0].PrimaryImageUrl" alt=""></a>
+                            </div>
+                            <div class="blog-details-main mt-3">
+                                <a href="/@Model.CntCategories[i].Articles[0].Slug" class=""><span class="f-w-700">@Model.CntCategories[i].Articles[0].Title</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (i + 1 < Model.CntCategories.Count && Model.CntCategories[i + 1].Articles.Count > 0)
+            {
+                ++i;
+                <div class="col-md-4 md-50 box-col-6">
+                    <div class="card card-absolute b-t-primary bg-transparent shadow-0 shadow-none">
+                        <div class="card-header bg-primary">
+                            <span class="f-18 fw-semibold m-0 p-0 txt-light">@Model.CntCategories[i].DisplayName</span>
+                        </div>
+                        <div class="blog-box blog-grid product-box mt-5">
+                            <div class="product-img">
+                                <a href="/@Model.CntCategories[i].Articles[0].Slug"><img class="img-fluid top-radius-blog" src="@Model.CntCategories[i].Articles[0].PrimaryImageUrl" alt=""></a>
+                            </div>
+                            <div class="blog-details-main mt-3">
+                                <a href="/@Model.CntCategories[i].Articles[0].Slug" class=""><span class="f-w-700">@Model.CntCategories[i].Articles[0].Title</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+    }
+}

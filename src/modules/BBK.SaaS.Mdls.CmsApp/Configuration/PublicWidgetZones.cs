@@ -11,6 +11,9 @@ public static partial class PublicWidgetZones
 	public static string HomePageAfterQuickFind => "homepage_afterquickfind";
 	public static string HomePageAfterNewJobs => "homepage_afternewjobs";
 	public static string HomePageAfterNewApps => "homepage_afternewapps";
+	public static string HomePageAdvertisings => "homepage_advertisings_middle";
+	public static string HomePageRightTopAdvertisings => "homepage_advertisings_righttop";
+	public static string HomePageRightTradingAdvertisings => "homepage_advertisings_Trading";
     public static string HomePageAfterQuickSearch => "homepage_afterquicksearch";
     public static string HomePageBeforeFooter => "homepage_beforefooter";
 	public static string CategoryArticlesTop => "category_articles_top";

@@ -1,0 +1,173 @@
+.description {
+  white-space: pre-line;
+}
+i {
+  color: var(--theme-deafult);
+}
+.img-custom-thumbnail {
+  padding: 0.25rem;
+  background-color: var(--bs-body-bg);
+  border-radius: var(--bs-border-radius);
+  border: 1px dashed rgba(106, 113, 133, 0.3);
+}
+
+.social-details {
+    margin-top: 15px;
+}
+
+.social-details h5 a {
+    color: var(--body-font-color);
+    font-weight: 600;
+}
+
+.social-details .social-follow {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+    -webkit-column-gap: 30px;
+    -moz-column-gap: 30px;
+    column-gap: 30px;
+    margin-top: 25px;
+}
+
+@media (max-width: 1399px) {
+    .social-details .social-follow {
+        -webkit-column-gap: 23px;
+        -moz-column-gap: 23px;
+        column-gap: 23px;
+    }
+}
+
+.social-details .social-follow li {
+    position: relative;
+}
+
+.social-details .social-follow li + li::before {
+    position: absolute;
+    content: "";
+    width: 1px;
+    height: 14px;
+    background-color: var(--recent-dashed-border);
+    left: -15px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+[dir=rtl] .social-details .social-follow li + li::before {
+    left: unset;
+    right: -15px;
+}
+
+.social-details .card-social {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.social-img-wrap {
+    background: linear-gradient(253deg, var(--theme-deafult) 11.51%, rgba(115, 102, 255, 0) 82.07%);
+    display: inline-block;
+    border-radius: 100%;
+    padding: 2px;
+    position: relative;
+}
+
+.social-img-wrap .edit-icon {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.social-img-wrap .edit-icon svg {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    border: 2px dashed var(--white);
+    background: var(--white);
+}
+
+.social-img {
+    padding: 5px;
+    background: var(--white);
+    border-radius: 100%;
+}
+
+.social-img img {
+    height: 68px;
+    border-radius: 100%;
+}
+
+
+.social-profile {
+    text-align: center;
+    background-image: url(/dist/img/profile-bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+    .social-profile .card-body {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+@media (max-width: 1399px) {
+    .social-profile .card-body {
+        padding: 23px 15px;
+    }
+}
+
+html[dir=rtl] .card {
+    text-align: right;
+}
+
+html[dir=rtl] .card.social-profile {
+    text-align: center;
+}
+
+.job-pagination {
+    margin-bottom: 30px;
+}
+
+.job-pagination nav ul {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.job-pagination {
+    margin-bottom: 15px;
+}
+@media (max-width: 339px) {
+    .pagination {
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+}
+
+.pagination .page-item:active {
+    background-color: unset;
+}
+
+.pagination .page-item .page-link.rounded-circle {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+}

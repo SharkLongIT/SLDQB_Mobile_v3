@@ -26,10 +26,13 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
 
         private ItemsProviderResult<CatFilterList> CatFilterListDto;
         private readonly CatFilterList _filterCat = new CatFilterList();
+
+        private bool IsDefault1;
         private Virtualize<CatFilterList> CatFilterListContainer { get; set; }
         protected IGeoUnitAppService geoUnitAppService { get; set; }
         private ItemsProviderResult<GeoUnitDto> geoUnitDto;
         private Virtualize<GeoUnitDto> GeoUnitContainer { get; set; }
+
 
         #region CatUnit
         private List<CatUnitDto> _degree { get; set; }
@@ -97,26 +100,25 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
         private long? _OccupationId;
         private decimal? _SalaryMin;
         private decimal? _SalaryMax;
-        //private string _avatarCandidate;
+        private string _avatarCandidate;
 
-        //private long OccupationId;
-        //private long Worksite;
-        //private long ExperienceId;
-        //private long DegreeId;
-        //private decimal? SalaryMin;
-        //private decimal? SalaryMax;
+        private long OccupationId;
+        private long Worksite;
+        private long ExperienceId;
+        private long DegreeId;
+        private decimal? SalaryMin;
+        private decimal? SalaryMax;
 
-        private int JobAppCount;
-        bool IsJobAppCount;
+
         [Inject]
         protected NavigationManager NavigationManager { get; set; }
 
 
         protected IApplicationContext ApplicationContext { get; set; }
-        //private bool IsUserLoggedIn;
-        //private bool IsCancel;
+        private bool IsUserLoggedIn;
+        private bool IsCancel;
         private ItemsProviderResult<NTDDatLichModel> jobApplicationDto;
-        private JobAppSearch _filter = new JobAppSearch();
+        private readonly JobAppSearch _filter = new JobAppSearch();
         public Index()
         {
             navigationService = DependencyResolver.Resolve<INavigationService>();
@@ -129,42 +131,130 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
         }
         protected override async Task OnInitializedAsync()
         {
-
-        }
-        private async Task RefeshList()
-        {
-            IsOpenFilter = false;
-            IsJobAppCount = true;
-            _filter = FilterModalNTV._filter;
-            _Gender = _filter.Gender;
-            _LiteracyId = _filter.LiteracyId;
-            _ExperiencesId = _filter.ExperiencesId;
-            if (_filter.WorkSiteId.HasValue)
+            if (ApplicationContext.LoginInfo == null || ApplicationContext.LoginInfo.User.UserType == Authorization.Users.UserTypeEnum.Type1)
             {
-                _WorkSite = _filter.WorkSiteId.Value;
+                IsDefault1 = true;
             }
-            _OccupationId = _filter.OccupationId; // nghe nghiep
-            if (_filter.SalaryMin.HasValue)
+            //await SetPageHeader(L("Danh sách Người tìm việc"));
+            await SetPageHeader(L("Danh sách Người tìm việc"), new List<Services.UI.PageHeaderButton>());
+            var querySegment = NavigationManager.Uri.Substring(NavigationManager.Uri.IndexOf("NguoiTimViec") + "NguoiTimViec".Length);
+            var q1 = System.Web.HttpUtility.ParseQueryString(querySegment);
+            if (q1["Career"] != null)
             {
-
-                _SalaryMin = _filter.SalaryMin.Value;
+                OccupationId = long.Parse(q1["Career"]);
+            }
+         
+            if (q1["WorkSite"] != null)
+            {
+                Worksite = int.Parse(q1["WorkSite"]);
+            }
+            if (q1["Experience"] != null)
+            {
+                ExperienceId = int.Parse(q1["Experience"]);
+            }
+            if (q1["Degree"] != null)
+            {
+                DegreeId = int.Parse(q1["Degree"]);
+            }
+            if (q1["SalaryMin"] != null && q1["SalaryMin"] != "")
+            {
+                SalaryMin = decimal.Parse(q1["SalaryMin"]);
             }
             else
             {
-                _SalaryMin = null;
+                SalaryMin = null;
+            }
+            if (q1["SalaryMax"] != null && q1["SalaryMax"] != "")
+            {
+                SalaryMax = decimal.Parse(q1["SalaryMax"]);
+            }
+            else
+            {
+                SalaryMax = null;
+            }
+
+            await ReloadList();
+        }
+        private async Task RefeshList()
+        {
+            IsCancel = true;
+            _Gender = _filter.Gender;
+            _LiteracyId = _filter.LiteracyId;
+            _ExperiencesId = _filter.ExperiencesId; // kinh nghiem
+            _WorkSite = _filter.WorkSiteId.Value; // dia diem
+            _OccupationId = _filter.OccupationId; // nghe nghiep
+            if (_filter.SalaryMin.HasValue) {
+
+                _SalaryMin = _filter.SalaryMin.Value;
             }
             if (_filter.SalaryMax.HasValue)
             {
                 _SalaryMax = _filter.SalaryMax.Value;
+            } 
+            await JobApplicationContainer.RefreshDataAsync();
+            StateHasChanged();
+            await LoadJobApplication(new ItemsProviderRequest());
+        }
+        private async Task ReloadList()
+        {
+            _WorkSite = Worksite;
+            if (ExperienceId == 0)
+            {
+                _ExperiencesId = null;
             }
             else
             {
-                _SalaryMax = null;
+                _ExperiencesId = ExperienceId;
+            }
+            if (OccupationId == 0) { 
+                _OccupationId = null; // nganh nghe
+            }
+            else
+            {
+                _OccupationId = OccupationId;
+            }
+            if (DegreeId == 0)
+            {
+                _LiteracyId = null; // bang cap
+            }   
+            else
+            { 
+                _LiteracyId = DegreeId; 
+            }
+            if (SalaryMin.HasValue)
+            {
+
+                _SalaryMin = SalaryMin.Value;
+            }
+            if (SalaryMax.HasValue)
+            {
+                _SalaryMax = SalaryMax.Value;
             }
             await JobApplicationContainer.RefreshDataAsync();
-            await LoadJobApplication(new ItemsProviderRequest());
             StateHasChanged();
+            //await LoadJobApplication(new ItemsProviderRequest());
         }
+
+        private async Task CancelList()
+        {
+            _Gender = null;
+            _LiteracyId = null;
+            _ExperiencesId = null;
+            _WorkSite = 0;
+            _OccupationId = null;
+            SalaryMin = null;
+            SalaryMax = null;
+            _SalaryMax = null;
+            _SalaryMin = null;
+            IsCancel = false;
+            // await LoadJobApplication(new ItemsProviderRequest());
+            //await OnInitializedAsync();
+            await JobApplicationContainer.RefreshDataAsync();
+            //await Task.Delay(500);
+            StateHasChanged();
+
+        }
+
 
         #region
 
@@ -235,35 +325,28 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
         private Virtualize<NTDDatLichModel> JobApplicationContainer { get; set; }
         private async ValueTask<ItemsProviderResult<NTDDatLichModel>> LoadJobApplication(ItemsProviderRequest request)
         {
+            //_filter.MaxResultCount = Math.Clamp(request.Count, 1, 1000);
+            //_filter.SkipCount = request.StartIndex;
+            //_filter.Take = Math.Clamp(request.Count, 1, 1000);
             _filter.LiteracyId = _LiteracyId;
             _filter.Gender = _Gender;
             _filter.ExperiencesId = _ExperiencesId;
-            if(_WorkSite <= 0)
-            {
-                _filter.WorkSiteId = null;
-            }
-            else
-            {
-                _filter.WorkSiteId = _WorkSite;
-            }
-            if (_OccupationId <= 0)
-            {
-                _filter.OccupationId = null;
-            }
-            else
-            {
-                _filter.OccupationId = _OccupationId;
-            }
+            _filter.WorkSiteId = _WorkSite;
+            _filter.OccupationId = _OccupationId;
             _filter.SalaryMin = _SalaryMin;
             _filter.SalaryMax = _SalaryMax;
             await UserDialogsService.Block();
 
             await WebRequestExecuter.Execute(
-
                 async () => await jobApplicationAppService.GetAllJobAppsMobile(_filter),
                 async (result) =>
                 {
                     var jobFilter = ObjectMapper.Map<List<NTDDatLichModel>>(result.Items);
+                    //foreach (var item in jobFilter)
+                    //{
+                    //    _avatarCandidate = await UserProfileService.GetProfilePicture(item.Candidate.UserId);
+                    //    item.Candidate.AvatarUrl = _avatarCandidate;
+                    //}
                     if (jobFilter.Count == 0)
                     {
                         isError = true;
@@ -275,7 +358,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
                     }
                     jobApplicationDto = new ItemsProviderResult<NTDDatLichModel>(jobFilter, jobFilter.Count);
                     await UserDialogsService.UnBlock();
-                    StateHasChanged();
+
                 }
             );
 
@@ -291,7 +374,18 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
 
         //đặt lịch phỏng vấn
         private DatLichPVModal datLichPVModal { get; set; }
-
+        //public async Task BookUser(NTDDatLichModel nTDDatLichModel)
+        //{
+        //    if (ApplicationContext.LoginInfo == null)
+        //    {
+        //        await UserDialogsService.AlertWarn("Vui lòng đăng nhập để đặt lịch!");
+        //        //navigationService.NavigateTo(NavigationUrlConsts.Login);
+        //    }
+        //    else
+        //    {
+        //        await datLichPVModal.OpenFor(nTDDatLichModel);
+        //    }
+        //}
         public static string GetTimeSince(DateTime objDateTime)
         {
             string result = string.Empty;
@@ -334,14 +428,5 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.NguoiTimViec
 
             return result;
         }
-        bool IsOpenFilter;
-
-        FilterModalNTV FilterModalNTV = new FilterModalNTV();
-        public async Task OpenFilter()
-        {
-            // IsOpenFilter = true;
-            await FilterModalNTV.OpenFor();
-        }
-
     }
 }

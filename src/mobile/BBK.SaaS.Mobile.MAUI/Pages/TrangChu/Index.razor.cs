@@ -1,4 +1,5 @@
-﻿using Abp.Threading;
+﻿using Abp.Application.Services.Dto;
+using Abp.Threading;
 using BBK.SaaS.ApiClient;
 using BBK.SaaS.Authorization.Accounts;
 using BBK.SaaS.Authorization.Accounts.Dto;
@@ -11,7 +12,6 @@ using BBK.SaaS.Mdls.Category.Indexings;
 using BBK.SaaS.Mdls.Category.Indexings.Dto;
 using BBK.SaaS.Mdls.Cms.Articles;
 using BBK.SaaS.Mdls.Cms.Articles.MDto;
-using BBK.SaaS.Mdls.Cms.Categories;
 using BBK.SaaS.Mdls.Profile.Candidates;
 using BBK.SaaS.Mdls.Profile.Candidates.Dto;
 using BBK.SaaS.Mdls.Profile.Recruiters;
@@ -31,14 +31,12 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
         private bool IsUserLoggedIn;
         protected IJobApplicationAppService jobApplicationAppService { get; set; }
         protected IRecruitmentAppService recruitmentAppService { get; set; }
-        protected IRecruiterAppService recruiterAppService { get; set; }
         protected IArticlesAppService articlesAppService { get; set; }
         protected INavigationService navigationService { get; set; }
         protected IUserProfileService UserProfileService { get; set; }
         protected IProfileAppService ProfileAppService { get; set; }
         protected IApplicationContext ApplicationContext { get; set; }
         protected IArticleFrontEndService articleFrontEndService { get; set; }
-        protected IFECntCategoryAppService fECntCategoryAppService { get; set; }
         protected IArticleService articleService { get; set; }
         private IAccountAppService _accountAppService;
 
@@ -101,7 +99,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             navigationService = DependencyResolver.Resolve<INavigationService>();
             jobApplicationAppService = DependencyResolver.Resolve<IJobApplicationAppService>();
             recruitmentAppService = DependencyResolver.Resolve<IRecruitmentAppService>();
-            recruiterAppService = DependencyResolver.Resolve<IRecruiterAppService>();
             UserProfileService = DependencyResolver.Resolve<IUserProfileService>();
             ApplicationContext = DependencyResolver.Resolve<IApplicationContext>();
             _accountAppService = DependencyResolver.Resolve<IAccountAppService>();
@@ -111,7 +108,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
             CatUnitAppService = DependencyResolver.Resolve<ICatUnitAppService>();
             geoUnitAppService = DependencyResolver.Resolve<IGeoUnitAppService>();
             ProfileAppService = DependencyResolver.Resolve<IProfileAppService>();
-            fECntCategoryAppService = DependencyResolver.Resolve<IFECntCategoryAppService>();
 
 
 
@@ -151,29 +147,30 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
                     result => IsTenantAvailableExecuted(result, "Default")
                 );
             });
+            await SetPageHeader(L("Trang chủ"), new List<Services.UI.PageHeaderButton>()
+            {
+                //new Services.UI.PageHeaderButton(L("Đăng nhập"), NavLogin)
+            });
 
             //check loggedIn
             IsUserLoggedIn = navigationService.IsUserLoggedIn();
-            await Statistical();
-            //await GetNewestArticles();
-            //await LoadNewestArticles(new ItemsProviderRequest());
+            await GetUserPhoto();
         }
 
         bool ListUserNull;
-        bool IsFilter;
-
         private async Task RefeshList()
         {
             _SearchText = _filtered.Filtered;
+            _Job = _filtered.Job.Value;
+            _WorkSite = _filtered.WorkSiteId.Value;
+
             await UriFilter();
         }
 
         public async Task UriFilter()
         {
-            //navigationService.NavigateTo($"ViecTimNguoi?_SearchText={_filtered.Filtered}&Job={_filtered.Job}&WorkSite={_filtered.WorkSiteId}");
-            navigationService.NavigateTo($"ViecTimNguoi?_SearchText={_filtered.Filtered}");
+            navigationService.NavigateTo($"ViecTimNguoi?_SearchText={_filtered.Filtered}&Job={_filtered.Job}&WorkSite={_filtered.WorkSiteId}");
         }
-
 
         #region filter
         private async ValueTask<ItemsProviderResult<CatFilterList>> LoadFilter(ItemsProviderRequest request)
@@ -205,92 +202,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 
         #endregion
 
-        List<ArticleModel> articleModel1 = new List<ArticleModel>();
-        List<ArticleModel> articleModel2 = new List<ArticleModel>();
-        #region Tin nổi bật
-        private async ValueTask<ItemsProviderResult<ArticleModel>> LoadNewestArticles(ItemsProviderRequest request)
-        {
-            _filter.MaxResultCount = Math.Clamp(request.Count, 1, 1000);
-            _filter.SkipCount = request.StartIndex;
-
-            await UserDialogsService.Block();
-
-            await WebRequestExecuter.Execute(
-            async () => await articleFrontEndService.GetNewestArticles(),
-            async (result) =>
-            {
-                var articlesFilter = ObjectMapper.Map<List<ArticleModel>>(result.Items.Take(3));
-                articleModel1 = articleDto.Items.Take(1).ToList();
-                //if (articleModel1 != null && articleModel1.Count > 0)
-                //{
-                //    foreach (var item in articleModel1)
-                //    {
-                //        var detail = await articleFrontEndService.GetArticleDetail(new Abp.Application.Services.Dto.EntityDto<long> { Id = item.Id.Value });
-                //        if (detail.Categories != null && detail.Categories[0].Id > 0)
-                //        {
-                //            var Category = await fECntCategoryAppService.GetCategory(new Mdls.Cms.Categories.MDto.GetCategoryInput { CategoryId = detail.Categories[0].Id, SearchArticlesInput = null });
-                //            item.CategoryDisplayName = Category.DisplayName;
-                //        }
-                //    }
-                //}
-
-                articleModel2 = articleDto.Items.Skip(1).Take(2).ToList();
-                //if (articleModel2 != null && articleModel2.Count > 0)
-                //{
-                //    foreach (var item in articleModel2)
-                //    {
-                //        var detail = await articleFrontEndService.GetArticleDetail(new Abp.Application.Services.Dto.EntityDto<long> { Id = item.Id.Value });
-                //        if (detail.Categories != null && detail.Categories[0].Id > 0)
-                //        {
-                //            var Category = await fECntCategoryAppService.GetCategory(new Mdls.Cms.Categories.MDto.GetCategoryInput { CategoryId = detail.Categories[0].Id, SearchArticlesInput = null });
-                //            item.CategoryDisplayName = Category.DisplayName;
-                //        }
-                //    }
-                //}
-                articleDto = new ItemsProviderResult<ArticleModel>(articlesFilter, articlesFilter.Count);
-                await UserDialogsService.UnBlock();
-            }
-        );
-
-            return articleDto;
-        }
-
-        private async Task GetNewestArticles()
-        {
-              await WebRequestExecuter.Execute(
-              async () => await articleFrontEndService.GetNewestArticles(),
-              async (result) =>
-              {
-                  articleModel1 = articleDto.Items.Take(1).ToList();
-                  if (articleModel1 != null && articleModel1.Count > 0)
-                  {
-                      foreach (var item in articleModel1)
-                      {
-                          var detail = await articleFrontEndService.GetArticleDetail(new Abp.Application.Services.Dto.EntityDto<long> { Id = item.Id.Value });
-                          if (detail.Categories != null && detail.Categories[0].Id > 0)
-                          {
-                              var Category = await fECntCategoryAppService.GetCategory(new Mdls.Cms.Categories.MDto.GetCategoryInput { CategoryId = detail.Categories[0].Id, SearchArticlesInput = null });
-                              item.CategoryDisplayName = Category.DisplayName;
-                          }
-                      }
-                  }
-
-                  articleModel2 = articleDto.Items.Skip(1).Take(2).ToList();
-                  if (articleModel2 != null && articleModel2.Count > 0)
-                  {
-                      foreach (var item in articleModel2)
-                      {
-                          var detail = await articleFrontEndService.GetArticleDetail(new Abp.Application.Services.Dto.EntityDto<long> { Id = item.Id.Value });
-                          if (detail.Categories != null && detail.Categories[0].Id > 0)
-                          {
-                              var Category = await fECntCategoryAppService.GetCategory(new Mdls.Cms.Categories.MDto.GetCategoryInput { CategoryId = detail.Categories[0].Id, SearchArticlesInput = null });
-                              item.CategoryDisplayName = Category.DisplayName;
-                          }
-                      }
-                  }
-              });
-        }
-        #endregion
 
         #region Tin tức
         private async ValueTask<ItemsProviderResult<ArticleModel>> LoadArticles(ItemsProviderRequest request)
@@ -327,7 +238,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
         #endregion
 
         #region Việc tìm người
-        public int RecruitmentCount;
         private async ValueTask<ItemsProviderResult<RecruitmentDto>> LoadRecruitment(ItemsProviderRequest request)
         {
             _filtered.MaxResultCount = 6;
@@ -355,7 +265,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
                     if (jobFilter.Count == 0)
                     {
                         isError1 = true;
-                        IsFilter = false;
                     }
                     else
                     {
@@ -363,8 +272,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
                     }
                     recruitmentDto = new ItemsProviderResult<RecruitmentDto>(jobFilter, jobFilter.Count);
                     await UserDialogsService.UnBlock();
-                    StateHasChanged();
-
                 }
             );
 
@@ -378,7 +285,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
         #endregion
 
         #region Người tìm việc
-        private int JobAppCount;
         private Virtualize<GetJobApplicationForEditOutput> JobApplicationContainer { get; set; }
         public List<GetJobApplicationForEditOutput> getJobApplicationForEditOutputs { get; set; }
         private async ValueTask<ItemsProviderResult<GetJobApplicationForEditOutput>> LoadJobApplication(ItemsProviderRequest request)
@@ -390,22 +296,17 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 
             await UserDialogsService.Block();
 
-            //var count = recruiterAppService.
-
             await WebRequestExecuter.Execute(
-                async () => await jobApplicationAppService.GetAllJobAppsMobile(_filter),
+                async () => await jobApplicationAppService.GetAllJobApps(_filter),
 
                 async (result) =>
                 {
-                    var jobFilter = result.Items.Take(6).ToList();
-                    var jobCount = result.Items.Count;
-                    JobAppCount = jobCount;
-
-                    //foreach (var item in jobFilter)
-                    //{
-                    //    _avatarCandidate = await UserProfileService.GetProfilePicture(item.Candidate.UserId);
-                    //    item.Candidate.AvatarUrl = _avatarCandidate;
-                    //}
+                    var jobFilter = result.Items.Take(5).ToList();
+                    foreach (var item in jobFilter)
+                    {
+                        _avatarCandidate = await UserProfileService.GetProfilePicture(item.Candidate.UserId);
+                        item.Candidate.AvatarUrl = _avatarCandidate;
+                    }
                     if (jobFilter.Count == 0)
                     {
                         isError = true;
@@ -453,6 +354,21 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 
         #endregion
 
+        public async Task NavLogin()
+        {
+            navigationService.NavigateTo(NavigationUrlConsts.Login);
+        }
+        private async Task GetUserPhoto()
+        {
+            if (!IsUserLoggedIn)
+            {
+                return;
+            }
+
+            _userImage = await UserProfileService.GetProfilePicture(ApplicationContext.LoginInfo.User.Id);
+            _UserName = ApplicationContext.LoginInfo.User.Name;
+            StateHasChanged();
+        }
 
         public static string GetTimeSince(DateTime objDateTime)
         {
@@ -496,17 +412,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.TrangChu
 
             return result;
         }
-        #region 
-        private int RecruiteCount { get; set; }
-
-        private async Task Statistical()
-        {
-
-            RecruiteCount = await recruiterAppService.CountRecruiter();
-            JobAppCount = await jobApplicationAppService.CountJob();
-            RecruitmentCount = await recruitmentAppService.CountRecruiment();
-        }
-        #endregion
     }
 
 }

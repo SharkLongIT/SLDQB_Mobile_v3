@@ -1,0 +1,214 @@
+﻿@using BBK.SaaS
+@using BBK.SaaS.Mdls.Profile.Recruiters.Dto
+@using BBK.SaaS.Web.Areas.App.Startup
+@model RecruitmentDto
+@section Scripts
+{
+    <script abp-src="/view-resources/App/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Profile/Recruitments/View.js" asp-append-version="true"></script>
+}
+
+@{
+    ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+    ViewBag.PageTitle = @L("Tin tuyển dụng");
+    ViewBag.PageDescription = @L(" Tin tuyển dụng");
+}
+
+<section id="content">
+			<div class="content-wrap pt-3">
+
+				<div class="container">
+			 <nav>
+                <ol class="breadcrumb justify-content-sm-start align-items-center mb-0" style="margin-bottom: 32px !important;">
+                    <li class="breadcrumb-item">
+                        <a href="/">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item f-w-400">@Html.ActionLink(("Danh sách tin tuyển dụng"), "Recruitment", "Recruitments", null, null)</li>
+                    <li class="breadcrumb-item f-w-400 active">Chi tiết tin</li>
+                </ol>
+            </nav>
+
+					<div class="row mt-5">
+
+						<!-- Posts Area
+						============================================= -->
+						<div class="col-lg-8">
+
+                             <input type="hidden" name="Id" id="Id" value="@Model.Id" />
+							<div class="entry">
+								<h2 class="mb-3 fw-bold h1">@Model.Title</h2>
+								<div class="entry-meta d-flex justify-content-between mb-4">
+									<ul>
+										<li><i class="fas fa-dollar-sign font-awesome"></i><span> @(Math.Floor(@Model.MinSalary) / 1000000) Triệu  -  @(Math.Floor(@Model.MaxSalary) / 1000000) Triệu</span></li>
+										<li> <i class="icofont icofont-location-arrow"></i><span>  @Model.AddressName</span></li>
+										<li><i class="fa fa-briefcase font-awesome"></i><span>  @Model.Experiences.DisplayName</span></li>
+										<li><i class="bi-clock"></i>@Model.DeadlineSubmission.ToShortDateString()</li>
+									</ul>
+									 
+								</div>
+								@* @if (Model.IsRecuiters == false)
+                                    {
+                                        <button class="btn btn-danger" type="button" id="btnUngTuyen"
+                                                style="width: 100%;">
+                                            <span>
+                                                <i class="fa fa-paper-plane"></i>
+                                            </span>Ứng
+                                            tuyển
+                                        </button>
+                                    } *@
+							
+								<div class="line my-3"></div>
+
+								<div class="entry-content mt-0">
+									 <h4>Thông tin chung</h4>
+                                        <p class="mb-2"><i class="fa fa-tasks" aria-hidden="true"></i> <span class="font-weight-bold"> Ngành nghề:</span> @Model.JobCatUnitName </p>
+                                        <p class="mb-2"><i class="fa fa-users" aria-hidden="true"></i> <span class="font-weight-bold">Số lượng tuyển:</span> @Model.NumberOfRecruits </p>
+                                        <p class="mb-2"><i class="fa fa-clock-o" aria-hidden="true"></i> <span class="font-weight-bold">Hình thức làm việc:</span> @Model.FormOfWorks.DisplayName</p>
+                                        @if (Model.GenderRequired == 1)
+                                        {
+                                            <p class="mb-2"><i class="fa fa-venus-double" aria-hidden="true"></i><span class="font-weight-bold">Giới tính:</span> Nam</p>
+
+                                        }
+                                        else
+                                        {
+                                            <p class="mb-2"><i class="fa fa-venus-double" aria-hidden="true"></i> <span class="font-weight-bold">Giới tính:</span> Nữ</p>
+
+                                        }
+                                        <br>
+										<h4>Chi tiết tuyển dụng</h4>
+                                        <h5>Mô tả công việc</h5>
+                                        <p>
+                                            @Html.Raw(Model.JobDesc)
+                                        </p>
+										 <h5>Yêu cầu công việc công việc</h5>
+                                        <p>
+                                            @Html.Raw(Model.JobRequirementDesc)
+                                        </p>
+										  <h5>Kỹ năng cần thiết</h5>
+                                        <p>
+                                            @Html.Raw(Model.NecessarySkills)
+                                        </p>
+										 <h5>Quyền lợi</h5>
+                                        <p>
+                                            @Html.Raw(Model.BenefitDesc)
+                                        </p>
+								</div>
+							</div>
+                            <!-- Post Author Info
+							============================================= -->
+							
+						</div>
+
+						<!-- Top Sidebar Area
+						============================================= -->
+						<div class="col-lg-4 sticky-sidebar-wrap mt-5 mt-lg-0">
+							<div class="sticky-sidebar">
+                                <div class="widget">
+								<div class="card">
+								<div class="card-body">
+							 <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <a href="../NVNVViewDetailRecruiter/@Model.Recruiter.UserId">
+                                            <img class="mt-4" width="100" src="@Model.Recruiter.AvatarUrl" alt="profile">
+                                        </a>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h4>@Model.Recruiter.CompanyName</h4>
+                                        @if (@Model.Recruiter.Province != null)
+                                        {
+                                            <p style="line-height: 0;">Địa chỉ: @Model.Recruiter.Province.DisplayName</p>
+                                        }
+                                        else
+                                        {
+                                            <p style="line-height: 0;">Địa chỉ: </p>
+                                        }
+                                        <p style="line-height: 0;">
+                                            @Html.ActionLink("Xem trang công ty", "NVNVViewDetailRecruiter", "Recruiters", new { id = @Model.Recruiter.UserId })
+                                        </p>
+                                    </div>
+                                </div>
+							</div><!-- Post Single - Author End -->
+						</div>
+						</div>
+								<!-- Sidebar Widget 2
+								============================================= -->
+								<div class="widget">
+                                    <h4 class="mb-2 ls-1 text-uppercase fw-bold">Việc làm gợi ý:</h4>
+									<div class="line line-xs line-market"></div>
+                                    <input type="hidden" value="@Model.IsCandidate" id="Check" />
+                                    <div class="row g-sm-12 g-3">
+                                        @foreach (var item in @ViewBag.RecruimentAll)
+                                        {
+                                            <div class="col-xxl-12 col-md-12">
+                                                <div class="prooduct-details-box widget-hover">
+                                                    <div class="d-flex">
+                                                        @if (item.Recruiter.AvatarUrl != null)
+                                                        {
+                                                            <a href="../ViewRecruitment/@item.Id">
+                                                                <img class="align-self-center img-fluid mt-3" width="100"
+                                                                     src="@item.Recruiter.AvatarUrl" alt="#">
+                                                            </a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a href="../ViewRecruitment/@item.Id">
+                                                                <img class="align-self-center img-fluid mt-3" width="60"
+                                                                     src="/themes/mofi/assets/images/ecommerce/product-table-6.png" alt="#">
+                                                            </a>
+                                                        }
+                                                        <div class="flex-grow-1 ms-3">
+                                                            <div class="product-name pb-2">
+                                                                <h6 style="text-transform:capitalize"><a href="../ViewRecruitment/@item.Id">@item.Title</a></h6>
+                                                            </div>
+                                                            <small>
+                                                                <i class="fa fa-building font-awesome"></i> @item.Recruiter.CompanyName
+                                                            </small>
+                                                            <hr class="my-1">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <small>
+                                                                        <i class="fa fa-money font-awesome"></i> @(Math.Floor(@item.MinSalary) / 1000000)-@(Math.Floor(@item.MaxSalary) / 1000000) Triệu
+                                                                    </small>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <small>
+                                                                        <i class="fa fa-map-marker font-awesome"></i> @item.WorkAddress
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <small>
+                                                                        <i class="fa fa-briefcase font-awesome"></i>
+                                                                        @item.Experiences.DisplayName
+
+                                                                    </small>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <small>
+                                                                        <i class="fa fa-calendar font-awesome"></i>
+                                                                        @item.DeadlineSubmission.ToShortDateString()
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+								</div>
+							</div>
+						</div> <!-- Sidebar End -->
+					</div>
+				</div> <!-- Container End -->
+
+			</div>
+		</section><!-- #content end -->
+
+

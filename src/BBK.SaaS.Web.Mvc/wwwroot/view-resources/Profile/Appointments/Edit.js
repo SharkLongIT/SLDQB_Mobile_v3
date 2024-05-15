@@ -1,0 +1,63 @@
+﻿(function ($) {
+    app.modals.EditModal = function () {
+        var _Service = abp.services.app.makeAnAppointment;
+        var _recruiment = abp.services.app.recruitment;
+        var _modalManager;
+        var _frmMakeAnAppointmentForm = null;
+
+        this.init = function (modalManager) {
+            _modalManager = modalManager;
+            _frmMakeAnAppointmentForm = _modalManager.getModal().find('form[name=EditMakeAnAppointmentForm]');
+        }
+
+        $('#ApplicationRequestId').change(function () {
+            var optionSelected = $(this).find("option:selected");
+            var valueSelected = optionSelected.val();
+            _recruiment.getDetail(valueSelected).done(function (e) {
+                $('#Rank').val(e.experience).change();
+                
+            })
+        });
+
+        //sự kiện khi đóng modal
+        $('.cancel-work-button').click(function () {
+            abp.libs.sweetAlert.config = {
+                confirm: {
+                    icon: 'warning',
+                    buttons: ['Không', 'Có']
+                }
+            };
+
+            abp.message.confirm(
+                app.localize(abp.localization.localize("Close")),
+                app.localize(abp.localization.localize("AreYouSure")),
+                function (isConfirmed) {
+                    if (isConfirmed) {
+                        _modalManager.close();
+                        return true;
+
+                    }
+                }
+            );
+
+        });
+        this.save = function () {
+            _frmMakeAnAppointmentForm.addClass('was-validated');
+            if (_frmMakeAnAppointmentForm[0].checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+                return;
+            }
+            var data = _frmMakeAnAppointmentForm.serializeFormToObject();
+            _modalManager.setBusy(true);
+            _Service.update(data)
+                .done(function () {
+                    _modalManager.close();
+                    abp.event.trigger('app.reloadDocTable');
+                    abp.notify.info(abp.localization.localize("Successfully"));
+                }).always(function () {
+                    _modalManager.setBusy(false);
+                });
+        };
+    };
+})(jQuery);

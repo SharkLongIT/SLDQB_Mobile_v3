@@ -11,9 +11,9 @@ namespace BBK.SaaS.TinTuc
 {
     public class CmsCatsAppService : ProxyAppServiceBase, ICmsCatsAppService
     {
-        public async Task<ListResultDto<CmsCatDto>> GetCmsCats()
+        public Task<ListResultDto<CmsCatDto>> GetCmsCats()
         {
-            return await ApiClient.GetAnonymousAsync<ListResultDto<CmsCatDto>>(GetEndpoint(nameof(GetCmsCats)));
+            throw new NotImplementedException();
         }
 
         public async Task<ListResultDto<CmsCatDto>> GetCmsCatsByLevel(GetCmsCatInput input)

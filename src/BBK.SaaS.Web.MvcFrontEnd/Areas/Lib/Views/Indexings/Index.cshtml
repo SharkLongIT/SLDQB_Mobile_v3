@@ -1,0 +1,93 @@
+﻿@using BBK.SaaS.Web.Areas.Lib.Models.Indexings;
+@model CatUnitsViewModel
+
+@{
+	ViewBag.CurrentPageName = "CatUnits";
+	ViewBag.PageTitle = @L("CatUnits");
+	ViewBag.PageDescription = @L("CatUnitsHeaderInfo");
+}
+
+@section Scripts
+	{
+	<script abp-src="/view-resources/Lib/Indexings/Index.js" asp-append-version="true"></script>
+}
+
+@section Styles
+	{
+	<style>
+		.dropdown-wrapper {
+			display: none;
+		}
+
+		.active a.addBtn{
+			color: #fff;
+		}
+	</style>
+}
+
+<div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12 col-md-6">
+				<div class="card">
+					<div class="card-body">
+						<div class="new-task-wrapper input-group">
+							<input class="form-control" id="new-task" placeholder="Gõ để tìm. . .">
+							<span class="btn btn-primary add-new-task-btn" id="AddRootUnitButton">
+								<i class="la la-plus btn-md-icon"></i><span class="d-none d-md-inline-block">
+									@L("AddRootUnit")
+								</span>
+							</span>
+						</div>
+						@*<div class="d-flex m-t-10">
+							<div class="flex-grow-1"><span class="f-w-600 m-r-10">Hình thức làm việc</span><span class="f-w-600 badge badge-primary">18</span></div>
+							<div>
+							<h5 class="mb-0 font-primary">18</h5><span class="d-block">Dec</span>
+							</div>
+						</div>*@
+						<div class="list-group m-t-10" id="RootUnitTree">
+							@*<div class="d-flex list-group-item list-group-item-action active">
+								<div class="flex-grow-1"><span class="f-w-600 m-r-10">Hình thức làm việc</span></div>
+							</div>
+							<div class="d-flex list-group-item list-group-item-action">
+								<div class="flex-grow-1">
+									<span class="f-w-600 m-r-10">Bằng cấp</span>									
+								</div>
+								<div>
+									<span class="mb-0">18</span>
+								</div>
+							</div>*@
+							@*<div class="d-flex list-group-item list-group-item-action">
+								<div class="flex-grow-1">
+									<span class="f-w-600 m-r-10">Bằng cấp</span>
+								</div>
+								<ul class="action">
+									<li class="edit"> <a href="#"><i class="icon-pencil-alt"></i></a></li>
+									<li class="delete"><a href="#"><i class="icon-trash"></i></a></li>
+								</ul>
+							</div>*@
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12 col-md-6">
+				<div class="card">
+					<div class="card-body ">
+						@*<div>
+							<div class="new-task-wrapper input-group">
+								<input class="form-control" id="new-task" placeholder="Enter new task here. . ."><span class="btn btn-primary add-new-task-btn" id="add-task">Add Task</span>
+							</div>
+						</div>*@
+						<div class="card-scroll">
+							<div id="CategoryUnitEditTree"></div>
+							<div id="CategoryUnitTreeEmptyInfo" class="text-muted">
+								@L("NoCategoryUnitDefinedYet")
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

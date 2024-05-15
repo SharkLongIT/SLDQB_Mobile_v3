@@ -1,0 +1,97 @@
+﻿@using Abp.Localization
+@using BBK.SaaS.Web.Areas.App.Startup
+
+
+@section Scripts
+{
+    <script abp-src="/view-resources/App/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script src="/view-resources/Profile/Candidate/QuestionsOfMe.js" asp-append-version="true"></script>
+}
+
+@* @{
+    ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+    ViewBag.PageTitle = @L("Liên kết giới thiệu");
+    ViewBag.PageDescription = @L("Liên kết giới thiệu");
+} *@
+<section id="content">
+	<div class="content-wrap pt-3"> 
+    <!-- Container-fluid starts-->
+    <div class="container">
+        <div class="row">
+              <nav>
+                <ol class="breadcrumb justify-content-sm-start align-items-center mb-0" style="margin-bottom: 32px !important;">
+                    <li class="breadcrumb-item">
+                        <a href="/">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item f-w-400 active">Danh sách câu hỏi của tôi</li>
+               </ol>
+            </nav>  
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-xl-12">
+                        <div id="panel-1" class="panel">
+                            <div class="panel-hdr">
+                                <h2>
+                                    <span class="fw-300"><i>Danh sách câu hỏi của tôi</i></span>
+                                </h2>
+                            </div>
+                            <div class="panel-container show mt-5">
+                                <div class="panel-content">
+                                    <div class="card-wrapper border rounded-3 light-card checkbox-checked">
+                                        <div class="row ">
+                                            <div class="col-lg-12">
+                                                <div class="row mx-2 my-3">
+                                                    <div class="col-lg-5 col-md-5 mb-3">
+                                                        <input type="text" id="SearchTerm" name="SearchTerm" placeholder="@(new FixedLocalizableString("Nhập nội dung"))" class="form-control">
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-5 mb-3 mt-auto">
+                                                        <select  class="form-select" id="Status" name="Status">
+                                                            <option value="0" selected>Trạng thái</option>
+                                                            <option value="1" >Đã trả lời</option>
+                                                            <option value="2" >Chưa trả lời</option>
+                                                            
+                                                        </select>
+                                                    </div>
+                                                     <div class="col-lg-2 ">
+                                                <button class="btn btn-danger ml-auto waves-effect waves-themed mb-3" id="Search" type="button">@(new FixedLocalizableString("Tìm kiếm"))</button>
+                                            </div>
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+
+
+                                    <!-- datatable start -->
+                                    <div class="mt-5">
+                                        <table id="QuestionsOfMeTable" class="table table-bordered table-hover table-striped w-100 mt-5">
+                                            <thead class="bg-primary-600">
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Nội dung</th>
+                                                    <th>Ngày gửi</th>
+                                                    <th>Ngày trả lời</th>
+                                                    <th>Trạng thái</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                               
+                                    <!-- datatable end -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>

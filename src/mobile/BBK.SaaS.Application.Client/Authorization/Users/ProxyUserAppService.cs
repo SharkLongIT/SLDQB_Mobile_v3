@@ -36,14 +36,10 @@ namespace BBK.SaaS.Authorization.Users
         {
             await ApiClient.PutAsync(GetEndpoint(nameof(UpdateUserPermissions)), input);
         }
-        /// <summary>
-        /// Post Async
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
+
         public async Task CreateOrUpdateUser(CreateOrUpdateUserInput input)
         {
-            await ApiClient.PostAnonymousAsync(GetEndpoint(nameof(CreateOrUpdateUser)), input);
+            await ApiClient.PostAsync(GetEndpoint(nameof(CreateOrUpdateUser)), input);
         }
 
         public async Task DeleteUser(EntityDto<long> input)

@@ -149,9 +149,9 @@ namespace BBK.SaaS.Mdls.Cms.Introduces
             }
         }
 
-        public int GetCountByUserId()
+        public async Task<int> GetCountByUserId()
         {
-            var query = _introduceRepository.GetAll().AsNoTracking().Where(x => x.CreatorUserId == AbpSession.UserId && x.CreationTime.Day == DateTime.Now.Day && x.CreationTime.Month == DateTime.Now.Month && x.CreationTime.Year == DateTime.Now.Year);
+            var query = (await _introduceRepository.GetAllListAsync()).Where(x => x.CreatorUserId == AbpSession.UserId && x.CreationTime.Day == DateTime.Now.Day && x.CreationTime.Month == DateTime.Now.Month && x.CreationTime.Year == DateTime.Now.Year);
             int count = query.Count();
             return count;
         }

@@ -1,0 +1,52 @@
+﻿@using BBK.SaaS.Mdls.Profile.Contacts.Dto
+@model ContactDto
+@{
+    Layout = null;
+}
+<div class="modal-body user-edit-modal">
+    <div class="modal-header">
+        <h4 class="modal-title">Chi tiết câu hỏi</h4>
+        <button class="btn-close py-0" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="page-body">
+        <!-- Container-fluid starts-->
+        <div class="container-fluid">
+            <div class="row">
+                <form name="EditIntroduceForm" role="form" novalidate class="form-validation">
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Adress" class="form-label">Nội dung câu hỏi</label>
+                            <input type="text" value="@Model.Description" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="TypeInterview" class="form-label">Ngày gửi</label>
+                            <input type="text" value="@Model.CreationTime.ToShortDateString()" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Message" class="form-label">Ngày trả lời</label>
+                            @if (@Model.LastModificationTime.HasValue)
+                            {
+                                <input type="text" value="@Model.LastModificationTime.Value.ToShortDateString()" class="form-control" disabled>
+                            }else
+
+                            {
+                                <input type="text" class="form-control" disabled>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="Message" class="form-label">Câu trả lời</label>
+                            <textarea type="text"  class="form-control" disabled>@Model.Answer</textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@await Html.PartialAsync("~/Areas/App/Views/Common/Modals/_ModalFooterWithCloseVN.cshtml")

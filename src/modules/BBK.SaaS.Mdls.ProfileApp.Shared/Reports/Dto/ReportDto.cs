@@ -18,6 +18,7 @@ namespace BBK.SaaS.Mdls.Profile.Reports.Dto
         public class ReportListArticle
         {
             public virtual string Cat { get; set; }
+            public virtual string Slug { get; set; }
 
             public virtual int CountArticle { get; set; }
         }

@@ -67,6 +67,28 @@ namespace BBK.SaaS.Mdls.Cms.Categories
 				}).ToList());
 		}
 
+		public async Task<ListResultDto<NameValueDto>> GetSortableCategoryUnits(long? id)
+		{
+			if (id.HasValue && id <= 0)
+			{
+				throw new UserFriendlyException(L("UnknowIdNumber"));
+			}
+
+			var catUnits = await _categoryRepository.GetAll()
+				 .Where(x => x.ParentId == id)
+				 .OrderBy(x => x.OrderIndex)
+				 .ToListAsync();
+
+			return new ListResultDto<NameValueDto>(catUnits.Select(u =>
+						new NameValueDto(u.DisplayName, u.Id.ToString())).ToList()
+					);
+		}
+		public async Task SaveSortedCategoryUnits(SortCmsCatInput input)
+		{
+			await CategoryManager.UpdateOrderIndexAsync(input.ParentId, input.SortedIds);
+		}
+
+
 		//[AbpAuthorize(AppPermissions.Pages_Administration_CmsCats_ManageOrganizationTree)]
 		public async Task<CmsCatDto> CreateCmsCat(CreateCmsCatInput input)
 		{
@@ -153,14 +175,14 @@ namespace BBK.SaaS.Mdls.Cms.Categories
 		}
 
 		////[AbpAuthorize(AppPermissions.Pages_Administration_CmsCats_ManageOrganizationTree)]
-		//public async Task<CmsCatDto> MoveCmsCat(MoveCmsCatInput input)
-		//{
-		//    await _categoryManager.MoveAsync(input.Id, input.NewParentId);
+		public async Task<CmsCatDto> MoveCmsCat(MoveCmsCatInput input)
+		{
+			await CategoryManager.MoveAsync(input.Id, input.NewParentId);
 
-		//    return await CreateCmsCatDto(
-		//        await _categoryRepository.GetAsync(input.Id)
-		//    );
-		//}
+			return await CreateCmsCatDto(
+					await _categoryRepository.GetAsync(input.Id)
+			);
+		}
 
 		[AbpAuthorize(AppPermissions.Pages_Administration_CommFuncs)]
 		public async Task DeleteCmsCat(EntityDto<long> input)

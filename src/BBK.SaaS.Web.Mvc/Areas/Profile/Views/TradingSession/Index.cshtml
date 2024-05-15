@@ -1,0 +1,154 @@
+﻿@using Abp.Localization
+@using BBK.SaaS.Web.Areas.App.Startup
+
+@section Styles
+{
+	<link rel="stylesheet" abp-href="/view-resources/App/_Bundles/dropzone.css" asp-append-version="true" />
+}
+@section Scripts
+{
+    <script abp-src="/view-resources/App/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Profile/TradingSession/index.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/App/_Bundles/dropzone.js" asp-append-version="true"></script>
+}
+
+@{
+    ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+    ViewBag.PageTitle = "Quản lý phiên giao dịch";
+    ViewBag.PageDescription = "Quản lý phiên giao dịch";
+}
+<div class="page-body">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-xl-12">
+                        <div id="panel-1" class="panel">
+                            <div class="panel-hdr">
+                                <h2>
+                                    <span class="fw-300"><i>Danh sách phiên giao dịch</i></span>
+                                </h2>
+                            </div>
+                            <div class="panel-container show mt-5">
+                                <div class="panel-content">
+                                    <div class="card-wrapper border rounded-3 light-card checkbox-checked">
+                                        <div class="row ">
+                                            <div class="col-lg-4 col-md-4 mb-3 ">
+                                                <input type="text" id="SearchTerm" name="SearchTerm" placeholder="@(new FixedLocalizableString("Tên phiên giao dịch"))" class="form-control" required>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 mb-3 mt-0">
+                                                <select class="form-select" id="WorkSite" name="location" asp-items="@ViewBag.listItemsTinhThanh" multiple>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="col-lg-4 col-md-4 mb-3 mt-auto">
+                                                <label for="Title" class="form-label">Từ ngày</label>
+                                                <div class="form-outline datepicker-with-filter1">
+                                                    <input id="StartDay" type="date" name="StartDay"
+                                                           class="form-control" placeholder="Hạn nộp hồ sơ : Từ ngày" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 mb-3 mt-auto">
+                                                <label for="Title" class="form-label">Đến ngày</label>
+                                                <div class="form-outline datepicker-with-filter1">
+                                                    <input id="EndDay" type="date" name="EndDay" class="form-control" placeholder="Đến ngày" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-12 mb-3 mt-auto">
+                                                <button class="btn btn-primary ml-auto waves-effect waves-themed" id="Search" type="button">@(new FixedLocalizableString("Tìm kiếm"))</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row mt-5">
+                                        <div class="col-lg-6 col-md-12 mb-3">
+                                            <button id="CreateNewButtonxx" name="CreateNewButton" class="btn btn-sm btn-toolbar-full btn-primary ml-auto">
+                                                <span class="fa fa-plus-square"></span>
+                                               Thêm mới
+                                            </button>
+                                        </div>
+                                    </div>
+                                     <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item">
+                                            <a href="#Tab1" class="nav-link active" data-bs-toggle="tab" role="tab">
+                                               Phiên giao dịch sắp diễn ra
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#Tab2" data-bs-toggle="tab" role="tab" class="nav-link">
+                                        Phiên giao dịch đang diễn ra<span id="assigned-role-count" class="badge badge-success me-2"></span>
+                                            </a>
+                                        </li>
+                                          <li class="nav-item">
+                                            <a href="#Tab3" data-bs-toggle="tab" role="tab" class="nav-link">
+                                          Phiên giao dịch đã diễn ra<span id="assigned-role-count" class="badge badge-success me-2"></span>
+                                            </a>
+                                        </li>
+                                      </ul>
+                                       <div class="tab-content">
+                                            <div class="tab-pane pt-3 active" id="Tab1" role="tabpanel">
+                                                    <!-- datatable start -->
+                                                    <table id="TradingTable" class="table table-bordered table-hover table-striped w-100">
+                                                        <thead class="bg-primary-600">
+                                                            <tr>
+                                                                <th>STT</th>
+                                                                <th>Tên Phiên giao dịch</th>
+                                                                <th>Địa điểm</th>
+                                                                <th>Thời gian bắt đầu</th>
+                                                                <th>Thời gian kết thúc</th>
+                                                                <th>Ngày tạo</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+                                                  <!-- datatable end -->
+                                            </div>
+                                            <div class="tab-pane pt-3 " id="Tab2" role="tabpanel">
+                                                    <!-- datatable start -->
+                                                    <table id="TradingTablePresent" class="table table-bordered table-hover table-striped w-100">
+                                                        <thead class="bg-primary-600">
+                                                            <tr>
+                                                                <th>STT</th>
+                                                                <th>Tên Phiên giao dịch</th>
+                                                                <th>Địa điểm</th>
+                                                                <th>Thời gian bắt đầu</th>
+                                                                <th>Thời gian kết thúc</th>
+                                                                <th>Ngày tạo</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+                                                  <!-- datatable end -->
+                                            </div>
+                                            <div class="tab-pane pt-3 " id="Tab3" role="tabpanel">
+                                                    <!-- datatable start -->
+                                                    <table id="TradingTablePast" class="table table-bordered table-hover table-striped w-100">
+                                                        <thead class="bg-primary-600">
+                                                            <tr>
+                                                                <th>STT</th>
+                                                                <th>Tên Phiên giao dịch</th>
+                                                                <th>Địa điểm</th>
+                                                                <th>Thời gian bắt đầu</th>
+                                                                <th>Thời gian kết thúc</th>
+                                                                <th>Ngày tạo</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                    </table>
+                                                  <!-- datatable end -->
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

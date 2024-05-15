@@ -1,0 +1,99 @@
+﻿@section Scripts
+{
+    <script src="/view-resources/Views/UserJob/UserJob.js" asp-append-version="true"></script>
+}
+  <link rel="stylesheet" abp-href="/view-resources/Profile/Recruitments/Style.css" asp-append-version="true" />
+@* <link rel="stylesheet" href="~/view-resources/Profile/Candidate/JobAppCrud.css"> *@
+<section id="content">
+	<div class="content-wrap  pt-3">       <!-- Container-fluid starts-->
+    <div class="container">
+            <div class="row">
+                <!-- user profile first-style start-->
+                <nav>
+                    <ol class="breadcrumb justify-content-sm-start align-items-center mb-0" style="margin-bottom: 32px !important;">
+                        <li class="breadcrumb-item">
+                            <a href="/">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                            </a>
+                        </li>                  
+                        <li class="breadcrumb-item f-w-400">Người tìm việc</li>
+                    </ol>
+                </nav>
+                 <div class="col-sm-12">
+                <div class="card hovercard text-center">
+                    <!-- xóa thẻ div user profile-->
+                    <div class="info" name="filterAdvanced">
+                        <div class="row d-flex my-5 mx-2">
+                            <div></div>
+                            <div class="col-sm-3 col-lg-3 order-sm-0 order-xl-1 mb-2">
+                                <select class="form-control form-select" id="Gender">
+                                    <option value="" selected="">Giới tính</option>
+                                    <option value="1">Nam</option>
+                                    <option value="2">Nữ</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 col-lg-3 order-sm-0 order-xl-1 mb-2">
+                                <select class="form-control form-select" id="WorkSite" name="location">
+                                    <option value="" selected="">Địa điểm mong muốn làm việc</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 col-lg-3 order-sm-2 order-xl-2 mb-2">
+                                <select required class="form-control form-select" id="ExperiencesId" name="ExperiencesId" asp-items="@ViewBag.Experiences">
+                                    <option value="0" selected>Tất cả kinh nghiệm</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 col-lg-3 order-sm-1 order-xl-0 mb-2">
+                                <select required class="form-control form-select" id="LiteracyId" name="LiteracyId" asp-items="@ViewBag.listItemsCatUnitLiteracy">
+                                    <option value="0" selected>Tất cả bằng cấp</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 col-lg-3 order-sm-0 order-xl-1 mb-2">
+                                <select required class="form-control form-select" id="OccupationId" name="OccupationId" asp-items="@ViewBag.listItemsKyThuat">
+                                    <option value="0" selected>Tất cả ngành nghề</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3 col-lg-3 order-sm-2 order-xl-2 mb-2">
+                                <input class="form-control" id="SalaryMin" placeholder="Mức lương lương tối thiểu">
+                            </div>
+                            <div class="col-sm-3 col-lg-3 order-sm-2 order-xl-2 mb-2">
+                                <input class="form-control" id="SalaryMax" placeholder="Mức lương tối đa">
+                            </div>
+                            <div class="col-sm-3 col-lg-2 order-sm-2 order-xl-2">
+                                <button type="button" class="btn btn-danger m-1">Tìm kiếm</button>
+                            </div>
+                            <!-- xóa thẻ div social media-->
+                            <!-- xóa thẻ follower và following-->
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <!-- user profile first-style end-->
+                <!-- user profile second-style start-->
+                  <div class="col-sm-12">
+                <div class="card mt-5">
+                    <div class="card-header" style="text-transform: none">
+                        <h4><i class="icofont icofont-job-search m-r-10"></i>Người tìm việc</h4>
+                    </div>
+                    <div class="card-body student">
+                        <div class="job-apps row">
+                        </div>
+                       
+                    </div>
+                </div>
+                 <div class="col-sm-12 mt-3">
+                            <div class="job-pagination">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination pagination-primary justify-content-center">
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>

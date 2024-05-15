@@ -67,14 +67,62 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
                 ApplicationRequestEditDto applicationRequest = await applicationRequestAppService.GetById(new NullableIdDto<long> { Id = candidateId });
                 Model = new ThongTinHoSoUTModel();
                 Model.JobApplication = new JobApplicationEditDto();
+               // Model.Candidate = new CandidateEditDto();
                 Model.User = new UserEditDto();
                 Model.Recruitment = new Mdls.Profile.Recruiters.Dto.RecruitmentDto();
+                //Thông tin cá nhân (account)
                 Model.ProfilePictureId = applicationRequest.ProfilePictureId;
-                Model.User = applicationRequest.User;
-                Model.JobApplication = applicationRequest.JobApplication;
-                Model.JobApplication.Id = candidateId;
+                Model.User.Id = applicationRequest.User.Id;
+                Model.User.UserName = applicationRequest.User.UserName;
+                Model.User.Surname = applicationRequest.User.Surname;
+                Model.User.Name = applicationRequest.User.Name;
+                Model.User.EmailAddress = applicationRequest.User.EmailAddress;
+                Model.User.PhoneNumber = applicationRequest.User.PhoneNumber;
                 Model.Content = applicationRequest.Content;
+
                 Model.Candidate = applicationRequest.JobApplication.Candidate;
+                // Thông tin người tìm việc
+                //Model.Candidate.Id = candidate.JobApplication.Candidate.Id;
+                //Model.CandidateAddress = applicationRequest.JobApplication.Candidate.Address;
+                ////Model.Candidate.AvatarUrl = candidate.Candidate.AvatarUrl;
+                //Model.CandidateDateOfBirth = applicationRequest.JobApplication.Candidate.DateOfBirth;
+                ////Model.Candidate.PhoneNumber = candidate.Candidate.PhoneNumber;
+                //Model.CandidateMarital = applicationRequest.JobApplication.Candidate.Marital;
+                //Model.CandidateGender = applicationRequest.JobApplication.Candidate.Gender;
+
+                //Thông tin Job
+                Model.JobApplication.Id = candidateId;
+                Model.JobApplication.CreationTime = applicationRequest.JobApplication.CreationTime;
+                Model.JobApplication.LastModificationTime = applicationRequest.JobApplication.LastModificationTime;
+                Model.JobApplication.Career = applicationRequest.JobApplication.Career;
+                Model.Positions = applicationRequest.JobApplication.Positions.DisplayName;
+                //Model.JobApplication.CurrencyUnit = candidate.JobApplication.CurrencyUnit;
+                Model.JobApplication.DesiredSalary = applicationRequest.JobApplication.DesiredSalary;
+                Model.Literacy = applicationRequest.JobApplication.Literacy.DisplayName;
+                //Model.JobApplication.WorkExperiences = candidate.JobApplication.WorkExperiences;
+                Model.FormOfWork = applicationRequest.JobApplication.FormOfWork.DisplayName;
+                //Model.JobApplication.LearningProcessDtos = candidate.JobApplication.LearningProcessDtos;
+                Model.JobApplication.Word = applicationRequest.JobApplication.Word;
+                Model.JobApplication.PowerPoint = applicationRequest.JobApplication.PowerPoint;
+                Model.JobApplication.Excel = applicationRequest.JobApplication.Excel;
+
+                Model.Content = applicationRequest.Content;
+                //Kinh nghiệm làm việc
+
+                //Model.JobApplication.WorkExperiences = candidate.JobApplication.WorkExperiences;
+
+                Model.JobApplication.WorkExperiences = new List<WorkExperienceEditDto>();  
+
+                if (applicationRequest.JobApplication.WorkExperiences != null)
+                {
+                    Model.JobApplication.WorkExperiences.AddRange(applicationRequest.JobApplication.WorkExperiences);
+                }
+                Model.JobApplication.LearningProcess = new List<LearningProcessEditDto>();  
+
+                if (applicationRequest.JobApplication.LearningProcess != null)
+                {
+                    Model.JobApplication.LearningProcess.AddRange(applicationRequest.JobApplication.LearningProcess);
+                }
                 await SetUserImageSourceAsync(Model);
 
             }
@@ -83,7 +131,16 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
 
                 throw new UserFriendlyException(ex.Message);
             }
-        
+
+
+            //if (!candidate.ProfilePictureId.HasValue)
+            //{
+            //    candidate.Candidate.AvatarUrl = UserProfileService.GetDefaultProfilePicture();
+            //    return;
+            //}
+            //candidate.Candidate.AvatarUrl = await UserProfileService.GetProfilePicture(candidate.Candidate.Id.Value);
+
+            //Model.Candidate.AvatarUrl = candidate.Candidate.AvatarUrl;
         }
         private async Task SetUserImageSourceAsync(ThongTinHoSoUTModel nguoiTimViec)
         {

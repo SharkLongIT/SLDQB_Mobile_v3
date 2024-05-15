@@ -1,0 +1,48 @@
+﻿@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/" + NavigationUrlConsts.LienHe)]
+
+
+@* <div class="card card-style">
+    <div class="card-header">
+        <p>
+            Chúng tôi mong muốn lắng nghe ý kiến của quý khách. Vui lòng gửi mọi yêu cầu , thắc mắc
+            <a class="mr-1" style="font-style: italic; color:crimson; margin-left: 1px;" @onclick="OpenContactModal">
+                tại đây
+            </a>,chúng tôi sẽ liên lạc với bạn sớm nhất có thể.
+        </p>
+    </div>
+</div> *@
+<div class="card card-style">
+
+    <div class="content">
+        Chúng tôi mong muốn lắng nghe ý kiến của quý khách. Vui lòng gửi mọi yêu cầu , thắc mắc theo thông tin bên dưới, chúng tôi sẽ liên lạc với bạn sớm nhất có thể.
+    </div>
+</div>
+
+<div class="card card-style contact-form">
+    <div class="content">
+        <fieldset>
+            <div class="form-field form-name">
+                <label class="contactNameField color-theme" for="contactNameField">Họ và tên:<span>(bắt buộc)</span></label>
+                <input type="text" name="contactNameField" @bind="Model.FullName" class="round-small" id="contactNameField" />
+            </div>
+            <div class="form-field form-email">
+                <label class="contactEmailField color-theme" for="contactEmailField">Email:<span>(bắt buộc)</span></label>
+                <input type="text" name="contactEmailField" @bind="Model.Email" class="round-small" id="contactEmailField" />
+            </div>
+            <div class="form-field form-name">
+                <label class="contactNameField color-theme" for="contactNameField">Số điện thoại:<span>(bắt buộc)</span></label>
+                <input type="text" name="contactNameField" @bind="Model.Phone" class="round-small" id="contactNameField" />
+            </div>
+            <div class="form-field form-text">
+                <label class="contactMessageTextarea color-theme" for="contactMessageTextarea">Nội dung:<span>(bắt buộc)</span></label>
+                <textarea name="contactMessageTextarea" class="round-small" @bind="Model.Description" id="contactMessageTextarea"></textarea>
+            </div>
+            <div class="form-button">
+                <input @onclick="SendMail" type="submit" class="btn bg-highlight text-uppercase font-900 btn-m btn-full rounded-sm  shadow-xl contactSubmitButton" value="Gửi" data-formId="contactForm" />
+            </div>
+        </fieldset>
+    </div>
+</div>
+<ContactModal OnSave="RefreshList" @ref="contactModal"></ContactModal>

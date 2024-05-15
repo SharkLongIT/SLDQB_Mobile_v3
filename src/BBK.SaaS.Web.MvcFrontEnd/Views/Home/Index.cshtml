@@ -1,0 +1,54 @@
+﻿@using BBK.SaaS.Mdls.Cms.Configuration
+@using BBK.SaaS.Web.TagHelpers
+@using BBK.SaaS.Web.Views.Shared.Components.HomeCategories
+@using BBK.SaaS.Web.Views.Shared.Components.LinkWidgets
+@using BBK.SaaS.Web.Views.Shared.Components.Widget
+@using BBK.SaaS.Web.Views.Shared.Components.WidgetReport
+
+<div class="wrapper">
+    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.AllPagesAfterMenu })
+    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.HomePageAfterMenu })
+
+    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.HomePageAfterQuickSearch })
+
+    <!-- container starts-->
+    @*   <div class="container cms">
+    @* @await Component.InvokeAsync(typeof(HomeCategoriesViewComponent), new { widgetZone = PublicWidgetZones.CategoryArticlesTop })
+    @await Component.InvokeAsync(typeof(HomeCategoriesViewComponent), new { zone = PublicWidgetZones.CategoryArticlesTop }) *@
+    @*  @await Html.PartialAsync("~/Views/Home/HomeSearch.cshtml")
+    </div> *@
+
+
+
+    <div class="container cms mt-5">
+        <div class="row">
+            @await Component.InvokeAsync(typeof(NewsWidgetsViewComponent), new { })
+            @await Component.InvokeAsync(typeof(WidgetReportViewComponent), new { })
+        </div>
+    </div>
+
+    <div class="container cms">
+        @await Html.PartialAsync("~/Views/Home/RecruimentMaster.cshtml")
+    </div>
+    <div class="container cms">
+        <div class="row">
+            @await Html.PartialAsync("~/Views/Home/TradingMaster.cshtml")
+            @await Component.InvokeAsync(typeof(LinkWidgetsViewComponent), new { })
+        </div>
+    </div>
+
+    @*  @await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.HomePageAfterNewJobs }) *@
+
+    @*   <div class="container cms">
+    @await Html.PartialAsync("~/Views/Home/CandidateMaster.cshtml")
+    </div>
+
+    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.HomePageAfterNewApps })
+
+    <div class="container cms">
+    @await Component.InvokeAsync(typeof(NewsWidgetsViewComponent), new { })
+    </div> *@
+</div>
+
+@await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.HomePageBeforeFooter })
+@await Component.InvokeAsync(typeof(WidgetViewComponent), new { zone = PublicWidgetZones.AllPagesBeforeFooter })

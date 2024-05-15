@@ -1,0 +1,44 @@
+﻿.or-login {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.line {
+    display: inline-block;
+    width: 15%;
+    border-top: 1px solid #000;
+    margin: 0 2.5%;
+}
+
+.text {
+    display: inline-block;
+    margin: 0 2.5%;
+    margin-top: 3px;
+}
+.logo-google {
+    background-color: red;
+    color: #ffff;
+    margin-left: 10px;
+    width: 120px;
+    height: 40px;
+}
+.fa-google {
+    color: #ffff;
+    margin-top: 4px;
+    font-size: 19px;
+}
+.logo-facebook {
+    color: #ffff;
+    background-color: #395fa0;
+    width: 120px;
+    height: 40px;
+}
+.text-google{
+    margin-top: 9px;
+}
+.text-muted{
+    margin-left: 3px;
+    margin-top: 9px;
+    font-size: 11px;
+}

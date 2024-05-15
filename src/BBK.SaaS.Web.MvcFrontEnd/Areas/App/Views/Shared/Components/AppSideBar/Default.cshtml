@@ -1,0 +1,276 @@
+﻿@using System.IO
+@using BBK.SaaS.Web.Areas.App.Views.Shared.Components.AppSideBar
+@using BBK.SaaS.Web.Navigation;
+
+@model AppNavigationViewModel
+
+<div id="sidebar-menu">
+	<ul class="sidebar-links" id="simple-bar">
+		<li class="back-btn">
+			<a href="/"><img class="img-fluid" src="/themes/mofi/assets/images/logo/logo-icon.png" alt=""></a>
+			<div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
+		</li>
+		<li class="pin-title sidebar-main-title">
+			<div>
+				<h6>Pinned</h6>
+			</div>
+		</li>
+
+		<li class="sidebar-main-title">
+			<div>
+				<h6 class="">@Model.AppMenu.DisplayName</h6>
+			</div>
+		</li>
+
+		@foreach (var group in Model.AppMenu.Items.Where(x => x.IsVisible))
+		{
+			@if (group.Items.Any())
+			{
+				<li class="sidebar-list">
+					<i class="fa fa-thumb-tack"></i>
+					<a class="sidebar-link sidebar-title" href="javascript:void(0)">
+						<svg class="stroke-icon">
+							<use href="@group.Icon"></use>
+						</svg>
+						@*<i class="@group.Icon stroke-icon"></i>*@
+						@*<svg class="fill-icon">
+				<use href="/themes/mofi/assets/svg/icon-sprite.svg#fill-project"></use>
+				</svg>*@
+						<span>@(Html.Raw($"{group.DisplayName}"))</span>
+					</a>
+					<ul class="sidebar-submenu">
+
+						@foreach (var item in group.Items)
+						{
+							var items = item.Items?.Select(x => System.IO.Path.GetFileNameWithoutExtension(x.Url)).Where(x => x != "javascript:void(0);").ToList();
+
+							if (items?.Any() != true)
+							{
+								<text>
+                                <li><a href="@item.Url" class="@((ViewBag.CurrentPageName != null && ViewBag.CurrentPageName.Contains(item.Name)) ? " active" : "" )">@item.DisplayName</a></li>
+								</text>
+							}
+						}
+
+					</ul>
+				</li>
+			}
+		}
+
+		@if (Model.Menus != null && Model.Menus.Count > 0)
+		{
+			foreach (var menu in Model.Menus)
+			{
+				<li class="sidebar-main-title">
+					<div>
+						<h6 class="">@menu.DisplayName</h6>
+					</div>
+				</li>
+
+				@foreach (var group in menu.Items.Where(x => x.IsVisible))
+				{
+					@if (group.Items.Any())
+					{
+						<li class="sidebar-list">
+							<i class="fa fa-thumb-tack"></i>
+							<a class="sidebar-link sidebar-title" href="javascript:void(0)">
+								<svg class="stroke-icon">
+									<use href="@group.Icon"></use>
+								</svg>
+								<span>@(Html.Raw($"{group.DisplayName}"))</span>
+							</a>
+							<ul class="sidebar-submenu">
+
+								@foreach (var item in group.Items)
+								{
+									var items = item.Items?.Select(x => System.IO.Path.GetFileNameWithoutExtension(x.Url)).Where(x => x != "javascript:void(0);").ToList();
+
+									if (items?.Any() != true)
+									{
+										<text>
+                                        <li><a href="@item.Url" class="@((ViewBag.CurrentPageName != null && ViewBag.CurrentPageName.Contains(item.Name)) ? " active" : "" )">@item.DisplayName</a></li>
+										</text>
+									}
+								}
+
+							</ul>
+						</li>
+					}
+				}
+
+				@*<li class="mega-menu sidebar-list">
+		<i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="javascript:void(0)">
+		<svg class="stroke-icon">
+		<use href="../assets/svg/icon-sprite.svg#stroke-others"></use>
+		</svg>
+		<svg class="fill-icon">
+		<use href="../assets/svg/icon-sprite.svg#fill-others"></use>
+		</svg><span>Others</span>
+		</a>
+		<div class="mega-menu-container menu-content">
+		<div class="container-fluid">
+		<div class="row">
+		<div class="col mega-box">
+		<div class="link-section">
+		<div class="submenu-title">
+		<h5>Email templates</h5>
+		</div>
+		<ul class="submenu-content opensubmegamenu">
+		<li><a href="basic-template.html">Basic Email</a></li>
+		<li><a href="email-header.html">Basic With Header</a></li>
+		<li><a href="template-email.html">Ecomerce Template</a></li>
+		<li><a href="template-email-2.html">Email Template 2</a></li>
+		<li><a href="ecommerce-templates.html">Ecommerce Email</a></li>
+		<li><a href="email-order-success.html">Order Success</a></li>
+		</ul>
+		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+		</li>*@
+			}
+		}
+
+	</ul>
+</div>
+
+@*<ul class="nav">
+    @foreach (var group in Model.AppMenu.Items.Where(x => x.IsVisible))
+    {
+        @if (group.Items.Any())
+        {
+            var groups = group.Items.Select(x => System.IO.Path.GetFileNameWithoutExtension(x.Url)).Where(x => x != "javascript:void(0);").ToList();
+
+            group.Items.ToList().ForEach(item =>
+            {
+                var result = item.Items?.Select(x => System.IO.Path.GetFileNameWithoutExtension(x.Url)).Where(x => x != "javascript:void(0);").ToList();
+                if (result?.Any() == true)
+                {
+                    groups = groups.Concat(result).ToList();
+                }
+            });
+
+            <li class="@(groups.Contains(ViewBag.CurrentPageName) ? "nav-item active" : "nav-item")">
+                <a href="#" title="@group.DisplayName" class="nav-link with-sub">
+                    <i class="@group.Icon"></i>
+                    @group.DisplayName
+                </a>
+                <nav class="nav-sub">
+                    @{
+                        foreach (var item in group.Items)
+                        {
+                            var items = item.Items?.Select(x => System.IO.Path.GetFileNameWithoutExtension(x.Url)).Where(x => x != "javascript:void(0);").ToList();
+
+                            if (items?.Any() != true)
+                            {
+                                <text>
+                                    <a href="@item.Url" class="nav-sub-link @(items.Contains(ViewBag.CurrentPageName) ? "active" : "")"><i class="nav-icon @item.Icon"></i>&nbsp;@item.DisplayName</a>
+                                </text>
+                            }
+                        }
+                    }
+                </nav>
+            </li>
+        }
+        else if (group.CustomData != null && group.CustomData.ToString() == "Direct")
+        {
+            <li class="nav-item">
+                <a href="@group.Url" title="@group.DisplayName" class="nav-link">
+                    <i class="@group.Icon"></i>
+                    @group.DisplayName
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-label">@group.DisplayName</li>
+        }
+    }
+</ul><!-- nav -->
+*@
+
+
+
+
+@*<li class="mega-menu sidebar-list">
+  <i class="fa fa-thumb-tack"></i><a class="sidebar-link sidebar-title" href="javascript:void(0)">
+    <svg class="stroke-icon">
+      <use href="../assets/svg/icon-sprite.svg#stroke-others"></use>
+    </svg>
+    <svg class="fill-icon">
+      <use href="../assets/svg/icon-sprite.svg#fill-others"></use>
+    </svg><span>Others</span>
+  </a>
+  <div class="mega-menu-container menu-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col mega-box">
+          <div class="link-section">
+            <div class="submenu-title">
+              <h5>Error Page</h5>
+            </div>
+            <ul class="submenu-content opensubmegamenu">
+              <li><a href="error-400.html">Error 400</a></li>
+              <li><a href="error-401.html">Error 401</a></li>
+              <li><a href="error-403.html">Error 403</a></li>
+              <li><a href="error-404.html">Error 404</a></li>
+              <li><a href="error-500.html">Error 500</a></li>
+              <li><a href="error-503.html">Error 503</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col mega-box">
+          <div class="link-section">
+            <div class="submenu-title">
+              <h5> Authentication</h5>
+            </div>
+            <ul class="submenu-content opensubmegamenu">
+              <li><a href="login.html" target="_blank">Login Simple</a></li>
+              <li><a href="login_one.html" target="_blank">Login with bg image</a></li>
+              <li><a href="login_two.html" target="_blank">Login with image two                      </a></li>
+              <li><a href="login-bs-validation.html" target="_blank">Login With validation</a></li>
+              <li><a href="login-bs-tt-validation.html" target="_blank">Login with tooltip</a></li>
+              <li><a href="login-sa-validation.html" target="_blank">Login with sweetalert</a></li>
+              <li><a href="sign-up.html" target="_blank">Register Simple</a></li>
+              <li><a href="sign-up-one.html" target="_blank">Register with Bg Image                              </a></li>
+              <li><a href="sign-up-two.html" target="_blank">Register with image two</a></li>
+              <li><a href="sign-up-wizard.html" target="_blank">Register wizard</a></li>
+              <li><a href="unlock.html">Unlock User</a></li>
+              <li><a href="forget-password.html">Forget Password</a></li>
+              <li><a href="reset-password.html">Reset Password</a></li>
+              <li><a href="maintenance.html">Maintenance</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col mega-box">
+          <div class="link-section">
+            <div class="submenu-title">
+              <h5>Coming Soon</h5>
+            </div>
+            <ul class="submenu-content opensubmegamenu">
+              <li><a href="comingsoon.html">Coming Simple</a></li>
+              <li><a href="comingsoon-bg-video.html">Coming with Bg video</a></li>
+              <li><a href="comingsoon-bg-img.html">Coming with Bg Image</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col mega-box">
+          <div class="link-section">
+            <div class="submenu-title">
+              <h5>Email templates</h5>
+            </div>
+            <ul class="submenu-content opensubmegamenu">
+              <li><a href="basic-template.html">Basic Email</a></li>
+              <li><a href="email-header.html">Basic With Header</a></li>
+              <li><a href="template-email.html">Ecomerce Template</a></li>
+              <li><a href="template-email-2.html">Email Template 2</a></li>
+              <li><a href="ecommerce-templates.html">Ecommerce Email</a></li>
+              <li><a href="email-order-success.html">Order Success</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>*@

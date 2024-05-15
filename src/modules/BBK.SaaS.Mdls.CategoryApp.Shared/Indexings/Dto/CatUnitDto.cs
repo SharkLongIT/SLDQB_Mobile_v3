@@ -14,6 +14,9 @@ namespace BBK.SaaS.Mdls.Category.Indexings.Dto
         public int MemberCount { get; set; }
         
         public int RoleCount { get; set; }
+
+        public int OrderIndex { get; set; }
+
     }
 
     public class CatFilterList

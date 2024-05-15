@@ -1,0 +1,120 @@
+﻿@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/" + NavigationUrlConsts.DanhSachUVDUT)]
+
+@* <select required="" class="form-control" id="Status" name="Status" @bind="_filter.Status">
+    <option value="" selected>Trạng thái</option>
+    <option value="1">Đã ứng tuyển</option>
+    <option value="2">NTD đã xem</option>
+    <option value="3">Hồ sơ phù hợp</option>
+</select> *@
+
+<div class="content search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important; ">
+    <i class="fa fa-search"></i>
+    <input type="search" class="border-0" @bind="_filter.Search" placeholder="Tìm kiếm thông tin" @oninput="selectedValue">
+</div>
+
+
+        @if (isError == true)
+{
+    <div class="card card-style">
+        <div class="content">
+            <div class="text-error">
+                <h3>Không tìm thấy kết quả!!!</h3>
+                <span class="mt-2">Thử tìm kiếm với từ khoá khác.</span>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <Virtualize @ref="ApplicationRequestContainer" Context="application" ItemsProvider="@LoadApplicationRequest" ItemSize="100">
+        <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3" style="background-color:#FFF !important; ">
+
+            <div class="d-flex">
+                <div>
+                    <h5 class="font-700 text-uppercase">
+                        Tên ứng viên: @application.JobApplication.Candidate.Account.Name
+                        </h5>
+                    <div class="font-12">
+                        <span class="fullname">
+                            Tên công việc:
+                        </span>
+                        @application.Recruitment.Title
+                    </div>
+                    <div class="font-12">
+                        <span class="fullname">
+                            Vị trí:
+                        </span>
+                        @application.Recruitment.Ranks.DisplayName
+                    </div>
+                   
+                    <div class="font-12">
+                        <span class="fullname">
+                            Ngày ứng tuyển:
+                        </span>
+                        @application.Recruitment.Ranks.DisplayName
+                        <div class="font-12">
+                            <span class="fullname">
+                                Kinh nghiệm:
+                            </span>
+                            @application.Recruitment.Experiences.DisplayName
+                        </div>
+                        <div class="font-12">
+                            <span class="fullname">
+                                Tin nhắn:
+                            </span>
+                            @application.Content
+                        </div>
+                        @if (application.Status == 1)
+                        {
+
+                            <div>
+                                <span class="badge bg-gray-dark text-uppercase font-12">
+                                    Đang ứng tuyển
+                                </span>
+                            </div>
+                        }
+                        else if (application.Status == 2)
+                        {
+                            <div>
+                                <span class="badge bg-green-dark text-uppercase font-12">
+                                    NTD đã xem
+                                </span>
+                            </div>
+                        }
+                        else if (application.Status == 3)
+                        {
+                            <div>
+                                <span class="badge bg-blue-dark text-uppercase font-12">
+                                    Hồ sơ phù hợp
+                                </span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                <span class="badge bg-red-dark text-uppercase font-12">
+                                    Chưa xác định
+                                </span>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="ms-auto">
+                    @* <i class="fa-solid fa-caret-down float-end " @onclick="(() => DisPlayAction(application))"></i> *@
+                    <a data-bs-toggle="dropdown" class="icon icon-m color-theme"><i class="fa fa-ellipsis-h float-end" style="margin-top: -10px"></i></a>
+                    <div class="dropdown-menu border-0 bg-theme rounded-m shadow-xl px-2 mt-n4">
+                        <div class="list-group list-custom-small mt-n2 mb-n2">
+                            <a @onclick="(() => BookUser(application))" data-menu="menu-archive"><i class="fa font-14 fa-calendar color-brown-dark opacity-60"></i>Đặt lịch<i class="fa"></i></a>
+                            <a @onclick="(() => ViewApplication(application))" data-menu="menu-download"><i class="fa font-14 fa-eye color-blue-dark opacity-60"></i>Xem CV ứng viên<i class="fa"></i></a>
+                            <a @onclick="(() => DeleteAppRequest(application))" data-menu="menu-delete"><i class="fa font-14 fa-trash color-red-dark opacity-60"></i>Xoá <i class="fa"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </Virtualize>
+}
+
+<DatLich OnSave="RefeshList" @ref="datLich"></DatLich>

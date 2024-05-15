@@ -1,0 +1,104 @@
+﻿@inherits ModalBase
+
+<div id="@ModalId" class="menu menu-box-modal rounded-m" data-menu-width="330">
+    <div class="content">
+        @if (_isInitialized)
+        {
+            <div class="d-flex">
+                @if (IsView == true)
+                {
+                    <h1>@L("Chi tiết lịch hẹn phỏng vấn ")</h1>
+
+                }
+                @if (IsAgree == true)
+                {
+                    <h1>@L("Xác nhận lịch hẹn phỏng vấn ")</h1>
+                }
+                @if (IsReject == true)
+                {
+                    <h1>@L("Từ chối lịch hẹn phỏng vấn ")</h1>
+                }
+                <div class="ms-auto">
+                    <a class="close-menu" @onclick="Hide"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+            <h5>@L("Công việc được phỏng vấn")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="text" class="form-control validate-text" id="form1" @bind="UserInput.Recruitment.Title" disabled>
+            </div>
+            <h5>@L("Nhập hình thức phỏng vấn")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="text" class="form-control validate-text" id="form1" @bind="UserInput.TypeInterview" disabled>
+            </div>
+            <h5>@L("Nhập địa chỉ phỏng vấn")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="text" class="form-control validate-text" id="form1" @bind="UserInput.Address" disabled>
+            </div>
+            <h5>@L("Vị trí phỏng vấn")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="text" class="form-control validate-text" id="form1" @bind="UserInput.Recruitment.Ranks.DisplayName" disabled>
+            </div>
+            <h5> @L("Ngày phỏng vấn")</h5>
+            <div class="input-style has-borders no-icon mb-4">
+                <input type="date" class="validate-text" id="form6" @bind="UserInput.InterviewTime" disabled>
+                <label for="form6" class="color-highlight">Select Date</label>
+            </div>
+            <h5>@L("Thời gian phỏng vấn")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="text" class="form-control validate-text" id="form1" @bind="InterviewTime" disabled>
+            </div>
+            <h5> @L("Lời nhắn")</h5>
+            <div class="input-style has-borders no-icon validate-field mb-4 input-style-active">
+                <input type="text" class="form-control validate-text" id="form1" @bind="UserInput.Message" disabled>
+            </div>
+            @if (IsAgree == true)
+            {
+                <h5>@L("Nội dung gửi đến nhà tuyển dụng") </h5>
+            }
+            @if (IsReject == true)
+            {
+                <h5> @L("Lý do từ chối") </h5>
+            }
+            @if (IsView == true)
+            {
+                <h5>@L("Nội dung") </h5>
+            }
+            <div class="input-style has-borders no-icon mb-4">
+                @if (IsView == true)
+                {
+                    <textarea id="form7" disabled @bind="UserInput.ReasonForRefusal"></textarea>
+                }
+                else
+                {
+                    <textarea id="form7" @bind="UserInput.ReasonForRefusal"></textarea>
+                }
+                <label for="form7" class="color-highlight">
+                    @if (IsAgree == true)
+                    {
+                        @L("Nội dung gửi đến nhà tuyển dụng")
+                        <em class="mt-n3">(bắt buộc)</em>
+                    }
+                    @if (IsReject == true)
+                    {
+                        @L("Lý do từ chối")
+                        <em class="mt-n3">(bắt buộc)</em>
+                    }
+                    @if (IsView == true)
+                    {
+                        @L("Nội dung")
+                    }
+                </label>
+
+            </div>
+            @* <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Hủy</a> *@
+            @if (IsView == false)
+            {
+                <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m bg-blue-dark font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="SaveExpWork">Gửi</a>
+            }
+            else
+            {
+                <a data-menu="modal-wizard-step-2" class="btn btn-full btn-m rounded-m border-blue-dark color-blue-dark bg-theme font-700 text-uppercase mt-4 mb-4 me-2 ms-2" @onclick="Hide">Đóng</a>
+            }
+        }
+    </div>
+</div>

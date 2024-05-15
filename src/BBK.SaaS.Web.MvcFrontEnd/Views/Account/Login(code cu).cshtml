@@ -1,0 +1,120 @@
+﻿@using System.Globalization
+@using Abp.Extensions
+@using Abp.MultiTenancy
+@using BBK.SaaS.Identity
+@using BBK.SaaS.Localization
+@using BBK.SaaS.Web.Security.Recaptcha
+@using Owl.reCAPTCHA
+@addTagHelper *, Owl.reCAPTCHA
+@model BBK.SaaS.Web.Models.Account.LoginFormViewModel
+@inject SignInManager SignInManager
+
+@section Scripts
+{
+	@if (ViewBag.UseCaptcha)
+	{
+		<recaptcha-script-v3 />
+		<recaptcha-script-v3-js action="login" execute="false" />
+	}
+	<script abp-src="/view-resources/Views/Account/Login.js" asp-append-version="true"></script>
+}
+
+@if (!Model.SuccessMessage.IsNullOrEmpty())
+{
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		@Model.SuccessMessage
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
+
+<div class="login-main">
+	<form class="theme-form login-form form" asp-action="Login" method="post">
+		<input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+		<input type="hidden" name="returnUrlHash" />
+		<input type="hidden" name="ss" value="@ViewBag.SingleSignIn" />
+		@if (ViewBag.UseCaptcha)
+		{
+			<input type="hidden" name="@RecaptchaValidator.RecaptchaResponseKey" id="recaptchaResponse" />
+		}
+
+		<h4>Đăng nhập</h4>
+		<p>Nhập email hoặc số điện thoại để đăng nhập</p>
+		<div class="form-group">
+			<label class="col-form-label">@(new FixedLocalizableString("Số điện thoại hoặc email"))</label>
+			<input class="form-control" type="text" placeholder="@(new FixedLocalizableString("Số điện thoại hoặc email"))" name="usernameOrEmailAddress" autocomplete="new-password" value="@(Model.UserNameOrEmailAddress ?? "")" required>
+		</div>
+		<div class="form-group">
+			<label class="col-form-label">@L("Password")</label>
+			<div class="form-input position-relative">
+				<input class="form-control" type="password" placeholder="@L("Password")" name="password" autocomplete="new-password">
+				<div class="show-hide"><span class="show">                         </span></div>
+			</div>
+		</div>
+		<div class="form-group d-flex justify-content-between">
+			@* <div class="checkbox p-0">
+				<input type="checkbox" name="rememberMe" type="checkbox">
+				<label class="text-muted" for="checkbox1">@L("RememberMe")</label>
+			</div> *@
+			<a href="@Url.Action("ForgotPassword", "Account")" id="forget-password" class="ms-2">@L("ForgotPassword")</a>
+
+		</div>
+		<div class="form-group mb-0">
+			<button class="btn btn-primary btn-block w-100" type="button" id="kt_login_signin_submit">@(new FixedLocalizableString("Đăng nhập"))</button>
+		</div>
+	</form>
+
+	@{
+		var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync())
+		.Where(s => !s.DisplayName.IsNullOrWhiteSpace())
+		.ToList();
+
+		Func<string, string> getSocialIconClass = (provider) =>
+		{
+			provider = provider.ToLower(CultureInfo.InvariantCulture);
+			return provider;
+		};
+	}
+
+	@if ((AbpSession.MultiTenancySide != MultiTenancySides.Host || !ViewBag.IsMultiTenancyEnabled) && loginProviders.Count > 0)
+	{
+		<!--begin::Divider-->
+		<h6 class="text-muted mt-4 or">@L("LoginWith")</h6>
+
+		<!--end::Divider-->
+		<div class="social mt-4">
+			<form asp-action="ExternalLogin" method="post">
+				<input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+				<input type="hidden" name="provider" value="" />
+				<input type="hidden" name="ss" value="@ViewBag.SingleSignIn" />
+
+				<!--begin::Options-->
+				@* <div class="btn-showcase">
+			<a class="btn btn-light" href="https://www.linkedin.com/login" target="_blank"><i class="txt-linkedin" data-feather="linkedin"></i> LinkedIn </a>
+			<a class="btn btn-light" href="https://twitter.com/login?lang=en" target="_blank"><i class="txt-twitter" data-feather="twitter"></i>twitter</a>
+			<a class="btn btn-light" href="https://www.facebook.com/" target="_blank"><i class="txt-fb" data-feather="facebook"></i>facebook</a>
+			</div> *@
+				@foreach (var p in loginProviders)
+				{
+					<a href="javascript:;" data-provider="@p.DisplayName" class="btn btn-outline-primary-2x fw-bolder py-2 social-login-icon mb-2">
+						<i class="fab fa-@getSocialIconClass(p.DisplayName)"></i>
+						@p.DisplayName
+					</a>
+
+					@* <a class="btn btn-light social-login-icon" href="javascript:;" data-provider="@p.DisplayName"><i class="txt-@getSocialIconClass(p.DisplayName)" data-feather="@getSocialIconClass(p.DisplayName)"></i> @p.DisplayName </a> *@
+				}
+				<!--end::Options-->
+			</form>
+		</div>
+	}
+	@if (Model.IsSelfRegistrationEnabled)
+	{
+		<p class="mt-4 mb-0 text-center">Bạn chưa tham gia? <a class="ms-2" href="@Url.Action("Register", "Account", new {ss = ViewBag.SingleSignIn, returnUrl = ViewBag.ReturnUrl})" id="register-btn">@L("CreateAnAccount")</a></p>
+
+	}
+	@* @if (Model.IsTenantSelfRegistrationEnabled)
+	{
+		<p class="mt-4 mb-0 text-center">@L("RunBusiness?")<a class="ms-2" href="@Url.Action("SelectEdition", "TenantRegistration")" id="register-btn">@L("NewTenant")</a></p>
+	} *@
+	<p class="mt-4 mb-0 text-center">Đã có mã kích hoạt? <a class="ms-2" href="@Url.Action("EmailActivation", "Account")" id="email-activation-btn">@L("EmailActivation")</a></p>
+
+</div>

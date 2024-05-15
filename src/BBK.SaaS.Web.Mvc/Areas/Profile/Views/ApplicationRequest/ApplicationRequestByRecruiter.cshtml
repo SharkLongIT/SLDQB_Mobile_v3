@@ -1,0 +1,95 @@
+﻿@using Abp.Localization
+@using BBK.SaaS.Web.Areas.App.Startup
+
+@section Scripts
+{
+    <script abp-src="/view-resources/App/Common/_DynamicEntityPropertyManager.js" asp-append-version="true"></script>
+    <script abp-src="/view-resources/Profile/ApplicationRequest/ApplicationRequestByRecruiter.js" asp-append-version="true"></script>
+}
+
+@{
+    ViewBag.CurrentPageName = AppPageNames.Administrators.Users;
+    ViewBag.PageTitle = "Danh sách ứng viên ứng tuyển";
+    ViewBag.PageDescription = "Danh sách ứng viên ứng tuyển";
+}
+<div class="page-body">
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-xl-12">
+                        <div id="panel-1" class="panel">
+                            <div class="panel-hdr">
+                                <h2>
+                                    <span class="fw-300"><i>Danh sách ứng viên đã ứng tuyển</i></span>
+                                </h2>
+                            </div>
+                            <div class="panel-container show mt-5">
+                                <div class="panel-content">
+                                    <div class="card-wrapper border rounded-3 light-card checkbox-checked">
+                                        <div class="row ">
+                                            <div class="col-lg-10">
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-4 mb-3">
+                                                        <input type="text" id="SearchTerm" name="SearchTerm" placeholder="@(new FixedLocalizableString("Tên công việc"))" class="form-control">
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-4 mb-3 mt-auto">
+                                                        <select required class="form-control" id="Status" name="Status">
+                                                            <option value="0" selected>Trạng thái</option>
+                                                            <option value="1">Đã ứng tuyển</option>
+                                                            <option value="2">NTD đã xem</option>
+                                                            <option value="3">Hồ sơ phù hợp</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-4 mb-3 mt-auto">
+                                                        <select required class="form-control" id="Ranks" name="Rank" asp-items="@ViewBag.listItemsCapBac">
+                                                            <option value="0" selected>Vị trí</option>
+                                                           
+                                                        </select>
+                                                    </div> 
+                                                    <div class="col-lg-3 col-md-4 mb-3 mt-auto">
+                                                        <select required class="form-control" id="Experience" name="Experience" asp-items="@ViewBag.listItemsKinhNghiem">
+                                                            <option value="0" selected>Kinh nghiệm</option>
+                                                        </select>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2 d-flex align-items-end justify-content-end">
+                                                <button class="btn btn-primary ml-auto waves-effect waves-themed mb-3" id="Search" type="button">@(new FixedLocalizableString("Tìm kiếm"))</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- datatable start -->
+                                    <div class="mt-5">
+                                        <table id="ApplicationRequestTable" class="table table-bordered table-hover table-striped w-100 mt-5">
+                                            <thead class="bg-primary-600">
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Tên công việc</th>
+                                                    <th>Vị trí</th>
+                                                    <th>Tên ứng viên</th>
+                                                    <th>Ngày ứng tuyển</th>
+                                                    <th>Kinh nghiệm"</th>
+                                                    <th>Tin nhắn</th>
+                                                    <th>Trạng thái</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                               
+                                    <!-- datatable end -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

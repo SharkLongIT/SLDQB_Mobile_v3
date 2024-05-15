@@ -6,9 +6,6 @@ using BBK.SaaS.Core.Threading;
 using BBK.SaaS.Mobile.MAUI.Services.UI;
 using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.Services.Account;
-using BBK.SaaS.Services.Navigation;
-using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 
 namespace BBK.SaaS.Mobile.MAUI.Pages.Login
 {
@@ -35,7 +32,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.Login
         private IAccountService _accountService;
         private IAccountAppService _accountAppService;
         private IApplicationContext _applicationContext;
-        protected INavigationService navigationService { get; set; }
 
         SwitchTenantModal switchTenantModal;
         EmailActivationModal emailActivationModal;
@@ -51,7 +47,6 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.Login
             _accountService = DependencyResolver.Resolve<IAccountService>();
             _accountAppService = DependencyResolver.Resolve<IAccountAppService>();
             _applicationContext = DependencyResolver.Resolve<IApplicationContext>();
-            navigationService = DependencyResolver.Resolve<INavigationService>();
         }
 
         protected override async Task OnInitializedAsync()
@@ -130,15 +125,13 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.Login
         public async Task OnEmailActivation()
         {
             await emailActivationModal.Hide();
-            await UserDialogsService.AlertSuccess(L("Một liên kết sẽ được gửi đến email của bạn để kích hoạt địa chỉ email của bạn. Nếu bạn không nhận được email trong vòng vài phút, vui lòng thử lại."));
-            navigationService.NavigateTo(NavigationUrlConsts.TrangChu);
+            await UserDialogsService.AlertSuccess(L("SendEmailActivationLink_Information"));
         }
 
         public async Task OnForgotPassword()
         {
             await forgotPasswordModal.Hide();
-            await UserDialogsService.AlertSuccess(L("Mật khẩu mới đã được gửi về mail của bạn"));
-            navigationService.NavigateTo(NavigationUrlConsts.TrangChu);
+            await UserDialogsService.AlertSuccess(L("PasswordResetMailSentMessage"));
         }
 
         private void OnLanguageSwitchAsync()

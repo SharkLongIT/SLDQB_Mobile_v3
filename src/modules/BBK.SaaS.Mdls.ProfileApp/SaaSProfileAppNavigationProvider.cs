@@ -37,7 +37,7 @@ namespace BBK.SaaS.Mdls.Profile
 					)
                      .AddItem(new MenuItemDefinition(
                             "Profile.JobExchangePlatform.JobTransactionSession",
-                            new FixedLocalizableString("Quản lý Tin tuyển dụng"),
+                            new FixedLocalizableString("Quản lý tin tuyển dụng"),
                             url: "/Profile/Recruitments/NVNVRecruiment",
                             icon: "flaticon-users"
                         //, permissionDependency: new SimplePermissionDependency(ProfilePermission.Candidate)
@@ -66,7 +66,7 @@ namespace BBK.SaaS.Mdls.Profile
 					)
                     .AddItem(new MenuItemDefinition(
                             "Profile.JobExchangePlatform.JobTransactionSession",
-                            new FixedLocalizableString("Quản lý Liên kết giới thiệu"),
+                            new FixedLocalizableString("Quản lý liên kết giới thiệu"),
                             url: "/Profile/Introduce",
                             icon: "flaticon-users"
                         //, permissionDependency: new SimplePermissionDependency(ProfilePermission.Candidate)
@@ -74,7 +74,7 @@ namespace BBK.SaaS.Mdls.Profile
                     )
                       .AddItem(new MenuItemDefinition(
                             "Profile.JobExchangePlatform.JobTransactionSession",
-                            new FixedLocalizableString("Quản lý Phiên giao dịch"),
+                            new FixedLocalizableString("Quản lý phiên giao dịch"),
                             url: "/Profile/TradingSession",
                             icon: "flaticon-users"
                         //, permissionDependency: new SimplePermissionDependency(ProfilePermission.Candidate)
@@ -87,7 +87,7 @@ namespace BBK.SaaS.Mdls.Profile
                         icon: "/themes/mofi/assets/svg/icon-sprite.svg#stroke-knowledgebase"
                     ).AddItem(new MenuItemDefinition(
                             "Profile.Reportings.ActivityStatistics",
-                            new FixedLocalizableString("Hoạt động của Website"),
+                            new FixedLocalizableString("Hoạt động của website"),
                             url: "/Profile/Report",
                             icon: "flaticon-users"
                             //, permissionDependency: new SimplePermissionDependency(ProfilePermission.Recruiter)
@@ -103,7 +103,7 @@ namespace BBK.SaaS.Mdls.Profile
                     )
                     .AddItem(new MenuItemDefinition(
                             "Profile.Reportings.ActivityStatistics",
-                            new FixedLocalizableString("Thống Kê Số Lượng Tin Tức"),
+                            new FixedLocalizableString("Thống kê số lượng tin tức"),
                             url: "/Profile/Report/ReportArticle",
                             icon: "flaticon-users"
                         //, permissionDependency: new SimplePermissionDependency(ProfilePermission.Recruiter)

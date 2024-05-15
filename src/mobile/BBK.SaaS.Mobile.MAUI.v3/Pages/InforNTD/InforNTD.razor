@@ -1,0 +1,160 @@
+﻿@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/" + NavigationUrlConsts.InforNTD)]
+
+
+@if (Model != null && Model.Recruiter != null && Model.User != null)
+{
+    <div class="card card-style">
+        <div class="card card-style mt-2 me-2 ms-2">
+            <img src="@Model.AvatarUrl" alt="img" class="img-fluid">
+        </div>
+        <div class="content position-relative" style="margin-top:-70px; z-index:2;margin-left: -10px">
+            <div class="d-flex mx-2">
+                <div class="me-3">
+                    @* <img src="@_userImage" class="rounded-l shadow-xl" alt="img" width="100" height="100"> *@
+                    <a class="card card-style rounded-l shadow-xl" style="background-image: url('@_userImage'); height: 100px; width: 100px" @onclick="(() => ChangeAvatar())">
+                        <div class="card-bottom py-1 px-2 bg-black">
+                            <h5 class="color-white font-500  text-center">
+                                <i class="fa-solid fa-camera"></i>
+                            </h5>
+                        </div>
+                        <div class="card-overlay bg-gray opacity-20"></div>
+                    </a>
+                </div>
+                <div class="align-self-end">
+                    <h4 class="font-24 mb-0">@Model.User.Name</h4>
+                    <span><i class="fa fa-map-marker font-10 pe-2"></i><span class="font-12 opacity-70">@Model.Recruiter.Address, @Model.Village, @Model.District, @Model.Province</span></span>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="m-auto">
+                <a href="javascript:;" class="btn btn-m btn-full bg-highlight rounded-m text-uppercase font-700 under-slider-btn  mb-2" style="width: 100%" @onclick="EditRecruiter" >
+                   Chỉnh sửa thông tin cá nhân
+                </a>
+            </div>
+        </div>
+    </div>
+   
+    <div class="card card-style">
+        <div class="content">
+            <h2 class="vcard-title color-highlight mb-1">Thông tin chung</h2>
+            <div class="divider my-3"></div>
+            <div>
+                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Số điện thoại</span>
+                <span class="default-link d-block color-theme font-15 font-400">@Model.User.PhoneNumber</span>
+            </div>
+            <div class="divider my-3"></div>
+            <div>
+                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Ngày thành lập</span>
+                <span class="default-link d-block color-theme font-15 font-400"> @date.ToShortDateString()</span>
+            </div>
+            <div class="divider my-3"></div>
+            <div>
+                <span class="font-11 d-block mb-n2 opacity-50 color-theme">Địa chỉ</span>
+                <span class="default-link d-block color-theme font-15 font-400">@Model.Recruiter.Address, <br> @Model.Village, @Model.District, @Model.Province</span>
+            </div>
+            <div class="divider my-3"></div>
+            <div>
+                <div>
+                    <span class="font-11 d-block mb-n2 opacity-50 color-theme">Email</span>
+                    <span class="default-link d-block color-theme font-15 font-400"> @Model.User.EmailAddress</span>
+                </div>
+                <div class="divider my-3"></div>
+            </div>
+            <div>
+                <div>
+                    <span class="font-11 d-block mb-n2 opacity-50 color-theme">Tên công ty</span>
+                    <span class="default-link d-block color-theme font-15 font-400">@Model.Recruiter.CompanyName</span>
+                </div>
+                <div class="divider my-3"></div>
+            </div>
+            <div>
+                <div>
+                    <span class="font-11 d-block mb-n2 opacity-50 color-theme">Lĩnh vực hoạt động</span>
+                    <span class="default-link d-block color-theme font-15 font-400">@Model.SphereOfActivityName</span>
+                </div>
+                <div class="divider my-3"></div>
+            </div>
+            <div>
+                <div>
+                    <span class="font-11 d-block mb-n2 opacity-50 color-theme">Quy mô nhân sự</span>
+                    <span class="default-link d-block color-theme font-15 font-400">@Model.HumanResSizeCatName</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-style">
+        <div class="content">
+            <h2 class="vcard-title color-highlight mb-1">Liên hệ</h2>
+            <div>
+                <div>
+                    <span class="font-11 d-block mb-n2 opacity-50 color-theme">Email người liên hệ</span>
+                    <span class="default-link d-block color-theme font-15 font-400">@Model.Recruiter.ContactEmail</span>
+                </div>
+                <div class="divider my-3"></div>
+            </div>
+            <div>
+                <div>
+                    <span class="font-11 d-block mb-n2 opacity-50 color-theme">Tên người liên hệ</span>
+                    <span class="default-link d-block color-theme font-15 font-400">@Model.Recruiter.ContactName</span>
+                </div>
+                <div class="divider my-3"></div>
+            </div>
+            <div>
+                <div>
+                    <span class="font-11 d-block mb-n2 opacity-50 color-theme">Số điện thoại liên hệ</span>
+                    <span class="default-link d-block color-theme font-15 font-400">@Model.Recruiter.ContactPhone</span>
+                </div>
+                <div class="divider my-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-style">
+        <div class="content">
+            <h2 class="vcard-title color-highlight mb-1">Khác</h2>
+            <div>
+                <div>
+                    <span class="font-11 d-block mb-n2 opacity-50 color-theme">Website</span>
+                    <span class="default-link d-block color-theme font-15 font-400">@Model.Recruiter.WebSite</span>
+                </div>
+                <div class="divider my-3"></div>
+            </div>
+            <div>
+                <div>
+                    <span class="font-11 d-block mb-n2 opacity-50 color-theme">Mã số thuế</span>
+                    <span class="default-link d-block color-theme font-15 font-400">@Model.Recruiter.TaxCode</span>
+                </div>
+                <div class="divider my-3"></div>
+            </div>
+            <div>
+                <div>
+                    <span class="font-11 d-block mb-n2 opacity-50 color-theme">Ngày thành lập</span>
+                    <span class="default-link d-block color-theme font-15 font-400">@date.ToShortDateString()</span>
+                </div>
+                <div class="divider my-3"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-style mb-3">
+        <div class="list-group list-custom-small  list-icon-0  ps-3 pe-4">
+            <a data-bs-toggle="collapse" class="no-effect" href="#collapse-8">
+                <span class="font-18 color-highlight">Mô tả</span>
+                <i class="fa fa-angle-down"></i>
+            </a>
+        </div>
+        <div class="collapse ps-2 pe-4" id="collapse-8">
+            @Model.Recruiter.Description
+        </div>
+
+    </div>
+}
+else
+{
+
+}
+<UpdateInforNTDModal OnSave="RefreshList" @ref="UpdateInforNTDModal"></UpdateInforNTDModal>

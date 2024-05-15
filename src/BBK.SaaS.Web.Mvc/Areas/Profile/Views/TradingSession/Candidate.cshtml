@@ -1,0 +1,48 @@
+﻿@using BBK.SaaS
+@using BBK.SaaS.Mdls.Profile
+@using BBK.SaaS.Web.Areas.App.Startup
+@{
+    Layout = null;
+}
+
+<div class="modal-body user-edit-modal">
+    <div class="page-body">
+        <!-- Container-fluid starts-->
+        <div class="container-fluid">
+            <div class="row">
+                <form name="FormCandidate" id="FormCandidate" role="form" novalidate class="form-validation">
+                    <h2>Mời người lao động</h2>
+                    <input hidden value="@ViewBag.TradingId" id="TradingId" />
+                    <div class="tab-pane pt-3 " id="Tab3" role="tabpanel">
+                        <!-- datatable start -->
+                        <table id="CandidateTable" class="table table-bordered table-hover table-striped w-100">
+                            <thead class="bg-primary-600">
+                                <tr>
+                                    <th><input type="checkbox" name="select_all" data-value="1" id="example-select-all"></th>
+                                    <th>STT</th>
+                                    <th>Tên người lao động</th>
+                                    <th>Giới tính</th>
+                                    <th>Ngày sinh</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Ngành nghề</th>
+                                    <th>Bằng cấp</th>
+                                    <th>Kinh nghiệm</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        <!-- datatable end -->
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-12 d-flex justify-content-end">
+                            <button type="button" class="btn btn-light-primary fw-bold close-button" data-bs-dismiss="modal">Huỷ</button>
+                            <button class="btn btn-primary m-1" type="button" id="btnCreate">Mời</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+

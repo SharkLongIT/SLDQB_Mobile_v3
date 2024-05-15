@@ -1,0 +1,172 @@
+body {
+    font-family: "Roboto",Arial, helvetica neue, Helvetica, sans-serif;
+}
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.social-img {
+    background: linear-gradient(253deg, #00b14f 11.51%, rgba(115, 102, 255, 0) 82.07%);
+    padding: 3px;
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%
+}
+.icon-right{
+    margin-bottom:11px;
+    margin-right: 4px;
+    margin-left: -8px;
+}
+.user {
+    font-weight: 700;
+    font-size: 14px;
+    color: black;
+}
+.fas{
+    margin-right: 3px;
+    font-size: 10px
+}
+.fa-sync{
+    margin-top: 2px
+}
+.job {
+    font-size: 12px;
+}
+.form-infor {
+    border-radius: 10px;
+    margin-bottom: 6px;
+    border-color: #9bc3a8
+}
+a{
+    color: black
+
+}
+.icon-filter-list{
+    margin-right: 4px;
+    margin-top: 2px;
+}
+.exp {
+    font-size: 10px;
+}
+.material-icons{
+    font-size:16px;
+    margin-top:5px;
+}
+.form-infor {
+    /*  border: 1px solid #88d8e7;*/
+    border-radius: 8px;
+}
+.view-detail {
+    border: none;
+    border-radius: 5px;
+    font-size: 8px;
+}
+.book-job {
+    border: none;
+    border-radius: 5px;
+    font-size: 8px;
+    background-color: #00b14f;
+    color: white;
+}
+.time-update {
+    font-size: 10px;
+}
+button{
+   /* background-color: aquamarine;*/
+    border: none;
+}
+
+.number-page{
+  /*  border: 1px solid black;*/
+    border-radius: 4px;
+}
+
+/*.address {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #000;
+}*/
+
+/*filter*/
+.i-search {
+    color: #fff;
+}
+.btn-search {
+    background-color: #00b14f;
+    width: 60px;
+}   
+.text-error {
+    text-align: center;
+    margin-top: 80px;
+}
+.search-icon {
+    font-size: 40px;
+    color: #009ef7;
+    margin-bottom:5px;
+}
+.input-filter{
+    height: 40px;
+}
+
+h6 {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.search-infor{
+    margin-left: 5px;
+}
+.filter-level {
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+/*.card-body {
+    display: none;
+}
+.card-footer{
+    display: none;
+}*/
+.card1{
+    display:none;
+}
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: none;
+    height: 50px;
+}
+
+    .card-header span {
+        order: 1;
+    }
+
+    .card-header i {
+        order: 2;
+        margin-left: auto;
+    }
+
+.full-filter {
+    background-color : darkcyan;
+    height: 30px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.filter-up{
+    margin-top: 4px;
+}
+.province {
+    margin-top: 5px;
+}
+
+.select-list {
+    width: 100%;
+    border: 1px solid gainsboro;
+    padding: 5px;
+}

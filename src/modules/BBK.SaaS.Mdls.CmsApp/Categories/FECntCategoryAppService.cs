@@ -102,25 +102,46 @@ public class FECntCategoryAppService(IRepository<CmsCat, long> _categoryReposito
 									Slug = art.Slug,
 									Title = art.Title,
 									ShortDesc = art.ShortDesc,
+									Modified = art.CreationTime,
+									Author = art.Author,
 								}
 							};
 
 				var articleCount = query.Count();
 				dto.UsedCount = articleCount;
-
-				if (input.SearchArticlesInput.MaxResultCount <= 0) { input.SearchArticlesInput.MaxResultCount = 25; }
-
-				var articles = await query.PageBy(input.SearchArticlesInput).ToListAsync();
-
-				foreach (var c in articles)
+				if(input.SearchArticlesInput != null)
 				{
-					#region Encrypt file url
-					c.article.PrimaryImageUrl = HttpUtility.UrlEncode(StringCipher.Instance.Encrypt(c.article.PrimaryImageUrl));
-					
-					#endregion
+                    if (input.SearchArticlesInput.MaxResultCount <= 0) { input.SearchArticlesInput.MaxResultCount = 25; }
+                    var articles = await query.PageBy(input.SearchArticlesInput).ToListAsync();
+                    foreach (var c in articles)
+                    {
+                        #region Encrypt file url
+                        c.article.PrimaryImageUrl = HttpUtility.UrlEncode(StringCipher.Instance.Encrypt(c.article.PrimaryImageUrl));
 
-					dto.Articles.Add(c.article);
-				}
+                        #endregion
+
+                        dto.Articles.Add(c.article);
+                    }
+                }
+				else
+				{
+					input.SearchArticlesInput = new SearchArticlesInput()
+					{
+						MaxResultCount = 25,
+					};
+                    var articles = await query.PageBy(input.SearchArticlesInput).ToListAsync();
+                    foreach (var c in articles)
+                    {
+                        #region Encrypt file url
+                        c.article.PrimaryImageUrl = HttpUtility.UrlEncode(StringCipher.Instance.Encrypt(c.article.PrimaryImageUrl));
+
+                        #endregion
+
+                        dto.Articles.Add(c.article);
+                    }
+                }
+
+                
 
 				return dto;
 			}

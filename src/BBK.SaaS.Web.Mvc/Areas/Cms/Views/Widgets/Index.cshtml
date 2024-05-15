@@ -1,0 +1,97 @@
+﻿@using Abp.Application.Services.Dto
+@using BBK.SaaS.Authorization
+@using BBK.SaaS.Mdls.Cms.Widgets
+@using BBK.SaaS.Web.Areas.App.Startup
+
+@* @model TopicsType0ViewModel *@
+@{
+	// ViewBag.CurrentTopicName = AppTopicNames.Administrators.Topics;
+	// ViewBag.TopicTitle = @L("Topics");
+	// ViewBag.TopicDescription = @L("TopicsHeaderInfo");
+}
+
+@section Styles {
+	@* <link rel="stylesheet" abp-href="/view-resources/App/Widgets/index.css" asp-append-version="true" /> *@
+	<link rel="stylesheet" abp-href="/assets/summernote/summernote-lite.css" asp-append-version="true" />
+	<link rel="stylesheet" abp-href="/view-resources/App/_Bundles/dropzone.css" asp-append-version="true" />
+}
+
+@section Scripts {
+	<script abp-src="/assets/summernote/summernote-lite.js" asp-append-version="true"></script>
+	<script abp-src="/view-resources/App/_Bundles/dropzone.js" asp-append-version="true"></script>
+	<script abp-src="/view-resources/Cms/Widgets/Index.js" asp-append-version="true"></script>
+}
+
+<div class="page-body">
+	<!-- Container-fluid starts-->
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card">
+					<div class="card-body">
+						<div class="row align-items-center">
+							<div class="col-md-6 mb-3">
+								<div class="input-group">
+									<input type="text" id="WidgetsTableFilter" class="form-control" placeholder="@L("SearchWithThreeDot")" value="">
+									<button id="GetWidgetsButton" class="btn btn-primary" type="submit">
+										<i class="flaticon-search-1" aria-label="@L("Search")"></i>
+									</button>
+								</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<button id="CreateNewButton" class="btn btn-primary">
+									<i class="fa fa-plus btn-md-icon"></i>
+									<span class="d-none d-md-inline-block">
+										@L("CreateWidget")
+									</span>
+								</button>
+								@* <button id="ConfigWidgetButton" class="btn btn-info">
+									<i class="fa fa-plus btn-md-icon"></i>
+									<span class="d-none d-md-inline-block">
+										@L("ConfigWidget")
+									</span>
+								</button> *@
+								@{
+									List<WidgetTemplate> widgettemps = ViewBag.WidgetTemplates;
+								}
+								<div class="btn-group">
+									<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+									<i class="fa fa-plus btn-md-icon"></i>
+										<span class="d-none d-md-inline-block">
+										@(new FixedLocalizableString("Tạo theo template"))
+									</span>
+									</button>
+									<ul class="dropdown-menu dropdown-block">
+										@foreach(var i in widgettemps)
+										{
+											<li><a class="dropdown-item addwidgetImage" data-widgettemplatename="@i.Name" href="#">@i.Name</a></li>
+											
+										}
+										@* <li><a class="dropdown-item addwidgetImage" href="#">Ảnh</a></li>
+									  <li><a class="dropdown-item" href="#">Video</a></li>
+									  <li><a class="dropdown-item" href="#">Script</a></li> *@
+									</ul>
+								  </div>
+							</div>
+						</div>
+
+						<div class="table-responsive theme-scrollbar">
+							<table id="WidgetsTable" class="table align-middle table-row-dashed dataTable dtr-inline no-footer table-responsive theme-scrollbar user-datatable">
+								<thead>
+									<tr>
+										<th>@(new FixedLocalizableString("Xử lý"))</th>
+										<th>@L("Title")</th>
+										<th>@(new FixedLocalizableString("Phát hành"))</th>
+										@* <th>@L("StartDate")</th>
+										<th>@L("EndDate")</th> *@
+										<th>@L("CreationTime")</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

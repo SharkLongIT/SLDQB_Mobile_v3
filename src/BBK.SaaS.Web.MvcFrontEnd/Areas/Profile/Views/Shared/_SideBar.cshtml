@@ -1,0 +1,29 @@
+﻿@using Abp.Timing;
+@using BBK.SaaS.Web.Areas.App.Models.Layout;
+@using BBK.SaaS.Web.Areas.Profile.Views.Shared.Components.ProfileSideBar
+
+@{
+    var headerViewModel = new HeaderViewModel();
+}
+
+<!-- Page Sidebar Start-->
+<div id="header-wrap" class="border-top border-f5" data-layout="stroke-svg">
+    <div class="container">
+        <div class="header-row justify-content-between flex-row-reverse flex-lg-row">
+            <div class="primary-menu-trigger">
+                <button class="cnvs-hamburger" type="button" title="Open Mobile Menu">
+                    <span class="cnvs-hamburger-box"><span class="cnvs-hamburger-inner"></span></span>
+                </button>
+            </div>
+            <nav class="primary-menu with-arrows sidebar-main scrollmenu">
+                @*  <div class="left-arrow" id="left-arrow"><i class="fa-solid fa-arrow-left"></i></div> *@
+                @await Component.InvokeAsync(typeof(ProfileSideBarViewComponent))
+                @* <div class="right-arrow" id="right-arrow"><i class="fa-solid fa-arrow-right"></i></div> *@
+            </nav>
+            <form class="top-search-form" action="search.html" method="get">
+                <input type="text" name="q" class="form-control" value=""
+                       placeholder="Nhập nội dung tìm kiếm" autocomplete="off">
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@using System.IO
+@using BBK.SaaS.Web.Areas.Profile.Views.Shared.Components.ProfileSideBar
+@using BBK.SaaS.Web.Navigation;
+
+@model UserTypeNavigationViewModel
+
+<ul class="menu-container">
+    @foreach (var group in Model.TopMenu.Items.Where(x => x.IsVisible))
+    {
+        @if (group.Items.Any())
+        {
+            <li class="menu-item  menu-color-home">
+                <a class="menu-link" href="@(!string.IsNullOrEmpty(group.Url) ? group.Url : "javascript:void(0)")">
+                    @if (!string.IsNullOrEmpty(group.Icon))
+                    {
+                        <use href="@group.Icon"></use>
+                    }
+                    <div>@(Html.Raw($"{group.DisplayName}"))</div>
+                </a>
+                <ul class="sub-menu-container">
+                    @foreach (var item in group.Items)
+                    {
+                        var items = item.Items?.Select(x => System.IO.Path.GetFileNameWithoutExtension(x.Url)).Where(x => x != "javascript:void(0);").ToList();
+
+                        if (items?.Any() != true)
+                        {
+                            <text>
+                            <li class="menu-item"><a class="menu-link" href="@item.Url" class="@((ViewBag.CurrentPageName != null && ViewBag.CurrentPageName.Contains(item.Name)) ? " active" : "" )">@item.DisplayName</a></li>
+                            </text>
+                        }
+                    }
+                </ul>
+            </li>
+        }
+        else
+        {
+            <li class="menu-item  menu-color-home">
+                <a class="menu-link" href="@group.Url">
+                    @if (!string.IsNullOrEmpty(group.Icon))
+                    {
+                        <use href="@group.Icon"></use>
+                    }
+                    <div>@(Html.Raw($"{group.DisplayName}"))</div>
+                </a>
+            </li>
+        }
+    }
+</ul>
