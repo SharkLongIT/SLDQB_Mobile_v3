@@ -4,6 +4,7 @@ using BBK.SaaS.Core.Threading;
 using BBK.SaaS.Mdls.Profile.Candidates;
 using BBK.SaaS.Mdls.Profile.Candidates.Dto;
 using BBK.SaaS.Mobile.MAUI.Models.NguoiTimViec;
+using BBK.SaaS.Mobile.MAUI.Pages.PaymentGateway;
 using BBK.SaaS.Mobile.MAUI.Shared;
 using BBK.SaaS.Services.Navigation;
 using Microsoft.AspNetCore.Components;
@@ -59,6 +60,8 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
             //_filter.Take = Math.Clamp(request.Count, 1, 1000);
             _filter.Search = _SearchText;
 
+            // List<DatLichModel> datLichModels = [new (){ Address = "nah toi o doi can" }]
+
 
             await UserDialogsService.Block();
             try
@@ -90,6 +93,13 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
                 throw new UserFriendlyException(ex.Message);
             }
 
+        }
+        private PaymentSelectModal paymentSelect { get; set; }
+
+        public async Task OpenSelect(DatLichModel datLichModel)
+        {
+
+            await paymentSelect.OpenFor(datLichModel);
         }
         private ChiTietLHModal chiTietLHModal { get; set; }
         public async Task DetailJob(DatLichModel datLichModel)

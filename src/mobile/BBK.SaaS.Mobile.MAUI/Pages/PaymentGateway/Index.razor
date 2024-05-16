@@ -1,0 +1,130 @@
+﻿@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/" + NavigationUrlConsts.PaymentGateway)]
+
+<div class="content mt-2  search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important; ">
+    <i class="fa fa-search"></i>
+    <input type="search" class="border-0" placeholder="Tìm kiếm thông tin">
+</div>
+
+@* <Virtualize @ref="makeAnAppointmentContainer" Context="appointment" ItemsProvider="@LoadListMakeAnAppointment" ItemSize="100"> *@
+
+    <a @onclick="(() => OpenSelect())"  data-menu="menu-download">
+        <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3" style="background-color:#FFF !important; ">
+            <div class="d-flex">
+                <div>
+                    <h5 class="font-700 text-uppercase">
+                        Thanh Toán Hóa Đơn Tháng 4
+                    </h5>
+
+                    <div class="font-12">
+                        <span class="invoice">Số Hóa Đơn: </span>
+                        <span class="invoice-value"> 3544-54340 </span>
+                    </div>
+                    <div class="font-12">
+                        <span class="amount-purchase"> Số tiền cần phải trả: </span>
+                        <span class="amount-purchase-value"> 100.000 VND </span>
+                    </div>
+                    <div class="font-12">
+                        <span class="invoice-status"> Trạng thái hóa đơn: </span>
+                        <span class="invoice-status-value"> Chưa thanh toán </span>
+                    </div>
+                    <div class="font-12">
+                        <span class="invoice-note">ghi chú: </span>
+                        <span class="fail">Hóa đơn mượn sách A, sách B, sách C </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+
+<a @onclick="(() => OpenSelect())" data-menu="menu-download">
+    <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3" style="background-color:#FFF !important; ">
+        <div class="d-flex">
+            <div>
+                <h5 class="font-700 text-uppercase">
+                    Thanh Toán Hóa Đơn Tháng 5
+                </h5>
+
+                <div class="font-12">
+                    <span class="invoice">Số Hóa Đơn: </span>
+                    <span class="invoice-value"> 3544-54345 </span>
+                </div>
+                <div class="font-12">
+                    <span class="amount-purchase"> Số tiền cần phải trả: </span>
+                    <span class="amount-purchase-value"> 120.000 VND </span>
+                </div>
+                <div class="font-12">
+                    <span class="invoice-status"> Trạng thái hóa đơn: </span>
+                    <span class="invoice-status-value"> Chưa thanh toán </span>
+                </div>
+                <div class="font-12">
+                    <span class="invoice-note">ghi chú: </span>
+                    <span class="fail">Hóa đơn mượn sách Q, sách W, sách E </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+
+<a @onclick="(() => OpenSelect())" data-menu="menu-download">
+    <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3" style="background-color:#FFF !important; ">
+        <div class="d-flex">
+            <div>
+                <h5 class="font-700 text-uppercase">
+                    Thanh Toán Hóa Đơn Tháng 6
+                </h5>
+
+                <div class="font-12">
+                    <span class="invoice">Số Hóa Đơn: </span>
+                    <span class="invoice-value"> 3544-54354 </span>
+                </div>
+                <div class="font-12">
+                    <span class="amount-purchase"> Số tiền cần phải trả: </span>
+                    <span class="amount-purchase-value"> 150.000 VND </span>
+                </div>
+                <div class="font-12">
+                    <span class="invoice-status"> Trạng thái hóa đơn: </span>
+                    <span class="invoice-status-value"> Chưa thanh toán </span>
+                </div>
+                <div class="font-12">
+                    <span class="invoice-note">ghi chú: </span>
+                    <span class="fail">Hóa đơn mượn sách G, sách H, sách N </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+
+<a @onclick="(() => OpenSelect())" data-menu="menu-download">
+    <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3" style="background-color:#FFF !important; ">
+        <div class="d-flex">
+            <div>
+                <h5 class="font-700 text-uppercase">
+                    Thanh Toán Hóa Đơn Tháng 7
+                </h5>
+
+                <div class="font-12">
+                    <span class="invoice">Số Hóa Đơn: </span>
+                    <span class="invoice-value"> 3544-543230 </span>
+                </div>
+                <div class="font-12">
+                    <span class="amount-purchase"> Số tiền cần phải trả: </span>
+                    <span class="amount-purchase-value"> 160.000 VND </span>
+                </div>
+                <div class="font-12">
+                    <span class="invoice-status"> Trạng thái hóa đơn: </span>
+                    <span class="invoice-status-value"> Chưa thanh toán </span>
+                </div>
+                <div class="font-12">
+                    <span class="invoice-note">ghi chú: </span>
+                    <span class="fail">Hóa đơn mượn sách K, sách C, sách N </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+
+@* </Virtualize> *@
+
+<PaymentSelectModal @ref="payment"></PaymentSelectModal>
