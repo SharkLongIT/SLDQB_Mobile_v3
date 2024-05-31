@@ -96,11 +96,11 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
         }
         private PaymentSelectModal paymentSelect { get; set; }
 
-        public async Task OpenSelect(DatLichModel datLichModel)
-        {
+        //public async Task OpenSelect(DatLichModel datLichModel)
+        //{
 
-            await paymentSelect.OpenFor(datLichModel);
-        }
+        //    await paymentSelect.OpenFor(datLichModel);
+        //}
         private ChiTietLHModal chiTietLHModal { get; set; }
         public async Task DetailJob(DatLichModel datLichModel)
         {

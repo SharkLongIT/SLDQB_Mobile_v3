@@ -147,13 +147,13 @@ else
                         <div class="list-group list-custom-small mt-n2 mb-n2">
                             @if (appointment.StatusOfCandidate == 2 || appointment.StatusOfCandidate == 3)
                             {
-                                <a @onclick="(() => OpenSelect(appointment))" data-menu="menu-archive"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Thanh toán<i class="fa"></i></a>
+                                @* <a @onclick="(() => OpenSelect(appointment))" data-menu="menu-archive"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Thanh toán<i class="fa"></i></a> *@
                                 <a @onclick="(() => ViewDetail(appointment))" data-menu="menu-archive"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Chi tiết tin<i class="fa"></i></a>
                                 <a @onclick="(() => ViewJob(appointment))" data-menu="menu-download"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Xem công việc<i class="fa"></i></a>
                             }
                             else
                             {
-                                <a @onclick="(() => OpenSelect(appointment))" data-menu="menu-download"><i class="fa font-14 fa-times color-red-dark opacity-60"></i>Thanh toán<i class="fa"></i></a>
+                                @* <a @onclick="(() => OpenSelect(appointment))" data-menu="menu-download"><i class="fa font-14 fa-times color-red-dark opacity-60"></i>Thanh toán<i class="fa"></i></a> *@
                                 <a @onclick="(() => Refuse(appointment))" data-menu="menu-download"><i class="fa font-14 fa-times color-red-dark opacity-60"></i>Từ chối<i class="fa"></i></a>
                                 <a @onclick="(() => Except(appointment))" data-menu="menu-download"><i class="fa font-14 fa-check color-green-dark opacity-60"></i>Xác nhận<i class="fa"></i></a>
                                 <a @onclick="(() => View(appointment))" data-menu="menu-archive"><i class="fa font-14 fa-eye color-brown-dark opacity-60"></i>Chi tiết tin<i class="fa"></i></a>

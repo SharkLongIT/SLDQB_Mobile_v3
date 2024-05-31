@@ -60,6 +60,6 @@
         public const string LienHe = "LienHe";
         public const string VanBanMoi = "VanBanMoi";
         public const string PhienGiaoDich = "PhienGiaoDich";
-        public const string PaymentGateway = "PaymentGateway";
+        public const string PaymentGateway1 = "PaymentGateway1";
     }
 }

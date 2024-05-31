@@ -1,13 +1,12 @@
 ﻿@using BBK.SaaS.Services.Navigation
 @inherits SaaSMainLayoutPageComponentBase
-@attribute [Route("/" + NavigationUrlConsts.PaymentGateway)]
+@attribute [Route("/" + NavigationUrlConsts.PaymentGateway1)]
 
 <div class="content mt-2  search-box search-header bg-theme card-style me-3 ms-3 mb-2" style="background-color:#FFF !important; ">
     <i class="fa fa-search"></i>
     <input type="search" class="border-0" placeholder="Tìm kiếm thông tin">
 </div>
 
-@* <Virtualize @ref="makeAnAppointmentContainer" Context="appointment" ItemsProvider="@LoadListMakeAnAppointment" ItemSize="100"> *@
 
     <a @onclick="(() => OpenSelect())"  data-menu="menu-download">
         <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3" style="background-color:#FFF !important; ">
@@ -125,6 +124,5 @@
     </div>
 </a>
 
-@* </Virtualize> *@
-
 <PaymentSelectModal @ref="payment"></PaymentSelectModal>
+
