@@ -69,14 +69,14 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                 {
                     Id = int.Parse(q1["Id"]);
                 }
-                if (q1["HumanResSizeCat"] != null)
-                {
-                    HumanResSizeCat = (q1["HumanResSizeCat"]);
-                }
-                if (q1["Experiences"] != null)
-                {
-                    Experiences = (q1["Experiences"]);
-                }
+                //if (q1["HumanResSizeCat"] != null)
+                //{
+                //    HumanResSizeCat = (q1["HumanResSizeCat"]);
+                //}
+                //if (q1["Experiences"] != null)
+                //{
+                //    Experiences = (q1["Experiences"]);
+                //}
                 if (q1["WorkAddress"] != null)
                 {
                     WorkAddress = (q1["WorkAddress"]);
@@ -114,7 +114,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.ViecTimNguoi
                 Model.JobCatUnitName = recruitment.JobCatUnitName;
                 Model.AddressName = recruitment.AddressName;
                 Model.NecessarySkills = recruitment.NecessarySkills;
-                Model.Experience = Experiences; // kinh nghiệm
+                Model.Experience = recruitment.Experiences.DisplayName; // kinh nghiệm
                
                 Model.FormOfWork = recruitment.FormOfWork; // Hình thức làm việc
                 Model.FormOfWorkName = recruitment.FormOfWorks.DisplayName;
