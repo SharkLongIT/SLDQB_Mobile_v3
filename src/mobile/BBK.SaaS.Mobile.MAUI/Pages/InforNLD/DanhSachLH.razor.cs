@@ -106,7 +106,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.InforNLD
         }
         public async Task ViewJob(DatLichModel appointment)
         {
-            navigationService.NavigateTo($"ThongTinVTN?Id={appointment.Recruitment.Id}&WorkAddress={appointment.Recruitment.WorkAddress}&Experiences={appointment.JobApplication.Experiences.DisplayName}&SphereOfActivity={appointment.Recruiter.SphereOfActivity.DisplayName}&HumanResSizeCat={appointment.Recruiter.HumanResSizeCat.DisplayName}");
+            navigationService.NavigateTo($"ThongTinVTN?Id={appointment.Recruitment.Id}&WorkAddress={appointment.Recruitment.WorkAddress}");
 
         }
         public async Task ViewDetail(DatLichModel datLichModel)
