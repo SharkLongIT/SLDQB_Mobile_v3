@@ -6921,3 +6921,22 @@ input[type=number] {
 .slider-cover-dots .splide__pagination {
   transform: translate(-50%, -40px) !important;
 }
+
+.bg-payment-select-option {
+    background-color: gainsboro;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+.checkbox-option {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    padding: 5px 5px;
+    transition: border-color 0.3s;
+}
+
+.checkbox-option.selected {
+    border-color: green;
+    background-color: wheat;
+}

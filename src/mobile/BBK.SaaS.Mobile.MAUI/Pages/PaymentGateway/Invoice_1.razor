@@ -1,0 +1,184 @@
+﻿@using BBK.SaaS.Services.Navigation
+@inherits SaaSMainLayoutPageComponentBase
+@attribute [Route("/" + NavigationUrlConsts.Invoice_1)]
+
+
+<div class="list-group list-custom-small">
+    <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3">
+        <div class="invoice-payment" style="margin: 0;">
+            <h5 class="mb-3 text-center">Số cần phải thanh toán</h5>
+            <div class="d-flex text-center">
+                <div class="m-auto">
+                    <span class="line-height-xs pt-2 c-red">
+                        <strong class="" style="font-size: 30px; color: #dc3545;">
+                            1.400.000 đ
+                        </strong>
+                    </span>
+                    <span class="font-12 line-height-xs pt-2 font-500 d-none">Xem điểm</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="content bg-theme card-style me-3 ms-3 mb-2 p-3">
+        <div class="ms-2 list-group list-custom-small list-icon-0 line-height-0">
+            <a data-bs-toggle="collapse" class="no-effect collapsed" href="#collapse-6"
+                aria-expanded="false">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="font-14">
+                        Mã hóa đơn: 32459674
+                    </span>
+                    <div class="d-flex align-items-center">
+                        <span class="font-14 me-2">Xem mã hóa đơn</span>
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="collapse mt-2" id="collapse-6">
+            <div class="list-custom-small ms-3 ps-3 mb-2 line-height-xss d-flex justify-content-between">
+                <img class="ms-5" src="images/payment_method/barcode_1.png">
+            </div>
+            <div class="list-custom-small ps-2 line-height-xss d-flex justify-content-end">
+                <button class="btn btn-success back-to-top-icon-round"
+                        data-menu="modal-wizard-step-1" @onclick="(() => OpenBill())">
+                    Chi tiết hóa đơn
+                </button>
+            </div>
+        </div>
+        <hr class="mt-1">
+        <h6 class="ms-2">HÓA ĐƠN THANH TOÁN THÁNG 06/2024</h6>
+        <div class="d-flex justify-content-between">
+            <span class="ms-2 font-14">Thời gian thanh toán:</span>
+            <span>01/06/2024 - 20/06/2024</span>
+        </div>
+        <hr class="mt-0">
+        <div class="ms-2 list-group list-custom-small list-icon-0 line-height-0">
+            <a data-bs-toggle="collapse" class="no-effect collapsed" href="#collapse-2"
+                aria-expanded="false">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="font-14">
+                        Tiền ăn bán trú
+                    </span>
+                    <div class="d-flex align-items-center">
+                        <span class="font-14 me-2">900.000 đ </span>
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="collapse mt-2 show" id="collapse-2">
+            <div class="list-custom-small ps-3 line-height-xss d-flex justify-content-between">
+                <span class="mb-2">Đăng ký</span>
+                <span class="me-3">Theo tháng</span>
+            </div>
+        </div>
+        <div class="ms-2 list-group list-custom-small list-icon-0 line-height-0">
+            <a data-bs-toggle="collapse" class="no-effect collapsed" href="#collapse-1"
+                aria-expanded="false">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="font-14">
+                        Học nâng cao
+                    </span>
+                    <div class="d-flex align-items-center">
+                        <span class="font-14 me-2">500.000 đ </span>
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="collapse mt-2" id="collapse-1">
+            <div class="list-custom-small ps-3 mb-2 line-height-xss d-flex justify-content-between">
+                <span class="mb-2">Học toán toán tăng cường</span>
+                <span class="me-3">500.000 đ</span>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between line-height-xl">
+            <strong class="ms-2 font-14 grand-total">Tổng tiền:</strong>
+            <strong class="font-15 me-3 grand-total">1.400.000 đ</strong>
+        </div>
+        <hr class="mb-0">
+        <h5 class="mb-1 ps-1">Chọn phương thức thanh toán</h5>
+        <div class="d-flex justify-content-between ps-1 pe-1">
+            <div class="form-check icon-check">
+                <input class="form-check-input payment-method-option vn-pay" type="radio"
+                       name="inlineRadioOptions" checked value=""  id="radio2">
+                <label class="form-check-label ms-2" for="radio2">Cổng Thanh Toán</label>
+                <i class="icon-check-1 fa fa-circle color-gray-dark font-16"></i>
+                <i class="icon-check-2 fa fa-check-circle font-16 color-highlight"></i>
+            </div>
+            <div class="form-check icon-check">
+                <input class="form-check-input payment-method-option qr-code" type="radio"
+                        name="inlineRadioOptions" value="" id="radio4">
+                <label class="form-check-label ms-2" for="radio4">Chuyển Khoản</label>
+                <i class="icon-check-1 fa fa-circle color-gray-dark font-16"></i>
+                <i class="icon-check-2 fa fa-check-circle font-16 color-highlight"></i>
+            </div>
+        </div>
+        <div class="option-vn-pay">
+            <div class="content mt-0 ps-2 bg-payment-select-option">
+                <div class="divider mt-0 mb-1"></div>
+                <div class="checkbox-option d-flex align-items-center ps-3 pe-3 selected"
+                     onclick="toggleCheckbox(this)">
+                    <div class="align-self-center">
+                        <img src="images/payment_method/vn-pay-2.png" width="50">
+                    </div>
+                    <div class="align-self-center ps-3">
+                        <h5 class="">VN Pay</h5>
+                    </div>
+                </div>
+                <div class="divider mt-0 mb-1"></div>
+            </div>
+            <a href="payment-1.html"
+                class="btn btn-m rounded-sm mt-4 mb-4 btn-full bg-blue-dark text-uppercase font-900">
+                Thanh Toán
+            </a>
+        </div>
+        
+        <div class="option-qr-code">
+            <div class="d-flex mb-2 line-height-sm">
+                <span class="mt-0 ps-2">Nội dung thanh toán: <strong>Tên Học Sinh_MHS_MHĐ</strong></span>
+            </div>
+            <div class="d-flex mb-2 line-height-sm">
+                <span class="mt-0 ps-2">Ví dụ: <strong>NGUYENVANA_2868999_32459674</strong></span>
+            </div>
+            <div class="text-center content mt-0 bg-payment-select-option">
+                <img src="images/payment_method/qr-code.png" height="370" width="300">
+            </div>
+            <hr>
+            <a href="payment-process-1.html"
+                class="btn btn-m rounded-sm mt-4 mb-4 btn-full bg-blue-dark text-uppercase font-900">
+                Hoàn Thành
+            </a>
+        </div>
+    </div>
+</div>
+<ModalBill_1 @ref="bill"></ModalBill_1>
+<script>
+    const paymentMethod = document.getElementsByClassName('payment-method-option');
+    const vnPayOption = document.querySelector('.option-vn-pay');
+    const qrCodeOption = document.querySelector('.option-qr-code');
+    function showOption() {
+        if (qrCodeOption != null) {
+            qrCodeOption.classList.add('d-none');
+        }
+        if (vnPayOption != null) {
+            vnPayOption.classList.add('d-none');
+        }
+        if (document.querySelector('.vn-pay') != null && document.querySelector('.vn-pay').checked) {
+            vnPayOption.classList.remove('d-none');
+        } else if (document.querySelector('.qr-code') != null && document.querySelector('.qr-code').checked) {
+            qrCodeOption.classList.remove('d-none');
+        }
+    }
+
+    if (paymentMethod.length) {
+        Array.from(paymentMethod).forEach(el => {
+            el.addEventListener('change', showOption);
+        });
+    }
+
+    showOption();
+</script>

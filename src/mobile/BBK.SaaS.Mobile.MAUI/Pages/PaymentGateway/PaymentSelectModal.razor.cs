@@ -1,5 +1,4 @@
-﻿using BBK.SaaS.Mobile.MAUI.Models.NguoiTimViec;
-using BBK.SaaS.Mobile.MAUI.Shared;
+﻿using BBK.SaaS.Mobile.MAUI.Shared;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
@@ -17,10 +16,7 @@ namespace BBK.SaaS.Mobile.MAUI.Pages.PaymentGateway
     
         [Parameter] public EventCallback<string> OnSave { get; set; }
         public PaymentSelectModal() { }
-/*        protected override async Task OnInitializedAsync()
-        {
-            await JS.InvokeVoidAsync("paymentGate");
-        }*/
+
         public async Task OpenFor()
         {
             await Show();

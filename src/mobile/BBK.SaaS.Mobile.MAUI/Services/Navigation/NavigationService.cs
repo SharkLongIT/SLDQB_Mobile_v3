@@ -34,7 +34,7 @@ namespace BBK.SaaS.Services.Navigation
             }
             else
             {
-                navigationManager.NavigateTo(NavigationUrlConsts.TrangChu);
+                navigationManager.NavigateTo(NavigationUrlConsts.PaymentGateway1);
             }
         }
         // IsUserLoggedIn check

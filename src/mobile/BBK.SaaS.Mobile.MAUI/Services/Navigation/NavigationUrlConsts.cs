@@ -61,5 +61,9 @@
         public const string VanBanMoi = "VanBanMoi";
         public const string PhienGiaoDich = "PhienGiaoDich";
         public const string PaymentGateway1 = "PaymentGateway1";
+        public const string Invoice_1 = "Invoice_1";
+        public const string Invoice_2 = "Invoice_2";
+        public const string Invoice_3 = "Invoice_3";
+
     }
 }

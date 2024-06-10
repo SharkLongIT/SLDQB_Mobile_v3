@@ -1,45 +1,63 @@
 ﻿@inherits ModalBase
 
-<div id="@ModalId" class="menu menu-box-bottom menu-box-detached">
+<div id="@ModalId" class="menu menu-box-bottom menu-box-detached pb-2 modal-payment-option-select">
     <div class="menu-title d-flex justify-content-between align-items-center mt-2 ms-2 p-1">
         <h4>Thanh Toán Hóa Đơn Tháng 5</h4>
         <a @onclick="Hide" class="close-menu" style="line-height:50px"><i class="fa fa-times"></i></a>
     </div>
 
-    <div class="divider divider-margins mt-1 mb-2"></div>
+    <div class="divider divider-margins mt-1 mb-1"></div>
     <div class="menu-title d-flex justify-content-between align-items-center mt-2 ms-2 mb-3 p-1">
         <h5>Chọn phương thức thanh toán</h5>
     </div>
-
+    <div class="divider mt-2 mb-2"></div>
     <div class="content mt-0 bg-payment-select-option">
-        <a data-menu="menu-credit-card" class="d-flex vn-pay">
-           
+        <div class="divider mt-1 mb-1"></div>
+
+        <div class="checkbox-option d-flex align-items-center ps-3 pe-3 selected"
+             onclick="toggleCheckbox(this)">
             <div class="align-self-center">
                 <img src="images/payment_method/vn-pay-2.png" width="50">
             </div>
             <div class="align-self-center ps-3">
-                <h5 class="mb-n2">VN Pay</h5>
-                
+                <h5 class="">VN Pay</h5>
             </div>
-            <div class="align-self-center ms-auto ps-3">
-            </div>
-        </a>
+        </div>
 
         <div class="divider mt-2 mb-2"></div>
 
-        <a data-menu="menu-credit-card" class="d-flex">
+        <div class="checkbox-option d-flex align-items-center ps-3 pe-3 unselected"
+             onclick="toggleCheckbox(this)">
             <div class="align-self-center">
                 <img src="images/payment_method/momo.png" width="50">
             </div>
             <div class="align-self-center ps-3">
-                <h5 class="mb-n2">MOMO</h5>
+                <h5 class="">MOMO</h5>
             </div>
-            <div class="align-self-center ms-auto ps-3">
-            </div>
-        </a>
+        </div>
+
+        <div class="divider mt-2 mb-1"></div>
+    </div>
+
+    <div class="content mt-0">
+        <div class="option-vn-pay">
+            <a href="payment-1.html"
+               class="btn btn-m rounded-sm mt-4 mb-4 btn-full bg-blue-dark text-uppercase font-900">
+                Thanh Toán
+            </a>
+        </div>
     </div>
 </div>
 
 <script>
-    
+    function toggleCheckbox(element) {
+        var cb = document.querySelectorAll('.checkbox-option');
+        cb.forEach(function (checkbox) {
+
+            checkbox.classList.remove('selected');
+            checkbox.classList.add('unselected');
+        });
+
+        element.classList.add('selected');
+    }
 </script>
